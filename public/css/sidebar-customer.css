@@ -1,6 +1,9 @@
 h1 {
     color: #5f6468;
 }
+.menu h1{
+    font-weight: 400;
+}
 
 .panel {
     margin-bottom: 10px;
