@@ -37,7 +37,7 @@
     }
 
 </style>
-<div class="col-sm-9 col-lg-10">
+<div class="col-sm-9 col-sm-offset-10 col-lg-10 col-lg-offset-2 main">
     <div class="container">
         <h1>Dashboard</h1>
         <div class="row text-center">
