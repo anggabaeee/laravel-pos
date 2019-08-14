@@ -29,7 +29,7 @@
 </style>
 <div class="col-sm-9 col-lg-10 mt">
 
-        <h1>Add Gift Card</h1>
+        <h1 class="mt-2">Add Gift Card</h1>
 </div>
 </section>
 @stop

@@ -141,7 +141,7 @@
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#sidebar-collapse">
             <span class="fa fa-bars"></span>
         </button>
-        <a class="navbar-brand" href="#" style="color: #ffff">POS - Multi Outlets</a>
+        <a class="navbar-brand" href="dashboard" style="color: #ffff">POS - Multi Outlets</a>
 
         <ul class="user-menu">
             <div class="dropdown">
