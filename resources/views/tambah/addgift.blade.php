@@ -16,8 +16,8 @@
                             <label for="">Gift Card Number</label>
                             <div class="input-group">
                                 <br>
-                                <input class="cc-number form-control" id="btn-input" maxlength="19" name="credit-number" pattern="\d*"
-                                    type="tel">
+                                <input class="cc-number form-control" id="cc" maxlength="19" name="credit-number"
+                                    pattern="\d*" type="tel" data-inputmask="'mask': '9999 9999 9999 9999'">
                                 <div class="input-group-append">
                                     <span class="" id="basic-addon2">
                                         <button type="button" class="btn btn-primary" id="btn-todo"><i class="fa fa-cog"
@@ -57,10 +57,11 @@
 </section>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.1/jquery.payment.min.js'></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js'></script>
 <script>
     $(function () {
         $('#credit .cc-number').formatCardNumber();
     });
-
+    $(":input").inputmask();
 </script>
 @stop
