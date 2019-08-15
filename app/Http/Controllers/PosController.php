@@ -39,4 +39,10 @@ class PosController extends Controller
     public function users(){
         return view('pages.setting.users');    
     }
+    public function suppliers(){
+        return view('pages.setting.suppliers');    
+    }
+    public function system(){
+        return view('pages.setting.system_setting');    
+    }
 }
