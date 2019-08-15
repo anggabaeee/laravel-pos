@@ -1,18 +1,12 @@
 <style>
-    .sidebar {
-        display: block;
-        position: fixed;
-        top: 50px;
-        bottom: 0;
-        left: 0;
-        z-index: 1000;
-        display: block;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-        overflow-y: auto;
-        background-color: #fff;
-        box-shadow: 1px 0px 10px rgba(0, 0, 0, .05);
+    body {
+        background-color: #f0f0f0;
+    }
+
+    a {
+        text-decoration: none;
+        color: #005b8a;
+        transition: 0.3s;
     }
 
     .nav li {
@@ -35,12 +29,6 @@
 
     .menu-sidebar {
         margin-top: 56px;
-    }
-
-    @media(max-width: 767.98px) {
-        .menu-sidebar {
-            margin-top: 100px;
-        }
     }
 
     .bg-sidebar {
@@ -127,16 +115,7 @@
                     </div>
                 </li>
                 <li>
-                    <a class="dropdown-btn">Expenses
-                    </a>
-                    <div class="dropdown-container">
-                        <div class="dropdown-item">
-                            <a href="#" class="">Expenses</a>
-                        </div>
-                        <div class="dropdown-item">
-                            <a href="#">Expenses Category</a>
-                        </div>
-                    </div>
+                    <a href="">Expenses</a>
                 </li>
                 <li>
                     <a class="dropdown-btn">Profit & Loss
