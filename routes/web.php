@@ -18,4 +18,5 @@ Route::get('/addgift','PosController@addgift');
 Route::get('/debit','PosController@debit');
 Route::get('/inventory','PosController@inventory');
 Route::get('/pos','PosController@pos');
+Route::get('/payment_method', 'PosController@payment');
 

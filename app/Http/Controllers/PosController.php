@@ -27,4 +27,7 @@ class PosController extends Controller
     public function pos(){
         return view('pages.pos');    
     }    
+    public function payment(){
+        return view('pages.payment_method');    
+    }
 }
