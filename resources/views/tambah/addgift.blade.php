@@ -4,7 +4,7 @@
     <div class="col-sm-9 col-lg-10">
         <div class="container">
             <h1>Add Gift Card</h1>
-            <form action="" class="mt-2 master-form">
+            <form action="" class="mt-2 master-form option" id="credit">
                 <div class="row">
                     <div class="col">
                         <h2>Please fill in the information below</h2>
@@ -16,7 +16,8 @@
                             <label for="">Gift Card Number</label>
                             <div class="input-group">
                                 <br>
-                                <input class="form-control">
+                                <input class="cc-number form-control" id="btn-input" maxlength="19" name="credit-number" pattern="\d*"
+                                    type="tel">
                                 <div class="input-group-append">
                                     <span class="" id="basic-addon2">
                                         <button type="button" class="btn btn-primary" id="btn-todo"><i class="fa fa-cog"
@@ -54,4 +55,12 @@
         </div>
     </div>
 </section>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.0.1/jquery.payment.min.js'></script>
+<script>
+    $(function () {
+        $('#credit .cc-number').formatCardNumber();
+    });
+
+</script>
 @stop
