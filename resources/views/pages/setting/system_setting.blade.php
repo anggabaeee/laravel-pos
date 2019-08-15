@@ -1,12 +1,13 @@
 @extends('layouts.default-sidebar')
 @section('content')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 <style>
     h1 {
         color: #5f6468;
+    }
+
+    .custom-file-label {
+        color: #919598;
+        font-family: none;
     }
 
 </style>
@@ -118,10 +119,23 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="{{asset('img/logo.jpg')}}" height="100px">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:15px">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <button class="btn btn-primary">Update System Setting</button>
+                            </div>
+                        </div>
+                    </div>
             </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 
 <script>
