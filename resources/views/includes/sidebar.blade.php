@@ -38,27 +38,60 @@
         display: block;
     }
 
-    .nav>li>a {
+    .nav>li>a> {
         position: relative;
         display: block;
         padding: 10px 15px;
         font-size: 13px;
     }
 
+    .dropdown-container {
+        list-style-position: outside;
+        display: none;
+
+    }
+
+    .dropdown-item {
+        list-style-type: none;
+        padding-right: 4 0px;
+    }
+
+
+
+
+
+    .fa-caret-down {
+        list-style-type: none;
+
+    }
+
 </style>
 <section class="menu-sidebar">
-    <div class="row" style="margin-right: 0px;">
-        <div class=" col-sm-3 col-lg-2 d-none d-md-block sidebar">
+    <div class="row">
+        <div id="sidebar-collapse" class=" col-sm-3 col-lg-2 sidebar collapse in">
             <ul class="nav flex-column bg-sidebar">
                 <li>
-                    <a href="">Dashboard</a>
+                    <a href="dashboard/">Dashboard</a>
                 </li>
                 <li>
                     <a href="">Customer</a>
                 </li>
                 <li>
-                    <a href="">Gift Card</a>
-                </li>
+                    <a class="dropdown-btn" style="color:#005b8a">Gift Card
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-container">
+
+                        <div class="dropdown-item">
+                    
+                            <a href="#">Add Gift Card</a>
+                         
+                            <br>
+                            <a href="#">List Gift Card</a>
+                            <br>
+                        </div>
+                    </div>
+               </li>
                 <li>
                     <a href="">Debit</a>
                 </li>
@@ -94,3 +127,22 @@
                 </li>
             </ul>
         </div>
+    </div>
+
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+    </script>
