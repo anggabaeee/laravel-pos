@@ -15,6 +15,9 @@ class PosController extends Controller
     public function customer(){
         return view('pages.customer');    
     }
+    public function addCustomer(){
+        return view('tambah.addCustomer');    
+    }
     public function debit(){
         return view('pages.debit');    
     }
@@ -22,9 +25,18 @@ class PosController extends Controller
         return view('pages.inventory');    
     }
     public function addgift(){
-        return view('pages.addgift');    
+        return view('tambah.addgift');    
     }
     public function pos(){
         return view('pages.pos');    
     }    
+    public function payment(){
+        return view('pages.setting.payment_method');    
+    }
+    public function outlets(){
+        return view('pages.setting.outlets');    
+    }
+    public function users(){
+        return view('pages.setting.users');    
+    }
 }
