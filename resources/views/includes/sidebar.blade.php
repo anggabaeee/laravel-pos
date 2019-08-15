@@ -121,7 +121,16 @@
                     </div>
                 </li>
                 <li>
-                    <a href="">Expenses</a>
+                <a class="dropdown-btn">Expenses
+                    </a>
+                    <div class="dropdown-container">
+                        <div class="dropdown-item">
+                            <a href="#" class="">Expenses</a>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="#">Expenses Category</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <a class="dropdown-btn">Profit & Loss
