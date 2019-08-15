@@ -45,4 +45,7 @@ class PosController extends Controller
     public function system(){
         return view('pages.setting.system_setting');    
     }
+    public function purchase(){
+        return view('pages.purchase_order');    
+    }
 }
