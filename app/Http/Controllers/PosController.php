@@ -15,6 +15,9 @@ class PosController extends Controller
     public function customer(){
         return view('pages.customer');    
     }
+    public function addCustomer(){
+        return view('tambah.addCustomer');    
+    }
     public function debit(){
         return view('pages.debit');    
     }
