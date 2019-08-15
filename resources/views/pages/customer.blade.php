@@ -6,7 +6,9 @@
         <form action="" class="mt-2 master-form">
             <div class="d-flex">
                 <div class="mr-auto bd-highlight">
+                    <a href="{{ url('/customer/addCustomer') }}">
                     <input class="btn btn-primary" type="button" value="Add Customer">
+                    </a>
                 </div>
                 <div class="ml-auto bd-highlight">
                     <input class="btn btn-success" type="button" value="Export">
