@@ -31,6 +31,9 @@ class PosController extends Controller
         return view('pages.pos');    
     }    
     public function payment(){
-        return view('pages.payment_method');    
+        return view('pages.setting.payment_method');    
+    }
+    public function outlets(){
+        return view('pages.setting.outlets');    
     }
 }
