@@ -14,6 +14,8 @@
 Route::get('/','PosController@login');
 Route::get('/dashboard','PosController@dashboard');
 Route::get('/customer','PosController@customer');
-Route::get('/pos','PosController@pos');
 Route::get('/addgift','PosController@addgift');
+Route::get('/debit','PosController@debit');
+Route::get('/inventory','PosController@inventory');
+Route::get('/pos','PosController@pos');
 

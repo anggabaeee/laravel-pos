@@ -15,11 +15,15 @@ class PosController extends Controller
     public function customer(){
         return view('pages.customer');    
     }
+    public function debit(){
+        return view('pages.debit');    
+    }
+    public function inventory(){
+        return view('pages.inventory');    
+    }
     public function addgift(){
         return view('pages.addgift');    
     }
-
-
     public function pos(){
         return view('pages.pos');    
     }    

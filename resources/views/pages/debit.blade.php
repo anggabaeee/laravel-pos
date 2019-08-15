@@ -1,34 +1,31 @@
 @extends('layouts.default-sidebar')
 @section('content')
 <div class="col-sm-9 col-lg-10">
-    <div class="container">
-        <h1>Customer</h1>
+    <div class="container menu">
+        <h1>Debit</h1>
         <form action="" class="mt-2 master-form">
             <div class="d-flex">
-                <div class="mr-auto bd-highlight">
-                    <input class="btn btn-primary" type="button" value="Add Customer">
-                </div>
                 <div class="ml-auto bd-highlight">
-                    <input class="btn btn-success" type="button" value="Export">
+                    <input class="btn btn-success" type="button" value="Export To Excel">
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="">Name</label>
+                        <label for="">Customer Name</label>
                         <input class="form-control" type="text">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label for="">E-mail</label>
+                        <label for="">Date From</label>
                         <input class="form-control" type="text">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label for="">Mobile</label>
+                        <label for="">Date To</label>
                         <input class="form-control" type="text">
                     </div>
                 </div>
@@ -43,9 +40,12 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th scope="col">Sale ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Outlets</th>
                             <th scope="col">Customer Name</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Mobile</th>
+                            <th scope="col">Grand Total</th>
+                            <th scope="col">Unpaid Amount</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
