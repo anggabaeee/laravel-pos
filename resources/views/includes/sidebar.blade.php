@@ -9,6 +9,15 @@
         transition: 0.3s;
     }
 
+    .nav li{
+        color:#005b8a;
+    }
+
+    li:hover
+    {
+        color:white
+    }
+   
     a:hover {
         text-decoration: none;
     }
@@ -57,13 +66,9 @@
         font-size:13px;    
     }
 
-    .dropdown-btn{
-     
-    }
-    .fa-caret-down {
-        color:white;
-
-    }
+    
+    
+    
 
 </style>
 <section class="menu-sidebar">
@@ -71,17 +76,16 @@
         <div id="sidebar-collapse" class=" col-sm-3 col-lg-2 sidebar collapse in">
             <ul class="nav flex-column bg-sidebar mb-3">
                 <li>
-                    <a href="dashboard/">Dashboard</a>
+                    <a href="/dashboard">Dashboard</a>
                 </li>
                 <li>
-                    <a href="">Customer</a>
+                    <a href="/customer">Customer</a>
                 </li>
                 <li>
-                    <a class="dropdown-btn">Gift Card
-                    </a>
+                    <a class="dropdown-btn">Gift Card</a>
                   <div class="dropdown-container">
                         <div class="dropdown-item">
-                            <a href="#" class="">Add Gift Card</a>
+                            <a href="/customer/addCustomer" class="">Add Gift Card</a>
                             </div>
                             <div class="dropdown-item">
                             <a href="#">List Gift Card</a>
@@ -89,7 +93,7 @@
                     </div>
                </li>
                 <li>
-                    <a href="">Debit</a>
+                    <a href="/debit">Debit</a>
                 </li>
                 <li>
                 <a class="dropdown-btn">Sales
@@ -131,7 +135,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="">POS</a>
+                    <a href="/pos">POS</a>
                 </li>
                 <li>
                 <a class="dropdown-btn">Return Order
@@ -146,7 +150,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="">Inventory</a>
+                    <a href="inventory">Inventory</a>
                 </li>
                 <li>
                 <a class="dropdown-btn">Products
@@ -171,10 +175,10 @@
                     </a>
                   <div class="dropdown-container">
                         <div class="dropdown-item">
-                            <a href="#" class="">Outlets</a>
+                            <a href="/setting/outlets" class="">Outlets</a>
                             </div>
                             <div class="dropdown-item">
-                            <a href="#">User</a>
+                            <a href="/setting/users">User</a>
                         </div>
                         <div class="dropdown-item">
                             <a href="#">Supllier</a>
@@ -183,7 +187,7 @@
                             <a href="#">System  Setting</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="#">Payment Methods</a>
+                            <a href="/setting/payment_method">Payment Methods</a>
                         </div>
                     </div>
                 </li>
