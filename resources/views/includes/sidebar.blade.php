@@ -53,15 +53,15 @@
 
     .dropdown-item {
         list-style-type: none;
-        padding-right: 4 0px;
+        padding-top:10px;
+        font-size:13px;    
     }
 
-
-
-
-
+    .dropdown-btn{
+     
+    }
     .fa-caret-down {
-        list-style-type: none;
+        color:white;
 
     }
 
@@ -69,7 +69,7 @@
 <section class="menu-sidebar">
     <div class="row">
         <div id="sidebar-collapse" class=" col-sm-3 col-lg-2 sidebar collapse in">
-            <ul class="nav flex-column bg-sidebar">
+            <ul class="nav flex-column bg-sidebar mb-3">
                 <li>
                     <a href="dashboard/">Dashboard</a>
                 </li>
@@ -77,18 +77,14 @@
                     <a href="">Customer</a>
                 </li>
                 <li>
-                    <a class="dropdown-btn" style="color:#005b8a">Gift Card
-                        <i class="fa fa-caret-down"></i>
+                    <a class="dropdown-btn">Gift Card
                     </a>
-                    <div class="dropdown-container">
-
+                  <div class="dropdown-container">
                         <div class="dropdown-item">
-                    
-                            <a href="#">Add Gift Card</a>
-                         
-                            <br>
+                            <a href="#" class="">Add Gift Card</a>
+                            </div>
+                            <div class="dropdown-item">
                             <a href="#">List Gift Card</a>
-                            <br>
                         </div>
                     </div>
                </li>
@@ -96,34 +92,100 @@
                     <a href="">Debit</a>
                 </li>
                 <li>
-                    <a href="">Sales</a>
+                <a class="dropdown-btn">Sales
+                    </a>
+                  <div class="dropdown-container">
+                        <div class="dropdown-item">
+                            <a href="#" class="">Today's Sales</a>
+                            </div>
+                            <div class="dropdown-item">
+                            <a href="#">Opened Bill</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <a href="">Reports</a>
+                <a class="dropdown-btn">Reports
+                    </a>
+                  <div class="dropdown-container">
+                        <div class="dropdown-item">
+                            <a href="#" class="">Sales Report</a>
+                            </div>
+                            <div class="dropdown-item">
+                            <a href="#">Sold By Product</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <a href="">Expenses</a>
                 </li>
                 <li>
-                    <a href="">Profit & Loss</a>
+                <a class="dropdown-btn">Profit & Loss
+                    </a>
+                  <div class="dropdown-container">
+                        <div class="dropdown-item">
+                            <a href="#" class="">Profit & Loss</a>
+                            </div>
+                            <div class="dropdown-item">
+                            <a href="#">Profit & Loss Report</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <a href="">POS</a>
                 </li>
                 <li>
-                    <a href="">Return Order</a>
+                <a class="dropdown-btn">Return Order
+                    </a>
+                  <div class="dropdown-container">
+                        <div class="dropdown-item">
+                            <a href="#" class="">Create Return Order</a>
+                            </div>
+                            <div class="dropdown-item">
+                            <a href="#">Return Order Report</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <a href="">Inventory</a>
                 </li>
                 <li>
-                    <a href="">Products</a>
+                <a class="dropdown-btn">Products
+                    </a>
+                  <div class="dropdown-container">
+                        <div class="dropdown-item">
+                            <a href="#" class="">List Products</a>
+                            </div>
+                            <div class="dropdown-item">
+                            <a href="#">Print Product Label</a>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="#">Product Category</a>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <a href="">Purchase Order</a>
                 </li>
                 <li>
-                    <a href="">Setting</a>
+                <a class="dropdown-btn">Settings
+                    </a>
+                  <div class="dropdown-container">
+                        <div class="dropdown-item">
+                            <a href="#" class="">Outlets</a>
+                            </div>
+                            <div class="dropdown-item">
+                            <a href="#">User</a>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="#">Supllier</a>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="#">System  Setting</a>
+                        </div>
+                        <div class="dropdown-item">
+                            <a href="#">Payment Methods</a>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
