@@ -10,6 +10,7 @@
         @include('includes.navbar')
     </header>
     <div>
+        @include('includes.sidebar')
         @yield('content')
     </div>
     <footer>
