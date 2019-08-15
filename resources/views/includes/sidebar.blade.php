@@ -1,19 +1,19 @@
 <style>
     .sidebar {
-            display: block;
-            position: fixed;
-            top: 50px;
-            bottom: 0;
-            left: 0;
-            z-index: 1000;
-            display: block;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
-            background-color: #fff;
-            box-shadow: 1px 0px 10px rgba(0, 0, 0, .05);
-        }
+        display: block;
+        position: fixed;
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #fff;
+        box-shadow: 1px 0px 10px rgba(0, 0, 0, .05);
+    }
 
     .nav li {
         color: #005b8a;
@@ -35,6 +35,12 @@
 
     .menu-sidebar {
         margin-top: 56px;
+    }
+
+    @media(max-width: 767.98px) {
+        .menu-sidebar {
+            margin-top: 100px;
+        }
     }
 
     .bg-sidebar {
@@ -121,7 +127,7 @@
                     </div>
                 </li>
                 <li>
-                <a class="dropdown-btn">Expenses
+                    <a class="dropdown-btn">Expenses
                     </a>
                     <div class="dropdown-container">
                         <div class="dropdown-item">
