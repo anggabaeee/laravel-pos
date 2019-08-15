@@ -36,4 +36,7 @@ class PosController extends Controller
     public function outlets(){
         return view('pages.setting.outlets');    
     }
+    public function users(){
+        return view('pages.setting.users');    
+    }
 }

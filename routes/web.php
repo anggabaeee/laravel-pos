@@ -21,4 +21,5 @@ Route::get('/inventory','PosController@inventory');
 Route::get('/pos','PosController@pos');
 Route::get('/setting/payment_method', 'PosController@payment');
 Route::get('/setting/outlets', 'PosController@outlets');
+Route::get('/setting/users', 'PosController@users');
 
