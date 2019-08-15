@@ -1,11 +1,9 @@
 @extends('layouts.default-sidebar')
 @section('content')
 <style>
-
 .panel
 {
 background-color:white;
-
 }
 
 </style>
