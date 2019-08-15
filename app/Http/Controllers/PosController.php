@@ -45,4 +45,12 @@ class PosController extends Controller
     public function system(){
         return view('pages.setting.system_setting');    
     }
+
+    public function expenses(){
+        return view('pages.expenses.expenses');    
+    }
+
+    public function expenenses_category(){
+        return view('pages.expenses.expenses_category');    
+    }
 }
