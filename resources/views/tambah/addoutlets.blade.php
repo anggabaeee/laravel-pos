@@ -33,7 +33,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Receipt Footer <span style="color: #F00">*</span></label>
-                                <textarea name="receipt_footer" class="ckeditor" id="ckeditor" cols="60"></textarea>
+                                <textarea name="receipt_footer" class="ckeditor" id="ckedtor" cols="60"></textarea>
                             </div>
                         </div>
                     </div>
