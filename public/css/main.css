@@ -1,24 +1,22 @@
-a:hover {
+a:hover{
     text-decoration: none;
 }
-
-body {
+body{
     margin-top: 56px;
 }
-
 /* navbar */
 .bg-custom {
     background-color: #005b8a;
     color: white;
 }
 
-a.dropdown-item:hover {
-    background-color: antiquewhite;
-}
-
 a.navbar-brand,
 .nav-item .nav-link {
     color: white;
+}
+
+body {
+    background-color: red;
 }
 
 #sidebar-collapse {
