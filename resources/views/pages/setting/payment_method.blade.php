@@ -13,7 +13,7 @@
 
 <div class="col-sm-9 col-lg-10">
     <div class="container">
-        <h1>Payment Methods</h1>
+        <h1>Payment Method</h1>
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-left: 0px">
