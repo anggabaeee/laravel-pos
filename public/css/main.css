@@ -1,6 +1,9 @@
 a:hover{
     text-decoration: none;
 }
+body{
+    margin-top: 56px;
+}
 /* navbar */
 .bg-custom {
     background-color: #005b8a;
