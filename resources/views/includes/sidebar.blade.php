@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-lg-2 sidebar" id="sidebar-collapse" style="padding-left: 0px; padding-right: 0px;">
+        <div class="col-sm-3 col-lg-2 sidebar collapse" id="sidebar-collapse" style="padding-left: 0px; padding-right: 0px;">
             <ul class="sidebar-ul" style="padding-left: 0px;">
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/customer">Customers</a></li>
