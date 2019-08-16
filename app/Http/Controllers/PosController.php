@@ -66,5 +66,7 @@ class PosController extends Controller
     public function addsupplier(){
         return view('tambah.addSupplier'); 
     }
-    
+    public function addpayment(){
+        return view('tambah.addPaymentMethod'); 
+    }
 }

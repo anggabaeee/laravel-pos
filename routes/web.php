@@ -20,6 +20,7 @@ Route::get('/debit','PosController@debit');
 Route::get('/inventory','PosController@inventory');
 Route::get('/pos','PosController@pos');
 Route::get('/setting/payment_method', 'PosController@payment');
+Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment');
 Route::get('/setting/outlets', 'PosController@outlets');
 Route::get('/setting/users', 'PosController@users');
 Route::get('/setting/suppliers', 'PosController@suppliers');
