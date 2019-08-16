@@ -49,7 +49,7 @@
         </div>
         <div class="row" style="margin-top: 15px; margin-left: 2px;">
             <a href="{{ url ('setting/outlets')}}">
-                <button class="btn btn-secondary"> <i class="fa fa-chevron-left"></i> Back</button>
+                <button class="btn btn-secondary"> <i class="fa fa-chevron-left"></i> Back </button>
             </a>
         </div>
     </div>
