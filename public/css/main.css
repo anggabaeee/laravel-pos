@@ -1,0 +1,84 @@
+a:hover{
+    text-decoration: none;
+}
+/* navbar */
+.bg-custom {
+    background-color: #005b8a;
+    color: white;
+}
+
+a.navbar-brand,
+.nav-item .nav-link {
+    color: white;
+}
+
+body {
+    background-color: red;
+}
+
+#sidebar-collapse {
+    background-color: white;
+    height: -webkit-fill-available;
+}
+
+button.navbar-toggler.collapsed {
+    border: 1px solid;
+    color: white;
+}
+
+button.navbar-toggler {
+    color: black;
+    border: 1px solid;
+}
+
+button.navbar-toggler.collapsed {
+    border: 1px solid;
+    color: white;
+}
+
+/* sidebar */
+.sidebar {
+    display: block;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+li {
+    list-style: none;
+}
+
+ul>li>a {
+    display: block;
+    text-decoration: none;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+li a {
+    color: #005b8a;
+}
+
+.sidebar-ul li .dropdown-btn,
+.dropdown-container .dropdown-item a {
+    color: #005b8a;
+    display: block;
+}
+
+li>a:hover,
+.sidebar-ul li .dropdown-btn:hover {
+    background-color: #005b8a;
+    color: white;
+    text-decoration: none;
+}
+
+.dropdown-container .dropdown-item>a:hover {
+    text-decoration: none;
+}
