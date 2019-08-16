@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-left: 0px">
-                    <a href="#"><button type="button" class="btn btn-primary">
+                    <a href="{{url}}"><button type="button" class="btn btn-primary">
                             <i class="fa fa-plus"> </i> Add Payment Method</button></a>
                 </div>
                 <div class="row" style="margin-left: 0px; margin-top: 15px;">
