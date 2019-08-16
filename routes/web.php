@@ -28,4 +28,4 @@ Route::get('/expenses/expenses', 'PosController@expenses');
 Route::get('/expenses/expenses_category', 'PosController@expenses');
 Route::get('/purchase_order','PosController@purchase');
 Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
-
+Route::get('/setting/users/adduser', 'PosController@adduser');

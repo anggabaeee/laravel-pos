@@ -60,4 +60,7 @@ class PosController extends Controller
     public function addoutlet(){
         return view('tambah.addoutlets'); 
     }
+    public function adduser(){
+        return view('tambah.adduser'); 
+    }
 }
