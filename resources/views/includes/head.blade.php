@@ -7,7 +7,8 @@
 <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 <link href="{{ asset('css/icono.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/sidebar-customer.css') }}" rel="stylesheet">
-<title>Hello, world!</title>
+<link rel="shortcut icon" href="{{ asset('img/logo.jpg')}}" />
+<title>POS - Multi Outlets</title>
 
 <body>
 </body>
