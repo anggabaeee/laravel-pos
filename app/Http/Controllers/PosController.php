@@ -50,7 +50,7 @@ class PosController extends Controller
         return view('pages.expenses.expenses');    
     }
 
-    public function expenenses_category(){
+    public function expenses_category(){
         return view('pages.expenses.expenses_category');
     }
         
