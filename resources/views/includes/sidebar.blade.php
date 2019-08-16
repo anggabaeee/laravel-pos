@@ -42,10 +42,10 @@
                     <a class="dropdown-btn">Expenses</a>
                     <div class="dropdown-container" style="display: none;">
                         <div class="dropdown-item">
-                            <a href="#" class="">Expenses</a>
+                            <a href="/expenses" class="">Expenses</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="#">Expenses Category</a>
+                            <a href="/expenses_category">Expenses Category</a>
                         </div>
                     </div>
                 </li>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="">Purchase Order</a></li>
+                <li><a href="/purchase_order">Purchase Order</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Setting</a>
                     <div class="dropdown-container" style="display: none;">
