@@ -21,10 +21,6 @@ a.navbar-brand,
     color: white;
 }
 
-body {
-    background-color: red;
-}
-
 #sidebar-collapse {
     background-color: white;
     height: -webkit-fill-available;
