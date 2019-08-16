@@ -1,6 +1,6 @@
 <section class="navigasi">
-    <nav class="navbar navbar-expand-lg navbar-custom bg-custom">
-        <a class="navbar-brand" href="#">POS - Multi Outlets</a>
+    <nav class="navbar navbar-expand-lg navbar-custom bg-custom fixed-top">
+        <a class="navbar-brand" href="/dashboard">POS - Multi Outlets</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar-collapse">
             <span class="fa fa-bars"></span>
         </button>
