@@ -57,4 +57,10 @@ class PosController extends Controller
     public function purchase(){
         return view('pages.purchase_order');    
     }
+    public function addoutlet(){
+        return view('tambah.addoutlets'); 
+    }
+    public function adduser(){
+        return view('tambah.adduser'); 
+    }
 }
