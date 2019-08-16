@@ -25,7 +25,9 @@ Route::get('/setting/users', 'PosController@users');
 Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/expenses', 'PosController@expenses');
+Route::get('/expenses/addexpenses', 'PosController@addexpenses');
 Route::get('/expenses_category', 'PosController@expenses_category');
 Route::get('/purchase_order','PosController@purchase');
 Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
+
