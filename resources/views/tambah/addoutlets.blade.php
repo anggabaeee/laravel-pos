@@ -47,10 +47,13 @@
                 </form>
             </div>
         </div>
-        <div class="row" style="margin-top: 15px; margin-left: 2px;">
-            <a href="{{ url ('setting/outlets')}}">
-                <button class="btn btn-secondary"> <i class="fa fa-chevron-left"></i> Back </button>
-            </a>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-2">
+                <a href="{{ url ('setting/outlets')}}">
+                    <button class="btn btn-secondary" style="width: 60%"><i class="fa fa-chevron-left"></i> Back
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
