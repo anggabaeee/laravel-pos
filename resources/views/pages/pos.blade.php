@@ -50,6 +50,7 @@
         <h1 class="header-pos"> Choose Outlet </h1>
             <div class="col-md-6 offset-md-3">
             <a href="dashboard">
+            
                 <div class="kotak  mt-4  mr-5 ml-5">
                     <i class="fa fa-building-o"></i>
                     <h4>Uniqlo - NEX Outlet</h4>

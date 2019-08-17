@@ -20,7 +20,7 @@
         <form action="" class="mt-2 panel">
             <div class="d-flex">
                 <div class="mr-auto bd-highlight">
-                    <button class="btn btn-primary" onclick="location.href='/dashboard'" type="button"
+                    <button class="btn btn-primary" onclick="location.href='/expensescategory/addexpensescategory'" type="button"
                         style="padding: 0px 12px;"><i class="icono-plus"></i>
                         add Expenses Category</button></div>
             </div>
