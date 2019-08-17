@@ -13,7 +13,6 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
-
 </style>
 <div class="col-sm-9 col-sm-offset-10 col-lg-10 col-lg-offset-2 main">
     <div class="container mt-3">
@@ -83,10 +82,11 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="">File (Less than 2MB)<span style="color: #F00">*</span><br>
-                        <input type="file" id="real-file" hidden="hidden" />
-                        <p class="border border-secondary rounded px-5 mt-2" id="custom-text" style=>No file chosen, yet.</p>
-                         <button type="button" id="custom-button" class="btn btn-primary">CHOOSE A FILE</button>        
-                        </div>
+                            <input type="file" id="real-file" hidden="hidden" />
+                            <p class="border border-secondary rounded px-5 mt-2" id="custom-text" style=>No file chosen,
+                                yet.</p>
+                            <button type="button" id="custom-button" class="btn btn-primary">CHOOSE A FILE</button>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -99,26 +99,29 @@
         </form>
         <div class="col-md-2">
             <div class="form-group">
-                <button class="btn btn-primary" style="width: 100%;">Add</button>
+                <a href="/expenses" style="text-decoration: none;">
+                    <div class="btn " style="background-color: #999; color: #FFF;">
+                        <i class="icono-caretLeft" style="color: #FFF;"></i>Back </div>
+                </a>
             </div>
         </div>
     </div>
 </div>
 <script>
-const realFileBtn = document.getElementById("real-file");
-const customBtn = document.getElementById("custom-button");
-const customTxt = document.getElementById("custom-text");
+    const realFileBtn = document.getElementById("real-file");
+    const customBtn = document.getElementById("custom-button");
+    const customTxt = document.getElementById("custom-text");
 
-customBtn.addEventListener("click", function() {
-  realFileBtn.click();
-});
-realFileBtn.addEventListener("change", function() {
-  if (realFileBtn.value) {
-    customTxt.innerHTML = realFileBtn.value;
-  } else {
-    customTxt.innerHTML = "No file chosen, yet.";
-  }
-});
+    customBtn.addEventListener("click", function () {
+        realFileBtn.click();
+    });
+    realFileBtn.addEventListener("change", function () {
+        if (realFileBtn.value) {
+            customTxt.innerHTML = realFileBtn.value;
+        } else {
+            customTxt.innerHTML = "No file chosen, yet.";
+        }
+    });
 
 </script>
 </section>

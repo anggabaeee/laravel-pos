@@ -19,7 +19,7 @@
         <form action="" class="mt-2 panel">
             <div class="d-flex">
                 <div class="mr-auto bd-highlight">
-                <button class="btn btn-primary" onclick="location.href='/dashboard'" type="button" style="padding: 0px 12px;"><i class="icono-plus"></i>
+                <button class="btn btn-primary" onclick="location.href='/expenses/addexpenses'" type="button" style="padding: 0px 12px;"><i class="icono-plus"></i>
          add Expenses</button></div>
                 <div class="ml-auto bd-highlight"><input class="btn btn-success" type="button" value="Export"></div>
             </div>
