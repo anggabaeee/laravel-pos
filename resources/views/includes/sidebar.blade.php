@@ -74,18 +74,18 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="inventory">Inventory</a></li>
+                <li><a href="/inventory">Inventory</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Products</a>
                     <div class="dropdown-container" style="display: none;">
                         <div class="dropdown-item">
-                            <a href="#" class="">List Products</a>
+                            <a href="/product/ListProduct" class="">List Products</a>
                         </div>
                         <div class="dropdown-item">
                             <a href="#">Print Product Label</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="#">Product Category</a>
+                            <a href="/product/ProductCategory">Product Category</a>
                         </div>
                     </div>
                 </li>

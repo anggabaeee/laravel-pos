@@ -87,4 +87,7 @@ class PosController extends Controller
     public function listproduct(){
         return view('pages.product.listproduct'); 
     }
+    public function productcategory(){
+        return view('pages.product.productcategory'); 
+    }
 }

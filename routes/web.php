@@ -36,4 +36,4 @@ Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
 Route::get('/product/ListProduct','PosController@listproduct');
-
+Route::get('/product/ProductCategory','PosController@productcategory');
