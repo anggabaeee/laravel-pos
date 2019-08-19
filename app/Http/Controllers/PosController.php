@@ -66,4 +66,8 @@ class PosController extends Controller
     public function addexpenses(){
         return view('tambah.addexpenses'); 
     }
+    public function addexpensescategory(){
+        return view('tambah.addexpensescategory'); 
+    }
+    
 }
