@@ -31,10 +31,10 @@
                     <a class="dropdown-btn">Reports</a>
                     <div class="dropdown-container" style="display: none;">
                         <div class="dropdown-item">
-                            <a href="#" class="">Sales Report</a>
+                            <a href="/salesreports" class="">Sales Report</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="#">Sold By Product</a>
+                            <a href="/soldbyproduct">Sold By Product</a>
                         </div>
                     </div>
                 </li>
