@@ -45,7 +45,7 @@
                             <a href="/expenses" class="">Expenses</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="/expenses_category">Expenses Category</a>
+                            <a href="/expensescategory">Expenses Category</a>
                         </div>
                     </div>
                 </li>
