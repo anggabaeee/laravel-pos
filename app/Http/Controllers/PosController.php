@@ -93,4 +93,7 @@ class PosController extends Controller
     public function addpayment(){
         return view('tambah.addPaymentMethod'); 
     }
+    public function createreturn(){
+        return view('pages.ReturnOrder.createReturnOrder'); 
+    }
 }
