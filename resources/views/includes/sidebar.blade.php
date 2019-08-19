@@ -23,45 +23,47 @@
                 <li class="{{ Request::is('debit') ? "active-link" : "" }}"><a href="/debit">Debit</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Sales</a>
-                    <div class="dropdown-container" style="display: none;">
-                        <div class="dropdown-item">
-                            <a href="/todaysales">Today's Sales</a>
+                    <div class="dropdown-container {{ Request::is('todaysales','openedbil') ? "active-block" : "" }}">
+                        <div class="{{ Request::is('todaysales') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/todaysales">Today's Sales</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/openedbil">Opened Bill</a>
+                        <div class="{{ Request::is('openedbil') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/openedbil">Opened Bill</a>
                         </div>
                     </div>
                 </li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Reports</a>
-                    <div class="dropdown-container" style="display: none;">
-                        <div class="dropdown-item">
-                            <a href="/salesreports" class="">Sales Report</a>
+                    <div
+                        class="dropdown-container {{ Request::is('salesreports','soldbyproduct') ? "active-block" : "" }}">
+                        <div class="{{ Request::is('salesreports') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/salesreports" class="">Sales Report</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/soldbyproduct">Sold By Product</a>
+                        <div class="{{ Request::is('soldbyproduct') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/soldbyproduct">Sold By Product</a>
                         </div>
                     </div>
                 </li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Expenses</a>
-                    <div class="dropdown-container" style="display: none;">
-                        <div class="dropdown-item">
-                            <a href="/expenses" class="">Expenses</a>
+                    <div
+                        class="dropdown-container {{ Request::is('expenses','expensescategory') ? "active-block" : "" }}">
+                        <div class="{{ Request::is('expenses') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/expenses" class="">Expenses</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/expensescategory">Expenses Category</a>
+                        <div class="{{ Request::is('expensescategory') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/expensescategory">Expenses Category</a>
                         </div>
                     </div>
                 </li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Profit & Loss</a>
-                    <div class="dropdown-container" style="display: none;">
-                        <div class="dropdown-item">
-                            <a href="#" class="">Profit & Loss</a>
+                    <div class="dropdown-container {{ Request::is('','') ? "active-block" : "" }}">
+                        <div>
+                            <a class=" dropdown-item" href="#" class="">Profit & Loss</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="#">Profit & Loss Report</a>
+                        <div>
+                            <a class="dropdown-item" href="#">Profit & Loss Report</a>
                         </div>
                     </div>
                 </li>
@@ -70,7 +72,7 @@
                 </li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Return Order</a>
-                    <div class="dropdown-container" style="display: none;">
+                    <div class="dropdown-container">
                         <div class="dropdown-item">
                             <a href="">Create Return Order</a>
                         </div>
@@ -79,39 +81,41 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="/inventory">Inventory</a></li>
+                <li class="{{ Request::is('inventory') ? "active-link" : "" }}"><a href="/inventory">Inventory</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Products</a>
-                    <div class="dropdown-container" style="display: none;">
-                        <div class="dropdown-item">
-                            <a href="/product/ListProduct" class="">List Products</a>
+                    <div
+                        class="dropdown-container {{ Request::is('product/ListProduct','','product/ProductCategory') ? "active-block" : "" }}">
+                        <div class="{{ Request::is('product/ListProduct') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/product/ListProduct">List Products</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="#">Print Product Label</a>
+                        <div class="{{ Request::is('') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="#">Print Product Label</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/product/ProductCategory">Product Category</a>
+                        <div class="{{ Request::is('product/ProductCategory') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/product/ProductCategory">Product Category</a>
                         </div>
                     </div>
                 </li>
-                <li><a href="/purchase_order">Purchase Order</a></li>
+                <li class="{{ Request::is('purchase_order') ? "active-link" : "" }}"><a href="/purchase_order">Purchase Order</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Setting</a>
-                    <div class="dropdown-container" style="display: none;">
-                        <div class="dropdown-item">
-                            <a href="/setting/outlets" class="">Outlets</a>
+                    <div
+                        class="dropdown-container {{ Request::is('setting/outlets','setting/users','setting/suppliers','setting/system_setting','setting/payment_method') ? "active-block" : "" }}">
+                        <div  class="{{ Request::is('setting/outlets') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/setting/outlets" class="">Outlets</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/setting/users">User</a>
+                        <div class="{{ Request::is('setting/users') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/setting/users">User</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/setting/suppliers">Supllier</a>
+                        <div class="{{ Request::is('setting/suppliers') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/setting/suppliers">Supllier</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/setting/system_setting">System Setting</a>
+                        <div class="{{ Request::is('setting/system_setting') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/setting/system_setting">System Setting</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/setting/payment_method">Payment Methods</a>
+                        <div class="{{ Request::is('setting/payment_method') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/setting/payment_method">Payment Methods</a>
                         </div>
                     </div>
                 </li>
