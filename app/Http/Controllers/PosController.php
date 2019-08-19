@@ -27,6 +27,9 @@ class PosController extends Controller
     public function addgift(){
         return view('tambah.addgift');    
     }
+    public function listgift(){
+        return view('tambah.listgift');    
+    }
     public function pos(){
         return view('pages.pos');    
     }    
