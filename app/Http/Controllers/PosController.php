@@ -10,7 +10,7 @@ class PosController extends Controller
         return view('login');    
     }
     public function dashboard(){
-        return view('pages.dashboard');    
+        return view('pages.dashboard')->with('active','dashboard');
     }
     public function customer(){
         return view('pages.customer');    

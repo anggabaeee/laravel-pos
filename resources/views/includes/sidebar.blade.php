@@ -1,21 +1,26 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-lg-2 sidebar collapse show" id="sidebar-collapse" style="padding-left: 0px; padding-right: 0px;">
+        <div class="col-sm-3 col-lg-2 sidebar collapse show" id="sidebar-collapse"
+            style="padding-left: 0px; padding-right: 0px;">
             <ul class="sidebar-ul" style="padding-left: 0px;">
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/customer">Customers</a></li>
+                <li class="{{ Request::is('dashboard') ? "active-link" : "" }}">
+                    <a href="/dashboard">Dashboard</a>
+                </li>
+                <li class="{{ Request::is('customer') ? "active-link" : "" }}">
+                    <a href="/customer">Customers</a>
+                </li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Gift Card</a>
-                    <div class="dropdown-container" style="display: none;">
-                        <div class="dropdown-item">
-                            <a href="/addgift">Add Gift Card</a>
+                    <div class="dropdown-container {{ Request::is('addgift','listgift') ? "active-block" : "" }}">
+                        <div class="{{ Request::is('addgift') ? "active-link" : "" }}">
+                            <a class="dropdown-item " href="/addgift">Add Gift Card</a>
                         </div>
-                        <div class="dropdown-item">
-                            <a href="/listgift">List Gift Card</a>
+                        <div class="{{ Request::is('listgift') ? "active-link" : "" }}">
+                            <a class="dropdown-item" href="/listgift">List Gift Card</a>
                         </div>
                     </div>
                 </li>
-                <li><a href="/debit">Debit</a></li>
+                <li class="{{ Request::is('debit') ? "active-link" : "" }}"><a href="/debit">Debit</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Sales</a>
                     <div class="dropdown-container" style="display: none;">

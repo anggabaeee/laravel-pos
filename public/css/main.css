@@ -1,14 +1,17 @@
-a:hover{
+a:hover {
     text-decoration: none;
 }
-body{
+
+body {
     margin-top: 56px;
 }
+
 @media (max-width: 767.98px) {
-    body{
+    body {
         margin-top: 103px;
     }
 }
+
 /* navbar */
 .bg-custom {
     background-color: #005b8a;
@@ -70,23 +73,32 @@ ul>li>a {
     padding-bottom: 10px;
 }
 
-li a {
-    color: #005b8a;
-}
-
-.sidebar-ul li .dropdown-btn,
-.dropdown-container .dropdown-item a {
+li a,
+a.dropdown-item {
     color: #005b8a;
     display: block;
 }
 
+.sidebar-ul li .dropdown-btn {
+    color: #005b8a;
+}
+
 li>a:hover,
+.active-link,
+.active-link a,
+.dropdown-item .active-link,
+.dropdown-item:hover,
+.dropdown-item a:hover,
 .sidebar-ul li .dropdown-btn:hover {
     background-color: #005b8a;
     color: white;
     text-decoration: none;
 }
 
-.dropdown-container .dropdown-item>a:hover {
-    text-decoration: none;
+.dropdown-container {
+    display: none;
+}
+
+.active-block {
+    display: block;
 }
