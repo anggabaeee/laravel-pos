@@ -20,10 +20,10 @@
                     <a class="dropdown-btn">Sales</a>
                     <div class="dropdown-container" style="display: none;">
                         <div class="dropdown-item">
-                            <a href="#">Today's Sales</a>
+                            <a href="/todaysales">Today's Sales</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="#">Opened Bill</a>
+                            <a href="/openedbil">Opened Bill</a>
                         </div>
                     </div>
                 </li>
