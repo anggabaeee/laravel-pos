@@ -60,6 +60,15 @@ class PosController extends Controller
     public function purchase(){
         return view('pages.purchase_order');    
     }
+
+    public function salesreports(){
+        return view('pages.reports.salesreports');
+    }
+
+    public function soldbyproduct(){
+        return view('pages.reports.soldbyproduct');
+    }
+ 
     public function addoutlet(){
         return view('tambah.addoutlets'); 
     }

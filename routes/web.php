@@ -24,6 +24,8 @@ Route::get('/expenses', 'PosController@expenses');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses');
 Route::get('/expensescategory', 'PosController@expenses_category');
 Route::get('/expensescategory/addexpensescategory', 'PosController@addexpensescategory');
+Route::get('/salesreports', 'PosController@salesreports');
+Route::get('/soldbyproduct', 'PosController@soldbyproduct');
 Route::get('/purchase_order','PosController@purchase');
 Route::get('/purchase_order/CreatePurchaseOrder','PosController@createpurchase');
 Route::get('/setting/payment_method', 'PosController@payment');
