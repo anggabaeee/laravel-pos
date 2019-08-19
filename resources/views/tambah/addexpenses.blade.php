@@ -79,13 +79,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label for="">File (Less than 2MB)<span style="color: #F00">*</span><br>
-                            <input type="file" id="real-file" hidden="hidden" />
-                            <p class="border border-secondary rounded px-5 mt-2" id="custom-text" style=>No file chosen,
-                                yet.</p>
-                            <button type="button" id="custom-button" class="btn btn-primary">CHOOSE A FILE</button>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="CustomFile" required >
+                                <label class="custom-file-label" for="CustomFile">choose file</label>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -108,21 +108,10 @@
     </div>
 </div>
 <script>
-    const realFileBtn = document.getElementById("real-file");
-    const customBtn = document.getElementById("custom-button");
-    const customTxt = document.getElementById("custom-text");
-
-    customBtn.addEventListener("click", function () {
-        realFileBtn.click();
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
-    realFileBtn.addEventListener("change", function () {
-        if (realFileBtn.value) {
-            customTxt.innerHTML = realFileBtn.value;
-        } else {
-            customTxt.innerHTML = "No file chosen, yet.";
-        }
-    });
-
 </script>
 </section>
 @stop
