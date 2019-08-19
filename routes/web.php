@@ -16,6 +16,7 @@ Route::get('/dashboard','PosController@dashboard');
 Route::get('/customer','PosController@customer');
 Route::get('/customer/addCustomer','PosController@addCustomer');
 Route::get('/addgift','PosController@addgift');
+Route::get('/listgift','PosController@listgift');
 Route::get('/debit','PosController@debit');
 Route::get('/inventory','PosController@inventory');
 Route::get('/pos','PosController@pos');
@@ -26,6 +27,7 @@ Route::get('/expensescategory/addexpensescategory', 'PosController@addexpensesca
 Route::get('/salesreports', 'PosController@salesreports');
 Route::get('/soldbyproduct', 'PosController@soldbyproduct');
 Route::get('/purchase_order','PosController@purchase');
+Route::get('/purchase_order/CreatePurchaseOrder','PosController@createpurchase');
 Route::get('/setting/payment_method', 'PosController@payment');
 Route::get('/setting/outlets', 'PosController@outlets');
 Route::get('/setting/users', 'PosController@users');
@@ -33,4 +35,5 @@ Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
+
 

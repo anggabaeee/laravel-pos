@@ -27,6 +27,9 @@ class PosController extends Controller
     public function addgift(){
         return view('tambah.addgift');    
     }
+    public function listgift(){
+        return view('tambah.listgift');    
+    }
     public function pos(){
         return view('pages.pos');    
     }    
@@ -78,5 +81,7 @@ class PosController extends Controller
     public function addexpensescategory(){
         return view('tambah.addexpensescategory'); 
     }
-    
+    public function createpurchase(){
+        return view('tambah.createpurchase'); 
+    }
 }
