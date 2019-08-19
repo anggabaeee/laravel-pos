@@ -79,7 +79,7 @@
             </div>
             <div class="col-6 col-md-2">
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="{{ url('/setting/outlets')}}">
                         <div class="panel-body easypiechart-panel">
                             <p>Outlets</p>
                             <div class="icon-fa">
@@ -91,7 +91,7 @@
             </div>
             <div class="col-6 col-md-2">
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="{{ url('/setting/users') }}">
                         <div class=" panel-body easypiechart-panel">
                             <p>Users</p>
                             <div class="icon-fa">
@@ -103,7 +103,7 @@
             </div>
             <div class="col-6 col-md-2">
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="{{ url('/setting/system_setting') }}">
                         <div class=" panel-body easypiechart-panel">
                             <p>System Setting</p>
                             <div class="icon-fa">
