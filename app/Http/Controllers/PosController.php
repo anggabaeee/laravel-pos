@@ -84,4 +84,7 @@ class PosController extends Controller
     public function createpurchase(){
         return view('tambah.createpurchase'); 
     }
+    public function listproduct(){
+        return view('pages.product.listproduct'); 
+    }
 }
