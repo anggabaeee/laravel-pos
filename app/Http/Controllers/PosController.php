@@ -90,4 +90,7 @@ class PosController extends Controller
     public function productcategory(){
         return view('pages.product.productcategory'); 
     }
+    public function addpayment(){
+        return view('tambah.addPaymentMethod'); 
+    }
 }

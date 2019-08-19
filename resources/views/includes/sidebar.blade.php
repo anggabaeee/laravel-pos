@@ -11,7 +11,7 @@
                             <a href="/addgift">Add Gift Card</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="">List Gift Card</a>
+                            <a href="/listgift">List Gift Card</a>
                         </div>
                     </div>
                 </li>
