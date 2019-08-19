@@ -56,6 +56,14 @@ class PosController extends Controller
     public function expenses_category(){
         return view('pages.expenses.expenses_category');
     }
+
+    public function openedbil(){
+        return view('pages.sales.openedbil');    
+    }
+
+    public function todaysales(){
+        return view('pages.sales.todaysales');
+    }
         
     public function purchase(){
         return view('pages.purchase_order');    
