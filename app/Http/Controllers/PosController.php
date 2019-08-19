@@ -60,6 +60,15 @@ class PosController extends Controller
     public function purchase(){
         return view('pages.purchase_order');    
     }
+
+    public function salesreports(){
+        return view('pages.reports.salesreports');
+    }
+
+    public function soldbyproduct(){
+        return view('pages.reports.soldbyproduct');
+    }
+ 
     public function addoutlet(){
         return view('tambah.addoutlets'); 
     }
@@ -74,5 +83,14 @@ class PosController extends Controller
     }
     public function createpurchase(){
         return view('tambah.createpurchase'); 
+    }
+    public function listproduct(){
+        return view('pages.product.listproduct'); 
+    }
+    public function productcategory(){
+        return view('pages.product.productcategory'); 
+    }
+    public function addpayment(){
+        return view('tambah.addPaymentMethod'); 
     }
 }

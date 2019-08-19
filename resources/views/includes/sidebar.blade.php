@@ -11,7 +11,7 @@
                             <a href="/addgift">Add Gift Card</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="">List Gift Card</a>
+                            <a href="/listgift">List Gift Card</a>
                         </div>
                     </div>
                 </li>
@@ -31,10 +31,10 @@
                     <a class="dropdown-btn">Reports</a>
                     <div class="dropdown-container" style="display: none;">
                         <div class="dropdown-item">
-                            <a href="#" class="">Sales Report</a>
+                            <a href="/salesreports" class="">Sales Report</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="#">Sold By Product</a>
+                            <a href="/soldbyproduct">Sold By Product</a>
                         </div>
                     </div>
                 </li>
@@ -74,18 +74,18 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="inventory">Inventory</a></li>
+                <li><a href="/inventory">Inventory</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Products</a>
                     <div class="dropdown-container" style="display: none;">
                         <div class="dropdown-item">
-                            <a href="#" class="">List Products</a>
+                            <a href="/product/ListProduct" class="">List Products</a>
                         </div>
                         <div class="dropdown-item">
                             <a href="#">Print Product Label</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="#">Product Category</a>
+                            <a href="/product/ProductCategory">Product Category</a>
                         </div>
                     </div>
                 </li>
