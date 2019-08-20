@@ -50,13 +50,13 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="">Dat From</label>
-                        <input class="form-control" type="date" value="&nbsp"></div>
+                        <label for="">Date From</label>
+                        <input class="form-control datepicker" type="text" value="&nbsp"></div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="">Date To</label>
-                        <input class="form-control" type="date" value="&nbsp"></div>
+                        <input class="form-control datepicker" type="text" value="&nbsp"></div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
@@ -91,5 +91,14 @@
         </form>
     </div>
 </div>
+<script type="text/javascript">
+ $(function(){
+  $(".datepicker").datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      todayHighlight: true,
+  });
+ });
+</script>
 
 </section>@stop
