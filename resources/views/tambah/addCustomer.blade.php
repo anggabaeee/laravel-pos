@@ -3,18 +3,19 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Add Customer</h1>
-        <form action="" class="mt-2 master-form">
+        <form action="/customer/addCustomerstore" method="post"class="mt-2 master-form">
+            {{ csrf_field() }}
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="">Full Name</label>
-                        <input class="form-control" type="text">
+                        <input name="fullname" class="form-control" type="text" required autocomplete="off">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="">E-mail</label>
-                        <input class="form-control" type="text">
+                        <input name="email" class="form-control" type="text" required autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -22,14 +23,14 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="">Mobile</label>
-                        <input class="form-control" type="text">
+                        <input name="mobile" class="form-control" type="text" required autocomplete="off">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <button class="btn btn-primary" style="width: 100%;">Tambah</button>
+                        <input type="submit" value="Tambah" class="btn btn-primary" style="width: 100%;">
                     </div>
                 </div>
             </div>

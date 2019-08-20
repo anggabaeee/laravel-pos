@@ -3,7 +3,7 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Customer</h1>
-        <form action="" class="mt-2 master-form">
+        <form class="mt-2 master-form">
             <div class="d-flex">
                 <div class="mr-auto bd-highlight">
                     <a href="{{ url('/customer/addCustomer') }}">
