@@ -55,7 +55,7 @@
             </div>
             <div class="col-6 col-md-2">
                 <div class="panel panel-default">
-                    <a href="#">
+                    <a href="/todaysales">
                         <div class="panel-body easypiechart-panel">
                             <p>Sales</p>
                             <div class="icon-fa">
