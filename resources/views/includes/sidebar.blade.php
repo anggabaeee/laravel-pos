@@ -74,10 +74,10 @@
                     <a class="dropdown-btn">Return Order</a>
                     <div class="dropdown-container">
                         <div class="dropdown-item">
-                            <a href="">Create Return Order</a>
+                            <a href="/returnorder/CreateReturn">Create Return Order</a>
                         </div>
                         <div class="dropdown-item">
-                            <a href="">Return Order Report</a>
+                            <a href="/returnorder/ReportReturn">Return Order Report</a>
                         </div>
                     </div>
                 </li>
