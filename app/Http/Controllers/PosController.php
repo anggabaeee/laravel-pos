@@ -104,4 +104,7 @@ class PosController extends Controller
     public function createreturn(){
         return view('pages.ReturnOrder.createReturnOrder'); 
     }
+    public function reportreturn(){
+        return view('pages.ReturnOrder.returnreport'); 
+    }
 }
