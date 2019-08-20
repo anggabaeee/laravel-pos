@@ -9,9 +9,11 @@
     .datepicker th {
         font-size: 12px;
     }
+    #display{
+        display: none;
+    }
 
 </style>
-
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Return Order Report</h1>
@@ -34,7 +36,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Refund By</label>
-                                <select name="paid" class="form-control">
+                                <select name="paid" class="form-control" required>
                                     <option value="">Choose Paid By</option>
                                     <option value="-">All</option>
                                     <option value="10" selected="selected">ac </option>
@@ -51,34 +53,34 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Start Date</label>
-                                <input type="text" name="startdate" class="form-control datepicker">
+                                <input type="text" name="startdate" class="form-control datepicker"  autocomplete="off" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>End Date</label>
-                                <input type="text" name="enddate" class="form-control datepicker">
+                                <input type="text" name="enddate" class="form-control datepicker" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <br>
-                                <input type="submit" class="btn btn-primary" value="Get Report"
+                                <input type="button" class="btn btn-primary" value="Get Report" onclick="setvisibility('display','inline');"
                                     style="margin-top: 8px;">
                             </div>
                         </div>
                     </div>
                 </form>
-                <div class="dis" id="dis">
+                <div id="display">
                     <div class="row">
                         <div class="col-md-12" style="text-align: right;">
                             <a href="#" class="btn btn-success">Export to Excel</a>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="margin-top: 15px">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table class="display" id="exampel" cellspacing="0" width="100%">
+                                <table class="table" id="exampel" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <td>Date</td>
@@ -117,10 +119,15 @@
 </script>
 
 <script type="text/javascript">
-   $(document).ready( function () {
-    $('#example').DataTable();
-} );
-</script>
+    $(document).ready(function () {
+        $('#exampel').DataTable();
+    });
 
+</script>
+<script>
+function setvisibility(id, visibility){
+    document.getElementById(id).style.display = visibility;
+}
+</script>
 @stop
 </section>
