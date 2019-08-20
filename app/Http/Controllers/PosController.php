@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Customer;
 
 class PosController extends Controller
 {
@@ -13,10 +14,24 @@ class PosController extends Controller
         return view('pages.dashboard');
     }
     public function customer(){
+        $customer = customer::all();
         return view('pages.customer');    
     }
     public function addCustomer(){
         return view('tambah.addCustomer');    
+    }
+    public function addCustomerstore(Request $request){
+        $this->validate($request,[
+            'fullname' => 'required',
+            'email' => 'required',
+            'mobile' => 'required'
+        ]);
+        customer::create([
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'mobile' => $request->mobile
+        ]);        
+        return redirect('/customer');
     }
     public function debit(){
         return view('pages.debit');    
