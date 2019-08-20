@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="">E-mail</label>
-                        <input name="email" class="form-control" type="text" required autocomplete="off">
+                        <input name="email" class="form-control" type="email" required autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="">Mobile</label>
-                        <input name="mobile" class="form-control" type="text" required autocomplete="off">
+                        <input name="mobile" class="form-control" type="text" pattern= "[0-9]+" required autocomplete="off">
                     </div>
                 </div>
             </div>
