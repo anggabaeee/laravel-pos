@@ -25,12 +25,12 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th widht="20%">Name</th>
-                                    <th widht="15%">Email</th>
-                                    <th widht="10%">Telephone</th>
-                                    <th widht="15%">Fax</th>
-                                    <th widht="10%">Status</th>
-                                    <th widht="10%">Action</th>
+                                    <th width="20%">Name</th>
+                                    <th width="15%">Email</th>
+                                    <th width="10%">Telephone</th>
+                                    <th width="15%">Fax</th>
+                                    <th width="10%">Status</th>
+                                    <th width="10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

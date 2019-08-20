@@ -1,10 +1,6 @@
 @extends('layouts.default-sidebar')
 @section('content')
 <style>
-    h1 {
-        color: #5f6468;
-    }
-
     .table th {
         background-color: #f7f7f8;
     }
@@ -25,11 +21,11 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th widht="28%">Outlet Name</th>
-                                    <th widht="24%">Address</th>
-                                    <th widht="24%">Contact Number</th>
-                                    <th widht="12%">Status</th>
-                                    <th widht="12%">Action</th>
+                                    <th width="28%">Outlet Name</th>
+                                    <th width="24%">Address</th>
+                                    <th width="24%">Contact Number</th>
+                                    <th width="12%">Status</th>
+                                    <th width="12%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -25,12 +25,12 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th widht="15%">Purchase Order Number</th>
-                                    <th widht="12%">Outlets</th>
-                                    <th widht="10%">Supplier</th>
-                                    <th widht="10%">Created Date</th>
-                                    <th widht="13%">Status</th>
-                                    <th widht="20%">Action</th>
+                                    <th width="20%">Purchase Order Number</th>
+                                    <th width="12%">Outlets</th>
+                                    <th width="15%">Supplier</th>
+                                    <th width="10%">Created Date</th>
+                                    <th width="13%">Status</th>
+                                    <th width="10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
