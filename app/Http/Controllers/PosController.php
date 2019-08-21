@@ -52,6 +52,11 @@ class PosController extends Controller
             $customer->save();
             return redirect('/customer');
     }
+    public function editcustomerdelete($id){
+        $customer = customer::find($id);
+        $customer->delete();
+        return redirect('/customer');
+    }
     
     public function debit(){
         return view('pages.debit');    

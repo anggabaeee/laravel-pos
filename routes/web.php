@@ -18,6 +18,7 @@ Route::get('/customer/addCustomer','PosController@addCustomer');
 Route::post('/customer/addCustomerstore','PosController@addCustomerstore');
 Route::get('/customer/editcustomer/{id}','PosController@editcustomer');
 Route::put('/customer/editcustomerupdate/{id}', 'PosController@editcustomerupdate');
+Route::get('/customer/editcustomerdelete/{id}','PosController@editcustomerdelete');
 Route::get('/addgift','PosController@addgift');
 Route::get('/listgift','PosController@listgift');
 Route::get('/debit','PosController@debit');
