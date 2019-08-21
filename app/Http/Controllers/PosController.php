@@ -32,7 +32,7 @@ class PosController extends Controller
             'email' => $request->email,
             'mobile' => $request->mobile
         ]);        
-        return redirect('/customer');
+        return redirect('/customer')->with(['success' => 'Data Berhasil Ditambahkan']);;
     }
     public function editcustomer($id){
         $customer = customer::find($id);
@@ -55,7 +55,7 @@ class PosController extends Controller
     public function editcustomerdelete($id){
         $customer = customer::find($id);
         $customer->delete();
-        return redirect('/customer');
+        return redirect('/customer')->with(['success' => 'Data Berhasil Dihapus']);;
     }
     
     public function debit(){

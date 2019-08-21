@@ -4,6 +4,12 @@
     <div class="container">
         <h1>Customer</h1>
         <form class="mt-2 master-form">
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
             <div class="d-flex">
                 <div class="mr-auto bd-highlight">
                     <a href="{{ url('/customer/addCustomer') }}">
