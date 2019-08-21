@@ -65,7 +65,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <br>
-                                <input type="button" class="btn btn-primary" value="Get Report" onclick="setvisibility('display','inline');"
+                                <input type="submit" class="btn btn-primary" value="Get Report" onclick="setvisibility('display','inline');"
                                     style="margin-top: 8px;">
                             </div>
                         </div>

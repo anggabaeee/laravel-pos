@@ -34,7 +34,7 @@
                                     <td>#02-10, B2, Bugis Shopping Mall</td>
                                     <td>292948484</td>
                                     <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
-                                    <td><a href="#" style="margin-left: 5px;"><button
+                                    <td><a href="/setting/editoutlet" style="margin-left: 5px;"><button
                                             class="btn btn-primary">Edit</button></a></td>
                                 </tr>
                             </tbody>

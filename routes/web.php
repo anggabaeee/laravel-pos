@@ -76,6 +76,9 @@ Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
+Route::get('/setting/editoutlet', 'PosController@editoutlet');
+Route::get('/setting/edituser', 'PosController@edituser');
+
 
 
 
