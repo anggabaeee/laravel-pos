@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Customer;
+use App\gift_card;
 
 class PosController extends Controller
 {
@@ -32,7 +33,7 @@ class PosController extends Controller
             'email' => $request->email,
             'mobile' => $request->mobile
         ]);        
-        return redirect('/customer')->with(['success' => 'Data Berhasil Ditambahkan']);;
+        return redirect('/customer')->with(['success' => 'Data Berhasil Ditambahkan']);
     }
     public function editcustomer($id){
         $customer = customer::find($id);
@@ -61,14 +62,33 @@ class PosController extends Controller
     public function debit(){
         return view('pages.debit');    
     }
-    public function inventory(){
-        return view('pages.inventory');    
-    }
+    
+    // addgift
     public function addgift(){
         return view('tambah.addgift');    
     }
+    public function addgiftstore(Request $request){
+        $this->validate($request,[
+            'cardnumber' => 'required',
+            'value' => 'required',
+            'expiry' => 'required',
+            'status' => 'required'
+        ]);
+        gift_card::create([
+            'cardnumber' => $request->cardnumber,
+            'value' => $request->value,
+            'expiry' => $request->expiry,
+            'status' => $request->status
+        ]);        
+        return redirect('/addgift')->with(['success' => 'Data Berhasil Ditambahkan']); 
+    }
     public function listgift(){
-        return view('tambah.listgift');    
+        $giftcard = DB::table('giftcard')->orderBy('id','desc')->paginate(5);
+        return view('tambah.listgift',['giftcard'=>$giftcard]);    
+    }
+
+    public function inventory(){
+        return view('pages.inventory');    
     }
     public function pos(){
         return view('pages.pos');    

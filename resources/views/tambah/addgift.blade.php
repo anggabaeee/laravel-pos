@@ -3,7 +3,14 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Add Gift Card</h1>
-        <form action="" class="mt-2 master-form option" id="credit">
+        <form action="/addgift/addgiftstore" method="post" class="mt-2 master-form option" id="credit">
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+            {{ csrf_field() }}
             <div class="row">
                 <div class="col">
                     <h2>Please fill in the information below</h2>
@@ -15,8 +22,8 @@
                         <label for="">Gift Card Number</label>
                         <div class="input-group">
                             <br>
-                            <input class="cc-number form-control" id="btn-input" name="gift_card_numb" required
-                                autocomplete="off">
+                            <input name="cardnumber" class="cc-number form-control" id="btn-input" name="gift_card_numb"
+                                required autocomplete="off">
                             <div class=" input-group-append">
                                 <span class="" id="basic-addon2">
                                     <button id="btn-todo" class="btn btn-primary" id="btn-todo">
@@ -32,7 +39,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="">Value (SGD)</label>
-                        <input class="form-control" type="text">
+                        <input name="value" class="form-control" type="text">
                     </div>
                 </div>
             </div>
@@ -40,14 +47,15 @@
                 <div class="col-6">
                     <div class="form-group">
                         <label for="">Expiry Date</label>
-                        <input class="form-control" type="text">
+                        <input name="expiry" class="form-control" id="datepicker" type="text">
                     </div>
                 </div>
             </div>
+            <input name="status" name="status" type="text" value="0" hidden>
             <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
-                        <button class="btn btn-primary form-submit" style="width: 100%;">Add</button>
+                        <input type="submit" class="btn btn-primary form-submit" style="width: 100%;" value="Add">
                     </div>
                 </div>
             </div>
@@ -73,6 +81,13 @@
             var numb = generateCardNo();
             document.getElementById("btn-input").value = numb;
             return false;
+        });
+    });
+    $(function () {
+        $("#datepicker").datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
         });
     });
 
