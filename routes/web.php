@@ -16,7 +16,9 @@ Route::get('/dashboard','PosController@dashboard');
 Route::get('/customer','PosController@customer');
 Route::get('/customer/addCustomer','PosController@addCustomer');
 Route::post('/customer/addCustomerstore','PosController@addCustomerstore');
-Route::get('/customer/editcustomer','PosController@editcustomer');
+Route::get('/customer/editcustomer/{id}','PosController@editcustomer');
+Route::put('/customer/editcustomerupdate/{id}', 'PosController@editcustomerupdate');
+Route::get('/customer/editcustomerdelete/{id}','PosController@editcustomerdelete');
 Route::get('/addgift','PosController@addgift');
 Route::get('/listgift','PosController@listgift');
 Route::get('/debit','PosController@debit');
@@ -44,4 +46,4 @@ Route::get('/product/ListProduct','PosController@listproduct');
 Route::get('/product/ProductCategory','PosController@productcategory');
 Route::get('/returnorder/CreateReturn','PosController@createreturn');
 Route::get('/returnorder/ReportReturn','PosController@reportreturn');
-
+Route::get('/pnl/pnlReport','PosController@pnlreport');

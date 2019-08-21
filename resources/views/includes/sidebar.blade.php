@@ -6,7 +6,7 @@
                 <li class="{{ Request::is('dashboard') ? "active-link" : "" }}">
                     <a href="/dashboard">Dashboard</a>
                 </li>
-                <li class="{{ Request::is('customer') ? "active-link" : "" }}">
+                <li class="{{ Request::is('customer','customer/addCustomer') ? "active-link" : "" }}">
                     <a href="/customer">Customers</a>
                 </li>
                 <li class="dropdown-class">
@@ -63,7 +63,7 @@
                             <a class=" dropdown-item" href="#" class="">Profit & Loss</a>
                         </div>
                         <div>
-                            <a class="dropdown-item" href="#">Profit & Loss Report</a>
+                            <a class="dropdown-item" href="/pnl/pnlReport">Profit & Loss Report</a>
                         </div>
                     </div>
                 </li>

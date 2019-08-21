@@ -16,7 +16,7 @@ class PosController extends Controller
     }
     public function customer(){
         $customer = DB::table('customer')->orderBy('fullname','desc')->paginate(5);
-        return view('pages.customer',['customer' => $customer,]);    
+        return view('pages.customer',['customer' => $customer]);    
     }
     public function addCustomer(){
         return view('tambah.addCustomer');    
@@ -34,9 +34,30 @@ class PosController extends Controller
         ]);        
         return redirect('/customer');
     }
-    public function editcustomer(){
-        return view('pages.edit.editcustomer');    
+    public function editcustomer($id){
+        $customer = customer::find($id);
+        return view('pages.edit.editcustomer',['customer'=>$customer]);    
     }
+    public function editcustomerupdate($id, Request $request){
+        $this->validate($request,[
+            'fullname' => 'required',
+            'email' => 'required',
+            'mobile' => 'required'
+            ]);
+
+            $customer = customer::find($id);
+            $customer->fullname = $request->fullname;
+            $customer->email = $request->email;
+            $customer->mobile = $request->mobile;
+            $customer->save();
+            return redirect('/customer');
+    }
+    public function editcustomerdelete($id){
+        $customer = customer::find($id);
+        $customer->delete();
+        return redirect('/customer');
+    }
+    
     public function debit(){
         return view('pages.debit');    
     }
@@ -125,5 +146,8 @@ class PosController extends Controller
     }
     public function reportreturn(){
         return view('pages.ReturnOrder.returnreport'); 
+    }
+    public function pnlreport(){
+        return view('pages.profitReport'); 
     }
 }
