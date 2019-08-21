@@ -39,7 +39,7 @@
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
-                        <tr>
+                        <tr style="text-align: center;">
                             <th scope="col">Sale ID</th>
                             <th scope="col">Date</th>
                             <th scope="col">Outlets</th>
@@ -50,18 +50,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Bastuti</td>
-                            <td>bastuti@gmail.com</td>
-                            <td>089238918391</td>
-                            <td>@mdo</td>
+                        <tr style="text-align: center;">
+                            <td>wt</td>
+                            <td>wt</td>
+                            <td>wt</td>
+                            <td>wt</td>
+                            <td>wt</td>
+                            <td>wt</td>
+                            <td><a href="/customer/editcustomer">
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                </a>
+                                |
+                                <a href="#">
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="return confirm('Apakah anda Yakin ?')">
+                                        <i class="fa fa-trash-o"></i> Delete</button>
+                                </a>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                    <tbody>
+                        <tr style="text-align: center;">
+                            <td colspan="10">No data available in table</td>
                         </tr>
+                    </tbody>
                     </tbody>
                 </table>
 
