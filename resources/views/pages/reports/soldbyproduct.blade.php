@@ -10,7 +10,7 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container menu">
         <h1>Sales Reports</h1>
-        <form action="" class="mt-2 master-form">
+        <div class="mt-2 master-form">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -27,7 +27,7 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="">&nbsp</label><br>
-                        <input type="button" class="btn btn-primary" value="Get Report" id="btnreport">
+                        <input type="submit" class="btn btn-primary" value="Get Report" id="btnreport">
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                         Showing 0 to 0 of 0 entries </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 <script>

@@ -1,9 +1,15 @@
 @extends('layouts.default-sidebar')
 @section('content')
+<style>
+    #display{
+        display: none;
+    }
+
+</style>
 <div class="col-sm-9 col-lg-10">
     <div class="container menu">
         <h1>Sales Reports</h1>
-        <form action="" class="mt-2 master-form">
+        <div class="mt-2 master-form">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group">
@@ -52,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div id="tableku" style=" display: none;">
+            <div id="display">
                 <div class="d-flex">
                     <div class="ml-auto bd-highlight"><input class="btn btn-success" type="button"
                             value="Export To Excel">
@@ -110,7 +116,7 @@
 document.getElementById("btnreport").addEventListener("click", displaytable);
 
 function displaytable() {
-    document.getElementById("tableku").style.display = "block";
+    document.getElementById("display").style.display = "block";
 }
 </script>
 </section>
