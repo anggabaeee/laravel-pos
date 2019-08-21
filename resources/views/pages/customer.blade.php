@@ -58,7 +58,7 @@
                             <td>{{$p->fullname}}</td>
                             <td>{{$p->email}}</td>
                             <td>{{$p->mobile}}</td>
-                            <td><a href="/customer/editcustomer">
+                            <td><a href="/customer/editcustomer/{{$p->id}}">
                                     <button type="button" class="btn btn-primary">Edit</button>
                                 </a>
                                 |
