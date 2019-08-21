@@ -11,6 +11,13 @@ body {
         margin-top: 103px;
     }
 }
+.btn-primary {
+    background-color: #0079c0;
+}
+.btn-primary:hover{
+    background-color: #3071a9;
+    opacity: 0.8;
+}
 
 /* navbar */
 .bg-custom {

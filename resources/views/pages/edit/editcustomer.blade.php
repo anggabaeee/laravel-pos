@@ -2,7 +2,7 @@
 @section('content')
 <div class="col-sm-9 col-lg-10">
     <div class="container">
-        <h1>Add Customer</h1>
+        <h1>Edit Customer</h1>
         <form action="/customer/addCustomerstore" method="post"class="mt-2 master-form">
             {{ csrf_field() }}
             <div class="row">

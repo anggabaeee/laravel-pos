@@ -7,7 +7,7 @@
             <div class="d-flex">
                 <div class="mr-auto bd-highlight">
                     <a href="{{ url('/customer/addCustomer') }}">
-                    <input class="btn btn-primary" type="button" value="Add Customer">
+                        <input class="btn btn-primary" type="button" value="Add Customer">
                     </a>
                 </div>
                 <div class="ml-auto bd-highlight">
@@ -51,22 +51,32 @@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
+                    @if(count($customer) > 0)
                     <tbody>
+                        @foreach ($customer as $p)
                         <tr>
-                            <td>Bastuti</td>
-                            <td>bastuti@gmail.com</td>
-                            <td>089238918391</td>
-                            <td>@mdo</td>
+                            <td>{{$p->fullname}}</td>
+                            <td>{{$p->email}}</td>
+                            <td>{{$p->mobile}}</td>
+                            <td><a href="/customer/editcustomer">
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                </a>
+                                |
+                                <a href="">
+                                    <button type="button" class="btn btn-primary">Sales History</button>
+                                </a>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                        @endforeach
+                        @else
+                    <tbody>
+                        <tr style="text-align: center;">
+                            <td colspan="10">No data available in table</td>
                         </tr>
                     </tbody>
+                    </tbody>
+                    @endif
                 </table>
-
             </div>
         </form>
     </div>

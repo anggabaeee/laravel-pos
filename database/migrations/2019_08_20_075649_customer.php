@@ -17,7 +17,7 @@ class Customer extends Migration
             $table->bigIncrements('id');
             $table->string('fullname');
             $table->string('email');
-            $table->integer('mobile');
+            $table->string('mobile',100);
             $table->timestamps();
         });
     }
