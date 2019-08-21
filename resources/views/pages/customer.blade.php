@@ -58,7 +58,14 @@
                             <td>{{$p->fullname}}</td>
                             <td>{{$p->email}}</td>
                             <td>{{$p->mobile}}</td>
-                            <td>@mdo</td>
+                            <td><a href="">
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                </a>
+                                |
+                                <a href="">
+                                    <button type="button" class="btn btn-primary">Sales History</button>
+                                </a>
+                            </td>
                         </tr>
                         @endforeach
                         @else
