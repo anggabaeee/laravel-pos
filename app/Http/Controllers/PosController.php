@@ -34,6 +34,9 @@ class PosController extends Controller
         ]);        
         return redirect('/customer');
     }
+    public function editcustomer(){
+        return view('pages.edit.editcustomer');    
+    }
     public function debit(){
         return view('pages.debit');    
     }
