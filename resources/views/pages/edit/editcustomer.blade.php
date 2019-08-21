@@ -4,6 +4,11 @@
     <div class="container">
         <h1>Edit Customer</h1>
         <form method="post" action="/customer/editcustomerupdate/{{$customer->id}}" class="mt-2 master-form">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-danger">Delete</button>
+                </div>
+            </div>
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <div class="row">
@@ -46,5 +51,5 @@
         </a>
     </div>
 </div>
-</section> 
+</section>
 @stop
