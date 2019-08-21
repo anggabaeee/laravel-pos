@@ -8,7 +8,6 @@
     }
 
     .panel button {
-        background-color: #0079c0;
         border-color: #015d93;
         font-family: Arial, Helvetica, sans-serif;
     }
@@ -19,28 +18,43 @@
         <h1>Expenses Category</h1>
         <form action="" class="mt-2 panel">
             <div class="d-flex">
-                <div class="mr-auto bd-highlight">
-                    <button class="btn btn-primary" onclick="location.href='/expensescategory/addexpensescategory'" type="button"
-                        style="padding: 0px 12px;"><i class="icono-plus"></i>
+                <div class="mr-auto">
+                    <button class="btn btn-primary" onclick="location.href='/expensescategory/addexpensescategory'"
+                        type="button" style="padding: 0px 12px;"><i class="icono-plus"></i>
                         add Expenses Category</button></div>
             </div>
             <br>
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive">
-                        <table class="table" style="margin-bottom: 0px;">
+                <div class="table-responsive">
+                        <table class="table table-hover" style="margin-bottom: 0px;">
                             <thead>
                                 <tr class="table-active">
-                                    <th width="15%">Expense Category Name</th>
-                                    <th width="10%">Status</th>
-                                    <th width="10%">Action</th>
+                                    <th >Expense Category Name</th>
+                                    <th >Status</th>
+                                    <th width="20%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td colspan="3">No matching records found</td>
+                                    <td>b</td>
+                                    <td>active</td>
+                                    <td><a href="/customer/editcustomer">
+                                            <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</button>
+                                        </a>
+                                        |
+                                        <a href="#">
+                                            <button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda Yakin ?')">
+                                            <i class="fa fa-trash-o"></i> Delete</button>
+                                        </a>
+                                    </td>
+
+                            <tbody>
+                                <tr style="text-align: center;">
+                                    <td colspan="10">No data available in table</td>
                                 </tr>
+                            </tbody>
                             </tbody>
                         </table>
                     </div>

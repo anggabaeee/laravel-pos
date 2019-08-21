@@ -33,9 +33,7 @@
                         <button class="btn btn-primary">Get Report</button>
                     </div>
                 </div>
-
             </div>
-
         </form>
     </div>
 </div>
