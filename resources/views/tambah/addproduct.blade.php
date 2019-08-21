@@ -24,13 +24,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Name <span style="color: #F00">*</span></label>
-                                <input type="text" name="name" class="form-control">
+                                <input type="text" name="name" class="form-control" required autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Category <span style="color: #F00">*</span></label>
-                                <select name="category" class="form-control">
+                                <select name="category" class="form-control" required>
                                     <option value=""></option>
                                     <option value=""></option>
                                 </select>
@@ -41,13 +41,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Purchase Price (Cost) <span style="color: #F00">*</span></label>
-                                <input type="text" name="cost" class="form-control" autocomplete="off">
+                                <input type="text" name="cost" class="form-control" required autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Retail Price (Price) <span style="color: #F00">*</span></label>
-                                <input type="text" name="price" class="form-control" autocomplete="off">
+                                <input type="text" name="price" class="form-control" required autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-4">

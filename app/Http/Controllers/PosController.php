@@ -150,4 +150,10 @@ class PosController extends Controller
     public function pnlreport(){
         return view('pages.profitReport'); 
     }
+    public function addproduct(){
+        return view('tambah.addproduct'); 
+    }
+    public function addcategory(){
+        return view('tambah.addProductCategory'); 
+    }
 }

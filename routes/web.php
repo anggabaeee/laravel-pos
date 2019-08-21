@@ -31,37 +31,43 @@ Route::get('/listgift','PosController@listgift');
 Route::get('/debit','PosController@debit');
 
 //sales
+Route::get('/todaysales', 'PosController@todaysales');
+Route::get('/openedbil', 'PosController@openedbil');
 
 //reports
+Route::get('/salesreports', 'PosController@salesreports');
+Route::get('/soldbyproduct', 'PosController@soldbyproduct');
 
 //expenses
-
-//profit & loss
-
-// POS
-
-// Return Order
-
-// Inventory
-
-// Products
-
-// Purchase Order
-
-// Setting
-
-Route::get('/inventory','PosController@inventory');
-Route::get('/pos','PosController@pos');
 Route::get('/expenses', 'PosController@expenses');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses');
 Route::get('/expensescategory', 'PosController@expenses_category');
 Route::get('/expensescategory/addexpensescategory', 'PosController@addexpensescategory');
-Route::get('/salesreports', 'PosController@salesreports');
-Route::get('/soldbyproduct', 'PosController@soldbyproduct');
-Route::get('/todaysales', 'PosController@todaysales');
-Route::get('/openedbil', 'PosController@openedbil');
+
+//profit & loss
+Route::get('/pnl/pnlReport','PosController@pnlreport');
+
+// POS
+Route::get('/pos','PosController@pos');
+
+// Return Order
+Route::get('/returnorder/CreateReturn','PosController@createreturn');
+Route::get('/returnorder/ReportReturn','PosController@reportreturn');
+
+// Inventory
+Route::get('/inventory','PosController@inventory');
+
+// Products
+Route::get('/product/ListProduct','PosController@listproduct');
+Route::get('/product/ListProduct/addProduct','PosController@addproduct');
+Route::get('/product/ProductCategory','PosController@productcategory');
+Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory');
+
+// Purchase Order
 Route::get('/purchase_order','PosController@purchase');
 Route::get('/purchase_order/CreatePurchaseOrder','PosController@createpurchase');
+
+// Setting
 Route::get('/setting/payment_method', 'PosController@payment');
 Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment');
 Route::get('/setting/outlets', 'PosController@outlets');
@@ -70,8 +76,10 @@ Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
-Route::get('/product/ListProduct','PosController@listproduct');
-Route::get('/product/ProductCategory','PosController@productcategory');
-Route::get('/returnorder/CreateReturn','PosController@createreturn');
-Route::get('/returnorder/ReportReturn','PosController@reportreturn');
-Route::get('/pnl/pnlReport','PosController@pnlreport');
+
+
+
+
+
+
+

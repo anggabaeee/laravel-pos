@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 15px;">
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Category</a>
+                        <a href="{{ url('/product/ProductCategory/addProductCategory')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Category</a>
                     </div>
                 </div>
                 <div class="row" style="margin-top: 10px;">
@@ -41,7 +41,7 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
+                                        <td><a href="#" class="btn btn-primary">Edit</a></td>
                                     </tr>
                                 </tbody>
                             </table>
