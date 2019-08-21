@@ -143,6 +143,6 @@ class PosController extends Controller
         return view('pages.ReturnOrder.returnreport'); 
     }
     public function pnlreport(){
-        return view('pages.ReturnOrder.returnreport'); 
+        return view('pages.profitReport'); 
     }
 }
