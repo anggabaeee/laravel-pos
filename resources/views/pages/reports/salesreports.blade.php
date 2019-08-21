@@ -42,13 +42,13 @@
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="">Start Date</label>
-                        <input class="form-control" type="date" required>
+                        <input class="form-control datepicker" type="text">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="">End Date</label>
-                        <input class="form-control" type="date" required>
+                        <input class="form-control datepicker" type="text">
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -118,6 +118,13 @@ document.getElementById("btnreport").addEventListener("click", displaytable);
 function displaytable() {
     document.getElementById("display").style.display = "block";
 }
+$(function () {
+        $(".datepicker").datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            todayHighlight: true,
+        });
+    });
 </script>
 </section>
 @stop
