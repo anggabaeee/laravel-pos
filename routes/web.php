@@ -12,6 +12,7 @@
 */
 
 Route::get('/','PosController@login');
+// dashboard
 Route::get('/dashboard','PosController@dashboard');
 
 //customer
@@ -28,6 +29,26 @@ Route::get('/listgift','PosController@listgift');
 
 //debit
 Route::get('/debit','PosController@debit');
+
+//sales
+
+//reports
+
+//expenses
+
+//profit & loss
+
+// POS
+
+// Return Order
+
+// Inventory
+
+// Products
+
+// Purchase Order
+
+// Setting
 
 Route::get('/inventory','PosController@inventory');
 Route::get('/pos','PosController@pos');
