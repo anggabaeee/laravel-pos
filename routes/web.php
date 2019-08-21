@@ -50,6 +50,8 @@ Route::get('/pnl/pnlReport','PosController@pnlreport');
 
 // POS
 Route::get('/pos','PosController@pos');
+Route::get('/posadd','PosController@posadd');
+
 
 // Return Order
 Route::get('/returnorder/CreateReturn','PosController@createreturn');
@@ -79,6 +81,7 @@ Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
 Route::get('/setting/editoutlet', 'PosController@editoutlet');
 Route::get('/setting/edituser', 'PosController@edituser');
+
 
 
 
