@@ -63,7 +63,7 @@
                             <a class=" dropdown-item" href="#" class="">Profit & Loss</a>
                         </div>
                         <div>
-                            <a class="dropdown-item" href="#">Profit & Loss Report</a>
+                            <a class="dropdown-item" href="/pnl/pnlReport">Profit & Loss Report</a>
                         </div>
                     </div>
                 </li>

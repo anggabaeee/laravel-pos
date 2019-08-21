@@ -46,4 +46,4 @@ Route::get('/product/ListProduct','PosController@listproduct');
 Route::get('/product/ProductCategory','PosController@productcategory');
 Route::get('/returnorder/CreateReturn','PosController@createreturn');
 Route::get('/returnorder/ReportReturn','PosController@reportreturn');
-
+Route::get('/pnl/pnlReport','PosController@pnlreport');

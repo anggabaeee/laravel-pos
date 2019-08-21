@@ -147,4 +147,7 @@ class PosController extends Controller
     public function reportreturn(){
         return view('pages.ReturnOrder.returnreport'); 
     }
+    public function pnlreport(){
+        return view('pages.profitReport'); 
+    }
 }
