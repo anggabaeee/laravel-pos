@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 15px;">
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Product</a>
+                        <a href="ListProduct/addProduct" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Product</a>
                     </div>
                 </div>
                 <form action="">
