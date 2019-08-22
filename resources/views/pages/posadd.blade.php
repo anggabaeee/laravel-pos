@@ -19,10 +19,13 @@
     }
 
     .tableku {
+        font-weight: bold;
+        font-size:14px;
+        text-align: right;
         background-color: #373942;
         color: #FFF;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         width: 100%;
     }
 
@@ -42,7 +45,7 @@
 <div class="form mx-3">
     <div class="row">
         <div class="col-sm-4">
-            <div class="kiri ml-2">
+            <div class="kiri">
                 <div class="row">
                     <div class="col-12 mt-2">
                         <button type="button" class="btn btn-primary col-12">Primary</button>
@@ -69,41 +72,51 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12" style="">
-                        <table class="tableku">
-                            <tbody>
-                                <tr style=" text-align: right;">
-                                    <td>Total Items :</td>
-                                    <td>
-                                        <div>
-                                            <div>0.00</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Total :
-                                    </td>
-                                    <td>
-                                        <div>0.00</div>
-                                    </td>
-                                </tr>
-                                <tr style=" text-align: right;">
-                                    <td>TDis. Amt./% :</td>
-                                    <td>
-                                        <div>
-                                        <input type="text" value>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Total :
-                                    </td>
-                                    <td>
-                                        <div>0.00</div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            
-                        </table>
+                    <div class="col-12 tableku" style="">
+                        <div class="row">
+                            <div class="col-3">
+                                <div>Total Items:</div>
+                            </div>
+                            <div class="col-3">
+                                <div>0</div>
+                            </div>
+                            <div class="col-3">
+                                <div>Total:</div>
+                            </div>
+                            <div class="col-3">
+                                <div>0</div>
+                            </div>
+
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-3">
+                                <div>Dis. Amt./% :</div>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" class="mx-4 w-75">
+                            </div>
+                            <div class="col-3">
+                                <div>Tax (7.00%) :</div>
+                            </div>
+                            <div class="col-3">
+                                <div>0</div>
+                            </div>
+                        </div>
+                        <hr style="border-color:white;">    
+                        <div class="row pt-1 mt-1">
+                            <div class="col-6" style="text-align:left;">
+                                <div>Total Payble</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="ml-auto">0</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="row mt-2">
+                <div class="col-4"><button type="button" class="btn btn-danger col-sm-12">Primary</button></div>
+                <div class="col-4"><button type="button" class="btn btn-primary col-sm-12">Primary</button></div>
+                <div class="col-4"><button type="button" class="btn btn-success col-sm-12">Success</button></div>
                 </div>
             </div>
         </div>
