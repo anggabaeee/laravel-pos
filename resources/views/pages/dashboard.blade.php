@@ -36,6 +36,12 @@
         font-size: 1.5rem;
     }
 
+    #chart {
+        max-width: 1000px;
+        height: 400px;
+        margin: 0 auto
+    }
+
 </style>
 <div class="col-sm-9 col-sm-offset-10 col-lg-10 col-lg-offset-2 main">
     <div class="container">
@@ -114,7 +120,83 @@
                 </div>
             </div>
         </div>
+        <div class="card" style="margin-top: 10px">
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 20px">
+                    <div id="chart"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
     </div>
 </div>
+
+<script>
+    Highcharts.chart('chart', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Monthly Sales by Outlets'
+        },
+        xAxis: {
+            categories: [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Amount (SGD)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Uniqlo - Bugis Outlet',
+            data: [20000, 10000, 1500, 4500, null, null, null, null, null, null, null, null]
+
+        }, {
+            name: 'Uniqlo - Changi Outlet',
+            data: [35000, 25000, 1500, 4500, null, null, null, null, null, null, null, null]
+
+        }, {
+            name: 'Uniqlo - Bugis Outlet',
+            data: [20000, 1500, 15000, 45000, null, null, null, null, null, null, null, null]
+
+        }]
+    });
+
+</script>
+
 </section>
 @stop
