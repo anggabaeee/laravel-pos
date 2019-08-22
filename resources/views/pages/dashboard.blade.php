@@ -143,18 +143,18 @@
         },
         xAxis: {
             categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
+                'Jan 2019',
+                'Feb 2019',
+                'Mar 2019',
+                'Apr 2019',
+                'May 2019',
+                'Jun 2019',
+                'Jul 2019',
+                'Aug 2019',
+                'Sep 2019',
+                'Oct 2019',
+                'Nov 2019',
+                'Dec 2019'
             ],
             crosshair: true
         },
