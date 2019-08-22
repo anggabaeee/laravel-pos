@@ -189,10 +189,24 @@ class PosController extends Controller
     public function addcategory(){
         return view('tambah.addProductCategory'); 
     }
+
+    //edit
     public function editoutlet(){
         return view('pages.edit.editoutlet'); 
     }
     public function edituser(){
         return view('pages.edit.edituser'); 
+    }
+    public function changepassword(){
+        return view('pages.edit.changepassword'); 
+    }
+    public function editsupplier(){
+        return view('pages.edit.editsupplier'); 
+    }
+    public function editpayment(){
+        return view('pages.edit.editpayment'); 
+    }
+    public function editexpenses(){
+        return view('pages.edit.editexpenses'); 
     }
 }

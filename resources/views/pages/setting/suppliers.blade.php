@@ -40,8 +40,8 @@
                                     <td>292948484</td>
                                     <td>292948484</td>
                                     <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
-                                    <td><a href="#" style="margin-left: 5px;"><button
-                                            class="btn btn-primary">Edit</button></a></td>
+                                    <td><a href="editsupplier" style="margin-left: 5px;"><button
+                                                class="btn btn-primary">Edit</button></a></td>
                                 </tr>
                             </tbody>
                         </table>

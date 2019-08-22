@@ -42,6 +42,7 @@ Route::get('/soldbyproduct', 'PosController@soldbyproduct');
 //expenses
 Route::get('/expenses', 'PosController@expenses');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses');
+Route::get('/expenses/editexpenses', 'PosController@editexpenses');
 Route::get('/expensescategory', 'PosController@expenses_category');
 Route::get('/expensescategory/addexpensescategory', 'PosController@addexpensescategory');
 
@@ -81,6 +82,10 @@ Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
 Route::get('/setting/editoutlet', 'PosController@editoutlet');
 Route::get('/setting/edituser', 'PosController@edituser');
+Route::get('/setting/ChangePassword', 'PosController@changepassword');
+Route::get('/setting/editsupplier', 'PosController@editsupplier');
+Route::get('/setting/editpayment', 'PosController@editpayment');
+
 
 
 
