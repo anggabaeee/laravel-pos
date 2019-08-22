@@ -40,7 +40,7 @@
                                 <tr>
                                     <td>b</td>
                                     <td>active</td>
-                                    <td><a href="/customer/editcustomer">
+                                    <td><a href="/expenses/editexpensescategory">
                                             <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</button>
                                         </a>
                                         |

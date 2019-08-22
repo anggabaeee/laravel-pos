@@ -101,6 +101,9 @@ class PosController extends Controller
     public function purchase(){
         return view('pages.purchase_order');    
     }
+    public function pnl(){
+        return view('pages.profitnloss'); 
+    }
 
 
     //Settings
@@ -208,5 +211,8 @@ class PosController extends Controller
     }
     public function editexpenses(){
         return view('pages.edit.editexpenses'); 
+    }
+    public function editexpensescategory(){
+        return view('pages.edit.editexpensescategory'); 
     }
 }

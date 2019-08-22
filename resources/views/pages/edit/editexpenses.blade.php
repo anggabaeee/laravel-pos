@@ -93,7 +93,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
-                        <button class="btn btn-primary" style="width: 100%;">Add</button>
+                        <button class="btn btn-primary" style="width: 100%;">Update</button>
                     </div>
                 </div>
             </div>

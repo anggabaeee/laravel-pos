@@ -45,9 +45,11 @@ Route::get('/expenses/addexpenses', 'PosController@addexpenses');
 Route::get('/expenses/editexpenses', 'PosController@editexpenses');
 Route::get('/expensescategory', 'PosController@expenses_category');
 Route::get('/expensescategory/addexpensescategory', 'PosController@addexpensescategory');
+Route::get('/expenses/editexpensescategory', 'PosController@editexpensescategory');
 
 //profit & loss
 Route::get('/pnl/pnlReport','PosController@pnlreport');
+Route::get('/pnl','PosController@pnl');
 
 // POS
 Route::get('/pos','PosController@pos');

@@ -86,7 +86,7 @@
                                 <td>b</td>
                                 <td>active</td>
                                 <td>b</td>
-                                <td><a href="/customer/editcustomer">
+                                <td><a href="/expenses/editexpenses">
                                         <button type="button" class="btn btn-primary">Edit</button>
                                     </a>
                                     |
