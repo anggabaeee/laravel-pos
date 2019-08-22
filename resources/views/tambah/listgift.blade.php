@@ -39,7 +39,7 @@
                     @foreach ($giftcard as $p)
                     <tr>
                         <td>{{$p->cardnumber}}</td>
-                        <td>{{$p->value}}</td>
+                        <td>{!!$p->value!!}</td>
                         <td>{{$p->expiry}}</td>
                         <td>{{$p->status}}</td>
                     </tr>
