@@ -20,7 +20,7 @@
 
     .tableku {
         font-weight: bold;
-        font-size:14px;
+        font-size: 14px;
         text-align: right;
         background-color: #373942;
         color: #FFF;
@@ -35,7 +35,14 @@
         height: 330px;
         overflow: scroll;
     }
-
+    .tablepilihan
+    {
+        background-color: white;
+        width: 100%;
+        height: 450px;
+        overflow: scroll;
+    }
+    }
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -47,7 +54,7 @@
         <div class="col-sm-4">
             <div class="kiri">
                 <div class="row">
-                    <div class="col-12 mt-2">
+                    <div class="col-12 ">
                         <button type="button" class="btn btn-primary col-12">Primary</button>
                     </div>
                 </div>
@@ -102,7 +109,7 @@
                                 <div>0</div>
                             </div>
                         </div>
-                        <hr style="border-color:white;">    
+                        <hr style="border-color:white;">
                         <div class="row pt-1 mt-1">
                             <div class="col-6" style="text-align:left;">
                                 <div>Total Payble</div>
@@ -114,16 +121,35 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                <div class="col-4"><button type="button" class="btn btn-danger col-sm-12">Primary</button></div>
-                <div class="col-4"><button type="button" class="btn btn-primary col-sm-12">Primary</button></div>
-                <div class="col-4"><button type="button" class="btn btn-success col-sm-12">Success</button></div>
+                    <div class="col-4"><button type="button" class="btn btn-danger col-sm-12">Primary</button></div>
+                    <div class="col-4"><button type="button" class="btn btn-primary col-sm-12">Primary</button></div>
+                    <div class="col-4"><button type="button" class="btn btn-success col-sm-12">Success</button></div>
                 </div>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="red">
-                <h1>dwdwd</h1>
-                <h2>dwdwd</h2>
+                <div class="row">
+                    <div class="container">
+                        <div class="col-sm-12 my-2">
+                            <input type="text" class="form-control col-sm-12" placeholder="search your product">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="col-2 ">
+                        <a href="#">
+                        <div class="tableku py-3" style="text-align: center;">
+                        All</div></a>       
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tablepilihan border"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
