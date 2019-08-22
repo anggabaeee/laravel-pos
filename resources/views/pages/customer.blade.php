@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover" id="exampel">
                     <thead>
                         <tr>
                             <th scope="col">Customer Name</th>
@@ -88,4 +88,9 @@
     </div>
 </div>
 </section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#exampel').DataTable();
+    });
+</script>
 @stop
