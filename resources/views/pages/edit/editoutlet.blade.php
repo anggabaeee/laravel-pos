@@ -2,7 +2,7 @@
 @section('content')
 <div class="col-sm-9 col-lg-10">
     <div class="container">
-        <h1>Purchase Order</h1>
+        <h1>Edit Outlet : </h1>
         <div class="card">
             <div class="card-body">
                 <div class="row">
