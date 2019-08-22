@@ -1,5 +1,5 @@
 <section class="navigasi">
-    <nav class="navbar navbar-expand-lg navbar-custom bg-custom fixed-top py-1">
+    <nav class="navbar navbar-expand-lg navbar-custom bg-custom fixed-top">
         <a class="navbar-brand" href="/dashboard">POS - Multi Outlets</a>
         <ul class="navbar-nav  ml-auto ">
             <li class="nav-item dropdown mx-1">
