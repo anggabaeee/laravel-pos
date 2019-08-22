@@ -87,14 +87,28 @@ class PosController extends Controller
         return view('tambah.listgift',['giftcard'=>$giftcard]);    
     }
 
+
+    //pages
     public function inventory(){
         return view('pages.inventory');    
     }
     public function pos(){
         return view('pages.pos');    
-    }    
+    }  
+    public function posadd(){
+        return view('pages.posadd');    
+    }     
+    public function purchase(){
+        return view('pages.purchase_order');    
+    }
+    public function pnl(){
+        return view('pages.profitnloss'); 
+    }
+
+
+    //Settings
     public function payment(){
-        return view('pages.setting.payment_method');    
+    return view('pages.setting.payment_method');    
     }
     public function outlets(){
         return view('pages.setting.outlets');    
@@ -109,14 +123,22 @@ class PosController extends Controller
         return view('pages.setting.system_setting');    
     }
 
+    //expenses
     public function expenses(){
         return view('pages.expenses.expenses');    
     }
-
     public function expenses_category(){
         return view('pages.expenses.expenses_category');
     }
+    public function addexpenses(){
+        return view('tambah.addexpenses'); 
+    }
+    public function addexpensescategory(){
+        return view('tambah.addexpensescategory'); 
+    }
 
+
+    //sales
     public function openedbil(){
         return view('pages.sales.openedbil');    
     }
@@ -124,11 +146,9 @@ class PosController extends Controller
     public function todaysales(){
         return view('pages.sales.todaysales');
     }
-        
-    public function purchase(){
-        return view('pages.purchase_order');    
-    }
 
+
+    //report
     public function salesreports(){
         return view('pages.reports.salesreports');
     }
@@ -136,18 +156,14 @@ class PosController extends Controller
     public function soldbyproduct(){
         return view('pages.reports.soldbyproduct');
     }
- 
+
+    
+    //tambah
     public function addoutlet(){
         return view('tambah.addoutlets'); 
     }
     public function adduser(){
         return view('tambah.adduser'); 
-    }
-    public function addexpenses(){
-        return view('tambah.addexpenses'); 
-    }
-    public function addexpensescategory(){
-        return view('tambah.addexpensescategory'); 
     }
     public function createpurchase(){
         return view('tambah.createpurchase'); 
@@ -175,5 +191,28 @@ class PosController extends Controller
     }
     public function addcategory(){
         return view('tambah.addProductCategory'); 
+    }
+
+    //edit
+    public function editoutlet(){
+        return view('pages.edit.editoutlet'); 
+    }
+    public function edituser(){
+        return view('pages.edit.edituser'); 
+    }
+    public function changepassword(){
+        return view('pages.edit.changepassword'); 
+    }
+    public function editsupplier(){
+        return view('pages.edit.editsupplier'); 
+    }
+    public function editpayment(){
+        return view('pages.edit.editpayment'); 
+    }
+    public function editexpenses(){
+        return view('pages.edit.editexpenses'); 
+    }
+    public function editexpensescategory(){
+        return view('pages.edit.editexpensescategory'); 
     }
 }

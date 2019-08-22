@@ -60,7 +60,7 @@
                     <a class="dropdown-btn">Profit & Loss</a>
                     <div class="dropdown-container {{ Request::is('','') ? "active-block" : "" }}">
                         <div>
-                            <a class=" dropdown-item" href="#" class="">Profit & Loss</a>
+                            <a class=" dropdown-item" href="/pnl" class="">Profit & Loss</a>
                         </div>
                         <div>
                             <a class="dropdown-item" href="/pnl/pnlReport">Profit & Loss Report</a>

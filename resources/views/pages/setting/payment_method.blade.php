@@ -34,7 +34,7 @@
                                 <tr>
                                     <td>Gift Card</td>
                                     <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
-                                    <td><a href="#" style="margin-left: 5px;"><button
+                                    <td><a href="editpayment" style="margin-left: 5px;"><button
                                             class="btn btn-primary">Edit</button></a></td>
                                 </tr>
                             </tbody>

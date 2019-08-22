@@ -42,14 +42,19 @@ Route::get('/soldbyproduct', 'PosController@soldbyproduct');
 //expenses
 Route::get('/expenses', 'PosController@expenses');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses');
+Route::get('/expenses/editexpenses', 'PosController@editexpenses');
 Route::get('/expensescategory', 'PosController@expenses_category');
 Route::get('/expensescategory/addexpensescategory', 'PosController@addexpensescategory');
+Route::get('/expenses/editexpensescategory', 'PosController@editexpensescategory');
 
 //profit & loss
 Route::get('/pnl/pnlReport','PosController@pnlreport');
+Route::get('/pnl','PosController@pnl');
 
 // POS
 Route::get('/pos','PosController@pos');
+Route::get('/posadd','PosController@posadd');
+
 
 // Return Order
 Route::get('/returnorder/CreateReturn','PosController@createreturn');
@@ -77,6 +82,14 @@ Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
+Route::get('/setting/editoutlet', 'PosController@editoutlet');
+Route::get('/setting/edituser', 'PosController@edituser');
+Route::get('/setting/ChangePassword', 'PosController@changepassword');
+Route::get('/setting/editsupplier', 'PosController@editsupplier');
+Route::get('/setting/editpayment', 'PosController@editpayment');
+
+
+
 
 
 

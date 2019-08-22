@@ -42,9 +42,9 @@
                                     <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
 
                                     <td>
-                                        <a href="#" style="padding: 5px, 5px;"><button
+                                        <a href="ChangePassword" style="padding: 5px, 5px;"><button
                                             class="btn btn-primary">Change Password</button></a>
-                                        <a href="#" style="margin-left: 5px;"><button
+                                        <a href="edituser" style="margin-left: 5px;"><button
                                             class="btn btn-primary">Edit</button></a>
                                     </td>
                                 </tr>
