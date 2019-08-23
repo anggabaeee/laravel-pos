@@ -83,7 +83,7 @@ class PosController extends Controller
         return redirect('/addgift')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
     public function listgift(){
-        $giftcard = DB::table('giftcard')->orderBy('id','desc')->paginate(5);
+        $giftcard = DB::table('giftcard')->orderBy('id','desc')->get();
         return view('tambah.listgift',['giftcard'=>$giftcard]);    
     }
     public function listgiftdelete($id){
