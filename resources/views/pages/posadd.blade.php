@@ -6,6 +6,7 @@
         padding: 20px;
         border-radius: 10px;
         text-align: center;
+        margin-top: 100px
     }
 
     .kiri {
@@ -52,12 +53,7 @@
     }
 
 </style>
-<div class="row">
-    <div class="col-sm-12">
-    </div>
-    &nbsp;
-</div>
-<div class="form mx-3">
+<div class="form mx-4">
     <div class="row">
         <div class="col-sm-4">
             <div class="kiri">
