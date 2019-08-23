@@ -165,37 +165,10 @@ class PosController extends Controller
         return view('pages.reports.soldbyproduct');
     }
 
-    
-    //tambah
-    public function addoutlet(){
-        return view('tambah.addoutlets'); 
-    }
-    public function adduser(){
-        return view('tambah.adduser'); 
-    }
-    public function createpurchase(){
-        return view('tambah.createpurchase'); 
-    }
-    public function listproduct(){
-        return view('pages.product.listproduct'); 
-    }
+    // product category
     public function productcategory(){
-        return view('pages.product.productcategory'); 
-    }
-    public function addpayment(){
-        return view('tambah.addPaymentMethod'); 
-    }
-    public function createreturn(){
-        return view('pages.ReturnOrder.createReturnOrder'); 
-    }
-    public function reportreturn(){
-        return view('pages.ReturnOrder.returnreport'); 
-    }
-    public function pnlreport(){
-        return view('pages.profitReport'); 
-    }
-    public function addproduct(){
-        return view('tambah.addproduct'); 
+        $category = DB::table('category')->get();
+        return view('pages.product.productcategory',['category' => $category]); 
     }
     public function addcategory(){
         return view('tambah.addProductCategory'); 
@@ -211,6 +184,38 @@ class PosController extends Controller
         ]);        
         return redirect('/product/ProductCategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
+
+    
+    //tambah
+    public function addoutlet(){
+        return view('tambah.addoutlets'); 
+    }
+    public function adduser(){
+        return view('tambah.adduser'); 
+    }
+    public function createpurchase(){
+        return view('tambah.createpurchase'); 
+    }
+    public function listproduct(){
+        return view('pages.product.listproduct'); 
+    }
+
+    public function addpayment(){
+        return view('tambah.addPaymentMethod'); 
+    }
+    public function createreturn(){
+        return view('pages.ReturnOrder.createReturnOrder'); 
+    }
+    public function reportreturn(){
+        return view('pages.ReturnOrder.returnreport'); 
+    }
+    public function pnlreport(){
+        return view('pages.profitReport'); 
+    }
+    public function addproduct(){
+        return view('tambah.addproduct'); 
+    }
+
 
     //edit
     public function editoutlet(){

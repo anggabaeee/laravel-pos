@@ -19,38 +19,39 @@
                 <div class="row" style="margin-top: 10px;">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="exampel">
                                 <thead>
                                     <tr>
-                                        <th width="10%">Code</th>
-                                        <th width="20%">Name</th>
-                                        <th width="10%">Image</th>
-                                        <th width="15%">Category</th>
-                                        <th width="10%">Cost</th>
-                                        <th width="10%">Price</th>
-                                        <th width="10%">Status</th>
-                                        <th width="15%">Action</th>
+                                        <th width="70%">Name</th>
+                                        <th width="20%">Status</th>
+                                        <th width="10%">Action</th>
                                     </tr>
                                 </thead>
+                                @if(count($category) > 0)
                                 <tbody>
+                                    @foreach ($category as $p)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$p->name}}</td>
+                                        @if ($p->status == 0)
+                                        <td>Not Active</td>
+                                        @else
+                                        <td>Active</td>
+                                        @endif
                                         <td><a href="#" class="btn btn-primary">Edit</a></td>
                                     </tr>
+                                    @endforeach
+                                <tbody>
+                                    @else
+                                <tbody>
+                                    <tr>
+                                        <td valign="top" colspan="5" class="text-center dataTables_empty">No data
+                                            available in table
+                                        </td>
+                                    </tr>
                                 </tbody>
+                                @endif
                             </table>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6" style="float: left; padding-top: 10px;">
-                        Showing 0 to 0 entries
                     </div>
                 </div>
             </div>
@@ -59,4 +60,9 @@
     </div>
 </div>
 </section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#exampel').DataTable();
+    });
+</script>
 @stop

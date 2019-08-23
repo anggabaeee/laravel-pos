@@ -41,7 +41,6 @@
                                                     class="fa fa-times-circle fa-2x" style="color: #F00"></i></a></td>
                                     </tr>
                                     @endforeach
-                                    {{ $giftcard->links() }}
                                 <tbody>
                                     @else
                                 <tbody>
