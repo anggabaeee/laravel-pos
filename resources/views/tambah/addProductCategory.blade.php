@@ -6,12 +6,14 @@
         <h1>Product Category</h1>
         <div class="card">
             <div class="card-body">
-                <form action="">
+                <form action="/product/ProductCategory/addProductCategorystore" method="post">
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Name <span style="color: #F00">*</span></label>
                                 <input type="text" name="name" class="form-control" required autocomplete="off">
+                                <input type="text" name="status" value="1" hidden>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Customer;
 use App\gift_card;
+use App\category;
 
 class PosController extends Controller
 {
@@ -198,6 +199,17 @@ class PosController extends Controller
     }
     public function addcategory(){
         return view('tambah.addProductCategory'); 
+    }
+    public function addProductCategorystore(Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+            'status' => 'required'
+        ]);
+        category::create([
+            'name' => $request->name,
+            'status' => $request->status
+        ]);        
+        return redirect('/product/ProductCategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 
     //edit
