@@ -120,16 +120,13 @@
                 </div>
             </div>
         </div>
-        <div class="card" style="margin-top: 10px">
+        <div class="card">
             <div class="row">
                 <div class="col-md-12" style="margin-top: 20px">
                     <div id="chart"></div>
                 </div>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
     </div>
 </div>
 
