@@ -5,6 +5,12 @@
         <h1>Gift Card</h1>
         <div class="card">
             <div class="card-body">
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
                 <div class="row" style="margin-top: 15px">
                     <div class="col-md-12">
                         <div class="table-responsive">
@@ -23,12 +29,19 @@
                                     @foreach ($giftcard as $p)
                                     <tr>
                                         <td>{{$p->cardnumber}}</td>
-                                        <td>{{$p->value}}</td>
+                                        <td>{{ number_format($p->value, 2, '.', ',') }}</td>
                                         <td>{{$p->expiry}}</td>
-                                        <td>{{$p->status}}</td>
-                                        <td><a href="#" onclick="return confirm('Are you confirm to delete this Gift Card?')"><i class="fa fa-times-circle fa-2x" style="color: #F00"></i></a></td>
+                                        @if ($p->status == 0)
+                                        <td>Not Active</td>
+                                        @else
+                                        <td>Active</td>
+                                        @endif
+                                        <td><a href="/listgiftdelete/{{$p->id}}"
+                                                onclick="return confirm('Are you confirm to delete this Gift Card?')"><i
+                                                    class="fa fa-times-circle fa-2x" style="color: #F00"></i></a></td>
                                     </tr>
                                     @endforeach
+                                    {{ $giftcard->links() }}
                                 <tbody>
                                     @else
                                 <tbody>

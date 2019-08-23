@@ -86,6 +86,11 @@ class PosController extends Controller
         $giftcard = DB::table('giftcard')->orderBy('id','desc')->paginate(5);
         return view('tambah.listgift',['giftcard'=>$giftcard]);    
     }
+    public function listgiftdelete($id){
+        $giftcard = gift_card::find($id);
+        $giftcard ->delete();
+        return redirect('/listgift')->with(['success' => 'Data Berhasil Dihapus']);;
+    }
 
 
     //pages

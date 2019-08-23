@@ -27,6 +27,7 @@ Route::get('/customer/editcustomerdelete/{id}','PosController@editcustomerdelete
 Route::get('/addgift','PosController@addgift');
 Route::post('/addgift/addgiftstore','PosController@addgiftstore');
 Route::get('/listgift','PosController@listgift');
+Route::get('/listgiftdelete/{id}','PosController@listgiftdelete');
 
 //debit
 Route::get('/debit','PosController@debit');
