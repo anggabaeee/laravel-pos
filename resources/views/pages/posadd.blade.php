@@ -13,7 +13,7 @@
 
     }
 
-    .red {
+    .kanan {
         border-style: groove;
         border-radius: 10px;
     }
@@ -35,14 +35,22 @@
         height: 330px;
         overflow: scroll;
     }
-    .tablepilihan
-    {
+
+    .tablepilihan {
         background-color: white;
         width: 100%;
         height: 450px;
         overflow: scroll;
     }
+
+    .isimodel {
+        margin-left: 10px;
+        margin-right: 10px;
+        border-bottom: 1px solid #dddddd;
+        padding-bottom: 10px;
+        font-size: 15px;
     }
+
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -128,7 +136,7 @@
             </div>
         </div>
         <div class="col-sm-8">
-            <div class="red">
+            <div class="kanan">
                 <div class="row">
                     <div class="container">
                         <div class="col-sm-12 my-2">
@@ -139,9 +147,10 @@
                 <div class="row">
                     <div class="container">
                         <div class="col-2 ">
-                        <a href="#">
-                        <div class="tableku py-3" style="text-align: center;">
-                        All</div></a>       
+                            <a href="#">
+                                <div class="tableku py-3" style="text-align: center;">
+                                    All</div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -154,5 +163,92 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModal1">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #373942;">
+            <div class="modal-header">
+                <h1 class="modal-title" style="color:white;">Todays's Sales <span id="datenow"></span></h1>
+            </div>
+            <div class="modal-body" style="background-color:white;">
+                <div class="container mt-2">
+                    <div class="row isimodel" style="color: #5f6468; background-color: #ededed;">
+                        <div class="col-sm-12 mt-3">
+                            Cash : 0.00
+                        </div>
+                    </div>
+                    <div class="row isimodel">
+                        <div class="col-sm-12 mt-3">
+                            Nett : 0.00
+                        </div>
+                    </div>
+                    <div class="row isimodel" style="background-color: #ededed; color: #5f6468;">
+                        <div class="col-sm-12 mt-3">
+                            VISA : 0.00
+                        </div>
+                    </div>
+                    <div class="row isimodel" style="color: #5f6468;">
+                        <div class="col-sm-12 mt-3">
+                            MASTER : 0.00
+                        </div>
+                    </div>
+                    <div class="row isimodel" style="background-color: #005b8a; color:white;">
+                        <div class="col-sm-12 mt-3">
+                            Cheque : 0.00
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal2">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #373942;">
+            <div class="modal-header">
+                <h1 class="modal-title" style="color:white;">Opened Bill</h1>
+            </div>
+            <div class="modal-body" style="background-color:white;">
+                <div class="row">
+                    <div class="col-5 mt-1">
+                    <p>Search Opened Bill :</p>
+                    </div>
+                    <div class="col-7">
+                    <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:white;">
+            <div class="row">
+                    <div class="col-12 isitable">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#myBtn1").click(function () {
+            $("#myModal1").modal();
+        });
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#myBtn2").click(function () {
+            $("#myModal2").modal();
+        });
+    });
+
+</script>
+<script>
+    var d = new Date();
+    var a = d.getDate() + "/";
+    var c = d.getMonth() + 1 + "/" + d.getFullYear();
+    document.getElementById("datenow").innerHTML = a + c;
+
+</script>
 
 @stop
