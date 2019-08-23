@@ -63,7 +63,8 @@
             <div class="kiri">
                 <div class="row">
                     <div class="col-12 ">
-                        <button type="button" class="btn btn-primary col-12">Primary</button>
+                        <button type="button" class="btn btn-primary col-12 py-0" id="myBtn4"><i class="icono-plus"></i>
+                            add Customer</button>
                     </div>
                 </div>
                 <div class="row">
@@ -129,9 +130,11 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-4"><button type="button" class="btn btn-danger col-sm-12">Primary</button></div>
-                    <div class="col-4"><button type="button" class="btn btn-primary col-sm-12">Primary</button></div>
-                    <div class="col-4"><button type="button" class="btn btn-success col-sm-12">Success</button></div>
+                    <div class="col-4"><button type="button" class="btn btn-danger col-sm-12">Cancel</button></div>
+                    <div class="col-4"><button type="button" class="btn btn-primary col-sm-12" id="myBtn3">Hold</button>
+                    </div>
+                    <div class="col-4"><button type="button" class="btn btn-success col-sm-12"
+                            id="myBtn5">Payment</button></div>
                 </div>
             </div>
         </div>
@@ -211,17 +214,172 @@
             <div class="modal-body" style="background-color:white;">
                 <div class="row">
                     <div class="col-5 mt-1">
-                    <p>Search Opened Bill :</p>
+                        <p>Search Opened Bill :</p>
                     </div>
                     <div class="col-7">
-                    <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                        <input type="text" class="form-control col-sm-12" placeholder="ref.number">
                     </div>
                 </div>
             </div>
             <div class="modal-footer" style="background-color:white;">
-            <div class="row">
+                <div class="row">
                     <div class="col-12 isitable">
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal3">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #373942;">
+            <div class="modal-header">
+                <h1 class="modal-title" style="color:white;">Opened Bill</h1>
+            </div>
+            <div class="modal-body" style="background-color:white;">
+                <div class="row">
+                    <div class="col-5 mt-1">
+                        <p>Customers</p>
+                    </div>
+                    <div class="col-7">
+                        <select class="form-control" type="text">
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 mt-1">
+                        <p>Hold Bill Ref. Number</p>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="background-color:white;">
+            <div class="d-flex">
+                <div class="ml-auto">
+                    <button type="button" class="btn btn-success py-1">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal4">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #373942;">
+            <div class="modal-header">
+                <h1 class="modal-title" style="color:white;">Add Customer</h1>
+            </div>
+            <div class="modal-body" style="background-color:white;">
+                <div class="row">
+                    <div class="col-5 mt-1">
+                        <p>Customer Name</p>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control col-sm-12">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 mt-1">
+                        <p>Customer Email</p>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control col-sm-12">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 mt-1">
+                        <p>Customer Mobile</p>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control col-sm-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="background-color:white;">
+            <div class="d-flex">
+                <div class="ml-auto">
+                    <button type="button" class="btn btn-success py-1">Add Customer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal5">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #373942;">
+            <div class="modal-header">
+                <h1 class="modal-title" style="color:white;">Add Customer</h1>
+            </div>
+            <div class="modal-body" style="background-color:white;">
+                <div class="row">
+                    <div class="col-6 mt-1">
+                        <p>Customer </p>
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control" type="text">
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mt-1">
+                        <p>Total Payable Amount</p>
+                    </div>
+                    <div class="col-6">
+                        <span>00.0</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mt-1">
+                        <p>Total Purchased Items</p>
+                    </div>
+                    <div class="col-6">
+                        <span>00.0</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mt-1">
+                        <p>Paid By:</p>
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control" type="text">
+                            <option value="">choice</option>
+                            <option value="cash">cash</option>
+                            <option value="Nett">Nett</option>
+                            <option value="Visa">Visa</option>
+                            <option value="Master Card">Master Card</option>
+                            <option value="Cheque">Master Card</option>
+                            <option value="Debit">Debit</option>
+                            <option value="GiftCard">Gift Card</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mt-1">
+                        <p>Paid Amount:/p>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control col-sm-12">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 mt-1">
+                        <p>Return Change :</p>
+                    </div>
+                    <div class="col-6">
+                        <span>00.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="background-color:white;">
+            <div class="d-flex">
+                <div class="ml-auto">
+                    <button type="button" class="btn btn-success py-1" hidden="true">Add Customer</button>
                 </div>
             </div>
         </div>
@@ -243,6 +401,33 @@
     });
 
 </script>
+<script>
+    $(document).ready(function () {
+        $("#myBtn3").click(function () {
+            $("#myModal3").modal();
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#myBtn4").click(function () {
+            $("#myModal4").modal();
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#myBtn5").click(function () {
+            $("#myModal5").modal();
+        });
+    });
+
+</script>
+
 <script>
     var d = new Date();
     var a = d.getDate() + "/";
