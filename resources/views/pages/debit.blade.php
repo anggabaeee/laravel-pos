@@ -58,13 +58,7 @@
                             <td>wt</td>
                             <td>wt</td>
                             <td><a href="/customer/editcustomer">
-                                    <button type="button" class="btn btn-primary">Edit</button>
-                                </a>
-                                |
-                                <a href="#">
-                                    <button type="button" class="btn btn-danger"
-                                        onclick="return confirm('Apakah anda Yakin ?')">
-                                        <i class="fa fa-trash-o"></i> Delete</button>
+                                    <button type="button" class="btn btn-primary">Make Payment</button>
                                 </a>
                             </td>
                         </tr>

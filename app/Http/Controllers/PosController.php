@@ -109,7 +109,9 @@ class PosController extends Controller
     public function pnl(){
         return view('pages.profitnloss'); 
     }
-
+    public function makepayment(){
+        return view('pages.makepayment'); 
+    }
 
     //Settings
     public function payment(){

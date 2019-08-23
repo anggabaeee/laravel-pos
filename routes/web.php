@@ -31,6 +31,7 @@ Route::get('/listgiftdelete/{id}','PosController@listgiftdelete');
 
 //debit
 Route::get('/debit','PosController@debit');
+Route::get('/debit/makepayment','PosController@makepayment');
 
 //sales
 Route::get('/todaysales', 'PosController@todaysales');

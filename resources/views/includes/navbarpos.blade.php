@@ -12,10 +12,10 @@
                 </div>
             </li>
             <li class="nav-item mx-1">
-                <button type="button" class="btn btn-success mt-1 py-1">Today's Sales</button>
+                <button type="button" class="btn btn-success mt-1 py-1" id="myBtn1">Today's Sales</button>
             </li>
             <li class="nav-item mx-1">
-                <button type="button" class="btn btn-danger mt-1 py-1">Opened Hold</button>
+                <button type="button" class="btn btn-danger mt-1 py-1" id="myBtn2">Opened Hold</button>
             </li>
             <li class="nav-item mx-1">
                 <i>
