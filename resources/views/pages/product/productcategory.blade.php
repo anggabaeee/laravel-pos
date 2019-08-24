@@ -35,7 +35,7 @@
                                         @if ($p->status == 0)
                                         <td>Not Active</td>
                                         @else
-                                        <td>Active</td>
+                                        <td style="color: green;"><strong>Active</strong></td>
                                         @endif
                                         <td><a href="#" class="btn btn-primary">Edit</a></td>
                                     </tr>

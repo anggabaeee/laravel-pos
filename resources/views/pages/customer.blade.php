@@ -90,7 +90,9 @@
 </section>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#exampel').DataTable();
+        $('#exampel').DataTable({
+            "searching": false
+        });
     });
 </script>
 @stop
