@@ -31,8 +31,10 @@
                             <div class="form-group">
                                 <label>Product Category <span style="color: #F00">*</span></label>
                                 <select name="category" class="form-control" required>
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                    <option disabled selected value> -- select an option -- </option>
+                                    @foreach ($category as $p)
+                                    <option value="{{$p->name}}">{{$p->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -213,10 +213,9 @@ class PosController extends Controller
         return view('pages.profitReport'); 
     }
     public function addproduct(){
-        return view('tambah.addproduct'); 
+        $category = DB::table('category')->get();
+        return view('tambah.addproduct',['category' => $category]); 
     }
-
-
     //edit
     public function editoutlet(){
         return view('pages.edit.editoutlet'); 
