@@ -8,6 +8,7 @@ use App\Customer;
 use App\gift_card;
 use App\category;
 use App\expensescategory;
+use App\product;
 
 class PosController extends Controller
 {
@@ -204,7 +205,7 @@ class PosController extends Controller
 
     public function addProductstore(Request $request){
         $this->validate($request,[
-            'code' => 'required',
+            'code' => 'required|unique:product,code',
             'name' => 'required',
             'category' => 'required',
             'purchase_price' => 'required',
@@ -212,16 +213,16 @@ class PosController extends Controller
             'thumbnail' => 'required',
             'status' => 'required'
         ]);
-        koo::create([
+        product::create([
             'code' => $request->code,
             'name' => $request->name,
             'category' => $request->category,
-            'purchase_price	' => $request->purchase_price,
+            'purchase_price' => $request->purchase_price,
             'retail_price' => $request->retail_price,
             'thumbnail' => $request->thumbnail,
             'status' => $request->status
-        ]);             
-        return redirect('/'); 
+        ]);        
+        return redirect('/product/ProductCategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 
     

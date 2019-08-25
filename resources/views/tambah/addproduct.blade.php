@@ -15,17 +15,25 @@
             <div class="card-body">
                 <form action="/product/ListProduct/addProductstore" method="post">
                     {{ csrf_field() }}
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Product Code <span style="color: #F00">*</span></label>
-                                <input name="code" type="text" class="form-control">
+                                <input type="text" name="code" class="form-control" required autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Name <span style="color: #F00">*</span></label>
-                                <input type="text" name="name" class="form-control">
+                                <input type="text" name="name" class="form-control" required autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -44,43 +52,46 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Purchase Price (Cost) <span style="color: #F00">*</span></label>
-                                <input type="text" name="purchase_price" class="form-control">
+                                <input type="text" name="retail_price" class="form-control" required autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Retail Price (Price) <span style="color: #F00">*</span></label>
-                                <input type="text" name="retail_price" class="form-control">
+                                <input type="text" name="purchase_price" class="form-control" required
+                                    autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Image <span style="color: #F00">*</span></label>
                                 <div class="custom-file">
-                                    <input type="file" name="thumbnail" class="custom-file-input" id="CustomFile">
-                                    <label class="custom-file-label" for="CustomFile">choose file</label>
+                                    <input type="file" name="thumbnail">
+                                    {{-- <label class="custom-file-label" for="CustomFile">choose file</label> --}}
                                 </div>
                             </div>
                         </div>
+                        <input type="text" name="status" value="1" hidden>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="Add" style="width: 80%">
-                            </div>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
-        <div class="row" style="margin-top: 15px;">
-            <div class="col-md-2">
-                <a href="{{ url ('product/ListProduct/')}}">
-                    <button class="btn btn-secondary" style="width: 60%"><i class="fa fa-chevron-left"></i> Back
-                    </button>
-                </a>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Add" style="width: 80%">
             </div>
         </div>
+    </div>
+    </form>
+</div>
+</div>
+<div class="row" style="margin-top: 15px;">
+    <div class="col-md-2">
+        <a href="{{ url ('product/ListProduct/')}}">
+            <button class="btn btn-secondary" style="width: 60%"><i class="fa fa-chevron-left"></i> Back
+            </button>
+        </a>
     </div>
 </div>
 <script>
