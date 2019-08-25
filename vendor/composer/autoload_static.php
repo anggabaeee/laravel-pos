@@ -406,6 +406,7 @@ class ComposerStaticInitbdce83d62a30c72a4aeb006a83b1a87d
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\category' => __DIR__ . '/../..' . '/app/category.php',
+        'App\\expensescategory' => __DIR__ . '/../..' . '/app/expensescategory.php',
         'App\\gift_card' => __DIR__ . '/../..' . '/app/gift_card.php',
         'App\\product' => __DIR__ . '/../..' . '/app/product.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

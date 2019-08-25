@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Customer;
 use App\gift_card;
 use App\category;
-use App\product;
+use App\expensescategory;
 
 class PosController extends Controller
 {
@@ -145,6 +145,17 @@ class PosController extends Controller
     public function addexpensescategory(){
         return view('tambah.addexpensescategory'); 
     }
+    public function addexpensescategorystore(Request $request){
+        $this->validate($request,[
+        'name' => 'required',
+        'status' => 'required'
+    ]);
+    expensescategory::create([
+        'name' => $request->name,
+        'status' => $request->status
+    ]);        
+    return redirect('/expensescategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
+    }
 
 
     //sales
@@ -195,12 +206,12 @@ class PosController extends Controller
             'code' => 'required',
             'name' => 'required',
             'category' => 'required',
-            'purchase_price	' => 'required',
+            'purchase_price' => 'required',
             'retail_price' => 'required',
             'thumbnail' => 'required',
             'status' => 'required'
         ]);
-        product::create([
+        koo::create([
             'code' => $request->code,
             'name' => $request->name,
             'category' => $request->category,
@@ -209,7 +220,7 @@ class PosController extends Controller
             'thumbnail' => $request->thumbnail,
             'status' => $request->status
         ]);             
-        return redirect('/product/ListProduct'); 
+        return redirect('/'); 
     }
 
     

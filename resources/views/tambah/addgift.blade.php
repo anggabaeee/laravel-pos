@@ -4,13 +4,13 @@
     <div class="container">
         <h1>Add Gift Card</h1>
         <form action="/addgift/addgiftstore" method="post" class="mt-2 master-form option" id="credit">
+            {{ csrf_field() }}
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <strong>{{ $message }}</strong>
             </div>
             @endif
-            {{ csrf_field() }}
             <div class="row">
                 <div class="col">
                     <h2>Please fill in the information below</h2>

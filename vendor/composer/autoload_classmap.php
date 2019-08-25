@@ -32,6 +32,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\category' => $baseDir . '/app/category.php',
+    'App\\expensescategory' => $baseDir . '/app/expensescategory.php',
     'App\\gift_card' => $baseDir . '/app/gift_card.php',
     'App\\product' => $baseDir . '/app/product.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

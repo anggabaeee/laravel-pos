@@ -17,27 +17,27 @@
 <div class="col-sm-9 col-sm-offset-10 col-lg-10 col-lg-offset-2 main">
     <div class="container mt-3">
         <h1>Add New Expenses</h1>
-        <form action="" class="mt-2 panel">
+        <form action="/expensescategory/addexpensescategorystore" method="POST" class="mt-2 panel">
+            {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Expense Category Name
                             <span style="color: #F00">*</span>
                         </label>
-                        <input class="form-control" type="text" required>
+                        <input name="name" class="form-control" type="text" required>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-
                         <label for="">Status
                             <span style="color: #F00">*</span>
                         </label>
-                        <select class="form-control" type="text" required>
+                        <select name="status" class="form-control" type="text" required>
                             <option value="1">Active</option>
-                            <option value="2">Inactive</option>
+                            <option value="0">Inactive</option>
                         </select>
                     </div>
                 </div>
