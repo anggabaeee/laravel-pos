@@ -67,7 +67,8 @@ Route::get('/inventory','PosController@inventory');
 
 // Products
 Route::get('/product/ListProduct','PosController@listproduct');
-Route::get('/product/ListProduct/addProduct','PosController@addproduct');
+Route::get('/product/ListProduct/addProduct','PosController@addProduct');
+Route::post('/product/ListProduct/addProductstore','PosController@addProductstore');
 Route::get('/product/ProductCategory','PosController@productcategory');
 Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory');
 Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore');

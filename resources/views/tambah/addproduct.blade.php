@@ -13,27 +13,28 @@
         <h1>Add Product</h1>
         <div class="card">
             <div class="card-body">
-                <form action="">
+                <form action="/product/ListProduct/addProductstore" method="post">
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Product Code <span style="color: #F00">*</span></label>
-                                <input type="text" name="code" class="form-control" autocomplete="off" required>
+                                <input name="code" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Name <span style="color: #F00">*</span></label>
-                                <input type="text" name="name" class="form-control" required autocomplete="off">
+                                <input type="text" name="name" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Category <span style="color: #F00">*</span></label>
-                                <select name="category" class="form-control" required>
+                                <select name="category" class="form-control">
                                     <option disabled selected value> -- select an option -- </option>
                                     @foreach ($category as $p)
-                                    <option value="{{$p->name}}">{{$p->name}}</option>
+                                    <option value="{{$p->id}}">{{$p->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -43,20 +44,20 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Purchase Price (Cost) <span style="color: #F00">*</span></label>
-                                <input type="text" name="cost" class="form-control" required autocomplete="off">
+                                <input type="text" name="purchase_price" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Retail Price (Price) <span style="color: #F00">*</span></label>
-                                <input type="text" name="price" class="form-control" required autocomplete="off">
+                                <input type="text" name="retail_price" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Image <span style="color: #F00">*</span></label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="CustomFile" required>
+                                    <input type="file" name="thumbnail" class="custom-file-input" id="CustomFile">
                                     <label class="custom-file-label" for="CustomFile">choose file</label>
                                 </div>
                             </div>

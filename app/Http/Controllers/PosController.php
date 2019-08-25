@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Customer;
 use App\gift_card;
 use App\category;
+use App\product;
 
 class PosController extends Controller
 {
@@ -184,6 +185,32 @@ class PosController extends Controller
         ]);        
         return redirect('/product/ProductCategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
+    public function addProduct(){
+        $category = category::all();
+        return view('tambah.addproduct',['category' => $category]);
+    }
+
+    public function addProductstore(Request $request){
+        $this->validate($request,[
+            'code' => 'required',
+            'name' => 'required',
+            'category' => 'required',
+            'purchase_price	' => 'required',
+            'retail_price' => 'required',
+            'thumbnail' => 'required',
+            'status' => 'required'
+        ]);
+        product::create([
+            'code' => $request->code,
+            'name' => $request->name,
+            'category' => $request->category,
+            'purchase_price	' => $request->purchase_price,
+            'retail_price' => $request->retail_price,
+            'thumbnail' => $request->thumbnail,
+            'status' => $request->status
+        ]);             
+        return redirect('/product/ListProduct'); 
+    }
 
     
     //tambah
@@ -211,10 +238,6 @@ class PosController extends Controller
     }
     public function pnlreport(){
         return view('pages.profitReport'); 
-    }
-    public function addproduct(){
-        $category = DB::table('category')->get();
-        return view('tambah.addproduct',['category' => $category]); 
     }
     //edit
     public function editoutlet(){
