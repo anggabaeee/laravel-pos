@@ -24,43 +24,58 @@
                         add Expenses Category</button></div>
             </div>
             <br>
-
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-12">
-                <div class="table-responsive">
-                        <table class="table table-hover" style="margin-bottom: 0px;">
+                    <div class="table-responsive">
+                        <table class="table table-hover" style="margin-bottom: 0px;" id="exampel">
                             <thead>
                                 <tr class="table-active">
-                                    <th >Expense Category Name</th>
-                                    <th >Status</th>
+                                    <th>Expense Category Name</th>
+                                    <th>Status</th>
                                     <th width="20%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($expensescategory as $p)
                                 <tr>
-                                    <td>b</td>
-                                    <td>active</td>
+                                    <td>{{$p->name}}</td>
+                                    @if ($p->status == 0)
+                                    <td>Inactive</td>
+                                    @else
+                                    <td>Active</td>
+                                    @endif
                                     <td><a href="/expenses/editexpensescategory">
-                                            <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</button>
+                                            <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i>
+                                                Edit</button>
                                         </a>
                                         |
                                         <a href="#">
-                                            <button type="button" class="btn btn-danger" onclick="return confirm('Apakah anda Yakin ?')">
-                                            <i class="fa fa-trash-o"></i> Delete</button>
+                                            <button type="button" class="btn btn-danger"
+                                                onclick="return confirm('Apakah anda Yakin ?')">
+                                                <i class="fa fa-trash-o"></i> Delete</button>
                                         </a>
                                     </td>
-
-                            <tbody>
-                                <tr style="text-align: center;">
-                                    <td colspan="10">No data available in table</td>
                                 </tr>
-                            </tbody>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#exampel').DataTable();
+    });
 
+</script>
 </section>
 @stop

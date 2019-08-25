@@ -137,7 +137,8 @@ class PosController extends Controller
         return view('pages.expenses.expenses');    
     }
     public function expenses_category(){
-        return view('pages.expenses.expenses_category');
+        $expensescategory = DB::table('expensescategory')->get();
+        return view('pages.expenses.expenses_category',['expensescategory'=> $expensescategory]);
     }
     public function addexpenses(){
         return view('tambah.addexpenses'); 
