@@ -198,6 +198,11 @@ class PosController extends Controller
         ]);        
         return redirect('/product/ProductCategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
+
+    public function listproduct(){
+        $product = DB::table('product')->get();
+        return view('pages.product.listproduct',['product' => $product]); 
+    }
     public function addProduct(){
         $category = category::all();
         return view('tambah.addproduct',['category' => $category]);
@@ -207,7 +212,7 @@ class PosController extends Controller
         $this->validate($request,[
             'code' => 'required|unique:product,code',
             'name' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'purchase_price' => 'required',
             'retail_price' => 'required',
             'thumbnail' => 'required',
@@ -216,13 +221,13 @@ class PosController extends Controller
         product::create([
             'code' => $request->code,
             'name' => $request->name,
-            'category' => $request->category,
+            'category_id' => $request->category_id,
             'purchase_price' => $request->purchase_price,
             'retail_price' => $request->retail_price,
             'thumbnail' => $request->thumbnail,
             'status' => $request->status
         ]);        
-        return redirect('/product/ProductCategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
+        return redirect('/product/ListProduct')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 
     
@@ -235,9 +240,6 @@ class PosController extends Controller
     }
     public function createpurchase(){
         return view('tambah.createpurchase'); 
-    }
-    public function listproduct(){
-        return view('pages.product.listproduct'); 
     }
 
     public function addpayment(){

@@ -13,7 +13,8 @@
             <div class="card-body">
                 <div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 15px;">
                     <div class="col-md-12">
-                        <a href="ListProduct/addProduct" class="btn btn-primary"><i class="fa fa-plus"></i> Add New Product</a>
+                        <a href="ListProduct/addProduct" class="btn btn-primary"><i class="fa fa-plus"></i> Add New
+                            Product</a>
                     </div>
                 </div>
                 <form action="">
@@ -50,7 +51,7 @@
                 <div class="row" style="margin-top: 10px;">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="exampel">
                                 <thead>
                                     <tr>
                                         <th width="10%">Code</th>
@@ -64,24 +65,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($product as $p)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{$p->code}}</td>
+                                        <td>{{$p->name}}</td>
+                                        <td>{{$p->thumbnail}}</td>
+                                        <td>{{$p->category_id}}</td>
+                                        <td>{{$p->retail_price}}</td>
+                                        <td>{{$p->purchase_price}}</td>
+                                        <td>{{$p->status}}</td>
                                         <td></td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6" style="float: left; padding-top: 10px;">
-                        Showing 0 to 0 entries
                     </div>
                 </div>
             </div>
@@ -90,4 +88,10 @@
     </div>
 </div>
 </section>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#exampel').DataTable();
+    });
+
+</script>
 @stop

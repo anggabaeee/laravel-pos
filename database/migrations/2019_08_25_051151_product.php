@@ -17,7 +17,7 @@ class Product extends Migration
             $table->bigIncrements('id');
             $table->string('code',100)->unique();
             $table->string('name',100);
-            $table->string('category');
+            $table->string('category_id');
             $table->double('purchase_price', 11,2);
             $table->double('retail_price', 11,2);
             $table->string('thumbnail', 255);	            
