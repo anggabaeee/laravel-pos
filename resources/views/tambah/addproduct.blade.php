@@ -33,16 +33,16 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Name <span style="color: #F00">*</span></label>
-                                <input type="text" name="name" class="form-control" required autocomplete="off">
+                                <input type="text" name="name_product" class="form-control" required autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Category <span style="color: #F00">*</span></label>
-                                <select name="category" class="form-control">
+                                <select name="category_name" class="form-control">
                                     <option disabled selected value> -- select an option -- </option>
                                     @foreach ($category as $p)
-                                    <option value="{{$p->id}}">{{$p->name}}</option>
+                                    <option value="{{$p->id}}">{{$p->category_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <label>Product Image <span style="color: #F00">*</span></label>
                                 <div class="custom-file">
-                                    <input type="file" name="thumbnail">
+                                    <input type="text" name="thumbnail">
                                     {{-- <label class="custom-file-label" for="CustomFile">choose file</label> --}}
                                 </div>
                             </div>

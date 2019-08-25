@@ -12,7 +12,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Name <span style="color: #F00">*</span></label>
-                                <input type="text" name="name" class="form-control" required autocomplete="off">
+                                <input type="text" name="category_name" class="form-control" required autocomplete="off">
                                 <input type="text" name="status" value="1" hidden>
                             </div>
                         </div>

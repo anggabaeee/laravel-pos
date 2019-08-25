@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 use App\Customer;
 use App\gift_card;
 use App\category;
@@ -189,18 +190,21 @@ class PosController extends Controller
     }
     public function addProductCategorystore(Request $request){
         $this->validate($request,[
-            'name' => 'required',
+            'category_name' => 'required',
             'status' => 'required'
         ]);
         category::create([
-            'name' => $request->name,
+            'category_name' => $request->category_name,
             'status' => $request->status
         ]);        
         return redirect('/product/ProductCategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 
     public function listproduct(){
-        $product = DB::table('product')->get();
+        // $product = product::all();
+        $product = DB::table('product')
+        ->join('category', 'category.id', '=', 'product.category_name')
+        ->get();
         return view('pages.product.listproduct',['product' => $product]); 
     }
     public function addProduct(){
@@ -211,8 +215,8 @@ class PosController extends Controller
     public function addProductstore(Request $request){
         $this->validate($request,[
             'code' => 'required|unique:product,code',
-            'name' => 'required',
-            'category_id' => 'required',
+            'name_product' => 'required',
+            'category_name' => 'required',
             'purchase_price' => 'required',
             'retail_price' => 'required',
             'thumbnail' => 'required',
@@ -220,8 +224,8 @@ class PosController extends Controller
         ]);
         product::create([
             'code' => $request->code,
-            'name' => $request->name,
-            'category_id' => $request->category_id,
+            'name_product' => $request->name_product,
+            'category_name' => $request->category_name,
             'purchase_price' => $request->purchase_price,
             'retail_price' => $request->retail_price,
             'thumbnail' => $request->thumbnail,

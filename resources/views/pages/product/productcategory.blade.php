@@ -31,7 +31,7 @@
                                 <tbody>
                                     @foreach ($category as $p)
                                     <tr>
-                                        <td>{{$p->name}}</td>
+                                        <td>{{$p->category_name}}</td>
                                         @if ($p->status == 0)
                                         <td>Not Active</td>
                                         @else
