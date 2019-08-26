@@ -73,7 +73,11 @@
                                         <td>{{$p->category_name}}</td>
                                         <td>{{$p->retail_price}}</td>
                                         <td>{{$p->purchase_price}}</td>
-                                        <td>{{$p->status}}</td>
+                                        @if ($p->status == 0)
+                                        <td>Not Active</td>
+                                        @else
+                                        <td>Active</td>
+                                        @endif
                                         <td></td>
                                     </tr>
                                     @endforeach
