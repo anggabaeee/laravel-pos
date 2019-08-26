@@ -83,12 +83,13 @@ Route::get('/purchase_order/CreatePurchaseOrder','PosController@createpurchase')
 Route::get('/setting/payment_method', 'PosController@payment');
 Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment');
 Route::get('/setting/outlets', 'PosController@outlets');
+Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
+Route::post('/setting/outlets/addoutletstore','PosController@addoutletstore');
+Route::get('/setting/editoutlet', 'PosController@editoutlet');
 Route::get('/setting/users', 'PosController@users');
 Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/system_setting', 'PosController@system');
-Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
 Route::get('/setting/users/adduser', 'PosController@adduser');
-Route::get('/setting/editoutlet', 'PosController@editoutlet');
 Route::get('/setting/edituser', 'PosController@edituser');
 Route::get('/setting/ChangePassword', 'PosController@changepassword');
 Route::get('/setting/editsupplier', 'PosController@editsupplier');
