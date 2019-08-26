@@ -35,6 +35,7 @@ return array(
     'App\\expensescategory' => $baseDir . '/app/expensescategory.php',
     'App\\gift_card' => $baseDir . '/app/gift_card.php',
     'App\\product' => $baseDir . '/app/product.php',
+    'App\\users' => $baseDir . '/app/users.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
     'BeyondCode\\DumpServer\\DumpServerServiceProvider' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
     'BeyondCode\\DumpServer\\Dumper' => $vendorDir . '/beyondcode/laravel-dump-server/src/Dumper.php',

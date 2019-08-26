@@ -1,5 +1,14 @@
 @extends('layouts.default-sidebar')
 @section('content')
+<style>
+#cheqNum{
+    display: none;
+}
+
+#cardNum{
+    display: none;
+}
+</style>
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Make Payment for Sale Id : </h1>
@@ -113,34 +122,96 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row">
                         <form action="">
-                                <div class="row">
-                                    <div class="col-md-6" style="text-align: right;">
-                                        <label>Payment Methods</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select name="paymentmethod" class="form-control">
-                                            <option value=""></option>
-                                        </select>
-                                    </div>
+                            <div class="row" style="margin-top: 15px">
+                                <div class="col-md-6" style="text-align: right;">
+                                    <b style="color">Payment Methods</b>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6" style="text-align: right;">
-                                        <label>Payment Amount</label>
-                                    </div>
-                                    <div class="col-md-6" style="text-align: right;">
-                                        <input type="text" name="amount" class="form-control" placeholder="0.00">
-                                    </div>
+                                <div class="col-md-6">
+                                    <select name="paymentmethod" class="form-control"
+                                        style="border: 1px solid; color: #010101" onchange="chkmethod(this.value)">
+                                        <option disabled selected value>-- Select Payment Method --</option>
+                                        <option value="1">Cheque</option>
+                                        <option value="2">Master Card</option>
+                                        <option value="3">Visa</option>
+                                        <option value="4">Cash</option>
+                                    </select>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="row" id="cheqNum" style="margin-top: 10px">
+                                <div class="col-md-6" style="text-align: right;">
+                                    <b>Cheque Number :</b>
+                                </div>
+                                <div class="col-md-6" style="text-align: right;">
+                                    <input type="text" id="cheque" name="cheque" class="form-control" placeholder="Cheque Number"
+                                        style="border: 1px solid; color: #010101" required>
+                                </div>
+                            </div>
+                            <div class="row" id="cardNum" style="margin-top: 10px">
+                                <div class="col-md-6" style="text-align: right;">
+                                    <b>Card Number :</b>
+                                </div>
+                                <div class="col-md-6" style="text-align: right;">
+                                    <input type="text" id="cardnumber" name="card" class="form-control" placeholder="Card Number"
+                                        style="border: 1px solid; color: #010101" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                                <div class="col-md-6" style="text-align: right;">
+                                    <b>Payment Amount :</b>
+                                </div>
+                                <div class="col-md-6" style="text-align: right;">
+                                    <input type="text" name="amount" class="form-control" placeholder="0.00"
+                                        style="border: 1px solid; color: #010101" required>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 20px">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <input type="submit" class="btn btn-primary" value="Submit Payment">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="col-sm-2"></div>
                 </div>
             </div>
         </div>
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-2">
+                <a href="/debit"><button class="btn btn-secondary" style="width: 80%"><i class="fa fa-chevron-left">
+                            Back</i></button></a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
     </div>
 </div>
+
+<script>
+    function chkmethod(val) {
+        if (val=="1") {
+            document.getElementById("cheqNum").style.display = "flex";
+           
+            document.getElementById("cardNum").style.display = "none";
+            document.getElementById("cardnumber").required = false;
+        }
+        else if ((val=="2") || (val=="3")) {
+        document.getElementById("cardNum").style.display = "flex";
+
+        document.getElementById("cheqNum").style.display = "none";
+        document.getElementById("cheque").required = false;
+    }
+    else {
+        document.getElementById("cardNum").style.display = "none";
+        document.getElementById("cardnumber").required = false;
+
+        document.getElementById("cheqNum").style.display = "none";
+        document.getElementById("cheque").required = false;
+    }
+    }
+
+</script>
 </section>
 @stop
