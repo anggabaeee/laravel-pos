@@ -118,7 +118,8 @@ class PosController extends Controller
         return view('pages.inventory');    
     }
     public function pos(){
-        return view('pages.pos');    
+        $outlets = DB::table('outlets')->get();
+        return view('pages.pos',['outlets'=>$outlets]);    
     }  
     public function posadd(){
         return view('pages.posadd');    
@@ -137,6 +138,7 @@ class PosController extends Controller
     public function payment(){
     return view('pages.setting.payment_method');    
     }
+    // outlet
     public function outlets(){
         $outlets = DB::table('outlets')->get();
         return view('pages.setting.outlets',['outlets'=>$outlets]);    
@@ -303,7 +305,8 @@ class PosController extends Controller
         return view('tambah.adduser'); 
     }
     public function createpurchase(){
-        return view('tambah.createpurchase'); 
+        $outlets = DB::table('outlets')->get();
+        return view('tambah.createpurchase',['outlets'=> $outlets]); 
     }
 
     public function addpayment(){

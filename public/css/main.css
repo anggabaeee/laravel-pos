@@ -114,3 +114,10 @@ li>a:hover,
 .active-block {
     display: block;
 }
+@media (min-width: 768px) {
+    .col-sm-9 .container{
+        margin-left: 210px;
+    }
+}
+
+
