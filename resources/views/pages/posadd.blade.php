@@ -269,39 +269,44 @@
                 <h1 class="modal-title" style="color:white;">Add Customer</h1>
             </div>
             <div class="modal-body" style="background-color:white;">
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Customer Name</p>
+                <form action="/customer/addCustomerstore" method="post">
+                    {{ csrf_field() }}
+                    <div class="row">
+                        <div class="col-5 mt-1">
+                            <p>Customer Name</p>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control col-sm-12" name="fullname">
+                        </div>
                     </div>
-                    <div class="col-7">
-                        <input type="text" class="form-control col-sm-12">
+                    <div class="row">
+                        <div class="col-5 mt-1">
+                            <p>Customer Email</p>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control col-sm-12" name="email" type="email" >
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Customer Email</p>
+                    <div class="row">
+                        <div class="col-5 mt-1">
+                            <p>Customer Mobile</p>
+                        </div>
+                        <div class="col-7">
+                            <input name="mobile" type="text" class="form-control col-sm-12">
+                        </div>
                     </div>
-                    <div class="col-7">
-                        <input type="text" class="form-control col-sm-12">
+                    <hr>
+                    <div class="row">
+                        <div class="d-flex col-12">
+                            <div class="ml-auto">
+                                <input type="submit" class="btn btn-success py-1" value="Add Customer">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Customer Mobile</p>
-                    </div>
-                    <div class="col-7">
-                        <input type="text" class="form-control col-sm-12">
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-        <div class="modal-footer" style="background-color:white;">
-            <div class="d-flex">
-                <div class="ml-auto">
-                    <button type="button" class="btn btn-success py-1">Add Customer</button>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 <div class="modal fade" id="myModal5">
