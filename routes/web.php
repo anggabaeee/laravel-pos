@@ -57,6 +57,7 @@ Route::get('/pnl','PosController@pnl');
 // POS
 Route::get('/pos','PosController@pos');
 Route::get('/posadd','PosController@posadd');
+Route::post('/addCustomerposstore','PosController@addCustomerposstore');
 
 
 // Return Order

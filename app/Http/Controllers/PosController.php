@@ -40,6 +40,21 @@ class PosController extends Controller
         ]);        
         return redirect('/customer')->with(['success' => 'Data Berhasil Ditambahkan']);
     }
+
+    public function addCustomerposstore(Request $request){
+        $this->validate($request,[
+            'fullname' => 'required',
+            'email' => 'required',
+            'mobile' => 'required'
+        ]);
+        customer::create([
+            'fullname' => $request->fullname,
+            'email' => $request->email,
+            'mobile' => $request->mobile
+        ]);        
+        return redirect('/posadd');
+    }
+
     public function editcustomer($id){
         $customer = customer::find($id);
         return view('pages.edit.editcustomer',['customer'=>$customer]);    

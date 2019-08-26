@@ -269,7 +269,7 @@
                 <h1 class="modal-title" style="color:white;">Add Customer</h1>
             </div>
             <div class="modal-body" style="background-color:white;">
-                <form action="/customer/addCustomerstore" method="post">
+                <form action="addCustomerposstore" method="post">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-5 mt-1">
@@ -299,7 +299,7 @@
                     <div class="row">
                         <div class="d-flex col-12">
                             <div class="ml-auto">
-                                <input type="submit" class="btn btn-success py-1" value="Add Customer">
+                                <input type="submit" class="btn btn-success py-1" value="Add Customer" id="myBtn6"  data-dismiss="modal"> 
                             </div>
                         </div>
                     </div>
@@ -386,6 +386,20 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="myModal6">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: #373942;">
+            <div class="modal-header">
+                <h1 class="modal-title" style="color:white;">Add Customer</h1>
+            </div>
+            <div class="modal-body" style="background-color:white;">
+            <h1 style="text-align:center; color:green;">Successfully Added New Customer</h1>
+            </div>
+        </div>
+
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $("#myBtn1").click(function () {
@@ -426,8 +440,16 @@
             $("#myModal5").modal();
         });
     });
-
 </script>
+
+<script>
+    $(document).ready(function () {
+        $("#myBtn6").click(function () {
+            $("#myModal6").modal();
+        });
+    });
+</script>
+
 
 <script>
     var d = new Date();
