@@ -10,6 +10,7 @@ use App\gift_card;
 use App\category;
 use App\expensescategory;
 use App\product;
+use App\outlets;
 
 class PosController extends Controller
 {
@@ -137,7 +138,30 @@ class PosController extends Controller
     return view('pages.setting.payment_method');    
     }
     public function outlets(){
-        return view('pages.setting.outlets');    
+        $outlets = DB::table('outlets')->get();
+        return view('pages.setting.outlets',['outlets'=>$outlets]);    
+    }
+    public function addoutlet(){
+        return view('tambah.addoutlets'); 
+    }
+    public function addoutletstore(Request $request){
+        $this->validate($request,[
+            'name_outlet' => 'required',
+            'address_outlet' => 'required',
+            'contact_number' => 'required',
+            'receipt_header' => 'required',
+            'receipt_footer' => 'required',
+            'status' => 'required'
+        ]);
+        outlets::create([
+            'name_outlet' => $request->name_outlet,
+            'address_outlet' => $request->address_outlet,
+            'contact_number' => $request->contact_number,
+            'receipt_header' => $request->receipt_header,
+            'receipt_footer' => $request->receipt_footer,
+            'status' => $request->status
+        ]);        
+        return redirect('/setting/outlets')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
     public function users(){
         return view('pages.setting.users');    
@@ -251,9 +275,6 @@ class PosController extends Controller
 
     
     //tambah
-    public function addoutlet(){
-        return view('tambah.addoutlets'); 
-    }
     public function adduser(){
         return view('tambah.adduser'); 
     }
