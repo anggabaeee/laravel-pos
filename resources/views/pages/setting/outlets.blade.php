@@ -18,7 +18,7 @@
                 </div>
                 <div class="row" style="margin-left: 0px; margin-top: 15px;">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table" id="exampel">
                             <thead>
                                 <tr>
                                     <th width="28%">Outlet Name</th>
@@ -29,27 +29,34 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($outlets as $p)
                                 <tr>
-                                    <td>Uniqlo - Buglis Outlet</td>
-                                    <td>#02-10, B2, Bugis Shopping Mall</td>
-                                    <td>292948484</td>
+                                    <td>{{$p->name_outlet}}</td>
+                                    <td>{{$p->address_outlet}}</td>
+                                    <td>{{$p->contact_number}}</td>
+                                    @if ($p->status == 0)
+                                    <td tyle="font-weight: bold;"><span style="color:#090;">Inactive</span></td>
+                                    @else
                                     <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
+                                    @endif
                                     <td><a href="/setting/editoutlet" style="margin-left: 5px;"><button
-                                            class="btn btn-primary">Edit</button></a></td>
+                                                class="btn btn-primary">Edit</button></a></td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div></div>
-                <div class="row">
-                    <div class="col-md-6" style="float: left; padding-top: 10px;">
-                        Showing 1 to 1 of 1 entries
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#exampel').DataTable();
+    });
+
+</script>
 </section>
 @stop
