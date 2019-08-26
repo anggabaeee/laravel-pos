@@ -148,6 +148,31 @@ class PosController extends Controller
         ]);        
         return redirect('/setting/outlets')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
+    public function editoutlet($id){
+        $outlets = outlets::find($id);
+        return view('pages.edit.editoutlet',['outlets'=>$outlets]);    
+    }
+    public function editoutletupdate($id, Request $request){
+        $this->validate($request,[
+            'name_outlet' => 'required',
+            'address_outlet' => 'required',
+            'contact_number' => 'required',
+            'receipt_footer' => 'required'
+            ]);
+
+            $outlets = outlets::find($id);
+            $outlets->name_outlet = $request->name_outlet;
+            $outlets->address_outlet = $request->address_outlet;
+            $outlets->contact_number = $request->contact_number;
+            $outlets->receipt_footer = $request->receipt_footer;
+            $outlets->save();
+            return redirect('/setting/outlets');
+    }
+    public function editoutletdelete($id){
+        $outlets = outlets::find($id);
+        $outlets->delete();
+        return redirect('/setting/outlets')->with(['success' => 'Data Berhasil Dihapus']);;
+    }
     public function users(){
         return view('pages.setting.users');    
     }
@@ -225,7 +250,6 @@ class PosController extends Controller
     }
 
     public function listproduct(){
-        // $product = product::all();
         $product = DB::table('product')
         ->join('category', 'category.id', '=', 'product.category_name')
         ->get();
@@ -280,9 +304,7 @@ class PosController extends Controller
         return view('pages.profitReport'); 
     }
     //edit
-    public function editoutlet(){
-        return view('pages.edit.editoutlet'); 
-    }
+
     public function edituser(){
         return view('pages.edit.edituser'); 
     }
