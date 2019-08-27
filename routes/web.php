@@ -13,7 +13,6 @@
 
 Route::get('/','PosController@login');
 Route::get('/loginpost','PosController@loginpost');
-Route::get('/loginpost','PosController@loginpost');
 Route::get('/logout','PosController@logout');
 // dashboard
 Route::get('/dashboard','PosController@dashboard');
@@ -97,6 +96,7 @@ Route::get('/setting/editoutletdelete/{id}', 'PosController@editoutletdelete');
 
 Route::get('/setting/users', 'PosController@users');
 Route::get('/setting/suppliers', 'PosController@suppliers');
+Route::get('/setting/suppliersadd', 'PosController@suppliersadd');
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/users/adduser', 'PosController@adduser');
 Route::get('/setting/edituser', 'PosController@edituser');
