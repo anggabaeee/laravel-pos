@@ -98,10 +98,16 @@ Route::post('/setting/outlets/addoutletstore','PosController@addoutletstore');
 Route::get('/setting/editoutlet/{id}', 'PosController@editoutlet');
 Route::put('/setting/editoutletupdate/{id}', 'PosController@editoutletupdate');
 Route::get('/setting/editoutletdelete/{id}', 'PosController@editoutletdelete');
-
 Route::get('/setting/users', 'PosController@users');
+
+
+//supllier
 Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/suppliersadd', 'PosController@suppliersadd');
+Route::post('/setting/supllierstore','PosController@supllierstore');
+
+
+
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/users/adduser', 'PosController@adduser');
 Route::get('/setting/edituser', 'PosController@edituser');

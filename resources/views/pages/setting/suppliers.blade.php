@@ -34,15 +34,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($supplier as $p)
                                 <tr>
-                                    <td>AAA</td>
-                                    <td>AAA@gmail.com</td>
-                                    <td>292948484</td>
-                                    <td>292948484</td>
+                                    <td>{{ $p->supplier_name }}</td>
+                                    <td>{{ $p->email }}</td>
+                                    <td>{{ $p->telephone }}</td>
+                                    <td>{{ $p->fax }}</td>
                                     <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
                                     <td><a href="editsupplier" style="margin-left: 5px;"><button
                                                 class="btn btn-primary">Edit</button></a></td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

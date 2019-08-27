@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use App\supplier;
 use App\Customer;
 use App\gift_card;
 use App\category;
@@ -237,13 +238,39 @@ class PosController extends Controller
         ->get();
         return view('pages.setting.users',['users'=>$users]);   
     }
+
+    //supllier
     public function suppliers(){
-        return view('pages.setting.suppliers');    
+        $supplier = supplier::all();
+        return view('pages.setting.suppliers',['supplier' => $supplier]);    
     }
     public function suppliersadd(){
         return view('tambah.addSupplier');
     }
-    
+
+
+    public function supllierstore(Request $request){
+        $this->validate($request,[
+            'supplier_name' => 'required',
+            'email' => 'required',
+            'telephone' => 'required',
+            'fax' => 'required',
+            'supplier_addres' => 'required',
+            'supplier_tax' => 'required',
+    ]);
+    supplier::create([
+        'supplier_name' => $request->supplier_name,
+        'email' => $request->email,
+        'telephone' => $request->telephone,
+        'fax' => $request->fax,
+        'supplier_addres' => $request->supplier_addres,
+        'supplier_tax' => $request->supplier_tax,
+    ]);        
+    return redirect('/setting/suppliers')->with(['success' => 'Data Berhasil Ditambahkan']); 
+    }
+
+
+
     public function system(){
         return view('pages.setting.system_setting');    
     }
