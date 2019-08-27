@@ -249,7 +249,9 @@ class PosController extends Controller
         return view('pages.expenses.expenses');    
     }
     public function addexpenses(){
-        return view('tambah.addexpenses'); 
+        $expensescategory = DB::table('expensescategory')->get();
+        $outlets = DB::table('outlets')->get();
+        return view('tambah.addexpenses',['expensescategory'=> $expensescategory,'outlets'=>$outlets]); 
     }
     public function expenses_category(){
         $expensescategory = DB::table('expensescategory')->get();
@@ -340,26 +342,32 @@ class PosController extends Controller
         $category = category::all();
         return view('tambah.addproduct',['category' => $category]);
     }
-
     public function addProductstore(Request $request){
-        $this->validate($request,[
+        $this->validate($request, [
             'code' => 'required|unique:product,code',
             'name_product' => 'required',
             'category_name' => 'required',
             'purchase_price' => 'required',
             'retail_price' => 'required',
-            'thumbnail' => 'required',
+            'thumbnail' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
             'status' => 'required'
         ]);
+
+        $thumbnail = $request->file('thumbnail');
+        $nama_thumbnail = time()."_".$thumbnail->getClientOriginalName();
+        $tujuan_upload = 'product_image';
+        $thumbnail->move($tujuan_upload,$nama_thumbnail);
+
         product::create([
             'code' => $request->code,
             'name_product' => $request->name_product,
             'category_name' => $request->category_name,
             'purchase_price' => $request->purchase_price,
             'retail_price' => $request->retail_price,
-            'thumbnail' => $request->thumbnail,
+            'thumbnail' => $nama_thumbnail,
             'status' => $request->status
         ]);        
+
         return redirect('/product/ListProduct')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 

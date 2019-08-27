@@ -33,10 +33,10 @@
                             <span style="color: #F00">*</span>
                         </label>
                         <select class="form-control" type="text" required>
-                            <option value="">Choose Outlet</option>
-                            <option value="3">Uniqlo - Bugis Outlet</option>
-                            <option value="2">Uniqlo - Changi Outlet</option>
-                            <option value="1">Uniqlo - NEX Outlet</option>
+                            <option disabled selected value> -- select an option -- </option>
+                            @foreach ($outlets as $p)
+                            <option value="{{$p->id}}">{{$p->name_outlet}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -69,11 +69,13 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="">Date
-                            <span style="color: #F00">*</span>
+                        <label for="">Edit Expenses Category<span style="color: #F00">*</span>
                         </label>
                         <select name="category" class="form-control" required>
-                            <option value="">Choose Expenses Category</option>
+                            <option disabled selected value> -- select an option -- </option>
+                            @foreach ($outlets as $o)
+                            <option value="{{$o->id}}">{{$o->name_outlet}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -83,7 +85,7 @@
                     <div class="form-group">
                         <label for="">File (Less than 2MB)<span style="color: #F00">*</span><br>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="CustomFile" required >
+                                <input type="file" class="custom-file-input" id="CustomFile" required>
                                 <label class="custom-file-label" for="CustomFile">choose file</label>
                             </div>
                     </div>
@@ -112,6 +114,7 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+
 </script>
 </section>
 @stop
