@@ -24,7 +24,6 @@ class PosController extends Controller
     public function loginpost(Request $request){
         $email = $request->email;
         $password = $request->password;
-  
         $data = users::where('email', $email)->first();
         if($data){
             if(Hash::check($password, $data->password)){
@@ -41,14 +40,14 @@ class PosController extends Controller
             }
         }
         else{
-          Session::flash('incorrect', 'Invalid Email and Password!');
-          return redirect('/');
+        Session::flash('incorrect', 'Invalid Email and Password!');
+        return redirect('/');
         }
-      }
-      public function logout(){
-          Session::flush();
-          return redirect('/')->with('alert', 'You are Log Out');
-      }
+    }
+    public function logout(){
+        Session::flush();
+        return redirect('/')->with('alert', 'You are Log Out');
+    }
     public function dashboard(){
         if(!Session::get('login')){
             return redirect('/')->with('alert', 'You must login first');
@@ -237,6 +236,10 @@ class PosController extends Controller
     public function suppliers(){
         return view('pages.setting.suppliers');    
     }
+    public function suppliersadd(){
+        return view('tambah.addSupplier');
+    }
+    
     public function system(){
         return view('pages.setting.system_setting');    
     }
@@ -408,12 +411,12 @@ class PosController extends Controller
         return view('role', ['role'=>$role]); 
     }
     public function addrole(Request $request){
-       $this->validate($request, [
-           'role_name'=> 'required',
-       ]);
-       UserRoles::create([
-           'role_name'=> $request->role_name
-       ]);
-       return redirect('/role');
+        $this->validate($request, [
+            'role_name'=> 'required',
+        ]);
+        UserRoles::create([
+            'role_name'=> $request->role_name
+        ]);
+        return redirect('/role');
     }
 }
