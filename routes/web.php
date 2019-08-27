@@ -72,6 +72,7 @@ Route::get('/returnorder/ReportReturn','PosController@reportreturn');
 
 // Inventory
 Route::get('/inventory','PosController@inventory');
+Route::get('/inventory/editinventory','PosController@editinventory');
 
 // Products
 Route::get('/product/ListProduct','PosController@listproduct');
