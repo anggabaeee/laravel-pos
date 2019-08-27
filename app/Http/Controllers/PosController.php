@@ -283,7 +283,8 @@ class PosController extends Controller
 
     //report
     public function salesreports(){
-        return view('pages.reports.salesreports');
+        $outlets = DB::table('outlets')->get();
+        return view('pages.reports.salesreports',['outlets'=>$outlets]);
     }
 
     public function soldbyproduct(){
