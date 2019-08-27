@@ -50,12 +50,12 @@
                                     @else
                                     <td>Active</td>
                                     @endif
-                                    <td><a href="/expenses/editexpensescategory">
-                                            <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i>
-                                                Edit</button>
+                                    <td><a href="/expenses/editexpensescategory/{{$p->id}}">
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="fa fa-pencil"></i>Edit</button>
                                         </a>
                                         |
-                                        <a href="#">
+                                        <a href="/expenses/editexpensescategory/delete/{{$p->id}}">
                                             <button type="button" class="btn btn-danger"
                                                 onclick="return confirm('Apakah anda Yakin ?')">
                                                 <i class="fa fa-trash-o"></i> Delete</button>

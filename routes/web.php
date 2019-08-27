@@ -47,10 +47,14 @@ Route::get('/soldbyproduct', 'PosController@soldbyproduct');
 Route::get('/expenses', 'PosController@expenses');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses');
 Route::get('/expenses/editexpenses', 'PosController@editexpenses');
+
+// expenses category
 Route::get('/expensescategory', 'PosController@expenses_category');
 Route::get('/expensescategory/addexpensescategory', 'PosController@addexpensescategory');
 Route::post('/expensescategory/addexpensescategorystore', 'PosController@addexpensescategorystore');
-Route::get('/expenses/editexpensescategory', 'PosController@editexpensescategory');
+Route::get('/expenses/editexpensescategory/{id}', 'PosController@editexpensescategory');
+Route::put('/expenses/editexpensescategory/update/{id}', 'PosController@editexpensescategoryupdate');
+Route::get('/expenses/editexpensescategory/delete/{id}','PosController@editexpensescategorydelete');
 
 //profit & loss
 Route::get('/pnl/pnlReport','PosController@pnlreport');

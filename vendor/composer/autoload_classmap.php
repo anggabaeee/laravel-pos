@@ -33,6 +33,7 @@ return array(
     'App\\User' => $baseDir . '/app/User.php',
     'App\\UserRoles' => $baseDir . '/app/UserRoles.php',
     'App\\category' => $baseDir . '/app/category.php',
+    'App\\expenses_category' => $baseDir . '/app/expenses_category.php',
     'App\\expensescategory' => $baseDir . '/app/expensescategory.php',
     'App\\gift_card' => $baseDir . '/app/gift_card.php',
     'App\\outlets' => $baseDir . '/app/outlets.php',

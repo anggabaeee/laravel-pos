@@ -248,12 +248,12 @@ class PosController extends Controller
     public function expenses(){
         return view('pages.expenses.expenses');    
     }
+    public function addexpenses(){
+        return view('tambah.addexpenses'); 
+    }
     public function expenses_category(){
         $expensescategory = DB::table('expensescategory')->get();
         return view('pages.expenses.expenses_category',['expensescategory'=> $expensescategory]);
-    }
-    public function addexpenses(){
-        return view('tambah.addexpenses'); 
     }
     public function addexpensescategory(){
         return view('tambah.addexpensescategory'); 
@@ -269,7 +269,26 @@ class PosController extends Controller
     ]);        
     return redirect('/expensescategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
-
+    public function editexpensescategory($id){
+        $expensescategory = expensescategory::find($id);
+        return view('pages.edit.editexpensescategory',['expensescategory' => $expensescategory]); 
+    }
+    public function editexpensescategoryupdate($id, Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+            'status' => 'required'
+        ]);
+        $expensescategory = expensescategory::find($id);
+        $expensescategory->name = $request->name;
+        $expensescategory->status = $request->status;
+        $expensescategory->save();
+        return redirect('/expensescategory');
+    }
+    public function editexpensescategorydelete($id){
+        $expensescategory = expensescategory::find($id);
+        $expensescategory->delete();
+        return redirect('/expensescategory')->with(['success' => 'Data Berhasil Dihapus']);;
+    }
 
     //sales
     public function openedbil(){
@@ -402,9 +421,6 @@ class PosController extends Controller
     }
     public function editexpenses(){
         return view('pages.edit.editexpenses'); 
-    }
-    public function editexpensescategory(){
-        return view('pages.edit.editexpensescategory'); 
     }
     public function role(){
         $role = UserRoles::all();
