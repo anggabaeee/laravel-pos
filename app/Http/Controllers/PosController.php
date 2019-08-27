@@ -150,13 +150,6 @@ class PosController extends Controller
 
 
     //pages
-    public function inventory(){
-        $product = DB::table('product')->get();
-        return view('pages.inventory.inventory',['product' => $product]);    
-    }
-    public function editinventory(){
-        return view('pages.inventory.editinventory');
-    }
     public function pos(){
         $outlets = DB::table('outlets')->get();
         return view('pages.pos',['outlets'=>$outlets]);    
