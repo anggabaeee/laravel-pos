@@ -16,10 +16,9 @@
                         <label for="">Outlets</label>
                         <select class="form-control" type="text" required>
                             <option value="">Choose Outlets</option>
-                            <option value="-">All Outlets</option>
-                            <option value="3">Uniqlo - Bugis Outlet</option>
-                            <option value="2">Uniqlo - Changi Outlet</option>
-                            <option value="1">Uniqlo - NEX Outlet</option>
+                            @foreach ($outlets as $p)
+                                    <option value="{{$p->id}}">{{$p->name_outlet}}</option>
+                                    @endforeach
                         </select>
                     </div>
                 </div>
