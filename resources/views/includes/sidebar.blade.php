@@ -1,3 +1,16 @@
+<style>
+    @media (min-width: 768px) {
+        .row .sidebar {
+            position: fixed;
+            overflow-y: scroll;
+            top: 0;
+            bottom: 0;
+            padding-top: 58px;
+
+        }
+    }
+
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-lg-2 sidebar collapse show" id="sidebar-collapse"
@@ -97,12 +110,13 @@
                         </div>
                     </div>
                 </li>
-                <li class="{{ Request::is('purchase_order') ? "active-link" : "" }}"><a href="/purchase_order">Purchase Order</a></li>
+                <li class="{{ Request::is('purchase_order') ? "active-link" : "" }}"><a href="/purchase_order">Purchase
+                        Order</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Setting</a>
                     <div
                         class="dropdown-container {{ Request::is('setting/outlets','setting/users','setting/suppliers','setting/system_setting','setting/payment_method') ? "active-block" : "" }}">
-                        <div  class="{{ Request::is('setting/outlets') ? "active-link" : "" }}">
+                        <div class="{{ Request::is('setting/outlets') ? "active-link" : "" }}">
                             <a class="dropdown-item" href="/setting/outlets" class="">Outlets</a>
                         </div>
                         <div class="{{ Request::is('setting/users') ? "active-link" : "" }}">

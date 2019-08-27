@@ -40,7 +40,7 @@
 
     @media (max-width: 767.98px) {
         .kotak {
-            margin-bottom:0%;
+            margin-bottom: 0%;
         }
     }
 
@@ -48,29 +48,18 @@
 <section>
     <div class="container">
         <h1 class="header-pos"> Choose Outlet </h1>
-            <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3">
+            @foreach ($outlets as $p)
             <a href="posadd">
                 <div class="kotak  mt-4  mr-5 ml-5">
                     <i class="fa fa-building-o"></i>
-                    <h4>Uniqlo - NEX Outlet</h4>
-                    <p>Address : #02-11, B2, Nex Shopping Mall, Serangoon Central</p>
-                    <p>Telephone : 88837492</p>
-                </div></a>
-                <a href="dashboard">
-                <div class="kotak mt-3  mr-5 ml-5">
-                    <i class="fa fa-building-o"></i>
-                    <h4>Uniqlo - NEX Outlet</h4>
-                    <p>Address : #02-11, B2, Nex Shopping Mall, Serangoon Central</p>
-                    <p>Telephone : 88837492</p>
-                </div></a>
-                <a href="dashboard">
-                <div class="kotak mt-3 mb-4 mr-5 ml-5">
-                    <i class="fa fa-building-o"></i>
-                    <h4>Uniqlo - NEX Outlet</h4>
-                    <p>Address : #02-11, B2, Nex Shopping Mall, Serangoon Central</p>
-                    <p>Telephone : 88837492</p>
-                </div></a>
-            </div>
+                    <h4>{{$p->name_outlet}}</h4>
+                    <p>{{$p->address_outlet}}</p>
+                    <p>{{$p->contact_number}}</p>
+                </div>
+            </a>
+            @endforeach
+        </div>
     </div>
 </section>
 @stop

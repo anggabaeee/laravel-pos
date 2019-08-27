@@ -16,6 +16,12 @@
                     <a href="{{ url('/setting/outlets/addoutlet') }}"><button type="button" class="btn btn-primary">
                             <i class="fa fa-plus"> </i> Add New Outlet</button></a>
                 </div>
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
                 <div class="row" style="margin-left: 0px; margin-top: 15px;">
                     <div class="table-responsive">
                         <table class="table" id="exampel">
@@ -39,7 +45,7 @@
                                     @else
                                     <td style="font-weight: bold;"><span style="color:#090;">Active</span></td>
                                     @endif
-                                    <td><a href="/setting/editoutlet" style="margin-left: 5px;"><button
+                                    <td><a href="/setting/editoutlet/{{$p->id}}" style="margin-left: 5px;"><button
                                                 class="btn btn-primary">Edit</button></a></td>
                                 </tr>
                                 @endforeach

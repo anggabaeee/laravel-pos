@@ -24,7 +24,9 @@
                             <div class="form-gorup">
                                 <label>Outlets<span style="color: #F00">*</span></label>
                                 <select name="outlet" class="form-control" required>
-                                    <option value=""></option>
+                                    @foreach ($outlets as $p)
+                                    <option value="{{$p->id}}">{{$p->name_outlet}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
