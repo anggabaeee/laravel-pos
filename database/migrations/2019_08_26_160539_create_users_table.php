@@ -18,10 +18,11 @@ class CreateUsersTable extends Migration
             $table->string('fullname');
             $table->string('email',100)->unique();
             $table->string('password');
-            $table->string('role_id');
-            $table->string('outlet_id');
+            $table->integer('role_id');
+            $table->integer('outlet_id');
             $table->rememberToken();
             $table->timestamps();
+            $table->boolean('status');
         });
     }
 

@@ -35,9 +35,9 @@
                                     <td>{{$p->address_outlet}}</td>
                                     <td>{{$p->contact_number}}</td>
                                     @if ($p->status == 0)
-                                    <td tyle="font-weight: bold;"><span style="color:#090;">Inactive</span></td>
+                                    <td style="font-weight: bold;"><span style="color:#090;">Inactive</span></td>
                                     @else
-                                    <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
+                                    <td style="font-weight: bold;"><span style="color:#090;">Active</span></td>
                                     @endif
                                     <td><a href="/setting/editoutlet" style="margin-left: 5px;"><button
                                                 class="btn btn-primary">Edit</button></a></td>

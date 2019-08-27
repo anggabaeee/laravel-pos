@@ -5,20 +5,57 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Customer;
 use App\gift_card;
 use App\category;
 use App\expensescategory;
 use App\product;
 use App\outlets;
+use App\users;
+use App\UserRoles;
 
 class PosController extends Controller
 {
     public function login(){
         return view('login');    
     }
+    public function loginpost(Request $request){
+        $email = $request->email;
+        $password = $request->password;
+  
+        $data = users::where('email', $email)->first();
+        if($data){
+            if(Hash::check($password, $data->password)){
+                Session::put('name', $data->fullname);
+                Session::put('email', $data->email);
+                Session::put('role', $data->role_id);
+                Session::put('outlets', $data->outlet_id);
+                Session::put('login', TRUE);
+                return redirect('/dashboard');
+            }
+            else{
+                Session::flash('incorrect', 'Invalid Password!');
+                return redirect('/');
+            }
+        }
+        else{
+          Session::flash('incorrect', 'Invalid Email and Password!');
+          return redirect('/');
+        }
+      }
+      public function logout(){
+          Session::flush();
+          return redirect('/')->with('alert', 'You are Log Out');
+      }
     public function dashboard(){
-        return view('pages.dashboard');
+        if(!Session::get('login')){
+            return redirect('/')->with('alert', 'You must login first');
+        }    
+        else{
+            return view('pages.dashboard');
+        }
     }
     public function customer(){
         $customer = DB::table('customer')->orderBy('fullname','desc')->paginate(5);
@@ -164,7 +201,11 @@ class PosController extends Controller
         return redirect('/setting/outlets')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
     public function users(){
-        return view('pages.setting.users');    
+        $users = DB::table('users')
+        ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
+        ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
+        ->get();
+        return view('pages.setting.users',['users'=>$users]);   
     }
     public function suppliers(){
         return view('pages.setting.suppliers');    
@@ -276,7 +317,28 @@ class PosController extends Controller
     
     //tambah
     public function adduser(){
-        return view('tambah.adduser'); 
+        $outlets = outlets::all();
+        $role = UserRoles::all();
+        return view('tambah.adduser',['outlets' => $outlets], ['role' => $role]);
+    }
+    public function postuser(Request $request){
+        $this->validate($request, [
+            'name'=>'required|min:4',
+            'email' => 'required|min:4|email|unique:users',
+            'password' => 'required',
+            'confirmation' => 'required|same:password',
+            'role' => 'required',
+            'outlets' => 'required',
+        ]);
+        $data = new users();
+        $data->fullname = $request->name;
+        $data->email = $request->email;
+        $data->password = bcrypt($request->password);
+        $data->role_id = $request->role;
+        $data->outlet_id = $request->outlets;
+        $data->status = $request->status;
+        $data->save();
+        return redirect('/setting/users/adduser');
     }
     public function createpurchase(){
         return view('tambah.createpurchase'); 
@@ -315,5 +377,18 @@ class PosController extends Controller
     }
     public function editexpensescategory(){
         return view('pages.edit.editexpensescategory'); 
+    }
+    public function role(){
+        $role = UserRoles::all();
+        return view('role', ['role'=>$role]); 
+    }
+    public function addrole(Request $request){
+       $this->validate($request, [
+           'role_name'=> 'required',
+       ]);
+       UserRoles::create([
+           'role_name'=> $request->role_name
+       ]);
+       return redirect('/role');
     }
 }

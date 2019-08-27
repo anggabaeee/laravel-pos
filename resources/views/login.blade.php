@@ -43,7 +43,7 @@
             <div class="row text-center">
                 <div class="col-md-6 offset-md-5" style="background-color: #ffffff;">
                     <div class="mt-4 mb-5 mr-4 ml-4">
-                        <form action="dashboard">
+                        <form action="/loginpost">
                             <div class="panel-heading" style="height: 175px;">
                                 <h1>Account Access</h1>
                                 <br />
@@ -62,6 +62,11 @@
                                 <button class="btn btn-primary" style="width: 200px">Login</button>
                             </center>
                         </form>
+                        @if ($message = Session::get('incorrect'))
+                        <center>
+                            <label class="alert" style="margin-top: 20px; color: #F00;">{{ $message }}</label>
+                        </center>
+                        @endif
                     </div>
                 </div>
             </div>

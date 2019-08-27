@@ -51,12 +51,12 @@
                         <div class="{{ Request::is('expenses') ? "active-link" : "" }}">
                             <a class="dropdown-item" href="/expenses" class="">Expenses</a>
                         </div>
-                        <div class="{{ Request::is('expensescategory') ? "active-link" : "" }}">
+                        <div class="{{ Request::is('expensescategory') ? "active-link" : "" }}" id="excat">
                             <a class="dropdown-item" href="/expensescategory">Expenses Category</a>
                         </div>
                     </div>
                 </li>
-                <li class="dropdown-class">
+                <li class="dropdown-class" id="pnl">
                     <a class="dropdown-btn">Profit & Loss</a>
                     <div class="dropdown-container {{ Request::is('','') ? "active-block" : "" }}">
                         <div>
@@ -92,7 +92,7 @@
                         <div class="{{ Request::is('') ? "active-link" : "" }}">
                             <a class="dropdown-item" href="#">Print Product Label</a>
                         </div>
-                        <div class="{{ Request::is('product/ProductCategory') ? "active-link" : "" }}">
+                        <div class="{{ Request::is('product/ProductCategory') ? "active-link" : "" }}" id="prodcat">
                             <a class="dropdown-item" href="/product/ProductCategory">Product Category</a>
                         </div>
                     </div>
@@ -108,13 +108,13 @@
                         <div class="{{ Request::is('setting/users') ? "active-link" : "" }}">
                             <a class="dropdown-item" href="/setting/users">User</a>
                         </div>
-                        <div class="{{ Request::is('setting/suppliers') ? "active-link" : "" }}">
+                        <div class="{{ Request::is('setting/suppliers') ? "active-link" : "" }}" id="supplier">
                             <a class="dropdown-item" href="/setting/suppliers">Supllier</a>
                         </div>
-                        <div class="{{ Request::is('setting/system_setting') ? "active-link" : "" }}">
+                        <div class="{{ Request::is('setting/system_setting') ? "active-link" : "" }}" id="system">
                             <a class="dropdown-item" href="/setting/system_setting">System Setting</a>
                         </div>
-                        <div class="{{ Request::is('setting/payment_method') ? "active-link" : "" }}">
+                        <div class="{{ Request::is('setting/payment_method') ? "active-link" : "" }}" id="payment">
                             <a class="dropdown-item" href="/setting/payment_method">Payment Methods</a>
                         </div>
                     </div>
@@ -137,3 +137,23 @@
             }
 
         </script>
+
+<script>
+$role = {{Session::get('role')}}
+if($role == "1" ){
+    document.getElementById("pnl").style.display = "none";
+    document.getElementById("excat").style.display = "none";
+    document.getElementById("prodcat").style.display = "none";
+    document.getElementById("supplier").style.display = "none";
+    document.getElementById("payment").style.display = "none";
+    document.getElementById("system").style.display = "none";
+}
+if($role == "2"){
+    document.getElementById("pnl").style.display = "none";
+    document.getElementById("pnl").style.display = "none";
+    document.getElementById("supplier").style.display = "none";
+    document.getElementById("payment").style.display = "none";
+    document.getElementById("system").style.display = "none";
+    document.getElementById("prodcat").style.display = "none";
+}
+</script>
