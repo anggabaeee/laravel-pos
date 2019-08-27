@@ -119,5 +119,11 @@ li>a:hover,
         margin-left: 210px;
     }
 }
+@media (min-width: 992px) {
+    .col-sm-9 .container{
+        margin-left: 250px;
+    }
+}
+
 
 
