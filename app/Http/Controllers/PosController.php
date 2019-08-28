@@ -262,8 +262,6 @@ class PosController extends Controller
     return redirect('/setting/suppliers')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 
-
-
     public function system(){
         return view('pages.setting.system_setting');    
     }

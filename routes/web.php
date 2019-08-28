@@ -73,7 +73,7 @@ Route::get('/returnorder/ReportReturn','PosController@reportreturn');
 // Inventory
 Route::get('/inventory','inventorycontroller@inventory');
 Route::get('/inventory/editinventory/{id}','inventorycontroller@editinventory');
-Route::put('/inventory/editinventoryupdate/{id}','inventorycontroller@editinventoryupdate');
+Route::post('/inventory/editinventoryupdate/','inventorycontroller@editinventoryupdate');
 
 
 // Products

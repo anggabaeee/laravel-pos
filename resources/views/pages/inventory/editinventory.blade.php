@@ -54,21 +54,20 @@
                         @endforeach
                     </div>
                     @endif
-                    <form action="/inventory/editinventoryupdate/{{$product->id}}" method="POST">
+                    <form action="/inventory/editinventoryupdate/" method="POST">
                         {{ csrf_field() }}
-                        {{ method_field('PUT') }}
+                        <input name="product_code" type="text" value="{{$product->code}}">
                         @foreach ($outlets as $o)
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 {{$o->name_outlet}}
-                                <input name="outlet_id" type="text" value="{{$o->id}}">
+                                <input name="outlet_id[]" type="text" value="{{$o->id}}">
                             </div>
                             <div class="col-md-6">
-                                <input class="form-control" name="qty" type="text" value="0">
+                                <input class="form-control" name="qty[]" type="text" value="0">
                             </div>
                         </div>
                         @endforeach
-                        <input name="product_code" readonly type="text" value="{{$product->code}}">
                         <hr>
                         <div class="text-center mt-5">
                             <input type="submit" value="Update" class="btn btn-primary">
