@@ -7,7 +7,15 @@
         <div class="card">
             <div class="card-body">
                 <form action="/postuser">
-                    {{ csrf_field() }}
+                {{ csrf_field() }}
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </div>
+                    @endif
                     <input type="text" name="status" value="1" hidden>
                     <div class="row">
                         <div class="col-md-6">
