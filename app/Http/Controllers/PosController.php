@@ -257,6 +257,7 @@ class PosController extends Controller
             'fax' => 'required',
             'supplier_addres' => 'required',
             'supplier_tax' => 'required',
+            'status' => 'required',
     ]);
     supplier::create([
         'supplier_name' => $request->supplier_name,
@@ -265,6 +266,7 @@ class PosController extends Controller
         'fax' => $request->fax,
         'supplier_addres' => $request->supplier_addres,
         'supplier_tax' => $request->supplier_tax,
+        'status' => $request->status,
     ]);        
     return redirect('/setting/suppliers')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }

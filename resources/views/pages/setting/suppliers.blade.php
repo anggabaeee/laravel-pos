@@ -40,7 +40,11 @@
                                     <td>{{ $p->email }}</td>
                                     <td>{{ $p->telephone }}</td>
                                     <td>{{ $p->fax }}</td>
-                                    <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
+                                    @if ($p->status == 0)
+                                    <td style="font-weight: bold;"><span style="color:#090;">NonActive</span></td>
+                                    @else
+                                    <td style="font-weight: bold;"><span style="color:#090;">Active</span></td>
+                                    @endif
                                     <td><a href="editsupplier" style="margin-left: 5px;"><button
                                                 class="btn btn-primary">Edit</button></a></td>
                                 </tr>
