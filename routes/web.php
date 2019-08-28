@@ -103,11 +103,6 @@ Route::get('/setting/editoutletdelete/{id}', 'PosController@editoutletdelete')->
 Route::get('/setting/users', 'FilterController@users')->middleware('ceklogin');
 
 //supllier
-<<<<<<< HEAD
-Route::get('/setting/suppliers', 'PosController@suppliers')->middleware('pnlcek');
-Route::get('/setting/suppliersadd', 'PosController@suppliersadd')->middleware('pnlcek');
-Route::post('/setting/supllierstore','PosController@supllierstore')->middleware('pnlcek');
-=======
 Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/suppliersadd', 'PosController@suppliersadd');
 Route::post('/setting/supllierstore','PosController@supllierstore');
@@ -129,7 +124,6 @@ Route::get('/setting/suppliersadd', 'PosController@suppliersadd')->middleware('c
 Route::post('/setting/supllierstore','PosController@supllierstore')->middleware('ceklogin');
 
 
->>>>>>> 3749f9d3187379a6976b30568b6e2edf3207606f
 
 Route::get('/setting/system_setting', 'PosController@system')->middleware('pnlcek');
 Route::get('/setting/users/adduser', 'PosController@adduser')->middleware('ceklogin');
