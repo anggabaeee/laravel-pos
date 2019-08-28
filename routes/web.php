@@ -103,9 +103,33 @@ Route::get('/setting/editoutletdelete/{id}', 'PosController@editoutletdelete')->
 Route::get('/setting/users', 'FilterController@users')->middleware('ceklogin');
 
 //supllier
+<<<<<<< HEAD
 Route::get('/setting/suppliers', 'PosController@suppliers')->middleware('pnlcek');
 Route::get('/setting/suppliersadd', 'PosController@suppliersadd')->middleware('pnlcek');
 Route::post('/setting/supllierstore','PosController@supllierstore')->middleware('pnlcek');
+=======
+Route::get('/setting/suppliers', 'PosController@suppliers');
+Route::get('/setting/suppliersadd', 'PosController@suppliersadd');
+Route::post('/setting/supllierstore','PosController@supllierstore');
+Route::get('/setting/editsupplier/{id}', 'PosController@editsupplier');
+Route::get('/setting/editsupplierdelete/{id}','PosController@editsupplierdelete');
+Route::put('/setting/editsupplierupdate/{id}', 'PosController@editsupplierupdate');
+
+Route::get('/setting/system_setting', 'PosController@system');
+Route::get('/setting/users/adduser', 'PosController@adduser');
+Route::get('/setting/edituser', 'PosController@edituser');
+Route::get('/setting/ChangePassword', 'PosController@changepassword');
+
+Route::get('/setting/editpayment', 'PosController@editpayment');
+Route::get('/postuser', 'PosController@postuser');
+Route::get('/role', 'PosController@role');
+Route::get('/addrole', 'PosController@addrole');
+Route::get('/setting/suppliers', 'PosController@suppliers')->middleware('ceklogin');
+Route::get('/setting/suppliersadd', 'PosController@suppliersadd')->middleware('ceklogin');
+Route::post('/setting/supllierstore','PosController@supllierstore')->middleware('ceklogin');
+
+
+>>>>>>> 3749f9d3187379a6976b30568b6e2edf3207606f
 
 Route::get('/setting/system_setting', 'PosController@system')->middleware('pnlcek');
 Route::get('/setting/users/adduser', 'PosController@adduser')->middleware('ceklogin');

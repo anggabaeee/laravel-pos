@@ -236,6 +236,10 @@ class PosController extends Controller
     public function suppliersadd(){
         return view('tambah.addSupplier');
     }
+    public function editsupplier($id){
+        $supplier = supplier::find($id);
+        return view('pages.edit.editsupplier',['supplier' => $supplier]); 
+    }
 
     public function supllierstore(Request $request){
         $this->validate($request,[
@@ -258,6 +262,36 @@ class PosController extends Controller
     ]);        
     return redirect('/setting/suppliers')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
+
+    public function editsupplierupdate($id, Request $request){
+        $this->validate($request,[
+            'supplier_name' => 'required',
+            'email' => 'required',
+            'telephone' => 'required',
+            'fax' => 'required',
+            'supplier_addres' => 'required',
+            'supplier_tax' => 'required',
+            'status' => 'required',
+        ]);
+        $supplier = supplier::find($id);
+        $supplier->supplier_name  = $request->supplier_name;
+        $supplier->email = $request->email;
+        $supplier->telephone = $request->telephone;
+        $supplier->fax  = $request->fax;
+        $supplier->supplier_addres = $request->supplier_addres;
+        $supplier->supplier_tax = $request->supplier_tax ;
+        $supplier->status = $request->status;
+        $supplier->save();
+        return redirect('/setting/suppliers');
+    }
+
+    public function editsupplierdelete($id){
+        $supplier = supplier::find($id);
+        $supplier->delete();
+        return redirect('/setting/suppliers')->with(['success' => 'Data Berhasil Dihapus']);;
+    }
+
+
 
     public function system(){
         return view('pages.setting.system_setting');    
@@ -417,8 +451,10 @@ class PosController extends Controller
         return redirect('/setting/users/adduser');
     }
     public function createpurchase(){
-        $outlets = DB::table('outlets')->get();
-        return view('tambah.createpurchase',['outlets'=> $outlets]); 
+        $supplier = supplier::all();
+        $outlets = outlets::all();
+        $product = product::all();
+        return view('tambah.createpurchase',['outlets'=> $outlets],['supplier' => $supplier])->with('product',$product); 
     }
 
     public function addpayment(){
@@ -470,6 +506,7 @@ class PosController extends Controller
         return view('pages.edit.changepassword', ['users'=>$users]); 
     }
 
+
     public function changepasswordupdate($id, Request $request){
         $this->validate($request,[
             'password' => 'required',
@@ -482,9 +519,6 @@ class PosController extends Controller
             return redirect('/setting/users')->with('success',' Successfully Updated New Password.');
     }
     
-    public function editsupplier(){
-        return view('pages.edit.editsupplier'); 
-    }
     public function editpayment(){
         return view('pages.edit.editpayment'); 
     }

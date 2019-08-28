@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <label>Supplier Tax </label>
                                 <input type="text" name="supplier_tax" class="form-control" style="width: 100%" required>
-                                <input type="text" name="status" style="width: 100%" value="1" readonly hidden>
+                                <input type="text" name="status" style="width: 100%" value="0" readonly hidden>
                             </div>
                         </div>
                     </div>

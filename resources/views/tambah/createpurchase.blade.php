@@ -24,6 +24,7 @@
                             <div class="form-gorup">
                                 <label>Outlets<span style="color: #F00">*</span></label>
                                 <select name="outlet" class="form-control" required>
+                                    <option disabled selected value=""> --silahkan pilih-- </option>
                                     @foreach ($outlets as $p)
                                     <option value="{{$p->id}}">{{$p->name_outlet}}</option>
                                     @endforeach
@@ -34,7 +35,10 @@
                             <div class="form-gorup">
                                 <label>Suppliers<span style="color: #F00">*</span></label>
                                 <select name="supplier" class="form-control" required>
-                                    <option value=""></option>
+                                <option disabled selected value=""> --silahkan pilih-- </option>
+                                    @foreach ($supplier as $p)
+                                    <option value="{{$p->id}}">{{$p->supplier_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -60,7 +64,10 @@
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00">*</span></label>
                                 <select name="searchproduct" class="form-control" required>
-                                    <option value=""></option>
+                                <option disabled selected value=""> --silahkan pilih-- </option>
+                                    @foreach  ($product as $p)
+                                    <option value="{{$p->id}}">{{$p->name_product}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
