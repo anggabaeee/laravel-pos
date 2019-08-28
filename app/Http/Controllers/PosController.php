@@ -157,9 +157,17 @@ class PosController extends Controller
     public function purchase(){
         return view('pages.purchase_order');    
     }
+
     public function pnl(){
-        return view('pages.profitnloss'); 
+        $role = Session::get('role');
+        if($role=="1" || $role=="2"){
+            return "Permission Denied";
+        }
+        else{
+            return view('pages.profitnloss');
+        } 
     }
+
     public function makepayment(){
         return view('pages.makepayment'); 
     }
@@ -436,7 +444,13 @@ class PosController extends Controller
         return view('pages.ReturnOrder.returnreport'); 
     }   
     public function pnlreport(){
-        return view('pages.profitReport'); 
+        $role = Session::get('role');
+        if($role=="1" || $role=="2"){
+            return "Permission Denied";
+        }
+        else{
+            return view('pages.profitReport'); 
+        } 
     }
 
     //edit
