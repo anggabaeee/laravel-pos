@@ -71,15 +71,9 @@ Route::get('/returnorder/CreateReturn','PosController@createreturn')->middleware
 Route::get('/returnorder/ReportReturn','PosController@reportreturn')->middleware('ceklogin');
 
 // Inventory
-<<<<<<< HEAD
-Route::get('/inventory','inventorycontroller@inventory');
-Route::get('/inventory/editinventory/{id}','inventorycontroller@editinventory');
-Route::post('/inventory/editinventoryupdate/','inventorycontroller@editinventoryupdate');
-=======
 Route::get('/inventory','inventorycontroller@inventory')->middleware('ceklogin');
 Route::get('/inventory/editinventory/{id}','inventorycontroller@editinventory')->middleware('ceklogin');
 Route::put('/inventory/editinventoryupdate/{id}','inventorycontroller@editinventoryupdate')->middleware('ceklogin');
->>>>>>> 04fdd5218c21f7404b7729b63ef25767859e52d1
 
 
 // Products
