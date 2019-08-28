@@ -68,11 +68,11 @@
                             <div class="form-group">
                                 <label>Status <span style="color: #F00">*</span></label>
                                 <select name="status" class="form-control">
-                                    @if($users->status==1)
-                                    <option value="{{$users->status}}">Active</option>
+                                    @if($users->status===1)
+                                    <option selected value="1">Active</option>
                                     <option value="0">Inactive</option>
                                     @else
-                                    <option value="{{$users->status}}">Inactive</option>
+                                    <option selected value="0">Inactive</option>
                                     <option value="1">Active</option>
                                     @endif
                                 </select>

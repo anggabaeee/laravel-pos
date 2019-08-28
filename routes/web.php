@@ -57,8 +57,8 @@ Route::put('/expenses/editexpensescategory/update/{id}', 'PosController@editexpe
 Route::get('/expenses/editexpensescategory/delete/{id}','PosController@editexpensescategorydelete')->middleware('ceklogin');
 
 //profit & loss
-Route::get('/pnl/pnlReport','PosController@pnlreport')->middleware('ceklogin');
-Route::get('/pnl','PosController@pnl')->middleware('ceklogin');
+Route::get('/pnl/pnlReport','PosController@pnlreport')->middleware('pnlcek');
+Route::get('/pnl','PosController@pnl')->middleware('pnlcek');
 
 // POS
 Route::get('/pos','PosController@pos')->middleware('ceklogin');
@@ -137,13 +137,6 @@ Route::get('/setting/editpayment', 'PosController@editpayment')->middleware('cek
 Route::get('/postuser', 'PosController@postuser')->middleware('ceklogin');
 Route::get('/role', 'PosController@role')->middleware('ceklogin');
 Route::get('/addrole', 'PosController@addrole')->middleware('ceklogin');
-
-
-
-
-
-
-
-
-
-
+Route::get('/block', function(){
+return "Permission Denied";
+});
