@@ -5,7 +5,9 @@
         <h1>Change Password</h1>
         <div class="card">
             <div class="card-body">
-                <form action="">
+                <form action="/changepasswordupdate/{{$users->id}}">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
