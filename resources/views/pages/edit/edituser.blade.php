@@ -9,23 +9,33 @@
                 <div class="row">
                     <div class="col-md-12" style="text-align: right;">
                         <form action="">
-                            <input type="hidden" name="id" value="id">
                             <input type="submit" class="btn btn-danger" value="Delete User">
                         </form>
                     </div>
                 </div>
-                <form action="">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </div>
+                @endif
+                @foreach($users as $users)
+                <form action="/setting/edituserupdate/{{$users->id}}">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Full Name <span style="color: #f00">*</span></label>
-                                <input type="text" name="name" class="form-control" maxlength="499" required autofocus>
+                                <input type="text" name="name" class="form-control" maxlength="499"
+                                    value="{{$users->fullname}}" required autofocus>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Email <span style="color: #F00">*</span></label>
-                                <input type="email" name="email" class="form-control" maxlength="254" required>
+                                <input type="email" name="email" class="form-control" value="{{$users->email}}"
+                                    maxlength="254" required>
                             </div>
                         </div>
                     </div>
@@ -33,19 +43,22 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Role <span style="color: #F00">*</span></label>
-                                <select name="role" class="form-control">
-                                <option value="1">Sales Person</option>
-                                <option value="2">Administrator</option>
-                                <option value="3">Manager</option>
+                                <select name="role_id" class="form-control">
+                                    <option value="{{$users->role_id}}">{{$users->role_name}}</option>
+                                    @foreach($role as $r)
+                                    <option value="{{$r->id}}">{{$r->role_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Outlets<span style="color: #F00">*</span></label>
-                                <select name="outlets" class="form-control">
-                                <option value=""></option>
-                                <option value=""></option>
+                                <select name="outlet_id" class="form-control">
+                                    <option value="{{$users->outlet_id}}">{{$users->name_outlet}}</option>
+                                    @foreach($outlets as $o)
+                                    <option value="{{$o->id}}">{{$o->name_outlet}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -55,8 +68,13 @@
                             <div class="form-group">
                                 <label>Status <span style="color: #F00">*</span></label>
                                 <select name="status" class="form-control">
-                                    <option value="">Active</option>
-                                    <option value="">Inactive</option>
+                                    @if($users->status==1)
+                                    <option value="{{$users->status}}">Active</option>
+                                    <option value="0">Inactive</option>
+                                    @else
+                                    <option value="{{$users->status}}">Inactive</option>
+                                    <option value="1">Active</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -69,6 +87,7 @@
                         </div>
                     </div>
                 </form>
+                @endforeach
             </div>
         </div>
         <div class="row" style="margin-top: 15px">

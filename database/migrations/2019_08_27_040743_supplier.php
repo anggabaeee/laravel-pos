@@ -21,6 +21,7 @@ class Supplier extends Migration
             $table->string('fax');
             $table->string('supplier_addres');
             $table->string('supplier_tax');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ class PosController extends Controller
     public function login(){
         return view('login');    
     }
+
     public function loginpost(Request $request){
         $email = $request->email;
         $password = $request->password;
@@ -36,12 +37,11 @@ class PosController extends Controller
                 return redirect('/dashboard');
             }
             else{
-                Session::flash('incorrect', 'Invalid Password!');
-                return redirect('/');
+                return redirect('/')->with(['failed' => 'Invalid Password!']);
             }
         }
         else{
-        Session::flash('incorrect', 'Invalid Email and Password!');
+        Session::flash('failed', 'Invalid Email and Password!');
         return redirect('/');
         }
     }
@@ -50,13 +50,9 @@ class PosController extends Controller
         return redirect('/')->with('alert', 'You are Log Out');
     }
     public function dashboard(){
-        if(!Session::get('login')){
-            return redirect('/')->with('alert', 'You must login first');
-        }    
-        else{
             return view('pages.dashboard');
-        }
     }
+
     public function customer(){
         $customer = DB::table('customer')->orderBy('fullname','desc')->paginate(5);
         return view('pages.customer',['customer' => $customer]);    
@@ -225,10 +221,12 @@ class PosController extends Controller
         return redirect('/setting/outlets')->with(['success' => 'Data Berhasil Dihapus']);;
     }
     public function users(){
-        $users = DB::table('users')
-        ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
-        ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
-        ->get();
+            $users = DB::table('users')
+            ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
+            ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
+            ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
+            ->get();
+              
         return view('pages.setting.users',['users'=>$users]);   
     }
 
@@ -250,6 +248,7 @@ class PosController extends Controller
             'fax' => 'required',
             'supplier_addres' => 'required',
             'supplier_tax' => 'required',
+            'status' => 'required',
     ]);
     supplier::create([
         'supplier_name' => $request->supplier_name,
@@ -258,6 +257,7 @@ class PosController extends Controller
         'fax' => $request->fax,
         'supplier_addres' => $request->supplier_addres,
         'supplier_tax' => $request->supplier_tax,
+        'status' => $request->status,
     ]);        
     return redirect('/setting/suppliers')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
@@ -432,18 +432,59 @@ class PosController extends Controller
     }
     public function reportreturn(){
         return view('pages.ReturnOrder.returnreport'); 
-    }
+    }   
     public function pnlreport(){
         return view('pages.profitReport'); 
     }
-    //edit
 
-    public function edituser(){
-        return view('pages.edit.edituser'); 
+    //edit
+    public function edituser($id){
+        $users = DB::table('users')->where('users.id', $id)
+        ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
+        ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
+        ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
+        ->get();
+        $role = UserRoles::all();
+        $outlets = outlets::all();
+        return view('pages.edit.edituser')->with('users', $users)->with('role', $role)->with('outlets', $outlets);
     }
-    public function changepassword(){
-        return view('pages.edit.changepassword'); 
+
+    public function edituserupdate($id, Request $request){
+        $this->validate($request,[
+            'name'=>'required|min:4',
+            'email' => 'required|min:4|email|unique:users,email,'.$id,
+            'role_id' => 'required',
+            'outlet_id' => 'required',
+            'status' =>'required'
+            ]);
+
+            $users = users::find($id);
+            $users->fullname = $request->name;
+            $users->email = $request->email;
+            $users->role_id = $request->role_id;
+            $users->outlet_id = $request->outlet_id;
+            $users->status = $request->status;
+            $users->save();
+            return redirect('/setting/users')->with('success', 'data updated');
     }
+
+    public function changepassword($id){
+        $users = users::find($id);
+        return view('pages.edit.changepassword', ['users'=>$users]); 
+    }
+
+    public function changepasswordupdate($id, Request $request){
+        $this->validate($request,[
+            'password' => 'required',
+            'confirmation' => 'required|same:password',
+            ]);
+
+            $users = users::find($id);
+            $users->password = bcrypt($request->password);
+            $users->save();
+            return redirect('/setting/users')->with('success',' Successfully Updated New Password.');
+    }
+    
     public function editsupplier(){
         return view('pages.edit.editsupplier'); 
     }

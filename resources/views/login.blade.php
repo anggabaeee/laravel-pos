@@ -62,7 +62,7 @@
                                 <button class="btn btn-primary" style="width: 200px">Login</button>
                             </center>
                         </form>
-                        @if ($message = Session::get('incorrect'))
+                        @if ($message = Session::get('failed'))
                         <center>
                             <label class="alert" style="margin-top: 20px; color: #F00;">{{ $message }}</label>
                         </center>

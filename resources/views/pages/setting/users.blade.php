@@ -16,6 +16,12 @@
         <h1>Users</h1>
         <div class="card">
             <div class="card-body">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
                 <div class="row" style="margin-left: 0px">
                     <a href="{{ url('/setting/users/adduser')}}"><button type="button" class="btn btn-primary">
                             <i class="fa fa-plus"> </i> Add New User</button></a>
@@ -47,9 +53,9 @@
                                     <td style="font-weight: bold;"><span style="color:#090;">Inactive</span></td>
                                     @endif
                                     <td>
-                                        <a href="ChangePassword" style="padding: 5px, 5px;"><button
+                                        <a href="ChangePassword/{{$u->id}}" style="padding: 5px, 5px;"><button
                                                 class="btn btn-primary">Change Password</button></a>
-                                        <a href="edituser" style="margin-left: 5px;"><button
+                                        <a href="edituser/{{$u->id}}" style="margin-left: 5px;"><button
                                                 class="btn btn-primary">Edit</button></a>
                                     </td>
                                     @endforeach

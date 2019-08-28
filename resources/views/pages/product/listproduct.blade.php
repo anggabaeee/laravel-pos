@@ -78,7 +78,11 @@
                                         @else
                                         <td>Active</td>
                                         @endif
-                                        <td></td>
+                                        <td>
+                                        <a href="#"><i class="fa fa-image fa-2x"></i></a>
+                                        <a href="#"><i class="fa fa-edit fa-2x"></i></a>
+                                        <a href="#"><i class="fa fa-barcode fa-2x" style="color: black"></i></a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
