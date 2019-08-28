@@ -2,7 +2,9 @@
 @section('content')
 <div class="col-sm-9 col-lg-10">
     <div class="container menu">
-        <h1>Inventory</h1>
+        {{ csrf_field() }}
+        {{ method_field('PUT') }}
+        <h1>Inventory for Product Code : {{$product -> code}}</h1>
         <div class="mt-2 master-form">
             <h2>Inventory by Outlet</h2>
             <br>
@@ -14,20 +16,25 @@
                     <p>Current Inventory Quantity</p>
                 </div>
             </div>
+            @foreach ($outlets as $p)
             <div class="row mt-2">
                 <div class="col-md-3">
-                    outlet 1
+                    {{$p->name_outlet}}
                 </div>
+                @foreach ($inventory as $i)
                 <div class="col-md-9">
-                    1
+                    {{$i->id}}
                 </div>
+                @endforeach
             </div>
+            <hr>
+            @endforeach
         </div>
-        <div class="mt-2 master-form mt-5">
+        <div class="mt-2 master-form mt-5 mb-5">
             <h2 class="text-center">Update Inventory by Outlet</h2>
             <br>
             <div class="row">
-                <div class="col-md-2">s
+                <div class="col-md-2">
                 </div>
                 <div class="col-md-8">
                     <div class="row mt-3" style="color: cornflowerblue;font-weight: bold;">
@@ -38,18 +45,40 @@
                             <p>Quantity</p>
                         </div>
                     </div>
-                    <div class="row mt-2">
-                        <div class="col-md-6">
-                            outlet 1
-                        </div>
-                        <div class="col-md-6">
-                            <input class="form-control" type="text" value="0">
-                        </div>
+                    <hr>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <li>{{ $error }}</li>
+                        @endforeach
                     </div>
+                    @endif
+                    <form action="/inventory/editinventoryupdate/{{$product->id}}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        @foreach ($outlets as $o)
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                {{$o->name_outlet}}
+                                <input name="outlet_id" type="text" value="{{$o->id}}">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" name="qty" type="text" value="0">
+                            </div>
+                        </div>
+                        @endforeach
+                        <input name="product_code" readonly type="text" value="{{$product->code}}">
+                        <hr>
+                        <div class="text-center mt-5">
+                            <input type="submit" value="Update" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-2">
                 </div>
             </div>
+
         </div>
     </div>
     </section>

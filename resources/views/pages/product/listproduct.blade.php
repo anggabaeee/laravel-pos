@@ -71,8 +71,8 @@
                                         <td>{{$p->name_product}}</td>
                                         <td><img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}"></td>
                                         <td>{{$p->category_name}}</td>
-                                        <td>{{$p->retail_price}}</td>
-                                        <td>{{$p->purchase_price}}</td>
+                                        <td>{{ number_format($p->retail_price, 2, '.', ',') }}</td>
+                                        <td>{{ number_format($p->purchase_price, 2, '.', ',') }}</td>
                                         @if ($p->status == 0)
                                         <td>Not Active</td>
                                         @else
