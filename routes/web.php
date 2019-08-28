@@ -100,27 +100,21 @@ Route::post('/setting/outlets/addoutletstore','PosController@addoutletstore')->m
 Route::get('/setting/editoutlet/{id}', 'PosController@editoutlet')->middleware('ceklogin');
 Route::put('/setting/editoutletupdate/{id}', 'PosController@editoutletupdate')->middleware('ceklogin');
 Route::get('/setting/editoutletdelete/{id}', 'PosController@editoutletdelete')->middleware('ceklogin');
-Route::get('/setting/users', 'PosController@users')->middleware('ceklogin');
-
+Route::get('/setting/users', 'FilterController@users')->middleware('ceklogin');
 
 //supllier
-Route::get('/setting/suppliers', 'PosController@suppliers')->middleware('ceklogin');
-Route::get('/setting/suppliersadd', 'PosController@suppliersadd')->middleware('ceklogin');
-Route::post('/setting/supllierstore','PosController@supllierstore')->middleware('ceklogin');
+Route::get('/setting/suppliers', 'PosController@suppliers')->middleware('pnlcek');
+Route::get('/setting/suppliersadd', 'PosController@suppliersadd')->middleware('pnlcek');
+Route::post('/setting/supllierstore','PosController@supllierstore')->middleware('pnlcek');
 
-
-
-Route::get('/setting/system_setting', 'PosController@system')->middleware('ceklogin');
+Route::get('/setting/system_setting', 'PosController@system')->middleware('pnlcek');
 Route::get('/setting/users/adduser', 'PosController@adduser')->middleware('ceklogin');
 Route::get('/setting/edituser/{id}', 'PosController@edituser')->middleware('ceklogin');
 Route::get('/setting/edituserupdate/{id}', 'PosController@edituserupdate')->middleware('ceklogin');
 Route::get('/setting/ChangePassword/{id}', 'PosController@changepassword')->middleware('ceklogin');
 Route::get('/changepasswordupdate/{id}', 'PosController@changepasswordupdate')->middleware('ceklogin');
-Route::get('/setting/editsupplier', 'PosController@editsupplier')->middleware('ceklogin');
-Route::get('/setting/editpayment', 'PosController@editpayment')->middleware('ceklogin');
+Route::get('/setting/editsupplier', 'PosController@editsupplier')->middleware('pnlcek');
+Route::get('/setting/editpayment', 'PosController@editpayment')->middleware('pnlcek');
 Route::get('/postuser', 'PosController@postuser')->middleware('ceklogin');
-Route::get('/role', 'PosController@role')->middleware('ceklogin');
-Route::get('/addrole', 'PosController@addrole')->middleware('ceklogin');
-Route::get('/block', function(){
-return "Permission Denied";
-});
+Route::get('/role', 'PosController@role')->middleware('pnlcek');
+Route::get('/addrole', 'PosController@addrole')->middleware('pnlcek');

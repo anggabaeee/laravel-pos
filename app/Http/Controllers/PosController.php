@@ -20,7 +20,11 @@ use App\UserRoles;
 class PosController extends Controller
 {
     public function login(){
-        return view('login');    
+        if(!Session::get('login')){
+            return view('login');
+        } else{
+            return redirect('/dashboard');
+        }
     }
 
     public function loginpost(Request $request){
@@ -31,6 +35,7 @@ class PosController extends Controller
             if(Hash::check($password, $data->password)){
                 Session::put('name', $data->fullname);
                 Session::put('email', $data->email);
+                Session::put('id', $data->id);
                 Session::put('role', $data->role_id);
                 Session::put('outlets', $data->outlet_id);
                 Session::put('login', TRUE);
@@ -159,13 +164,7 @@ class PosController extends Controller
     }
 
     public function pnl(){
-        $role = Session::get('role');
-        if($role=="1" || $role=="2"){
-            return "Permission Denied";
-        }
-        else{
-            return view('pages.profitnloss');
-        } 
+        return view('pages.profitnloss');
     }
 
     public function makepayment(){
@@ -228,15 +227,6 @@ class PosController extends Controller
         $outlets->delete();
         return redirect('/setting/outlets')->with(['success' => 'Data Berhasil Dihapus']);;
     }
-    public function users(){
-            $users = DB::table('users')
-            ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
-            ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
-            ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
-            ->get();
-              
-        return view('pages.setting.users',['users'=>$users]);   
-    }
 
     //supllier
     public function suppliers(){
@@ -246,7 +236,6 @@ class PosController extends Controller
     public function suppliersadd(){
         return view('tambah.addSupplier');
     }
-
 
     public function supllierstore(Request $request){
         $this->validate($request,[
@@ -442,13 +431,7 @@ class PosController extends Controller
         return view('pages.ReturnOrder.returnreport'); 
     }   
     public function pnlreport(){
-        $role = Session::get('role');
-        if($role=="1" || $role=="2"){
-            return "Permission Denied";
-        }
-        else{
             return view('pages.profitReport'); 
-        } 
     }
 
     //edit
