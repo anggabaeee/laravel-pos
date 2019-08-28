@@ -107,6 +107,10 @@ Route::get('/setting/users', 'PosController@users');
 Route::get('/setting/suppliers', 'PosController@suppliers');
 Route::get('/setting/suppliersadd', 'PosController@suppliersadd');
 Route::post('/setting/supllierstore','PosController@supllierstore');
+Route::get('/setting/editsupplier/{id}', 'PosController@editsupplier');
+Route::get('/setting/editsupplierdelete/{id}','PosController@editsupplierdelete');
+Route::put('/setting/editsupplierupdate/{id}', 'PosController@editsupplierupdate');
+
 
 
 
@@ -114,7 +118,7 @@ Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/users/adduser', 'PosController@adduser');
 Route::get('/setting/edituser', 'PosController@edituser');
 Route::get('/setting/ChangePassword', 'PosController@changepassword');
-Route::get('/setting/editsupplier', 'PosController@editsupplier');
+
 Route::get('/setting/editpayment', 'PosController@editpayment');
 Route::get('/postuser', 'PosController@postuser');
 Route::get('/role', 'PosController@role');
