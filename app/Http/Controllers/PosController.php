@@ -489,7 +489,7 @@ class PosController extends Controller
             $users = users::find($id);
             $users->password = bcrypt($request->password);
             $users->save();
-            return redirect('/setting/users');
+            return redirect('/setting/users')->with('success',' Successfully Updated New Password.');
     }
     
     public function editsupplier(){

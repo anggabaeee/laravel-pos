@@ -16,6 +16,12 @@
         <h1>Users</h1>
         <div class="card">
             <div class="card-body">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
                 <div class="row" style="margin-left: 0px">
                     <a href="{{ url('/setting/users/adduser')}}"><button type="button" class="btn btn-primary">
                             <i class="fa fa-plus"> </i> Add New User</button></a>

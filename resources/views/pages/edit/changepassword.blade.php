@@ -5,6 +5,15 @@
         <h1>Change Password</h1>
         <div class="card">
             <div class="card-body">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <li>{{ $error }}</li>
+                    @endforeach
+                <br>
+                </div>
+                @endif
                 <form action="/changepasswordupdate/{{$users->id}}">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
