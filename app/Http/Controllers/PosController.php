@@ -41,7 +41,7 @@ class PosController extends Controller
             }
         }
         else{
-        Session::flash('incorrect', 'Invalid Email and Password!');
+        Session::flash('failed', 'Invalid Email and Password!');
         return redirect('/');
         }
     }
@@ -50,12 +50,7 @@ class PosController extends Controller
         return redirect('/')->with('alert', 'You are Log Out');
     }
     public function dashboard(){
-        if(!Session::get('login')){
-            return redirect('/')->with('failed', 'You must login first!');
-        }    
-        else{
             return view('pages.dashboard');
-        }
     }
 
     public function customer(){
