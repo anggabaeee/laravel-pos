@@ -41,18 +41,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($product as $p)
                         <tr>
-                            <td>Bastuti</td>
-                            <td>bastuti@gmail.com</td>
-                            <td>089238918391</td>
-                            <td>@mdo</td>
+                            <td>{{$p->code}}</td>
+                            <td>{{$p->name_product}}</td>
+                            <td></td>
+                            <td><a href="/inventory/editinventory/{{$p->id}}" class="btn btn-primary">View</a>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
 

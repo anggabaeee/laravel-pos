@@ -10,9 +10,4 @@ class product extends Model
 {
     protected $table = "product";
     protected $fillable = ['code','name_product','category_name','purchase_price','retail_price','thumbnail','status'];
-    
-    public function category()
-    {
-        return $this->hasMany('App\category');
-    }
 }

@@ -16,28 +16,43 @@
 </style>
 <div class="col-sm-9 col-sm-offset-10 col-lg-10 col-lg-offset-2 main">
     <div class="container mt-3">
-        <h1>Edit Expenses Category :</h1>
-        <form action="" class="mt-2 panel">
+        <h1>Edit Expenses Category : {{$expensescategory->name}}</h1>
+        <form method="post"  action="/expenses/editexpensescategory/update/{{$expensescategory->id}}" class="mt-2 panel">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <li>{{ $error }}</li>
+                @endforeach
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Expense Category Name
                             <span style="color: #F00">*</span>
                         </label>
-                        <input class="form-control" type="text" required autocomplete="off">
+                        <input name="name" class="form-control" type="text" required autocomplete="off"
+                            value="{{$expensescategory->name}}">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-
                         <label for="">Status
                             <span style="color: #F00">*</span>
                         </label>
-                        <select class="form-control" type="text" required>
+                        <select name="status" class="form-control" type="text" required>
+                            @if ($expensescategory->status === 1)
+                            <option selected value="1">Active</option>
+                            <option value="0">Inactive</option>
+                            @else
                             <option value="1">Active</option>
-                            <option value="2">Inactive</option>
+                            <option selected value="0">Inactive</option>
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -45,7 +60,7 @@
             <div class="row">
                 <div class="col-sm-2 ">
                     <div class="form-group">
-                        <button class="btn btn-primary" style="width: 100%;">Add</button>
+                        <input class="btn btn-primary" style="width: 100%;" type="submit" value="Add">
                     </div>
                 </div>
             </div>

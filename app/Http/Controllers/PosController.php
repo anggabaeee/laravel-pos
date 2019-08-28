@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use App\supplier;
 use App\Customer;
 use App\gift_card;
 use App\category;
@@ -25,7 +26,6 @@ class PosController extends Controller
     public function loginpost(Request $request){
         $email = $request->email;
         $password = $request->password;
-  
         $data = users::where('email', $email)->first();
         if($data){
             if(Hash::check($password, $data->password)){
@@ -41,15 +41,14 @@ class PosController extends Controller
             }
         }
         else{
-          return redirect('/')->with(['failed' => 'Invalid Email or Password!']);
+        Session::flash('incorrect', 'Invalid Email and Password!');
+        return redirect('/');
         }
-      }
-
-      public function logout(){
-          Session::flush();
-          return redirect('/')->with('failed', 'You are Log Out!');
-      }
-
+    }
+    public function logout(){
+        Session::flush();
+        return redirect('/')->with('alert', 'You are Log Out');
+    }
     public function dashboard(){
         if(!Session::get('login')){
             return redirect('/')->with('failed', 'You must login first!');
@@ -153,9 +152,6 @@ class PosController extends Controller
 
 
     //pages
-    public function inventory(){
-        return view('pages.inventory');    
-    }
     public function pos(){
         $outlets = DB::table('outlets')->get();
         return view('pages.pos',['outlets'=>$outlets]);    
@@ -238,9 +234,41 @@ class PosController extends Controller
               
         return view('pages.setting.users',['users'=>$users]);   
     }
+
+    //supllier
     public function suppliers(){
-        return view('pages.setting.suppliers');    
+        $supplier = supplier::all();
+        return view('pages.setting.suppliers',['supplier' => $supplier]);    
     }
+    public function suppliersadd(){
+        return view('tambah.addSupplier');
+    }
+
+
+    public function supllierstore(Request $request){
+        $this->validate($request,[
+            'supplier_name' => 'required',
+            'email' => 'required',
+            'telephone' => 'required',
+            'fax' => 'required',
+            'supplier_addres' => 'required',
+            'supplier_tax' => 'required',
+            'status' => 'required',
+    ]);
+    supplier::create([
+        'supplier_name' => $request->supplier_name,
+        'email' => $request->email,
+        'telephone' => $request->telephone,
+        'fax' => $request->fax,
+        'supplier_addres' => $request->supplier_addres,
+        'supplier_tax' => $request->supplier_tax,
+        'status' => $request->status,
+    ]);        
+    return redirect('/setting/suppliers')->with(['success' => 'Data Berhasil Ditambahkan']); 
+    }
+
+
+
     public function system(){
         return view('pages.setting.system_setting');    
     }
@@ -249,12 +277,14 @@ class PosController extends Controller
     public function expenses(){
         return view('pages.expenses.expenses');    
     }
+    public function addexpenses(){
+        $expensescategory = DB::table('expensescategory')->get();
+        $outlets = DB::table('outlets')->get();
+        return view('tambah.addexpenses',['expensescategory'=> $expensescategory,'outlets'=>$outlets]); 
+    }
     public function expenses_category(){
         $expensescategory = DB::table('expensescategory')->get();
         return view('pages.expenses.expenses_category',['expensescategory'=> $expensescategory]);
-    }
-    public function addexpenses(){
-        return view('tambah.addexpenses'); 
     }
     public function addexpensescategory(){
         return view('tambah.addexpensescategory'); 
@@ -270,7 +300,26 @@ class PosController extends Controller
     ]);        
     return redirect('/expensescategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
-
+    public function editexpensescategory($id){
+        $expensescategory = expensescategory::find($id);
+        return view('pages.edit.editexpensescategory',['expensescategory' => $expensescategory]); 
+    }
+    public function editexpensescategoryupdate($id, Request $request){
+        $this->validate($request,[
+            'name' => 'required',
+            'status' => 'required'
+        ]);
+        $expensescategory = expensescategory::find($id);
+        $expensescategory->name = $request->name;
+        $expensescategory->status = $request->status;
+        $expensescategory->save();
+        return redirect('/expensescategory');
+    }
+    public function editexpensescategorydelete($id){
+        $expensescategory = expensescategory::find($id);
+        $expensescategory->delete();
+        return redirect('/expensescategory')->with(['success' => 'Data Berhasil Dihapus']);;
+    }
 
     //sales
     public function openedbil(){
@@ -284,7 +333,8 @@ class PosController extends Controller
 
     //report
     public function salesreports(){
-        return view('pages.reports.salesreports');
+        $outlets = DB::table('outlets')->get();
+        return view('pages.reports.salesreports',['outlets'=>$outlets]);
     }
 
     public function soldbyproduct(){
@@ -321,26 +371,32 @@ class PosController extends Controller
         $category = category::all();
         return view('tambah.addproduct',['category' => $category]);
     }
-
     public function addProductstore(Request $request){
-        $this->validate($request,[
+        $this->validate($request, [
             'code' => 'required|unique:product,code',
             'name_product' => 'required',
             'category_name' => 'required',
             'purchase_price' => 'required',
             'retail_price' => 'required',
-            'thumbnail' => 'required',
+            'thumbnail' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
             'status' => 'required'
         ]);
+
+        $thumbnail = $request->file('thumbnail');
+        $nama_thumbnail = time()."_".$thumbnail->getClientOriginalName();
+        $tujuan_upload = 'product_image';
+        $thumbnail->move($tujuan_upload,$nama_thumbnail);
+
         product::create([
             'code' => $request->code,
             'name_product' => $request->name_product,
             'category_name' => $request->category_name,
             'purchase_price' => $request->purchase_price,
             'retail_price' => $request->retail_price,
-            'thumbnail' => $request->thumbnail,
+            'thumbnail' => $nama_thumbnail,
             'status' => $request->status
         ]);        
+
         return redirect('/product/ListProduct')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 
@@ -445,20 +501,17 @@ class PosController extends Controller
     public function editexpenses(){
         return view('pages.edit.editexpenses'); 
     }
-    public function editexpensescategory(){
-        return view('pages.edit.editexpensescategory'); 
-    }
     public function role(){
         $role = UserRoles::all();
         return view('role', ['role'=>$role]); 
     }
     public function addrole(Request $request){
-       $this->validate($request, [
-           'role_name'=> 'required',
-       ]);
-       UserRoles::create([
-           'role_name'=> $request->role_name
-       ]);
-       return redirect('/role');
+        $this->validate($request, [
+            'role_name'=> 'required',
+        ]);
+        UserRoles::create([
+            'role_name'=> $request->role_name
+        ]);
+        return redirect('/role');
     }
 }

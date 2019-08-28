@@ -13,7 +13,7 @@
         <h1>Add Product</h1>
         <div class="card">
             <div class="card-body">
-                <form action="/product/ListProduct/addProductstore" method="post">
+                <form action="/product/ListProduct/addProductstore" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     @if ($errors->any())
                     <div class="alert alert-danger">
@@ -66,33 +66,32 @@
                             <div class="form-group">
                                 <label>Product Image <span style="color: #F00">*</span></label>
                                 <div class="custom-file">
-                                    <input type="text" name="thumbnail">
-                                    {{-- <label class="custom-file-label" for="CustomFile">choose file</label> --}}
+                                    <input type="file" name="thumbnail">
                                 </div>
                             </div>
                         </div>
                         <input type="text" name="status" value="1" hidden>
                     </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" value="Add" style="width: 80%">
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Add" style="width: 80%">
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-2">
+                <a href="{{ url ('product/ListProduct/')}}">
+                    <button class="btn btn-secondary" style="width: 60%"><i class="fa fa-chevron-left"></i> Back
+                    </button>
+                </a>
             </div>
         </div>
     </div>
     </form>
 </div>
-</div>
-<div class="row" style="margin-top: 15px;">
-    <div class="col-md-2">
-        <a href="{{ url ('product/ListProduct/')}}">
-            <button class="btn btn-secondary" style="width: 60%"><i class="fa fa-chevron-left"></i> Back
-            </button>
-        </a>
-    </div>
 </div>
 <script>
     $(".custom-file-input").on("change", function () {

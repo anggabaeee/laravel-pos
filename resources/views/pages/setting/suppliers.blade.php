@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-left: 0px">
-                    <a href="#"><button type="button" class="btn btn-primary">
+                    <a href="/setting/suppliersadd"><button type="button" class="btn btn-primary">
                             <i class="fa fa-plus"> </i> Add New Supplier</button></a>
                 </div>
                 <div class="row" style="margin-left: 0px; margin-top: 15px;">
@@ -34,15 +34,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($supplier as $p)
                                 <tr>
-                                    <td>AAA</td>
-                                    <td>AAA@gmail.com</td>
-                                    <td>292948484</td>
-                                    <td>292948484</td>
-                                    <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
+                                    <td>{{ $p->supplier_name }}</td>
+                                    <td>{{ $p->email }}</td>
+                                    <td>{{ $p->telephone }}</td>
+                                    <td>{{ $p->fax }}</td>
+                                    @if ($p->status == 0)
+                                    <td style="font-weight: bold;"><span style="color:#090;">NonActive</span></td>
+                                    @else
+                                    <td style="font-weight: bold;"><span style="color:#090;">Active</span></td>
+                                    @endif
                                     <td><a href="editsupplier" style="margin-left: 5px;"><button
                                                 class="btn btn-primary">Edit</button></a></td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

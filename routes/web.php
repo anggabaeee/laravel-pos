@@ -13,7 +13,6 @@
 
 Route::get('/','PosController@login');
 Route::get('/loginpost','PosController@loginpost');
-Route::get('/loginpost','PosController@loginpost');
 Route::get('/logout','PosController@logout');
 // dashboard
 Route::get('/dashboard','PosController@dashboard');
@@ -48,10 +47,14 @@ Route::get('/soldbyproduct', 'PosController@soldbyproduct');
 Route::get('/expenses', 'PosController@expenses');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses');
 Route::get('/expenses/editexpenses', 'PosController@editexpenses');
+
+// expenses category
 Route::get('/expensescategory', 'PosController@expenses_category');
 Route::get('/expensescategory/addexpensescategory', 'PosController@addexpensescategory');
 Route::post('/expensescategory/addexpensescategorystore', 'PosController@addexpensescategorystore');
-Route::get('/expenses/editexpensescategory', 'PosController@editexpensescategory');
+Route::get('/expenses/editexpensescategory/{id}', 'PosController@editexpensescategory');
+Route::put('/expenses/editexpensescategory/update/{id}', 'PosController@editexpensescategoryupdate');
+Route::get('/expenses/editexpensescategory/delete/{id}','PosController@editexpensescategorydelete');
 
 //profit & loss
 Route::get('/pnl/pnlReport','PosController@pnlreport');
@@ -68,7 +71,10 @@ Route::get('/returnorder/CreateReturn','PosController@createreturn');
 Route::get('/returnorder/ReportReturn','PosController@reportreturn');
 
 // Inventory
-Route::get('/inventory','PosController@inventory');
+Route::get('/inventory','inventorycontroller@inventory');
+Route::get('/inventory/editinventory/{id}','inventorycontroller@editinventory');
+Route::put('/inventory/editinventoryupdate/{id}','inventorycontroller@editinventoryupdate');
+
 
 // Products
 Route::get('/product/ListProduct','PosController@listproduct');
@@ -94,9 +100,16 @@ Route::post('/setting/outlets/addoutletstore','PosController@addoutletstore');
 Route::get('/setting/editoutlet/{id}', 'PosController@editoutlet');
 Route::put('/setting/editoutletupdate/{id}', 'PosController@editoutletupdate');
 Route::get('/setting/editoutletdelete/{id}', 'PosController@editoutletdelete');
-
 Route::get('/setting/users', 'PosController@users');
+
+
+//supllier
 Route::get('/setting/suppliers', 'PosController@suppliers');
+Route::get('/setting/suppliersadd', 'PosController@suppliersadd');
+Route::post('/setting/supllierstore','PosController@supllierstore');
+
+
+
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/users/adduser', 'PosController@adduser');
 Route::get('/setting/edituser/{id}', 'PosController@edituser');
