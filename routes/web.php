@@ -77,14 +77,6 @@ Route::put('/inventory/editinventoryupdate/{id}','inventorycontroller@editinvent
 
 
 // Products
-<<<<<<< HEAD
-Route::get('/product/ListProduct','PosController@listproduct');
-Route::get('/product/ListProduct/addProduct','PosController@addProduct');
-Route::post('/product/ListProduct/addProductstore','PosController@addProductstore');
-Route::get('/product/ProductCategory','PosController@productcategory');
-Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory');
-Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore');
-=======
 Route::get('/product/ListProduct','ProductController@listproduct')->middleware('ceklogin');
 Route::get('/product/ListProduct/addProduct','ProductController@addProduct')->middleware('ceklogin');
 Route::post('/product/ListProduct/addProductstore','ProductController@addProductstore')->middleware('ceklogin');
@@ -92,7 +84,6 @@ Route::get('/product/ListProduct/editproduct/{id_product}','ProductController@ed
 Route::get('/product/ProductCategory','PosController@productcategory')->middleware('ceklogin');
 Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory')->middleware('ceklogin');
 Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore')->middleware('ceklogin');
->>>>>>> 4d428154d264ee30a0d6363d39f155dfc84fb158
 
 
 // Purchase Order ojo di middleware sek
