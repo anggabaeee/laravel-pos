@@ -41,9 +41,9 @@
                                     <td>{{ $p->supplier_name }}</td>
                                     <td>{{ $p->datenow }}</td>
                                     <td style="font-weight: bold;"><span style="color:#090;">Active</span></td>
-                                    <td><a href="#" style="margin-left: 5px;"><button
+                                    <td><a href="/purchase_order/editpurchaseorder" style="margin-left: 5px;"><button
                                             class="btn btn-primary">Edit</button></a>
-                                            <a href="#" style="margin-left: 5px;" onclick="return confirm('Are you sure to delete this Purchase Order : ?')"><i class="fa fa-times" height="50px" style="color: #c50000"></i></a>
+                                            <!-- <a href="" style="margin-left: 5px;" onclick="return confirm('Are you sure to delete this Purchase Order : ?')"><i class="fa fa-times" height="50px" style="color: #c50000"></i></a> -->
                                             </td>
                                 </tr>
                             @endforeach
