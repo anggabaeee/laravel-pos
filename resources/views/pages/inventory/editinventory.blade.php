@@ -54,7 +54,7 @@
                         @endforeach
                     </div>
                     @endif
-                    <form action="/inventory/editinventoryupdate/" method="POST">
+                    <form action="/inventory/editinventoryupdate/" method="post">
                         {{ csrf_field() }}
                         <input name="product_code" type="text" value="{{$product->code}}">
                         @foreach ($outlets as $o)

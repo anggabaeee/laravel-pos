@@ -22,7 +22,7 @@ class FilterController extends Controller
 {
     public function users(){
         $role = Session::get('role');
-        $outlet = Session::get('outlet');
+        $outlet = Session::get('outlets');
         $id = Session::get('id');
         if($role=="2"){
             $users = DB::table('users')->where('users.outlet_id', $outlet)
