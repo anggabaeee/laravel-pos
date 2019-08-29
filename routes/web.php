@@ -77,26 +77,26 @@ Route::put('/inventory/editinventoryupdate/{id}','inventorycontroller@editinvent
 
 
 // Products
-Route::get('/product/ListProduct','PosController@listproduct')->middleware('ceklogin');
-Route::get('/product/ListProduct/addProduct','PosController@addProduct')->middleware('ceklogin');
-Route::post('/product/ListProduct/addProductstore','PosController@addProductstore')->middleware('ceklogin');
-Route::get('/product/ProductCategory','PosController@productcategory')->middleware('ceklogin');
-Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory')->middleware('ceklogin');
-Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore')->middleware('ceklogin');
+Route::get('/product/ListProduct','PosController@listproduct');
+Route::get('/product/ListProduct/addProduct','PosController@addProduct');
+Route::post('/product/ListProduct/addProductstore','PosController@addProductstore');
+Route::get('/product/ProductCategory','PosController@productcategory');
+Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory');
+Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore');
 
 
-// Purchase Order
-Route::get('/purchase_order','PosController@purchase')->middleware('ceklogin');
-Route::get('/purchase_order/CreatePurchaseOrder','PosController@createpurchase')->middleware('ceklogin');
+// Purchase Order ojo di middleware sek
+Route::get('/purchase_order','PosController@purchase');
+Route::get('/purchase_order/CreatePurchaseOrder','PosController@createpurchase');
 
-// Setting
+// Setting Ojo dI middleware sek
 Route::get('/setting/payment_method', 'PosController@payment')->middleware('ceklogin');
 Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment')->middleware('ceklogin');
 
-// outlet
-Route::get('/setting/outlets', 'PosController@outlets')->middleware('ceklogin');
-Route::get('/setting/outlets/addoutlet','PosController@addoutlet')->middleware('ceklogin');
-Route::post('/setting/outlets/addoutletstore','PosController@addoutletstore')->middleware('ceklogin');
+// outlet ojo di maddleware sek
+Route::get('/setting/outlets', 'PosController@outlets');
+Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
+Route::post('/setting/outlets/addoutletstore','PosController@addoutletstore');  
 Route::get('/setting/editoutlet/{id}', 'PosController@editoutlet')->middleware('ceklogin');
 Route::put('/setting/editoutletupdate/{id}', 'PosController@editoutletupdate')->middleware('ceklogin');
 Route::get('/setting/editoutletdelete/{id}', 'PosController@editoutletdelete')->middleware('ceklogin');
@@ -119,9 +119,8 @@ Route::get('/setting/editpayment', 'PosController@editpayment');
 Route::get('/postuser', 'PosController@postuser');
 Route::get('/role', 'PosController@role');
 Route::get('/addrole', 'PosController@addrole');
-Route::get('/setting/suppliers', 'PosController@suppliers')->middleware('ceklogin');
-Route::get('/setting/suppliersadd', 'PosController@suppliersadd')->middleware('ceklogin');
-Route::post('/setting/supllierstore','PosController@supllierstore')->middleware('ceklogin');
+
+
 
 
 

@@ -34,17 +34,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($purchase_order as $p)
                                 <tr>
-                                    <td>Uniqlo - Buglis Outlet</td>
-                                    <td>#02-10, B2, Bugis Shopping Mall</td>
-                                    <td>292948484</td>
-                                    <td>safs</td>
+                                    <td>{{ $p->po_number }}</td>
+                                    <td>{{ $p->name_outlet }}</td>
+                                    <td>{{ $p->supplier_name }}</td>
+                                    <td>{{ $p->datenow }}</td>
                                     <td style="font-weight: bold;"><span style="color:#090;">Active</span></td>
                                     <td><a href="#" style="margin-left: 5px;"><button
                                             class="btn btn-primary">Edit</button></a>
                                             <a href="#" style="margin-left: 5px;" onclick="return confirm('Are you sure to delete this Purchase Order : ?')"><i class="fa fa-times" height="50px" style="color: #c50000"></i></a>
                                             </td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

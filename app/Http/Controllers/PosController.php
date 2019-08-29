@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use App\purchase_order;
 use App\supplier;
 use App\Customer;
 use App\gift_card;
@@ -160,7 +161,12 @@ class PosController extends Controller
         return view('pages.posadd');    
     }     
     public function purchase(){
-        return view('pages.purchase_order');    
+        $purchase_order = DB::table('purchase_order')
+        ->join('outlets', 'outlets.id', '=', 'purchase_order.id_outlet')
+        ->join('supplier', 'supplier.id', '=', 'purchase_order.id_supplier')
+        ->select('purchase_order.*','outlets.name_outlet','supplier.supplier_name')
+        ->get();
+        return view('pages.purchase_order',['purchase_order'=>$purchase_order]);    
     }
 
     public function pnl(){

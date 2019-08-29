@@ -59,11 +59,12 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00">*</span></label>
-                                <select name="searchproduct" class="form-control" required>
+                                <select name="searchproduct" class="form-control" >
                                 <option disabled selected value=""> --silahkan pilih-- </option>
                                     @foreach  ($product as $p)
                                     <option value="{{$p->id}}">{{$p->name_product}}</option>
