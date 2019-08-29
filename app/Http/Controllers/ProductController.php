@@ -14,8 +14,8 @@ class ProductController extends Controller
 {
     public function listproduct(){
         $product = DB::table('product')
-        ->join('category', 'category.id', '=', 'product.category_name')
-        ->select('category.id', 'product.*')
+        ->join('category', 'category.id', '=', 'product.category_id')
+        ->select('product.*','category.category_name')
         ->get();
         return view('pages.product.listproduct',['product' => $product]); 
     }
@@ -52,8 +52,8 @@ class ProductController extends Controller
     }
     public function editProduct($id){
         $product = DB::table('product')->where('product.id_product', $id)
-        ->join('category', 'product.category_name', '=', 'category.id')
-        ->select('product.*','category.id')
+        ->join('category', 'product.category_id', '=', 'category.id')
+        ->select('product.*','category.category_name')
         ->get();
         $category = category::all();
         return view('pages.product.editproduct')->with('product', $product)->with('category',$category);

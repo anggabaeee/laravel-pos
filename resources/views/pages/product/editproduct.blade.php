@@ -2,7 +2,6 @@
 @section('content')
 <div class="col-sm-9 col-lg-10">
     <div class="container">
-        {{ csrf_field() }}
         @foreach ($product as $p)
         <h1>Edit Product : {{$p->code}}</h1>
         @endforeach
@@ -11,8 +10,8 @@
                 <div class="text-right">
                     <button class="btn btn-danger">sadlas</button>
                 </div>
+                @foreach ($product as $p)
                 <form action="">
-                    @foreach ($product as $p)
                     <div class="row" style="margin-top: 15px">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -32,10 +31,10 @@
                                 <label>Category Name <span style="color:red">*</span></label>
                                 <select name="category" class="form-control">
                                     @foreach($category as $c)
-                                    <option value="{{$c->id}}" @if ($c -> id === $p -> category_name)
+                                    <option value="{{$c->id}}" @if ($c->id == $p->category_id)
                                         selected
                                         @endif>
-                                        {{$c->id}}
+                                        {{$c->category_name}}
                                     </option>
                                     @endforeach
                                 </select>
@@ -58,7 +57,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Category <span style="color:red">*</span></label>
-                                <input type="file" name="thumbnail">
+                                <input type="file" name="thumbnail" value="">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -76,8 +75,9 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    <input type="submit" class="btn btn-primary" value="submit">
                 </form>
+                @endforeach
             </div>
         </div>
         <div class="card mt-5 mb-5">

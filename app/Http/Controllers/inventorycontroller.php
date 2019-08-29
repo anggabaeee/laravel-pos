@@ -41,102 +41,18 @@ class inventorycontroller extends Controller
         $outlets = DB::table('outlets')->get();
         return view('pages.inventory.editinventory',['outlets' => $outlets,'inventory' => $inventory,'product' => $product]);
     }
+
     public function editinventoryupdate(Request $request)
     {
-        for ($i = 1; $i < 2; $i++) {
+        $outlet = DB::table('outlets')->count();
+        for ($i = 0; $i < $outlet; $i++) {
             $answers[] = [
                 'product_code' => $request->product_code,
                 'outlet_id' => $request->outlet_id[$i],
                 'qty' => $request->qty[$i]
             ];
         }
-        // inventory::insert($answers);
-        dd($answers);
-        // return redirect('/inventory')->with('status', 'Your answers successfully submitted');
+        inventory::insert($answers);
+        return redirect('/inventory')->with('status', 'Your answers successfully submitted');
     }  
-    
-    // comment
-        // public function editinventoryupdate(Request $request)
-        // {
-        //     for ($i = 1; $i < count($request->outlet_id); $i++) {
-        //         $answers[] = [
-        //             'product_code' => $request->product_code,
-        //             'outlet_id' => $request->outlet_id[$i],
-        //             'qty' => $request->qty[$i]
-        //         ];
-        //     }
-        //     // inventory::insert($answers);
-        //     dd($answers);
-        //     // return redirect('/inventory')->with('status', 'Your answers successfully submitted');
-        // }  
-        // public function editinventoryupdate(Request $request)
-        // {
-        //     $inventory = DB::table('inventory')->get();
-        //     $this->validate($request,[
-        //         'product_code' => 'required',
-        //         'outlet_id' => 'required',
-        //         'qty' => 'required'
-        //     ]);
-        //     foreach ($inventory as $i){
-        //         inventory::create([
-        //             'product_code' => $request->product_code,
-        //             'outlet_id' => $request->outlet_id[$i],
-        //             'qty' => $request->qty[$i]
-        //         ]);
-        //     }
-        //     dd($inventory);
-        //     // inventory::create();
-        //     return redirect('/inventory')->with('status', 'Your answers successfully submitted');
-        // }  
-        // public function editinventoryupdate(Request $request)
-        // {
-        //     $inventory = DB::table('inventory')->get();
-        //     $data = [];
-        //     foreach ($inventory as $i => $value){
-        //         $data = ['product_code' => $value];
-        //         $data = ['outlet_id' => $value];
-        //         $data = ['qty' => $value];
-        //     }
-        //     dd($data);
-        //     // DB::table('inventory')->insert($data);
-        //     return redirect('/inventory')->with('status', 'Your answers successfully submitted');
-        // }  
-        // public function editinventoryupdate(Request $request)
-        // {
-        //     for ($i = 1; $i < count($request->outlet_id); $i++) {
-        //         $inventory[] = [
-        //             'product_code' => $request->product_code[$i],
-        //             'outlet_id' => $request->outlet_id[$i],
-        //             'qty' => $request->qty[$i]
-        //         ];
-        //     }
-        //     inventory::create();
-        //     return redirect('/inventory')->with('status', 'Your answers successfully submitted');
-        // }  
-        // public function editinventoryupdate(Request $request){
-        //     $this->validate($request,[
-        //         'product_code' => 'required',
-        //         'outlet_id' => 'required',
-        //         'qty' => 'required'
-        // ]);
-        // inventory::create([
-        //     'product_code' => $request->product_code,
-        //     'outlet_id' => $request->outlet_id,
-        //     'qty' => $request->qty
-        // ]); 
-        // }
-        // public function editinventoryupdate($id, Request $request){
-        //     $this->validate($request,[
-        //         'product_code' => 'required',
-        //         'outlet_id' => 'required',
-        //         'qty' => 'required'
-        //     ]);
-
-        //     $inventory = inventory::find($id);
-        //     $inventory->outlet_id = $request->outlet_id;
-        //     $inventory->product_code = $request->productcode;
-        //     $inventory->qty = $request->qty;
-        //     $inventory->save();
-        //     return redirect('/inventory');
-        // }
 }
