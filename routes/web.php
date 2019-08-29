@@ -77,10 +77,10 @@ Route::put('/inventory/editinventoryupdate/{id}','inventorycontroller@editinvent
 
 
 // Products
-Route::get('/product/ListProduct','PosController@listproduct')->middleware('ceklogin');
-Route::get('/product/ListProduct/addProduct','PosController@addProduct')->middleware('ceklogin');
-Route::post('/product/ListProduct/addProductstore','PosController@addProductstore')->middleware('ceklogin');
-Route::get('/product/ListProduct/editproduct/{id_product}','PosController@editproduct')->middleware('ceklogin');
+Route::get('/product/ListProduct','ProductController@listproduct')->middleware('ceklogin');
+Route::get('/product/ListProduct/addProduct','ProductController@addProduct')->middleware('ceklogin');
+Route::post('/product/ListProduct/addProductstore','ProductController@addProductstore')->middleware('ceklogin');
+Route::get('/product/ListProduct/editproduct/{id_product}','ProductController@editproduct')->middleware('ceklogin');
 Route::get('/product/ProductCategory','PosController@productcategory')->middleware('ceklogin');
 Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory')->middleware('ceklogin');
 Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore')->middleware('ceklogin');

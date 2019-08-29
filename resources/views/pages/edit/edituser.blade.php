@@ -59,8 +59,7 @@
                                     <option value="{{$o->id}}" 
                                         @if ($o -> id === $users -> outlet_id)
                                         selected   
-                                        @endif
-                                        >
+                                        @endif>
                                         {{$o->name_outlet}}
                                     </option>
                                     @endforeach
