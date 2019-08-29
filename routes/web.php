@@ -89,8 +89,9 @@ Route::post('/product/ProductCategory/addProductCategorystore','PosController@ad
 // Purchase Order ojo di middleware sek
 Route::get('/purchase_order','PosController@purchase');
 Route::get('/purchase_order/CreatePurchaseOrder','PosController@createpurchase');
+Route::post('/purchase_order/CreatePurchaseOrderstore', 'PosController@createpurchasestore');
 
-// Setting Ojo dI middleware sek
+// Setting 
 Route::get('/setting/payment_method', 'PosController@payment')->middleware('ceklogin');
 Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment')->middleware('ceklogin');
 

@@ -12,18 +12,19 @@
         <h1>Create Purchase Order</h1>
         <div class="card">
             <div class="card-body">
-                <form action="">
+                <form action="/purchase_order/CreatePurchaseOrderstore" method="post">
+                {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-gorup">
                                 <label>Purchase Order Number <span style="color: #F00">*</span></label>
-                                <input type="text" name="ordernumber" class="form-control" required autofocus>
+                                <input type="text" name="po_number" class="form-control" required autofocus>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-gorup">
                                 <label>Outlets<span style="color: #F00">*</span></label>
-                                <select name="outlet" class="form-control" required>
+                                <select name="id_outlet" class="form-control" required>
                                     <option disabled selected value=""> --silahkan pilih-- </option>
                                     @foreach ($outlets as $p)
                                     <option value="{{$p->id}}">{{$p->name_outlet}}</option>
@@ -34,8 +35,8 @@
                         <div class="col-md-4">
                             <div class="form-gorup">
                                 <label>Suppliers<span style="color: #F00">*</span></label>
-                                <select name="supplier" class="form-control" required>
-                                <option disabled selected value=""> --silahkan pilih-- </option>
+                                <select name="id_supplier" class="form-control" required>
+                                    <option disabled selected value=""> --silahkan pilih-- </option>
                                     @foreach ($supplier as $p)
                                     <option value="{{$p->id}}">{{$p->supplier_name}}</option>
                                     @endforeach
@@ -48,7 +49,7 @@
                             <div class="form-gorup">
                                 <label>Created Date <span style="color: #F00">*</span></label>
                                 <?php $currentDateTime = date('Y-m-d');?>
-                                <input type="text" name="date" readonly class="form-control"
+                                <input type="text" name="datenow" readonly class="form-control"
                                     value="<?php echo $currentDateTime; ?>">
                             </div>
                         </div>
@@ -64,9 +65,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00">*</span></label>
-                                <select name="searchproduct" class="form-control" >
-                                <option disabled selected value=""> --silahkan pilih-- </option>
-                                    @foreach  ($product as $p)
+                                <select name="searchproduct" class="form-control">
+                                    <option disabled selected value=""> --silahkan pilih-- </option>
+                                    @foreach ($product as $p)
                                     <option value="{{$p->id}}">{{$p->name_product}}</option>
                                     @endforeach
                                 </select>

@@ -159,15 +159,46 @@ class PosController extends Controller
     }  
     public function posadd(){
         return view('pages.posadd');    
-    }     
+    }   
+    
     public function purchase(){
         $purchase_order = DB::table('purchase_order')
         ->join('outlets', 'outlets.id', '=', 'purchase_order.id_outlet')
         ->join('supplier', 'supplier.id', '=', 'purchase_order.id_supplier')
-        ->select('purchase_order.*','outlets.name_outlet','supplier.supplier_name')
+        ->select('purchase_order.*', 'outlets.name_outlet', 'supplier.supplier_name')
         ->get();
         return view('pages.purchase_order',['purchase_order'=>$purchase_order]);    
     }
+
+    public function createpurchase(){
+        $supplier = supplier::all();
+        $outlets = outlets::all();
+        $product = product::all();
+        return view('tambah.createpurchase',['outlets'=> $outlets],['supplier' => $supplier])->with('product',$product); 
+    }
+
+    public function  createpurchasestore(Request $request)
+    {
+    	$this->validate($request,[
+    		'po_number' => 'required',
+            'id_outlet' => 'required',
+            'id_supplier' => 'required',
+            'datenow' => 'required',
+            'note' => 'required',
+    	]);
+
+        purchase_order::create([
+    		'po_number' => $request->po_number,
+            'id_outlet' => $request->id_outlet,
+            'id_supplier' => $request->id_supplier,
+            'datenow' => $request->datenow,
+            'note' => $request->note,
+    	]);
+
+    	return redirect('/purchase_order');
+    }
+
+
 
     public function pnl(){
         return view('pages.profitnloss');
@@ -391,7 +422,44 @@ class PosController extends Controller
         return redirect('/product/ProductCategory')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 
+    public function listproduct(){
+        $product = DB::table('product')
+        ->join('category', 'category.id', '=', 'product.category_name')
+        ->get();
+        return view('pages.product.listproduct',['product' => $product]); 
+    }
+    public function addProduct(){
+        $category = category::all();
+        return view('tambah.addproduct',['category' => $category]);
+    }
+    public function addProductstore(Request $request){
+        $this->validate($request, [
+            'code' => 'required|unique:product,code',
+            'name_product' => 'required',
+            'category_name' => 'required',
+            'purchase_price' => 'required',
+            'retail_price' => 'required',
+            'thumbnail' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+            'status' => 'required'
+        ]);
 
+        $thumbnail = $request->file('thumbnail');
+        $nama_thumbnail = time()."_".$thumbnail->getClientOriginalName();
+        $tujuan_upload = 'product_image';
+        $thumbnail->move($tujuan_upload,$nama_thumbnail);
+
+        product::create([
+            'code' => $request->code,
+            'name_product' => $request->name_product,
+            'category_name' => $request->category_name,
+            'purchase_price' => $request->purchase_price,
+            'retail_price' => $request->retail_price,
+            'thumbnail' => $nama_thumbnail,
+            'status' => $request->status
+        ]);        
+
+        return redirect('/product/ListProduct')->with(['success' => 'Data Berhasil Ditambahkan']); 
+    }
 
     
     //tambah
@@ -419,12 +487,7 @@ class PosController extends Controller
         $data->save();
         return redirect('/setting/users/adduser');
     }
-    public function createpurchase(){
-        $supplier = supplier::all();
-        $outlets = outlets::all();
-        $product = product::all();
-        return view('tambah.createpurchase',['outlets'=> $outlets],['supplier' => $supplier])->with('product',$product); 
-    }
+   
 
     public function addpayment(){
         return view('tambah.addPaymentMethod'); 
