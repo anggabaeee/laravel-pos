@@ -39,7 +39,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Category <span style="color: #F00">*</span></label>
-                                <select name="category_name" class="form-control">
+                                <select name="category_id" class="form-control">
                                     <option disabled selected value> -- select an option -- </option>
                                     @foreach ($category as $p)
                                     <option value="{{$p->id}}">{{$p->category_name}}</option>

@@ -27,7 +27,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'code' => 'required|unique:product,code',
             'name_product' => 'required',
-            'category_name' => 'required',
+            'category_id' => 'required',
             'purchase_price' => 'required',
             'retail_price' => 'required',
             'thumbnail' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
@@ -42,7 +42,7 @@ class ProductController extends Controller
         product::create([
             'code' => $request->code,
             'name_product' => $request->name_product,
-            'category_name' => $request->category_name,
+            'category_id' => $request->category_id,
             'purchase_price' => $request->purchase_price,
             'retail_price' => $request->retail_price,
             'thumbnail' => $nama_thumbnail,

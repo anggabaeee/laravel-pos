@@ -16,7 +16,8 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Code <span style="color:red">*</span></label>
-                                <input type="text" name="code" class="form-control" value="{{$p-> code}}" readonly>
+                                <input type="text" name="code" class="form-control" value="{{$p-> code}}" readonly
+                                    style="cursor: not-allowed;">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -75,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="submit">
+                    <input type="Update" class="btn btn-primary" value="submit">
                 </form>
                 @endforeach
             </div>
