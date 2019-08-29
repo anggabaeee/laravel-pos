@@ -79,7 +79,8 @@
                                         <td>Active</td>
                                         @endif
                                         <td>
-                                            <a href="#"><i class="fa fa-image fa-2x"></i></a>
+                                            <a href="#"><i data-toggle="modal" data-target="#exampleModalCenter"
+                                                    class="fa fa-image fa-2x"></i></a>
                                             <a href="/product/ListProduct/editproduct/{{$p->id_product}}"><i
                                                     class="fa fa-edit fa-2x"></i></a>
                                             <a href="#"><i class="fa fa-barcode fa-2x" style="color: black"></i></a>
@@ -88,6 +89,29 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @foreach ($product as $p)
+                                            <img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}">
+                                            @endforeach
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
