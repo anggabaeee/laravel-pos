@@ -14,7 +14,7 @@ class Product extends Migration
     public function up()
     {
         Schema::create('product', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_product');
             $table->string('code',100)->unique();
             $table->string('name_product',100);
             $table->string('category_name');
