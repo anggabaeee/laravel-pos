@@ -55,9 +55,14 @@
                             <div class="form-group">
                                 <label>Outlets<span style="color: #F00">*</span></label>
                                 <select name="outlet_id" class="form-control">
-                                    <option value="{{$users->outlet_id}}">{{$users->name_outlet}}</option>
                                     @foreach($outlets as $o)
-                                    <option value="{{$o->id}}">{{$o->name_outlet}}</option>
+                                    <option value="{{$o->id}}" 
+                                        @if ($o -> id === $users -> outlet_id)
+                                        selected   
+                                        @endif
+                                        >
+                                        {{$o->name_outlet}}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
