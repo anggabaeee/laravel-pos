@@ -44,9 +44,12 @@
                             <div class="form-group">
                                 <label>Role <span style="color: #F00">*</span></label>
                                 <select name="role_id" class="form-control">
-                                    <option value="{{$users->role_id}}">{{$users->role_name}}</option>
                                     @foreach($role as $r)
-                                    <option value="{{$r->id}}">{{$r->role_name}}</option>
+                                    <option value="{{$r->id}}" @if ($r -> id === $users -> role_id)
+                                        selected
+                                        @endif>
+                                        {{$r->role_name}}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -56,9 +59,8 @@
                                 <label>Outlets<span style="color: #F00">*</span></label>
                                 <select name="outlet_id" class="form-control">
                                     @foreach($outlets as $o)
-                                    <option value="{{$o->id}}" 
-                                        @if ($o -> id === $users -> outlet_id)
-                                        selected   
+                                    <option value="{{$o->id}}" @if ($o -> id === $users -> outlet_id)
+                                        selected
                                         @endif>
                                         {{$o->name_outlet}}
                                     </option>

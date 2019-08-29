@@ -32,10 +32,10 @@
                                 <label>Category Name <span style="color:red">*</span></label>
                                 <select name="category" class="form-control">
                                     @foreach($category as $c)
-                                    <option value="{{$c->id}}" @if ($c -> id === $p -> category_name)
+                                    <option value="{{$c->id}}" @if ($c -> id === $p -> category_id)
                                         selected
                                         @endif>
-                                        {{$c->id}}
+                                        {{$c->category_name}}
                                     </option>
                                     @endforeach
                                 </select>
