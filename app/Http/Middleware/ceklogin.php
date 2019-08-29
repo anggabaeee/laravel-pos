@@ -16,9 +16,9 @@ class ceklogin
      */
     public function handle($request, Closure $next)
     {
-        if(!Session::get('login')){
-            return redirect('/')->with('failed', 'You must Login First!');
-        }
+        // if(!Session::get('login')){
+        //     return redirect('/')->with('failed', 'You must Login First!');
+        // }
         return $next($request);
     }
 }

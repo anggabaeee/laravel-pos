@@ -411,6 +411,7 @@ class ComposerStaticInitbdce83d62a30c72a4aeb006a83b1a87d
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\UserRoles' => __DIR__ . '/../..' . '/app/UserRoles.php',
         'App\\category' => __DIR__ . '/../..' . '/app/category.php',
+        'App\\contoh' => __DIR__ . '/../..' . '/app/contoh.php',
         'App\\expensescategory' => __DIR__ . '/../..' . '/app/expensescategory.php',
         'App\\gift_card' => __DIR__ . '/../..' . '/app/gift_card.php',
         'App\\inventory' => __DIR__ . '/../..' . '/app/inventory.php',
