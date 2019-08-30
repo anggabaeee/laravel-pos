@@ -30,11 +30,11 @@ class PurchaseorderController extends Controller
         return view('pages.purchase_order',['purchase_order'=>$purchase_order]);    
     }
 
-    public function editpurchaseorder(){
-        $supplier = supplier::all();
+    public function editpurchaseorder($id){
+        $purchase_order = purchase_order::find($id);
         $outlets = outlets::all();
-        $product = product::all();
-        return view('pages.edit.editpurchase',['outlets'=> $outlets],['supplier' => $supplier])->with('product',$product);        
+        $supplier = supplier::all();
+        return view('pages.edit.editpurchase')->with('purchase_order',$purchase_order)->with('supplier',$supplier)->with('outlets',$outlets);       
     }
 
     public function createpurchase(){
@@ -65,5 +65,22 @@ class PurchaseorderController extends Controller
     	return redirect('/purchase_order');
     }
 
+    public function updatepurchaseorder($id, Request $request){
+        $this->validate($request,[
+            'po_number' => 'required',
+            'id_outlet' => 'required',
+            'id_supplier' => 'required',
+            'datenow' => 'required',
+            'note' => 'required',
+            ]);
+
+            $purchase_order = purchase_order::find($id);
+            $purchase_order->po_number = $request->po_number;
+            $purchase_order->id_outlet = $request->id_outlet;
+            $purchase_order->id_supplier = $request->id_supplier;
+            $purchase_order->datenow = $request->datenow;
+            $purchase_order->save();
+            return redirect('/purchase_order');
+    }
 
 }

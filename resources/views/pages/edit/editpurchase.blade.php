@@ -12,22 +12,27 @@
         <h1>Create Purchase Order</h1>
         <div class="card">
             <div class="card-body">
-                <form action="/purchase_order/CreatePurchaseOrderstore" method="post">
-                {{ csrf_field() }}
+                <form action="/purchase_order/updatepurchaseorder/{{$purchase_order->id}}" method="post">
+                    {{ csrf_field() }}
+                    {{ method_field('PUT') }}
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-gorup">
                                 <label>Purchase Order Number <span style="color: #F00">*</span></label>
-                                <input type="text" name="po_number" class="form-control" required autofocus>
+                                <input type="text" name="po_number" class="form-control" required autofocus
+                                    value="{{$purchase_order->po_number}}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-gorup">
                                 <label>Outlets<span style="color: #F00">*</span></label>
                                 <select name="id_outlet" class="form-control" required>
-                                    <option disabled selected value=""> --silahkan pilih-- </option>
-                                    @foreach ($outlets as $p)
-                                    <option value="{{$p->id}}">{{$p->name_outlet}}</option>
+                                    @foreach( $outlets as $p)
+                                    <option value="{{$p->id}}" @if ($p->id === $purchase_order->id_outlet)
+                                        selected
+                                        @endif>
+                                        {{$p->name_outlet}}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -36,9 +41,13 @@
                             <div class="form-gorup">
                                 <label>Suppliers<span style="color: #F00">*</span></label>
                                 <select name="id_supplier" class="form-control" required>
-                                    <option disabled selected value=""> --silahkan pilih-- </option>
-                                    @foreach ($supplier as $p)
-                                    <option value="{{$p->id}}">{{$p->supplier_name}}</option>
+                                    @foreach( $supplier as $p)
+                                    <option value="{{$p->id}}" @if ($p->id === $purchase_order->id_supplier)
+                                        selected
+                                        @endif>
+                                        {{$p->supplier_name}}
+                                    </option>
+
                                     @endforeach
                                 </select>
                             </div>
@@ -56,7 +65,7 @@
                         <div class="col-md-4">
                             <div class="form-gorup">
                                 <label>Note</label>
-                                <textarea name="note" class="form-control"></textarea>
+                                <textarea name="note" class="form-control">{{$purchase_order->note}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -67,9 +76,7 @@
                                 <label>Search Product <span style="color: #F00">*</span></label>
                                 <select name="searchproduct" class="form-control">
                                     <option disabled selected value=""> --silahkan pilih-- </option>
-                                    @foreach ($product as $p)
-                                    <option value="{{$p->id}}">{{$p->name_product}}</option>
-                                    @endforeach
+                                    <option value=""></option>
                                 </select>
                             </div>
                         </div>
@@ -107,8 +114,7 @@
                         <div class="col-md-12">
                             <center>
                                 <div class="form-group">
-                                    <input type="hidden" id="row_count" name="row_count" value="1">
-                                    <button class="btn btn-primary" style="padding: 15px 40px;">Submit</button>
+                                    <input type="submit" class="btn btn-primary" style="padding: 15px 40px;" value="submit">
                                 </div>
                             </center>
                         </div>
