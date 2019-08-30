@@ -6,7 +6,7 @@
         {{ method_field('PUT') }}
         @foreach ($product as $product)
         <h1>Inventory for Product Code : {{$product -> code}}</h1>
-        <!-- <div class="mt-2 master-form">
+        <div class="mt-2 master-form">
             <h2>Inventory by Outlet</h2>
             <br>
             <div class="row" style="color: cornflowerblue;font-weight: bold;">
@@ -17,7 +17,7 @@
                     <p>Current Inventory Quantity</p>
                 </div>
             </div>
-            @foreach ($outlet as $p)
+            @foreach ($outlets as $p)
             <div class="row mt-2">
                 <div class="col-md-3">
                     {{$p->name_outlet}}
@@ -28,7 +28,7 @@
             </div>
             <hr>
             @endforeach
-        </div> -->
+        </div>
         <div class="mt-2 master-form mt-5 mb-5">
             <h2 class="text-center">Update Inventory by Outlet</h2>
             <br>
@@ -56,7 +56,7 @@
                     <form action="/inventory/addinventoryupdate" method="post">
                         {{ csrf_field() }}
                         <input name="product_code" type="text" value="{{$product->code}}">
-                        @foreach ($outlet as $o)
+                        @foreach ($outlets as $o)
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 {{$o->name_outlet}}
