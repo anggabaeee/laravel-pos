@@ -14,8 +14,8 @@ class ProductController extends Controller
 {
     public function listproduct(){
         $product = DB::table('product')
-        ->join('category', 'category.id', '=', 'product.category_name')
-        ->select('category.id', 'product.*')
+        ->join('category', 'category.id', '=', 'product.category_id')
+        ->select('product.*','category.category_name')
         ->get();
         return view('pages.product.listproduct',['product' => $product]); 
     }
@@ -27,7 +27,7 @@ class ProductController extends Controller
         $this->validate($request, [
             'code' => 'required|unique:product,code',
             'name_product' => 'required',
-            'category_name' => 'required',
+            'category_id' => 'required',
             'purchase_price' => 'required',
             'retail_price' => 'required',
             'thumbnail' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
@@ -42,7 +42,7 @@ class ProductController extends Controller
         product::create([
             'code' => $request->code,
             'name_product' => $request->name_product,
-            'category_name' => $request->category_name,
+            'category_id' => $request->category_id,
             'purchase_price' => $request->purchase_price,
             'retail_price' => $request->retail_price,
             'thumbnail' => $nama_thumbnail,
@@ -52,8 +52,8 @@ class ProductController extends Controller
     }
     public function editProduct($id){
         $product = DB::table('product')->where('product.id_product', $id)
-        ->join('category', 'product.category_name', '=', 'category.id')
-        ->select('product.*','category.id')
+        ->join('category', 'product.category_id', '=', 'category.id')
+        ->select('product.*','category.category_name')
         ->get();
         $category = category::all();
         return view('pages.product.editproduct')->with('product', $product)->with('category',$category);

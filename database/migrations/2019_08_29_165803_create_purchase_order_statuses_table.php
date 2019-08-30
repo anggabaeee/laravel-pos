@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Category extends Migration
+class CreatePurchaseOrderStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class Category extends Migration
      */
     public function up()
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('purchase_order_status', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('category_id',255);
+            $table->text('nama');
             $table->timestamps();
-            $table->boolean('status');	
-        });   
+        });
     }
 
     /**
@@ -28,6 +27,6 @@ class Category extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('purchase_order_status');
     }
 }

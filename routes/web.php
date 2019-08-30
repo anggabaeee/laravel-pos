@@ -88,10 +88,13 @@ Route::post('/product/ProductCategory/addProductCategorystore','PosController@ad
 
 
 // Purchase Order ojo di middleware sek
-Route::get('/purchase_order','PosController@purchase');
-Route::get('/purchase_order/CreatePurchaseOrder','PosController@createpurchase');
+Route::put('/purchase_order/updatepurchaseorder/{id}', 'PurchaseorderController@updatepurchaseorder');
+Route::get('/purchase_order/editpurchaseorder/{id}','PurchaseorderController@editpurchaseorder');
+Route::get('/purchase_order','PurchaseorderController@purchase');
+Route::get('/purchase_order/CreatePurchaseOrder','PurchaseorderController@createpurchase');
+Route::post('/purchase_order/CreatePurchaseOrderstore','PurchaseorderController@createpurchasestore');
 
-// Setting Ojo dI middleware sek
+// Setting 
 Route::get('/setting/payment_method', 'PosController@payment')->middleware('ceklogin');
 Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment')->middleware('ceklogin');
 
@@ -110,7 +113,7 @@ Route::get('/setting/suppliersadd', 'PosController@suppliersadd');
 Route::post('/setting/supllierstore','PosController@supllierstore');
 Route::get('/setting/editsupplier/{id}', 'PosController@editsupplier');
 Route::get('/setting/editsupplierdelete/{id}','PosController@editsupplierdelete');
-Route::put('/setting/editsupplierupdate/{id}', 'PosController@editsupplierupdate');
+Route::post('/setting/editsupplierupdate/{id}', 'PosController@editsupplierupdate');
 
 Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/users/adduser', 'PosController@adduser');

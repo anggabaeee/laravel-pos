@@ -21,6 +21,7 @@ class PurchaseOrder extends Migration
             $table->date('datenow');
             $table->string('note');
             $table->timestamps();
+            $table->integer('status');
         });
     }
 
