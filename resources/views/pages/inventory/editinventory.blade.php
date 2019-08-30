@@ -4,8 +4,7 @@
     <div class="container menu">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
-        @foreach ($product as $product)
-        <h1>Inventory for Product Code : {{$product -> code}}</h1>
+        <h1>Inventory for Product Code : {{$product->code}}</h1>
         <div class="mt-2 master-form">
             <h2>Inventory by Outlet</h2>
             <br>
@@ -56,18 +55,18 @@
                     <form action="/inventory/editinventoryupdate/" method="post">
                         {{ csrf_field() }}
                         <input name="product_code" type="text" value="{{$product->code}}">
-                        @foreach ($inventory as $o)
+                        @foreach ($outlets as $outlets)
                         <div class="row mt-2">
                             <div class="col-md-6">
-                                {{$o->name_outlet}}
-                                <input name="outlet_id[]" type="text" value="{{$o->outlet_id}}">
+                                {{$outlets->name_outlet}}
+                                <input name="outlet_id[]" type="text" value="{{$outlets->id}}">
                             </div>
                             <div class="col-md-6">
-                                <input class="form-control" name="qty[]" type="text" value="{{$o->qty}}">
+                                <input class="form-control" name="qty[]" type="text" value="0">
                             </div>
                         </div>
-                        @endforeach
                         <hr>
+                        @endforeach
                         <div class="text-center mt-5">
                             <input type="submit" value="Update" class="btn btn-primary">
                         </div>
@@ -76,7 +75,6 @@
                 <div class="col-md-2">
                 </div>
             </div>
-            @endforeach
         </div>
     </div>
     </section>

@@ -35,17 +35,11 @@ class inventorycontroller extends Controller
         $inventory = DB::table('inventory')->get();
         return view('pages.inventory.inventory',['product' => $product,'inventory' => $inventory]);    
     }
-    public function editinventory($code){
-        $product = DB::table('product')->where('code', $code)->get();
-        // $product = product::find($id);
-        // $inventory = DB::table('inventory')->get();
-        // $outlets = DB::table('outlets')->get();
-        $inventory = DB::table('inventory')
-        ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
-        ->where('product_code', $code)
-        ->select('inventory.*', 'outlets.name_outlet as name_outlet')
-        ->get();
-        return view('pages.inventory.editinventory',['inventory' => $inventory,'product' => $product]);
+    public function editinventory($id){
+        $product = product::find($id);
+        $inventory = DB::table('inventory')->get();
+        $outlets = DB::table('outlets')->get();
+        return view('pages.inventory.editinventory')->with('inventory', $inventory)->with('product', $product)->with('outlets', $outlets);
     }
 
     public function editinventoryupdate(Request $request)
@@ -62,9 +56,9 @@ class inventorycontroller extends Controller
         return redirect('/inventory')->with('status', 'Your answers successfully submitted');
     }  
 
-    public function addinventory($code)
+    public function addinventory($id)
     {
-        $product = DB::table('product')->where('code', $code)->get();
+        $product = DB::table('product')->where('code', $id)->get();
         // $outletcount = DB::table('outlets')->get()->count(); //menghitung data outlet
         // $outletproduct = DB::table('inventory')->where('product_code', $code)->get(); //mengambil data yang hanya pcode = code
         // $outletproductcount = $outletproduct->count(); //menghitung outletproduct
@@ -80,11 +74,11 @@ class inventorycontroller extends Controller
         //     ->where('inventory.outlet_id', '=', null)
         //     ->get();
         // }
-        $data = inventory::where('product_code', $code)->first();
+        $data = inventory::where('product_code', $id)->first();
         if($data){
             $outlet = DB::table('inventory')
                 ->rightjoin('outlets', 'outlets.id', '=', 'inventory.outlet_id')
-                ->where('inventory.product_code', '=', $code)
+                ->where('inventory.product_code', '=', $id)
                 ->where(function ($query){
                     $query->where('inventory.outlet_id', '=', null);
                 })
