@@ -158,7 +158,8 @@ class PosController extends Controller
         return view('pages.pos',['outlets'=>$outlets]);    
     }  
     public function posadd(){
-        return view('pages.posadd');    
+        $product = DB::table('product')->get();
+        return view('pages.posadd',['product'=>$product]);    
     }   
     
 
