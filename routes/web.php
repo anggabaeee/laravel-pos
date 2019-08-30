@@ -72,9 +72,10 @@ Route::get('/returnorder/ReportReturn','PosController@reportreturn')->middleware
 
 // Inventory
 Route::get('/inventory','inventorycontroller@inventory')->middleware('ceklogin');
-Route::get('/inventory/editinventory/{id}','inventorycontroller@editinventory')->middleware('ceklogin');
+Route::get('/inventory/editinventory/{code}','inventorycontroller@editinventory')->middleware('ceklogin');
 Route::post('/inventory/editinventoryupdate/','inventorycontroller@editinventoryupdate')->middleware('ceklogin');
-
+Route::get('/inventory/addinventory/{code}','inventorycontroller@addinventory')->middleware('ceklogin');
+Route::post('/inventory/addinventoryupdate','inventorycontroller@addinventoryupdate')->middleware('ceklogin');
 
 // Products
 Route::get('/product/ListProduct','ProductController@listproduct')->middleware('ceklogin');

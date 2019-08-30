@@ -6,7 +6,7 @@
         {{ method_field('PUT') }}
         @foreach ($product as $product)
         <h1>Inventory for Product Code : {{$product -> code}}</h1>
-        <div class="mt-2 master-form">
+        <!-- <div class="mt-2 master-form">
             <h2>Inventory by Outlet</h2>
             <br>
             <div class="row" style="color: cornflowerblue;font-weight: bold;">
@@ -17,18 +17,18 @@
                     <p>Current Inventory Quantity</p>
                 </div>
             </div>
-            @foreach ($inventory as $p)
+            @foreach ($outlet as $p)
             <div class="row mt-2">
                 <div class="col-md-3">
                     {{$p->name_outlet}}
                 </div>
                 <div class="col-md-9">
-                    {{$p->qty}}
+                    0
                 </div>
             </div>
             <hr>
             @endforeach
-        </div>
+        </div> -->
         <div class="mt-2 master-form mt-5 mb-5">
             <h2 class="text-center">Update Inventory by Outlet</h2>
             <br>
@@ -53,23 +53,23 @@
                         @endforeach
                     </div>
                     @endif
-                    <form action="/inventory/editinventoryupdate/" method="post">
+                    <form action="/inventory/addinventoryupdate" method="post">
                         {{ csrf_field() }}
                         <input name="product_code" type="text" value="{{$product->code}}">
-                        @foreach ($inventory as $o)
+                        @foreach ($outlet as $o)
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 {{$o->name_outlet}}
-                                <input name="outlet_id[]" type="text" value="{{$o->outlet_id}}">
+                                <input name="outlet_id[]" type="text" value="{{$o->id}}">
                             </div>
                             <div class="col-md-6">
-                                <input class="form-control" name="qty[]" type="text" value="{{$o->qty}}">
+                                <input class="form-control" name="qty[]" type="text" value="0">
                             </div>
                         </div>
                         @endforeach
                         <hr>
                         <div class="text-center mt-5">
-                            <input type="submit" value="Update" class="btn btn-primary">
+                            <input type="submit" value="Add" class="btn btn-primary">
                         </div>
                     </form>
                 </div>
