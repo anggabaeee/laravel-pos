@@ -11,7 +11,7 @@
                     <button class="btn btn-danger">sadlas</button>
                 </div>
                 @foreach ($product as $p)
-                <form action="/product/ListProduct/editproductupdate/{{$p->id_product}}" method="POST">
+                <form action="/product/ListProduct/editproductupdate/{{$p->id_product}}" method="POST"  enctype="multipart/form-data">
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -26,8 +26,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Code <span style="color:red">*</span></label>
-                                <input type="text" name="code" class="form-control" value="{{$p-> code}}" readonly
-                                    style="cursor: not-allowed;">
+                                <input type="text" name="code" class="form-control" value="{{$p-> code}}">
                             </div>
                         </div>
                         <div class="col-md-4">
