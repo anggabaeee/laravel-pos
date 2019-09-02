@@ -49,8 +49,9 @@
                             <div class="form-gorup">
                                 <label>Created Date <span style="color: #F00">*</span></label>
                                 <?php $currentDateTime = date('Y-m-d');?>
-                                <input type="text" name="datenow" readonly class="form-control"
+                                <input type="date" name="datenow" readonly class="form-control"
                                     value="<?php echo $currentDateTime; ?>">
+                                    <input type="text" value="1" name="status" readonly hidden>
                             </div>
                         </div>
                         <div class="col-md-4">

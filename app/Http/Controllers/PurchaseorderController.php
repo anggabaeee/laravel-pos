@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Session;
+use App\purchase_order_status;
 use App\purchase_order;
 use App\supplier;
 use App\Customer;
@@ -25,7 +26,8 @@ class PurchaseorderController extends Controller
         $purchase_order = DB::table('purchase_order')
         ->join('outlets', 'outlets.id', '=', 'purchase_order.id_outlet')
         ->join('supplier', 'supplier.id', '=', 'purchase_order.id_supplier')
-        ->select('purchase_order.*', 'outlets.name_outlet', 'supplier.supplier_name')
+        ->join('purchase_order_status', 'purchase_order_status.id', '=', 'purchase_order.status')
+        ->select('purchase_order.*', 'outlets.name_outlet', 'supplier.supplier_name','purchase_order_status.nama')
         ->get();
         return view('pages.purchase_order',['purchase_order'=>$purchase_order]);    
     }
@@ -34,7 +36,8 @@ class PurchaseorderController extends Controller
         $purchase_order = purchase_order::find($id);
         $outlets = outlets::all();
         $supplier = supplier::all();
-        return view('pages.edit.editpurchase')->with('purchase_order',$purchase_order)->with('supplier',$supplier)->with('outlets',$outlets);       
+        $purchase_order_status = purchase_order_status::all();
+        return view('pages.edit.editpurchase')->with('purchase_order',$purchase_order)->with('supplier',$supplier)->with('outlets',$outlets)->with('purchase_order_status',$purchase_order_status);       
     }
 
     public function createpurchase(){
@@ -52,6 +55,7 @@ class PurchaseorderController extends Controller
             'id_supplier' => 'required',
             'datenow' => 'required',
             'note' => 'required',
+            'status' => 'required',
     	]);
 
         purchase_order::create([
@@ -60,6 +64,7 @@ class PurchaseorderController extends Controller
             'id_supplier' => $request->id_supplier,
             'datenow' => $request->datenow,
             'note' => $request->note,
+            'status' => $request->status
     	]);
 
     	return redirect('/purchase_order');

@@ -4,6 +4,7 @@
     <div class="container menu">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
+        @foreach($product as $product)
         <h1>Inventory for Product Code : {{$product->code}}</h1>
         <div class="mt-2 master-form">
             <h2>Inventory by Outlet</h2>
@@ -22,7 +23,7 @@
                     {{$p->name_outlet}}
                 </div>
                 <div class="col-md-9">
-                    {{$p->qty}}
+                    <label id="oldqty" name=oldqty[]>{{$p->qty}}</label>
                 </div>
             </div>
             <hr>
@@ -55,14 +56,17 @@
                     <form action="/inventory/editinventoryupdate/" method="post">
                         {{ csrf_field() }}
                         <input name="product_code" type="text" value="{{$product->code}}">
-                        @foreach ($outlets as $outlets)
+                        @foreach ($inventory as $inventory)
                         <div class="row mt-2">
-                            <div class="col-md-6">
-                                {{$outlets->name_outlet}}
-                                <input name="outlet_id[]" type="text" value="{{$outlets->id}}">
+                            <div class="col-md-4">
+                                {{$inventory->name_outlet}}
+                                <input name="id[]" type="text" value="{{$inventory->id}}">
                             </div>
-                            <div class="col-md-6">
-                                <input class="form-control" name="qty[]" type="text" value="0">
+                            <div class="col-md-4">
+                                <input class="form-control" id="qty" name="qty[]" type="text" value="0">
+                            </div>
+                            <div class="col-md-4">
+                            <input type="text" name="total[]" id="total" readonly>
                             </div>
                         </div>
                         <hr>
@@ -75,6 +79,7 @@
                 <div class="col-md-2">
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
     </section>
