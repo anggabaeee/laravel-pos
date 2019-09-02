@@ -18,7 +18,8 @@ class ProductController extends Controller
         ->join('category', 'category.id', '=', 'product.category_id')
         ->select('product.*','category.category_name')
         ->get();
-        return view('pages.product.listproduct',['product' => $product]); 
+        $product_img = product::all();
+        return view('pages.product.listproduct',['product' => $product,$product_img]); 
     }
     public function addProduct(){
         $category = category::all();

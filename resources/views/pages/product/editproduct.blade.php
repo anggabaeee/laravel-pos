@@ -10,8 +10,13 @@
                 <div class="text-right">
                     <button class="btn btn-danger">sadlas</button>
                 </div>
+                <div class="text-right mt-3">
+                    <a href="" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary">Lihat
+                        Gambar</a>
+                </div>
                 @foreach ($product as $p)
-                <form action="/product/ListProduct/editproductupdate/{{$p->id_product}}" method="POST"  enctype="multipart/form-data">
+                <form action="/product/ListProduct/editproductupdate/{{$p->id_product}}" method="POST"
+                    enctype="multipart/form-data">
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -99,6 +104,26 @@
                     <div class="row" style="margin-top: 15px">
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @foreach ($product as $p)
+                <h5 class="modal-title" id="exampleModalLongTitle">Product Code : {{$p->code}}</h5>                    
+                @endforeach
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @foreach ($product as $p)
+                <img style="width: 100%;height: auto;" src="{{ url('/product_image/'.$p->thumbnail) }}">
+                @endforeach
             </div>
         </div>
     </div>
