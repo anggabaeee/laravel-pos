@@ -69,6 +69,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                            <label>Outlets<span style="color: #F00">*</span></label>
+                                <select name="id_outlet" class="form-control" required>
+                                    @foreach($purchase_order_status as $p) 
+                                    <option value="{{$p->id}}" @if ($p->id === $purchase_order->status)
+                                        selected
+                                        @endif>
+                                        {{$p->nama}}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-4">
@@ -114,7 +130,8 @@
                         <div class="col-md-12">
                             <center>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" style="padding: 15px 40px;" value="submit">
+                                    <input type="submit" class="btn btn-primary" style="padding: 15px 40px;"
+                                        value="submit">
                                 </div>
                             </center>
                         </div>
