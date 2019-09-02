@@ -72,10 +72,10 @@
                                     value="{{$p->retail_price}}">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-top: 32px">
                             <div class="form-group">
-                                <label>Product Category <span style="color:red">*</span></label>
-                                <input type="file" name="thumbnail" value="{{$p->thumbnail}}">
+                                <input type="file" class="custom-file-input" id="customFile" name="thumbnail" value="{{$p->thumbnail}}">
+                                <label class="custom-file-label" for="customFile">Product Category</label>
                                 <br>
                                 <img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}" alt="">
                             </div>
@@ -131,5 +131,11 @@
         </div>
     </div>
 </div>
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 </section>
 @stop
