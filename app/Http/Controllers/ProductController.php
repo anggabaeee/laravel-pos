@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\product;
 use App\category;
+use File;
 
 class ProductController extends Controller
 {
@@ -18,8 +19,7 @@ class ProductController extends Controller
         ->join('category', 'category.id', '=', 'product.category_id')
         ->select('product.*','category.category_name')
         ->get();
-        $product_img = product::all();
-        return view('pages.product.listproduct',['product' => $product,$product_img]); 
+        return view('pages.product.listproduct',['product' => $product]); 
     }
     public function addProduct(){
         $category = category::all();
@@ -77,5 +77,11 @@ class ProductController extends Controller
         $product->status = $request->status;
         $product->save();
         return redirect('/product/ListProduct')->with('success', 'data updated');
+    }
+    public function editproductdelete($id){
+        $product = product::where('id_product',$id)->first();
+        File::delete('product_image/'.$product->thumbnail);
+        product::where('id_product',$id)->delete();
+        return redirect('/product/ListProduct')->with(['success' => 'Data Berhasil Dihapus']);
     }
 }

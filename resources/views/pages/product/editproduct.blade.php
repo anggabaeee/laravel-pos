@@ -7,9 +7,12 @@
         @endforeach
         <div class="card">
             <div class="card-body">
+                @foreach ($product as $p)
                 <div class="text-right">
-                    <button class="btn btn-danger">sadlas</button>
+                    <a href="/product/ListProduct/editproductdelete/{{$p->id_product}}"
+                        class="btn btn-danger">Hapus</a>
                 </div>
+                @endforeach
                 <div class="text-right mt-3">
                     <a href="" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary">Lihat
                         Gambar</a>
@@ -114,7 +117,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 @foreach ($product as $p)
-                <h5 class="modal-title" id="exampleModalLongTitle">Product Code : {{$p->code}}</h5>                    
+                <h5 class="modal-title" id="exampleModalLongTitle">Product Code : {{$p->code}}</h5>
                 @endforeach
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

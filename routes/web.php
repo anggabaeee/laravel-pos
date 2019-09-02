@@ -83,6 +83,7 @@ Route::get('/product/ListProduct/addProduct','ProductController@addProduct')->mi
 Route::post('/product/ListProduct/addProductstore','ProductController@addProductstore')->middleware('ceklogin');
 Route::get('/product/ListProduct/editproduct/{id_product}','ProductController@editproduct')->middleware('ceklogin');
 Route::put('/product/ListProduct/editproductupdate/{id_product}','ProductController@editproductupdate')->middleware('ceklogin');
+Route::get('/product/ListProduct/editproductdelete/{id_product}','ProductController@editproductdelete')->middleware('ceklogin');
 Route::get('/product/ProductCategory','PosController@productcategory')->middleware('ceklogin');
 Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory')->middleware('ceklogin');
 Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore')->middleware('ceklogin');
