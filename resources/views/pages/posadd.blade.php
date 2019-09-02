@@ -52,6 +52,25 @@
         font-size: 15px;
     }
 
+    .col-md-2.stock {
+        background-color: #005b8a;
+        border: solid 1px black;
+        border-radius: 10%;
+        color: white;
+        transition: .3s;
+    }
+
+    .col-md-2.stock:hover {
+        background-color: #005b8a;
+        opacity: 0.8;
+    }
+
+    .stock .img-thumbnail {
+        height: 50px;
+        background-color: transparent;
+        border: none;
+    }
+
 </style>
 <div class="form mx-4">
     <div class="row">
@@ -155,7 +174,20 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="tablepilihan border"></div>
+                        <div class="tablepilihan border">
+                            <div class="row">
+                                @foreach ($product as $p)
+                                <div class="col-md-2 stock ml-4 mt-3">
+                                    <div class="mt-1">
+                                        <a href=""> <img height="50px" class="img-thumbnail"
+                                                src="{{ url('/product_image/'.$p->thumbnail) }}">
+                                            <p>Jumlah</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -284,7 +316,7 @@
                             <p>Customer Email</p>
                         </div>
                         <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" name="email" type="email" >
+                            <input type="text" class="form-control col-sm-12" name="email" type="email">
                         </div>
                     </div>
                     <div class="row">
@@ -299,7 +331,8 @@
                     <div class="row">
                         <div class="d-flex col-12">
                             <div class="ml-auto">
-                                <input type="submit" class="btn btn-success py-1" value="Add Customer" id="myBtn6"  data-dismiss="modal"> 
+                                <input type="submit" class="btn btn-success py-1" value="Add Customer" id="myBtn6"
+                                    data-dismiss="modal">
                             </div>
                         </div>
                     </div>
@@ -394,7 +427,7 @@
                 <h1 class="modal-title" style="color:white;">Add Customer</h1>
             </div>
             <div class="modal-body" style="background-color:white;">
-            <h1 style="text-align:center; color:green;">Successfully Added New Customer</h1>
+                <h1 style="text-align:center; color:green;">Successfully Added New Customer</h1>
             </div>
         </div>
 
@@ -440,6 +473,7 @@
             $("#myModal5").modal();
         });
     });
+
 </script>
 
 <script>
@@ -448,6 +482,7 @@
             $("#myModal6").modal();
         });
     });
+
 </script>
 
 

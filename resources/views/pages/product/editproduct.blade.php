@@ -11,7 +11,17 @@
                     <button class="btn btn-danger">sadlas</button>
                 </div>
                 @foreach ($product as $p)
-                <form action="">
+                <form action="/product/ListProduct/editproductupdate/{{$p->id_product}}" method="POST">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </div>
+                    @endif
+                    {{ csrf_field() }}
+                    {{ method_field('PUT') }}
                     <div class="row" style="margin-top: 15px">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -30,7 +40,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Category Name <span style="color:red">*</span></label>
-                                <select name="category" class="form-control">
+                                <select name="category_id" class="form-control">
                                     @foreach($category as $c)
                                     <option value="{{$c->id}}" @if ($c->id == $p->category_id)
                                         selected
@@ -58,7 +68,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Category <span style="color:red">*</span></label>
-                                <input type="file" name="thumbnail" value="">
+                                <input type="file" name="thumbnail" value="{{$p->thumbnail}}">
+                                <br>
+                                <img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}" alt="">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -69,14 +81,14 @@
                                     <option selected value="1">Active</option>
                                     <option value="0">Inactive</option>
                                     @else
-                                    <option selected value="0">Inactive</option>
                                     <option value="1">Active</option>
+                                    <option selected value="0">Inactive</option>
                                     @endif
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <input type="Update" class="btn btn-primary" value="submit">
+                    <input type="submit" class="btn btn-primary" value="Update">
                 </form>
                 @endforeach
             </div>
