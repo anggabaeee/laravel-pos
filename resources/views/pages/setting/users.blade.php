@@ -9,6 +9,9 @@
         background-color: #f7f7f8;
     }
 
+    #adduser{
+        display: none;
+    }
 </style>
 
 <div class="col-sm-9 col-lg-10">
@@ -16,14 +19,15 @@
         <h1>Users</h1>
         <div class="card">
             <div class="card-body">
-            @if ($message = Session::get('success'))
+                @if ($message = Session::get('success'))
                 <div class="alert alert-success alert-block">
                     <button type="button" class="close" data-dismiss="alert">×</button>
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
                 <div class="row" style="margin-left: 0px">
-                    <a href="{{ url('/setting/users/adduser')}}"><button type="button" class="btn btn-primary">
+                    <a href="{{ url('/setting/users/adduser')}}"><button type="button" class="btn btn-primary"
+                            id="adduser">
                             <i class="fa fa-plus"> </i> Add New User</button></a>
                 </div>
                 <div class="row" style="margin-left: 0px; margin-top: 15px;">
@@ -74,5 +78,14 @@
         </div>
     </div>
 </div>
+<script>
+    $role = {{Session::get('role')}};
+    function adduserhidden() {
+        if ($role == "2" || $role=="3") {
+            document.getElementById("adduser").style.display = "flex";
+        }
+    }
+    window.onload = adduserhidden();
+</script>
 </section>
 @stop

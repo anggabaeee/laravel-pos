@@ -110,7 +110,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="{{ Request::is('purchase_order') ? "active-link" : "" }}"><a href="/purchase_order">Purchase
+                <li class="{{ Request::is('purchase_order') ? "active-link" : "" }}"><a href="/purchase_order" id="purchaseord">Purchase
                         Order</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Setting</a>
@@ -161,6 +161,7 @@ if($role == "1" ){
     document.getElementById("supplier").style.display = "none";
     document.getElementById("payment").style.display = "none";
     document.getElementById("system").style.display = "none";
+    document.getElementById("purchaseord").style.display = "none";
 }
 if($role == "2"){
     document.getElementById("pnl").style.display = "none";

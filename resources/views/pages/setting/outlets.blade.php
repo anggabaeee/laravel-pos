@@ -5,6 +5,10 @@
         background-color: #f7f7f8;
     }
 
+    #addoutlet {
+        display: none;
+    }
+
 </style>
 
 <div class="col-sm-9 col-lg-10">
@@ -68,8 +72,8 @@
 <script>
     $role = {{Session::get('role')}};
     function role() {
-        if ($role == "1" || $role == "2") {
-            document.getElementById("addoutlet").style.display = "none";
+        if ($role == "3") {
+            document.getElementById("addoutlet").style.display = "block";
         }
     }
     window.onload = role();

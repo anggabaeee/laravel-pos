@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/','PosController@login');
-Route::get('/loginpost','PosController@loginpost');
-Route::get('/logout','PosController@logout');
+Route::get('/','AuthController@login');
+Route::get('/loginpost','AuthController@loginpost');
+Route::get('/logout','AuthController@logout');
 // dashboard
 Route::get('/dashboard','PosController@dashboard')->middleware('response', 'ceklogin');
 
@@ -106,7 +106,7 @@ Route::post('/setting/outlets/addoutletstore','OutletsController@addoutletstore'
 Route::get('/setting/editoutlet/{id}', 'OutletsController@editoutlet')->middleware('ceklogin' , 'response');
 Route::put('/setting/editoutletupdate/{id}', 'OutletsController@editoutletupdate')->middleware('ceklogin' , 'response');
 Route::get('/setting/editoutletdelete/{id}', 'OutletsController@editoutletdelete')->middleware('ceklogin' , 'response');
-Route::get('/setting/users', 'FilterController@users')->middleware('ceklogin' , 'response');
+Route::get('/setting/users', 'UserController@users')->middleware('ceklogin' , 'response');
 
 //supllier
 Route::get('/setting/suppliers', 'PosController@suppliers');
@@ -117,12 +117,12 @@ Route::get('/setting/editsupplierdelete/{id}','PosController@editsupplierdelete'
 Route::post('/setting/editsupplierupdate/{id}', 'PosController@editsupplierupdate');
 
 Route::get('/setting/system_setting', 'PosController@system');
-Route::get('/setting/users/adduser', 'PosController@adduser');
-Route::get('/setting/edituser', 'PosController@edituser');
-Route::get('/setting/ChangePassword', 'PosController@changepassword');
+Route::get('/setting/users/adduser', 'UserController@adduser');
+Route::get('/setting/edituser', 'UserController@edituser');
+Route::get('/setting/ChangePassword', 'UserController@changepassword');
 
 Route::get('/setting/editpayment', 'PosController@editpayment');
-Route::get('/postuser', 'PosController@postuser');
+Route::get('/postuser', 'UserController@postuser');
 Route::get('/role', 'PosController@role');
 Route::get('/addrole', 'PosController@addrole');
 
@@ -131,13 +131,13 @@ Route::get('/addrole', 'PosController@addrole');
 
 
 Route::get('/setting/system_setting', 'PosController@system')->middleware('pnlcek' , 'response');
-Route::get('/setting/users/adduser', 'PosController@adduser')->middleware('ceklogin' , 'response');
-Route::get('/setting/edituser/{id}', 'PosController@edituser')->middleware('ceklogin' , 'response');
-Route::get('/setting/edituserupdate/{id}', 'PosController@edituserupdate')->middleware('ceklogin' , 'response');
-Route::get('/setting/ChangePassword/{id}', 'PosController@changepassword')->middleware('ceklogin' , 'response');
-Route::get('/changepasswordupdate/{id}', 'PosController@changepasswordupdate')->middleware('ceklogin' , 'response');
+Route::get('/setting/users/adduser', 'UserController@adduser')->middleware('ceklogin' , 'response');
+Route::get('/setting/edituser/{id}', 'UserController@edituser')->middleware('ceklogin' , 'response');
+Route::get('/setting/edituserupdate/{id}', 'UserController@edituserupdate')->middleware('ceklogin' , 'response');
+Route::get('/setting/ChangePassword/{id}', 'UserController@changepassword')->middleware('ceklogin' , 'response');
+Route::get('/changepasswordupdate/{id}', 'UserController@changepasswordupdate')->middleware('ceklogin' , 'response');
 Route::get('/setting/editsupplier', 'PosController@editsupplier')->middleware('pnlcek' , 'response');
 Route::get('/setting/editpayment', 'PosController@editpayment')->middleware('pnlcek' , 'response');
-Route::get('/postuser', 'PosController@postuser')->middleware('ceklogin' , 'response');
+Route::get('/postuser', 'UserController@postuser')->middleware('ceklogin' , 'response');
 Route::get('/role', 'PosController@role')->middleware('pnlcek' , 'response');
 Route::get('/addrole', 'PosController@addrole')->middleware('pnlcek' , 'response');

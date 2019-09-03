@@ -20,49 +20,9 @@ use App\UserRoles;
 
 class PosController extends Controller
 {
-    public function login(){
-        if(!Session::get('login')){
-            return view('login');
-        } else{
-            return redirect('/dashboard');
-        }
-    }
-
-    public function loginpost(Request $request){
-        $email = $request->email;
-        $password = $request->password;
-        $data = users::where('email', $email)->first();
-        if($data){
-            if(Hash::check($password, $data->password)){
-                Session::put('name', $data->fullname);
-                Session::put('email', $data->email);
-                Session::put('id', $data->id);
-                Session::put('role', $data->role_id);
-                Session::put('outlets', $data->outlet_id);
-                Session::put('login', TRUE);
-                return redirect('/dashboard');
-            }
-            else{
-                return redirect('/')->with(['failed' => 'Invalid Password!']);
-            }
-        }
-        else{
-        Session::flash('failed', 'Invalid Email and Password!');
-        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-        header("Cache-Control: post-check=0, pre-check=0", false);
-        header("Pragma: no-cache");
-        header('Content-Type: text/html');
-        return redirect('/');
-        }
-    }
-    public function logout(){
-        Session::flush();
-        return redirect('/')->with('alert', 'You are Log Out');
-    }
     public function dashboard(){
-            return view('pages.dashboard');
+        return view('pages.dashboard');
     }
-
     public function customer(){
         $customer = DB::table('customer')->orderBy('fullname','desc')->paginate(5);
         return view('pages.customer',['customer' => $customer]);    
@@ -376,34 +336,7 @@ class PosController extends Controller
         return redirect('/product/ListProduct')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
 
-    
-    //tambah
-    public function adduser(){
-        $outlets = outlets::all();
-        $role = UserRoles::all();
-        return view('tambah.adduser',['outlets' => $outlets], ['role' => $role]);
-    }
-    public function postuser(Request $request){
-        $this->validate($request, [
-            'name'=>'required|min:4',
-            'email' => 'required|min:4|email|unique:users',
-            'password' => 'required',
-            'confirmation' => 'required|same:password',
-            'role' => 'required',
-            'outlets' => 'required',
-        ]);
-        $data = new users();
-        $data->fullname = $request->name;
-        $data->email = $request->email;
-        $data->password = bcrypt($request->password);
-        $data->role_id = $request->role;
-        $data->outlet_id = $request->outlets;
-        $data->status = $request->status;
-        $data->save();
-        return redirect('/setting/users/adduser');
-    }
-   
-
+    //edit
     public function addpayment(){
         return view('tambah.addPaymentMethod'); 
     }
@@ -417,55 +350,7 @@ class PosController extends Controller
             return view('pages.profitReport'); 
     }
 
-    //edit
-    public function edituser($id){
-        $users = DB::table('users')->where('users.id', $id)
-        ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
-        ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
-        ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
-        ->get();
-        $role = UserRoles::all();
-        $outlets = outlets::all();
-        return view('pages.edit.edituser')->with('users', $users)->with('role', $role)->with('outlets', $outlets);
-    }
-
-    public function edituserupdate($id, Request $request){
-        $this->validate($request,[
-            'name'=>'required|min:4',
-            'email' => 'required|min:4|email|unique:users,email,'.$id,
-            'role_id' => 'required',
-            'outlet_id' => 'required',
-            'status' =>'required'
-            ]);
-
-            $users = users::find($id);
-            $users->fullname = $request->name;
-            $users->email = $request->email;
-            $users->role_id = $request->role_id;
-            $users->outlet_id = $request->outlet_id;
-            $users->status = $request->status;
-            $users->save();
-            return redirect('/setting/users')->with('success', 'data updated');
-    }
-
-    public function changepassword($id){
-        $users = users::find($id);
-        return view('pages.edit.changepassword', ['users'=>$users]); 
-    }
-
-
-    public function changepasswordupdate($id, Request $request){
-        $this->validate($request,[
-            'password' => 'required',
-            'confirmation' => 'required|same:password',
-            ]);
-
-            $users = users::find($id);
-            $users->password = bcrypt($request->password);
-            $users->save();
-            return redirect('/setting/users')->with('success',' Successfully Updated New Password.');
-    }
-    
+    //tambah
     public function editpayment(){
         return view('pages.edit.editpayment'); 
     }
