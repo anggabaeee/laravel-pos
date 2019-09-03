@@ -7,11 +7,19 @@
         @endforeach
         <div class="card">
             <div class="card-body">
+                @foreach ($product as $p)
                 <div class="text-right">
-                    <button class="btn btn-danger">sadlas</button>
+                    <a href="/product/ListProduct/editproductdelete/{{$p->id_product}}"
+                        class="btn btn-danger">Hapus</a>
+                </div>
+                @endforeach
+                <div class="text-right mt-3">
+                    <a href="" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-primary">Lihat
+                        Gambar</a>
                 </div>
                 @foreach ($product as $p)
-                <form action="/product/ListProduct/editproductupdate/{{$p->id_product}}" method="POST">
+                <form action="/product/ListProduct/editproductupdate/{{$p->id_product}}" method="POST"
+                    enctype="multipart/form-data">
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         @foreach ($errors->all() as $error)
@@ -26,8 +34,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Code <span style="color:red">*</span></label>
-                                <input type="text" name="code" class="form-control" value="{{$p-> code}}" readonly
-                                    style="cursor: not-allowed;">
+                                <input type="text" name="code" class="form-control" value="{{$p-> code}}">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -65,10 +72,10 @@
                                     value="{{$p->retail_price}}">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-top: 32px">
                             <div class="form-group">
-                                <label>Product Category <span style="color:red">*</span></label>
-                                <input type="file" name="thumbnail" value="{{$p->thumbnail}}">
+                                <input type="file" class="custom-file-input" id="customFile" name="thumbnail" value="{{$p->thumbnail}}">
+                                <label class="custom-file-label" for="customFile">Product Category</label>
                                 <br>
                                 <img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}" alt="">
                             </div>
@@ -104,5 +111,31 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @foreach ($product as $p)
+                <h5 class="modal-title" id="exampleModalLongTitle">Product Code : {{$p->code}}</h5>
+                @endforeach
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @foreach ($product as $p)
+                <img style="width: 100%;height: auto;" src="{{ url('/product_image/'.$p->thumbnail) }}">
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 </section>
 @stop

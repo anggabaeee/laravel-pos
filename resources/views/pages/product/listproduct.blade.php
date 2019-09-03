@@ -1,5 +1,7 @@
 @extends('layouts.default-sidebar')
 @section('content')
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css'>
+<link href="{{ asset('css/magnific.css') }}" rel="stylesheet">
 <style>
     .table th {
         background-color: #f7f7f8;
@@ -69,18 +71,20 @@
                                     <tr>
                                         <td>{{$p->code}}</td>
                                         <td>{{$p->name_product}}</td>
-                                        <td><img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}"></td>
+                                        <td><img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}"></a>
+                                        </td>
                                         <td>{{$p->category_name}}</td>
                                         <td>{{ number_format($p->retail_price, 2, '.', ',') }}</td>
                                         <td>{{ number_format($p->purchase_price, 2, '.', ',') }}</td>
                                         @if ($p->status == 0)
-                                        <td>Not Active</td>
+                                        <td style="color: red;font-weight: bold;">Not Active</td>
                                         @else
-                                        <td>Active</td>
+                                        <td style="color: green;font-weight: bold;">Active</td>
                                         @endif
                                         <td>
-                                            <a href="#"><i data-toggle="modal" data-target="#exampleModalCenter"
-                                                    class="fa fa-image fa-2x"></i></a>
+                                            <a class="with-caption image-link"
+                                                href="{{ url('/product_image/'.$p->thumbnail) }}"><i
+                                                    class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a>
                                             <a href="/product/ListProduct/editproduct/{{$p->id_product}}"><i
                                                     class="fa fa-edit fa-2x"></i></a>
                                             <a href="#"><i class="fa fa-barcode fa-2x" style="color: black"></i></a>
@@ -89,35 +93,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            @foreach ($product as $p)
-                                            <img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}">
-                                            @endforeach
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -128,4 +107,7 @@
     });
 
 </script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js'></script>
+<script src="{{ asset('js/magnific.js') }}"></script>
 @stop

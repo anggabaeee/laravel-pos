@@ -66,7 +66,8 @@
                             <div class="form-group">
                                 <label>Product Image <span style="color: #F00">*</span></label>
                                 <div class="custom-file">
-                                    <input type="file" name="thumbnail">
+                                    <input type="file" class="custom-file-input" id="customFile" name="thumbnail">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                             </div>
                         </div>
@@ -79,6 +80,7 @@
                             </div>
                         </div>
                     </div>
+                </form>
             </div>
         </div>
         <div class="row" style="margin-top: 15px;">
@@ -90,7 +92,6 @@
             </div>
         </div>
     </div>
-    </form>
 </div>
 </div>
 <script>

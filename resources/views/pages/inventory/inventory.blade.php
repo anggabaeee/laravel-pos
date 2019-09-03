@@ -3,12 +3,6 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container menu">
         <h1>Inventory</h1>
-        @if ($message = Session::get('status'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-                @endif
         <form action="" class="mt-2 master-form">
             <div class="d-flex">
                 <div class="ml-auto bd-highlight">
@@ -52,9 +46,7 @@
                             <td>{{$p->code}}</td>
                             <td>{{$p->name_product}}</td>
                             <td></td>
-                            <td><a href="/inventory/editinventory/{{$p->code}}" class="btn btn-primary">Update</a>
-                            <a href="/inventory/addinventory/{{$p->code}}" class="btn btn-primary">Add</a>
-                            </td>
+                            <td><a href="/inventory/editinventory/{{$p->code}}" class="btn btn-primary">Update</a></td>
                         </tr>
                         @endforeach
                     </tbody>
