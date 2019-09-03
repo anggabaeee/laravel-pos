@@ -2,7 +2,6 @@
 @section('content')
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css'>
 <link href="{{ asset('css/magnific.css') }}" rel="stylesheet">
-
 <style>
     .table th {
         background-color: #f7f7f8;
@@ -78,9 +77,9 @@
                                         <td>{{ number_format($p->retail_price, 2, '.', ',') }}</td>
                                         <td>{{ number_format($p->purchase_price, 2, '.', ',') }}</td>
                                         @if ($p->status == 0)
-                                        <td>Not Active</td>
+                                        <td style="color: red;font-weight: bold;">Not Active</td>
                                         @else
-                                        <td>Active</td>
+                                        <td style="color: green;font-weight: bold;">Active</td>
                                         @endif
                                         <td>
                                             <a class="with-caption image-link"
@@ -97,26 +96,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                @foreach ($product as $p)
-                <h5 class="modal-title" id="exampleModalLongTitle">Product Code : {{$p->code}}</h5>
-                @endforeach
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @foreach ($product as $p)
-                <img style="width: 100%;height: auto;" src="{{ url('/product_image/'.$p->thumbnail) }}">
-                @endforeach
             </div>
         </div>
     </div>
