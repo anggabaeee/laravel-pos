@@ -52,9 +52,7 @@
                             <td>{{$p->code}}</td>
                             <td>{{$p->name_product}}</td>
                             <td></td>
-                            <td><a href="/inventory/editinventory/{{$p->code}}" class="btn btn-primary">Update</a>
-                            <a href="/inventory/addinventory/{{$p->code}}" class="btn btn-primary">Add</a>
-                            </td>
+                            <td><a href="/inventory/editinventory/{{$p->code}}" class="btn btn-primary">Update</a></td>
                         </tr>
                         @endforeach
                     </tbody>

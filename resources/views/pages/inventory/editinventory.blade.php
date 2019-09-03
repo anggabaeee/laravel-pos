@@ -6,6 +6,12 @@
         {{ method_field('PUT') }}
         @foreach($product as $product)
         <h1>Inventory for Product Code : {{$product->code}}</h1>
+        @if ($message = Session::get('status'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
         <div class="mt-2 master-form">
             <h2>Inventory by Outlet</h2>
             <br>
@@ -56,21 +62,26 @@
                     <form action="/inventory/editinventoryupdate/" method="post">
                         {{ csrf_field() }}
                         <input name="product_code" type="text" value="{{$product->code}}">
-                        @foreach ($inventory as $inventory)
                         <div class="row mt-2">
-                            <div class="col-md-4">
-                                {{$inventory->name_outlet}}
-                                <input name="id[]" type="text" value="{{$inventory->id}}">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                <label>Select Outlets</label>
+                                <select name="outlets" class="form-control">
+                                <option disabled selected>-- Select Outlet --</option>
+                                @foreach ($outlets as $o)
+                                <option value="{{$o->id}}">{{$o->name_outlet}}</option>
+                                @endforeach
+                                </select>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <input class="form-control" id="qty" name="qty[]" type="text" value="0">
+                            <div class="col-md-6">
+                            <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="text" name="qty" class="form-control">
                             </div>
-                            <div class="col-md-4">
-                            <input type="text" name="total[]" id="total" readonly>
                             </div>
                         </div>
                         <hr>
-                        @endforeach
                         <div class="text-center mt-5">
                             <input type="submit" value="Update" class="btn btn-primary">
                         </div>

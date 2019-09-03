@@ -37,45 +37,78 @@ class inventorycontroller extends Controller
     }
     public function editinventory($code){
         $product = DB::table('product')->where('code', $code)->get();
-        $data = inventory::where('product_code', $code)->first();
-       if($data){
-           $inventory = DB::table('inventory')
+        $outlets = outlets::all();
+        $inventory = DB::table('inventory')
            ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
            ->where('inventory.product_code', '=', $code)
            ->select('inventory.*', 'outlets.name_outlet as name_outlet')
            ->get();
-        return view('pages.inventory.editinventory')->with('product', $product)->with('inventory', $inventory);
-       }
-       else {
-        $outlets = DB::table('outlets')->get();
-           return view('pages.inventory.addinventory')->with('product', $product)->with('outlets', $outlets);
-       }
+    //     $data = inventory::where('product_code', $code)->first();
+    //    if($data){
+    //        $inventory = DB::table('inventory')
+    //        ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
+    //        ->where('inventory.product_code', '=', $code)
+    //        ->select('inventory.*', 'outlets.name_outlet as name_outlet')
+    //        ->get();
+    //     return view('pages.inventory.editinventory')->with('product', $product)->with('inventory', $inventory);
+    //    }
+    //    else {
+    //     $outlets = DB::table('outlets')->get();
+    //        return view('pages.inventory.addinventory')->with('product', $product)->with('outlets', $outlets);
+    //    }
 
         // $inventory = DB::table('inventory')->get();
         // $outlets = DB::table('outlets')->get();
+        return view('pages.inventory.editinventory')->with('product', $product)->with('outlets', $outlets)->with('inventory', $inventory);
     }
 
     public function editinventoryupdate(Request $request)
     {
         $code = $request->product_code;
-        $outlet = DB::table('inventory')
-           ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
-           ->where('inventory.product_code', '=', $code)
-           ->count();
-        $i = 0;
-        while($i < $outlet){
-            // $newqty[] =  $request->qty[$i] + $request->oldqty[$i];
-            $data[] = array(
-                'id' => $request->id[$i],
-                'qty' => $request->qty[$i]
-            );
-            $i++;
-        } 
-           $j = 0;
-           while($j < $outlet){
-               DB::table('inventory')->where('id', $data[$j]['id'])->update($data[$j]);
-               $j++;
-           }
+        $outlet = $request->outlets;
+        $cek = DB::table('inventory')
+        ->where('product_code', '=', $code)
+        ->where('outlet_id', '=', $outlet)
+        ->count();
+
+        $this->validate($request, [
+            'qty'=> 'required',
+            'product_code' => 'required',
+            'outlets' => 'required',
+        ]);
+
+        if($cek < 1){
+            DB::table('inventory')->insert([
+                'outlet_id'=> $outlet,
+                'product_code' => $code,
+                'qty' => $request->qty
+            ]);
+        }
+        else{
+            DB::table('inventory')->where('product_code', '=', $code)
+            ->where('outlet_id', '=', $outlet)->update([
+                'qty' => $request->qty
+            ]);
+        }
+        // $outlet = DB::table('inventory')
+        //    ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
+        //    ->where('inventory.product_code', '=', $code)
+        //    ->count();
+        // $i = 0;
+        // while($i < $outlet){
+        //     // $newqty[] =  $request->qty[$i] + $request->oldqty[$i];
+        //     $data[] = array(
+        //         'id' => $request->id[$i],
+        //         'qty' => $request->qty[$i]
+        //     );
+        //     $i++;
+        // } 
+        //    $j = 0;
+        //    while($j < $outlet){
+        //        DB::table('inventory')->where('id', $data[$j]['id'])->update($data[$j]);
+        //        $j++;
+        //    }
+
         // $outlet = DB::table('outlets')->count();
         // for ($i = 0; $i < $outlet; $i++) {
         //     $answers[] = [
