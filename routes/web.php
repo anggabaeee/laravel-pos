@@ -74,8 +74,6 @@ Route::get('/returnorder/ReportReturn','PosController@reportreturn')->middleware
 Route::get('/inventory','inventorycontroller@inventory')->middleware('ceklogin' , 'response');
 Route::get('/inventory/editinventory/{code}','inventorycontroller@editinventory')->middleware('ceklogin' , 'response');
 Route::post('/inventory/editinventoryupdate/','inventorycontroller@editinventoryupdate')->middleware('ceklogin' , 'response');
-Route::get('/inventory/addinventory/{code}','inventorycontroller@addinventory')->middleware('ceklogin' , 'response');
-Route::post('/inventory/addinventoryupdate','inventorycontroller@addinventoryupdate')->middleware('ceklogin' , 'response');
 
 // Products
 Route::get('/product/ListProduct','ProductController@listproduct')->middleware('ceklogin' , 'response');
