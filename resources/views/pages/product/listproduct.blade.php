@@ -1,5 +1,8 @@
 @extends('layouts.default-sidebar')
 @section('content')
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css'>
+<link href="{{ asset('css/magnific.css') }}" rel="stylesheet">
+
 <style>
     .table th {
         background-color: #f7f7f8;
@@ -69,7 +72,8 @@
                                     <tr>
                                         <td>{{$p->code}}</td>
                                         <td>{{$p->name_product}}</td>
-                                        <td><img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}"></td>
+                                        <td><img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}"></a>
+                                        </td>
                                         <td>{{$p->category_name}}</td>
                                         <td>{{ number_format($p->retail_price, 2, '.', ',') }}</td>
                                         <td>{{ number_format($p->purchase_price, 2, '.', ',') }}</td>
@@ -79,6 +83,9 @@
                                         <td>Active</td>
                                         @endif
                                         <td>
+                                            <a class="with-caption image-link"
+                                                href="{{ url('/product_image/'.$p->thumbnail) }}"><i
+                                                    class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a>
                                             <a href="/product/ListProduct/editproduct/{{$p->id_product}}"><i
                                                     class="fa fa-edit fa-2x"></i></a>
                                             <a href="#"><i class="fa fa-barcode fa-2x" style="color: black"></i></a>
@@ -94,6 +101,26 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                @foreach ($product as $p)
+                <h5 class="modal-title" id="exampleModalLongTitle">Product Code : {{$p->code}}</h5>
+                @endforeach
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @foreach ($product as $p)
+                <img style="width: 100%;height: auto;" src="{{ url('/product_image/'.$p->thumbnail) }}">
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
 </section>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -101,4 +128,7 @@
     });
 
 </script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js'></script>
+<script src="{{ asset('js/magnific.js') }}"></script>
 @stop
