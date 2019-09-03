@@ -17,7 +17,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-left: 0px">
-                    <a href="{{ url('/purchase_order/CreatePurchaseOrder') }}"><button type="button" class="btn btn-primary">
+                    <a href="{{ url('/purchase_order/CreatePurchaseOrder') }}"><button type="button"
+                            class="btn btn-primary">
                             <i class="fa fa-plus"> </i> Create Purchase Order</button></a>
                 </div>
                 <div class="row" style="margin-left: 0px; margin-top: 15px;">
@@ -29,24 +30,44 @@
                                     <th width="12%">Outlets</th>
                                     <th width="15%">Supplier</th>
                                     <th width="10%">Created Date</th>
-                                    <th width="13%">Status</th>
-                                    <th width="10%">Action</th>
+                                    <th width="15%">Status</th>
+                                    <th width="15%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($purchase_order as $p)
+                                @foreach($purchase_order as $p)
                                 <tr>
                                     <td>{{ $p->po_number }}</td>
                                     <td>{{ $p->name_outlet }}</td>
                                     <td>{{ $p->supplier_name }}</td>
                                     <td>{{ $p->datenow }}</td>
-                                    <td style="font-weight: bold;">{{ $p->nama }}</td>
-                                    <td><a href="/purchase_order/editpurchaseorder/{{ $p->id }}" style="margin-left: 5px;"><button
-                                            class="btn btn-primary">Edit</button></a>
-                                            <!-- <a href="" style="margin-left: 5px;" onclick="return confirm('Are you sure to delete this Purchase Order : ?')"><i class="fa fa-times" height="50px" style="color: #c50000"></i></a> -->
-                                            </td>
+                                    @if ($p->status == 1)
+                                    <td id="status" style="font-weight: bold;">Created</td>
+                                    @elseif ($p->status == 2)
+                                    <td id="status" style="font-weight: bold;">Sent To Supplier</td>
+                                    @else
+                                    <td id="status" style="font-weight: bold;">Received From Supplier</td>
+                                    @endif
+                                    <td>
+                                        @if ($p->status == 2)
+                                        <a href="/purchase_order/recivepurchaseorder/{{ $p->id }}"
+                                            style="margin-left: 5px;" ><button  class="btn btn-primary">Recive</button></a>
+                                        <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
+                                            style="margin-left: 5px;" ><button
+                                                class="btn btn-primary">view</button></a>
+                                        @elseif ($p->status == 3)
+                                        <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
+                                            style="margin-left: 5px;" id="btnRcv"><button
+                                                class="btn btn-primary">view</button></a>
+                                        @else
+                                        <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
+                                            style="margin-left: 5px;"><button class="btn btn-primary">Edit</button></a>
+                                        @endif
+                                        
+                                        <!-- <a href="" style="margin-left: 5px;" onclick="return confirm('Are you sure to delete this Purchase Order : ?')"><i class="fa fa-times" height="50px" style="color: #c50000"></i></a> -->
+                                    </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

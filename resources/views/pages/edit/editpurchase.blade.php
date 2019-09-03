@@ -72,8 +72,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                            <label>Outlets<span style="color: #F00">*</span></label>
-                                <select name="id_outlet" class="form-control" required>
+                            <label>Status<span style="color: #F00">*</span></label>
+                                <select name="status" class="form-control" required>
                                     @foreach($purchase_order_status as $p) 
                                     <option value="{{$p->id}}" @if ($p->id === $purchase_order->status)
                                         selected
@@ -81,7 +81,7 @@
                                         {{$p->nama}}
                                     </option>
                                     @endforeach
-                                </select>
+                                </select>   
                             </div>
                         </div>
                     </div>
