@@ -99,12 +99,12 @@ Route::get('/setting/payment_method', 'PosController@payment')->middleware('cekl
 Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment')->middleware('ceklogin' , 'response');
 
 // outlet ojo di maddleware sek
-Route::get('/setting/outlets', 'PosController@outlets');
-Route::get('/setting/outlets/addoutlet','PosController@addoutlet');
-Route::post('/setting/outlets/addoutletstore','PosController@addoutletstore');  
-Route::get('/setting/editoutlet/{id}', 'PosController@editoutlet')->middleware('ceklogin' , 'response');
-Route::put('/setting/editoutletupdate/{id}', 'PosController@editoutletupdate')->middleware('ceklogin' , 'response');
-Route::get('/setting/editoutletdelete/{id}', 'PosController@editoutletdelete')->middleware('ceklogin' , 'response');
+Route::get('/setting/outlets', 'OutletsController@outlets');
+Route::get('/setting/outlets/addoutlet','OutletsController@addoutlet');
+Route::post('/setting/outlets/addoutletstore','OutletsController@addoutletstore');  
+Route::get('/setting/editoutlet/{id}', 'OutletsController@editoutlet')->middleware('ceklogin' , 'response');
+Route::put('/setting/editoutletupdate/{id}', 'OutletsController@editoutletupdate')->middleware('ceklogin' , 'response');
+Route::get('/setting/editoutletdelete/{id}', 'OutletsController@editoutletdelete')->middleware('ceklogin' , 'response');
 Route::get('/setting/users', 'FilterController@users')->middleware('ceklogin' , 'response');
 
 //supllier

@@ -13,7 +13,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="row" style="margin-left: 0px">
-                    <a href="{{ url('/setting/outlets/addoutlet') }}"><button type="button" class="btn btn-primary">
+                    <a href="{{ url('/setting/outlets/addoutlet') }}"><button type="button" class="btn btn-primary"
+                            id="addoutlet">
                             <i class="fa fa-plus"> </i> Add New Outlet</button></a>
                 </div>
                 @if ($message = Session::get('success'))
@@ -63,6 +64,15 @@
         $('#exampel').DataTable();
     });
 
+</script>
+<script>
+    $role = {{Session::get('role')}};
+    function role() {
+        if ($role == "1" || $role == "2") {
+            document.getElementById("addoutlet").style.display = "none";
+        }
+    }
+    window.onload = role();
 </script>
 </section>
 @stop

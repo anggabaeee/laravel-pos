@@ -32,9 +32,18 @@ class inventorycontroller extends Controller
             return redirect('/customer');
     }
     public function inventory(){
-        $product = DB::table('product')->get();
-        $inventory = DB::table('inventory')->get();
-        return view('pages.inventory.inventory',['product' => $product,'inventory' => $inventory]);    
+        $data = DB::table('inventory')->select('product_code');
+        $product = DB::table('product')->select('*')
+        ->whereNOTIn('code', $data)
+        ->get();
+
+        $inventory = DB::table('inventory')
+          ->select('inventory.product_code as code', 'product.name_product as name_product', DB::raw('SUM(inventory.qty) as totalqty'))
+          ->leftjoin('product', 'product.code', '=', 'inventory.product_code')
+          ->groupBy('inventory.product_code')
+          ->get();
+
+        return view('pages.inventory.inventory',['inventory' => $inventory, 'product' => $product]);    
     }
     public function editinventory($code){
         $product = DB::table('product')->where('code', $code)->get();

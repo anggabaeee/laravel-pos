@@ -41,11 +41,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($inventory as $p)
+                        <tr>
+                            <td>{{$p->code}}</td>
+                            <td>{{$p->name_product}}</td>
+                            <td>{{$p->totalqty}}</td>
+                            <td><a href="/inventory/editinventory/{{$p->code}}" class="btn btn-primary">Update</a></td>
+                        </tr>
+                        @endforeach
                         @foreach ($product as $p)
                         <tr>
                             <td>{{$p->code}}</td>
                             <td>{{$p->name_product}}</td>
-                            <td></td>
+                            <td>0</td>
                             <td><a href="/inventory/editinventory/{{$p->code}}" class="btn btn-primary">Update</a></td>
                         </tr>
                         @endforeach
