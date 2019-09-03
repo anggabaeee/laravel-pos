@@ -88,6 +88,7 @@ Route::post('/product/ProductCategory/addProductCategorystore','PosController@ad
 
 
 // Purchase Order ojo di middleware sek
+Route::get('/purchase_order/recivepurchaseorder/{id}','PurchaseorderController@recivepurchaseorder');
 Route::put('/purchase_order/updatepurchaseorder/{id}', 'PurchaseorderController@updatepurchaseorder' , 'response');
 Route::get('/purchase_order/editpurchaseorder/{id}','PurchaseorderController@editpurchaseorder' , 'response');
 Route::get('/purchase_order','PurchaseorderController@purchase');

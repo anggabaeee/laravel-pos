@@ -32,11 +32,20 @@ class PurchaseorderController extends Controller
         return view('pages.purchase_order',['purchase_order'=>$purchase_order]);    
     }
 
-    public function editpurchaseorder($id){
+
+    public function recivepurchaseorder($id){
         $purchase_order = purchase_order::find($id);
         $outlets = outlets::all();
         $supplier = supplier::all();
         $purchase_order_status = purchase_order_status::all();
+        return view('pages.edit.recive')->with('purchase_order',$purchase_order)->with('supplier',$supplier)->with('outlets',$outlets)->with('purchase_order_status',$purchase_order_status);       
+    }
+
+    public function editpurchaseorder($id){
+        $purchase_order = purchase_order::find($id);
+        $outlets = outlets::all();
+        $supplier = supplier::all();
+        $purchase_order_status = purchase_order_status::all()->take(2);
         return view('pages.edit.editpurchase')->with('purchase_order',$purchase_order)->with('supplier',$supplier)->with('outlets',$outlets)->with('purchase_order_status',$purchase_order_status);       
     }
 
@@ -64,7 +73,7 @@ class PurchaseorderController extends Controller
             'id_supplier' => $request->id_supplier,
             'datenow' => $request->datenow,
             'note' => $request->note,
-            'status' => $request->status
+            'status' => $request->status,
     	]);
 
     	return redirect('/purchase_order');
@@ -77,6 +86,7 @@ class PurchaseorderController extends Controller
             'id_supplier' => 'required',
             'datenow' => 'required',
             'note' => 'required',
+            'status' => 'required',
             ]);
 
             $purchase_order = purchase_order::find($id);
@@ -84,6 +94,8 @@ class PurchaseorderController extends Controller
             $purchase_order->id_outlet = $request->id_outlet;
             $purchase_order->id_supplier = $request->id_supplier;
             $purchase_order->datenow = $request->datenow;
+            $purchase_order->note = $request->note;
+            $purchase_order->status = $request->status;
             $purchase_order->save();
             return redirect('/purchase_order');
     }
