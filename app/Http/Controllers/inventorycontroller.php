@@ -12,8 +12,6 @@ use App\inventory;
 use App\product;
 use App\outlets;
 
-
-
 class inventorycontroller extends Controller
 {
 
@@ -40,6 +38,7 @@ class inventorycontroller extends Controller
         $inventory = DB::table('inventory')
           ->select('inventory.product_code as code', 'product.name_product as name_product', DB::raw('SUM(inventory.qty) as totalqty'))
           ->leftjoin('product', 'product.code', '=', 'inventory.product_code')
+          ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
           ->groupBy('inventory.product_code')
           ->get();
 

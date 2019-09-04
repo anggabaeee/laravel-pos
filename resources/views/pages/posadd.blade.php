@@ -179,9 +179,9 @@
                                 @foreach ($product as $p)
                                 <div class="col-md-2 stock ml-4 mt-3">
                                     <div class="mt-1">
-                                        <a href=""> <img height="50px" class="img-thumbnail"
+                                        <a onclick=""> <img height="50px" class="img-thumbnail"
                                                 src="{{ url('/product_image/'.$p->thumbnail) }}">
-                                            <p>Jumlah</p>
+                                            <p id="qty">{{$p->qty}}</p> 
                                         </a>
                                     </div>
                                 </div>

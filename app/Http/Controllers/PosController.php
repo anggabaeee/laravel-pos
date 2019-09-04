@@ -121,8 +121,12 @@ class PosController extends Controller
         $outlets = DB::table('outlets')->get();
         return view('pages.pos',['outlets'=>$outlets]);    
     }  
-    public function posadd(){
-        $product = DB::table('product')->get();
+    public function posadd($id){
+        $product = DB::table('inventory')->where('outlet_id', $id)
+        ->join('product', 'product.code', '=', 'inventory.product_code')
+        ->select('inventory.*', 'product.name_product as name_product', 'product.thumbnail as thumbnail')
+        ->get();
+        // $product = DB::table('product')->get();
         return view('pages.posadd',['product'=>$product]);    
     }   
     

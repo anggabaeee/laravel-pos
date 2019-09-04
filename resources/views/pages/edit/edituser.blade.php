@@ -3,7 +3,7 @@
 
 <div class="col-sm-9 col-lg-10">
     <div class="container">
-        <h1>Add New User</h1>
+        <h1>Edit User</h1>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -43,10 +43,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Role <span style="color: #F00">*</span></label>
-                                <select name="role_id" class="form-control">
+                                <select name="role_id" class="form-control" id="role" onchange="hiddenoutlet()">
                                     @foreach($role as $r)
-                                    <option value="{{$r->id}}" 
-                                        @if ($r->id === $users->role_id)
+                                    <option value="{{$r->id}}" @if ($r->id === $users->role_id)
                                         selected
                                         @endif>
                                         {{$r->role_name}}
@@ -55,10 +54,10 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="outlets">
                             <div class="form-group">
                                 <label>Outlets<span style="color: #F00">*</span></label>
-                                <select name="outlet_id" class="form-control">
+                                <select name="outlet_id" class="form-control" id="idoutlets" required>
                                     @foreach($outlets as $o)
                                     <option value="{{$o->id}}" @if ($o -> id === $users -> outlet_id)
                                         selected
@@ -106,5 +105,17 @@
         </div>
     </div>
 </div>
+<script>
+    function hiddenoutlet() {
+        $roleid = document.getElementById('role').value;
+        if ($roleid == "3") {
+            document.getElementById('outlets').style.display = "none";
+            document.getElementById('idoutlets').required = false;
+        } else {
+            document.getElementById('outlets').style.display = "block";
+        }
+    }
+    window.onload = hiddenoutlet();
+</script>
 </section>
 @stop

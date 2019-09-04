@@ -50,7 +50,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Role <span style="color: #F00">*</span></label>
-                                <select name="role" class="form-control">
+                                <select name="role" class="form-control" id="role" onchange="hiddenoutlet()">
                                     <option disabled selected value> -- select an option -- </option>
                                     @foreach($role as $r)
                                     <option value="{{$r->id}}">{{$r->role_name}}</option>
@@ -58,10 +58,10 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="outlets">
                             <div class="form-group">
                                 <label>Outlets <span style="color: #F00">*</span></label>
-                                <select name="outlets" class="form-control">
+                                <select name="outlets" class="form-control" id="idoutlets" required>
                                     <option disabled selected value> -- select an option -- </option>
                                     @foreach($outlets as $o)
                                     <option value="{{$o->id}}">{{$o->name_outlet}}</option>
@@ -89,5 +89,17 @@
         </div>
     </div>
 </div>
+<script>
+function hiddenoutlet(){
+    $roleid = document.getElementById('role').value;
+    if($roleid == "3"){
+        document.getElementById('outlets').style.display = "none";
+        document.getElementById('idoutlets').required = false;
+    }
+    else{
+        document.getElementById('outlets').style.display = "block";   
+    }
+}
+</script>
 </section>
 @stop

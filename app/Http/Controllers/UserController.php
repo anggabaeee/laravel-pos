@@ -34,13 +34,21 @@ class UserController extends Controller
                 ->get();
             }
             else {
+                $outlet = DB::table('outlets')->select('id');
+                $data = DB::table('users')->whereNOTIn('outlet_id', $outlet)->count();
                 $users = DB::table('users')
-                ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
-                ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
-                ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
-                ->get();
+                    ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
+                    ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
+                    ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
+                    ->get();
+                if($data > 0){
+                    $user = DB::table('users')->whereNOTIn('outlet_id', $outlet)
+                    ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
+                    ->select('users.*', 'user_roles.role_name')
+                    ->get();
+                }
             }          
-        return view('pages.setting.users',['users'=>$users]);   
+        return view('pages.setting.users', ['users'=>$users], [ 'user' => $user]);   
     }
 
     public function adduser(){
@@ -58,20 +66,27 @@ class UserController extends Controller
         return view('tambah.adduser',['outlets' => $outlets], ['role' => $role]);
     }
     public function postuser(Request $request){
+        $role = $request->role;
+
+        if($role == "3"){
+            $outlets = 0;
+        }
+        else{
+            $outlets = $request->outlets;
+        }
         $this->validate($request, [
             'name'=>'required|min:4',
-            'email' => 'required|min:4|email|unique:users',
+            'email' => 'required|min:4|email|unique:users,email',
             'password' => 'required',
             'confirmation' => 'required|same:password',
             'role' => 'required',
-            'outlets' => 'required',
         ]);
         $data = new users();
         $data->fullname = $request->name;
         $data->email = $request->email;
         $data->password = bcrypt($request->password);
         $data->role_id = $request->role;
-        $data->outlet_id = $request->outlets;
+        $data->outlet_id = $outlets;
         $data->status = $request->status;
         $data->save();
         return redirect('/setting/users/adduser');
@@ -79,9 +94,7 @@ class UserController extends Controller
 
     public function edituser($id){
         $users = DB::table('users')->where('users.id', $id)
-        ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
         ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
-        ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
         ->get();
         $role = UserRoles::all();
         $outlets = outlets::all();
@@ -89,6 +102,14 @@ class UserController extends Controller
     }
 
     public function edituserupdate($id, Request $request){
+        $role = $request->role;
+
+        if($role == "3"){
+            $outlets = 0;
+        } else{
+            $outlets = $request->outlets;
+        }
+
         $this->validate($request,[
             'name'=>'required|min:4',
             'email' => 'required|min:4|email|unique:users,email,'.$id,
@@ -101,7 +122,7 @@ class UserController extends Controller
             $users->fullname = $request->name;
             $users->email = $request->email;
             $users->role_id = $request->role_id;
-            $users->outlet_id = $request->outlet_id;
+            $users->outlet_id = $outlets;
             $users->status = $request->status;
             $users->save();
             return redirect('/setting/users')->with('success', 'data updated');
@@ -112,13 +133,11 @@ class UserController extends Controller
         return view('pages.edit.changepassword', ['users'=>$users]); 
     }
 
-
     public function changepasswordupdate($id, Request $request){
         $this->validate($request,[
             'password' => 'required',
             'confirmation' => 'required|same:password',
             ]);
-
             $users = users::find($id);
             $users->password = bcrypt($request->password);
             $users->save();
