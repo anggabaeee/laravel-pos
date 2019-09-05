@@ -63,8 +63,6 @@
                                         <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
                                             style="margin-left: 5px;"><button class="btn btn-primary">Edit</button></a>
                                         @endif
-                                        
-                                        <!-- <a href="" style="margin-left: 5px;" onclick="return confirm('Are you sure to delete this Purchase Order : ?')"><i class="fa fa-times" height="50px" style="color: #c50000"></i></a> -->
                                     </td>
                                 </tr>
                                 @endforeach
