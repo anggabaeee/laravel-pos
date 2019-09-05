@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12" style="text-align: right;">
-                        <form action="">
+                        <form action="/setting/delete/userid={{$users->id}}" onsubmit="return confirm('Do you want to delete this User?')">
                             <input type="submit" class="btn btn-danger" value="Delete User">
                         </form>
                     </div>
@@ -21,7 +21,6 @@
                     @endforeach
                 </div>
                 @endif
-                @foreach($users as $users)
                 <form action="/setting/edituserupdate/{{$users->id}}">
                     <div class="row">
                         <div class="col-md-6">
@@ -93,7 +92,6 @@
                         </div>
                     </div>
                 </form>
-                @endforeach
             </div>
         </div>
         <div class="row" style="margin-top: 15px">

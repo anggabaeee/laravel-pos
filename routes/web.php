@@ -103,10 +103,10 @@ Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment
 Route::get('/setting/outlets', 'OutletsController@outlets');
 Route::get('/setting/outlets/addoutlet','OutletsController@addoutlet');
 Route::post('/setting/outlets/addoutletstore','OutletsController@addoutletstore');  
-Route::get('/setting/editoutlet/{id}', 'OutletsController@editoutlet')->middleware('ceklogin' , 'response');
-Route::put('/setting/editoutletupdate/{id}', 'OutletsController@editoutletupdate')->middleware('ceklogin' , 'response');
-Route::get('/setting/editoutletdelete/{id}', 'OutletsController@editoutletdelete')->middleware('ceklogin' , 'response');
-Route::get('/setting/users', 'UserController@users')->middleware('ceklogin' , 'response');
+Route::get('/setting/editoutlet/{id}', 'OutletsController@editoutlet');
+Route::put('/setting/editoutletupdate/{id}', 'OutletsController@editoutletupdate');
+Route::get('/setting/editoutletdelete/{id}', 'OutletsController@editoutletdelete');
+
 
 //supllier
 Route::get('/setting/suppliers', 'PosController@suppliers');
@@ -126,16 +126,15 @@ Route::get('/postuser', 'UserController@postuser');
 Route::get('/role', 'PosController@role');
 Route::get('/addrole', 'PosController@addrole');
 
-
-
-
-
 Route::get('/setting/system_setting', 'PosController@system')->middleware('pnlcek' , 'response');
 Route::get('/setting/users/adduser', 'UserController@adduser')->middleware('ceklogin' , 'response');
 Route::get('/setting/edituser/{id}', 'UserController@edituser')->middleware('ceklogin' , 'response');
 Route::get('/setting/edituserupdate/{id}', 'UserController@edituserupdate')->middleware('ceklogin' , 'response');
 Route::get('/setting/ChangePassword/{id}', 'UserController@changepassword')->middleware('ceklogin' , 'response');
 Route::get('/changepasswordupdate/{id}', 'UserController@changepasswordupdate')->middleware('ceklogin' , 'response');
+Route::get('/setting/users', 'UserController@users')->middleware('ceklogin' , 'response');
+Route::get('/setting/delete/userid={id}', 'UserController@deleteuser')->middleware('ceklogin' , 'response');
+
 Route::get('/setting/editsupplier', 'PosController@editsupplier')->middleware('pnlcek' , 'response');
 Route::get('/setting/editpayment', 'PosController@editpayment')->middleware('pnlcek' , 'response');
 Route::get('/postuser', 'UserController@postuser')->middleware('ceklogin' , 'response');

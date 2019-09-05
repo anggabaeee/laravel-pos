@@ -93,9 +93,7 @@ class UserController extends Controller
     }
 
     public function edituser($id){
-        $users = DB::table('users')->where('users.id', $id)
-        ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
-        ->get();
+        $users = users::find($id);
         $role = UserRoles::all();
         $outlets = outlets::all();
         return view('pages.edit.edituser')->with('users', $users)->with('role', $role)->with('outlets', $outlets);
@@ -142,5 +140,10 @@ class UserController extends Controller
             $users->password = bcrypt($request->password);
             $users->save();
             return redirect('/setting/users')->with('success',' Successfully Updated New Password.');
+    }
+
+    public function deleteuser($id){
+        users::find($id)->delete();
+        return redirect('/setting/users')->with('success', 'Users successfully deleted');
     }
 }
