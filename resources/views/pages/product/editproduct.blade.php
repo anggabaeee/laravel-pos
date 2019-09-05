@@ -34,7 +34,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Product Code <span style="color:red">*</span></label>
-                                <input type="text" name="code" class="form-control" value="{{$p-> code}}">
+                                <input readonly type="text" name="code" class="form-control" value="{{$p-> code}}">
                             </div>
                         </div>
                         <div class="col-md-4">
