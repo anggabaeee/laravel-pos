@@ -13,12 +13,12 @@
         <div class="card">
             <div class="card-body">
                 <form action="/purchase_order/CreatePurchaseOrderstore" method="post">
-                {{ csrf_field() }}
+                    {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-gorup">
                                 <label>Purchase Order Number <span style="color: #F00">*</span></label>
-                                <input type="text" name="po_number" class="form-control" required autofocus>
+                                <input type="number" name="po_number" class="form-control" required autofocus>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -51,7 +51,7 @@
                                 <?php $currentDateTime = date('Y-m-d');?>
                                 <input type="date" name="datenow" readonly class="form-control"
                                     value="<?php echo $currentDateTime; ?>">
-                                    <input type="text" value="1" name="status" readonly hidden>
+                                <input type="text" value="1" name="status" readonly hidden>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -62,26 +62,26 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Search Product <span style="color: #F00">*</span></label>
-                                <select name="searchproduct" class="form-control">
-                                    <option disabled selected value=""> --silahkan pilih-- </option>
-                                    @foreach ($product as $p)
-                                    <option value="{{$p->id}}">{{$p->name_product}}</option>
-                                    @endforeach
-                                </select>
+                    <section>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Search Product <span style="color: #F00">*</span></label>
+                                    <select name="searchproduct" class="form-control">
+                                        @foreach ($product as $p)
+                                        <option value="{{$p->id}}">{{$p->name_product}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <br>
+                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;" onclick="check()">Add to List</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <br>
-                                <button id="addtolist" class="btn btn-secondary"
-                                    style="width: 66%; margin-top: 6px;">Add to List</button>
-                            </div>
-                        </div>
-                    </div>
+                    </section>
                     <div class="row" style="margin-top: 15px">
                         <div class="col-md-12">
                             <div class="table-responsive">
@@ -94,12 +94,16 @@
                                             <th width="10%">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="additemwrap">
-                                        <tr></tr>
-                                        <tr></tr>
-                                        <tr></tr>
-                                        <tr></tr>
+                                    @foreach ($product as $p)
+                                    <tbody>
+                                        <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        </tr>
                                     </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -108,8 +112,7 @@
                         <div class="col-md-12">
                             <center>
                                 <div class="form-group">
-                                    <input type="hidden" id="row_count" name="row_count" value="1">
-                                    <button class="btn btn-primary" style="padding: 15px 40px;">Submit</button>
+                                    <input type="submit" class="btn btn-primary" style="padding: 15px 40px;" value="submit ">
                                 </div>
                             </center>
                         </div>
