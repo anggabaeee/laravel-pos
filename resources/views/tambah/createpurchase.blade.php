@@ -12,7 +12,7 @@
         <h1>Create Purchase Order</h1>
         <div class="card">
             <div class="card-body">
-                <form action="/purchase_order/CreatePurchaseOrderstore" method="post">
+                <form action="/purchase_order/CreatePurchaseOrderstore" method="post" id="form">
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-4">
@@ -67,9 +67,9 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Search Product <span style="color: #F00">*</span></label>
-                                    <select name="searchproduct" class="form-control">
+                                    <select name="searchproduct" class="form-control" id="product">
                                         @foreach ($product as $p)
-                                        <option value="{{$p->id}}">{{$p->name_product}}</option>
+                                        <option value="{{$p->code}}">{{$p->name_product}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -77,7 +77,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <br>
-                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;" onclick="check()">Add to List</button>
+                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;" onclick="addtolist()">Add to List</button>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                                             <th width="10%">Action</th>
                                         </tr>
                                     </thead>
-                                    @foreach ($product as $p)
+                                    
                                     <tbody>
                                         <tr>
                                         <td></td>
@@ -103,7 +103,6 @@
                                         <td></td>
                                         </tr>
                                     </tbody>
-                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -129,5 +128,25 @@
         </div>
     </div>
 </div>
+
+<script>
+function addtolist(){
+    var s = document.getElementById("product");
+    var text = s.options[s.selectedIndex].text;
+    var id =  s.options[s.selectedIndex].value;
+    var input = document.createElement("input");  
+
+    var table = document.getElementsByTagName('table')[0];
+    var newRow = table.insertRow(1);
+
+    var cel1 = newRow.insertCell(0);
+    var cel2 = newRow.insertCell(1);
+    var cel3 = newRow.insertCell(2);
+
+    cel1.innerHTML = text;
+    cel2.innerHTML = id;
+    cel3.innerHTML = input;
+}
+</script>
 </section>
 @stop
