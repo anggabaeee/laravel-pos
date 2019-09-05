@@ -59,7 +59,7 @@
                         @endforeach
                     </div>
                     @endif
-                    <form action="/inventory/editinventoryupdate/" method="post">
+                    <form action="/inventory/editinventoryupdate/" method="post" onsubmit="return confirm('Do you want to update this inventory?')">
                         {{ csrf_field() }}
                         <input name="product_code" type="hidden" value="{{$product->code}}">
                         <div class="row mt-2">

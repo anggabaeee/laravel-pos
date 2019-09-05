@@ -70,7 +70,7 @@
                                     <label>Search Product <span style="color: #F00">*</span></label>
                                     <select name="searchproduct" class="form-control select2" style="height:120px;">
                                         @foreach ($product as $p)
-                                        <option value="{{$p->id}}">{{$p->name_product}}</option>
+                                        <option value="{{$p->code}}">{{$p->name_product}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -78,7 +78,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <br>
-                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;" onclick="check()">Add to List</button>
+                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;" onclick="addtolist()">Add to List</button>
                                 </div>
                             </div>
                         </div>
@@ -95,11 +95,8 @@
                                             <th width="10%">Action</th>
                                         </tr>
                                     </thead>
-                                    @foreach ($product as $p)
-                                    <tbody>
-                                       
+                                    <tbody>     
                                 </tbody>
-                                @endforeach
                             </table>
                             </div>
                         </div>
