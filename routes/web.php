@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/','AuthController@login');
+Route::get('/','AuthController@login')->middleware('response');
 Route::get('/loginpost','AuthController@loginpost');
 Route::get('/logout','AuthController@logout');
 // dashboard
