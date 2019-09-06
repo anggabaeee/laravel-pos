@@ -76,15 +76,15 @@ Route::get('/inventory/editinventory/{code}','inventorycontroller@editinventory'
 Route::post('/inventory/editinventoryupdate/','inventorycontroller@editinventoryupdate')->middleware('ceklogin' , 'response');
 
 // Products
-Route::get('/product/ListProduct','ProductController@listproduct')->middleware('ceklogin' , 'response');
-Route::get('/product/ListProduct/addProduct','ProductController@addProduct')->middleware('ceklogin' , 'response');
-Route::post('/product/ListProduct/addProductstore','ProductController@addProductstore')->middleware('ceklogin' , 'response');
+Route::get('/product/ListProduct','ProductController@listproduct');
+Route::get('/product/ListProduct/addProduct','ProductController@addProduct');
+Route::post('/product/ListProduct/addProductstore','ProductController@addProductstore');
 Route::get('/product/ListProduct/editproduct/{id_product}','ProductController@editproduct')->middleware('ceklogin' , 'response');
 Route::put('/product/ListProduct/editproductupdate/{id_product}','ProductController@editproductupdate')->middleware('ceklogin' , 'response');
 Route::get('/product/ListProduct/editproductdelete/{id_product}','ProductController@editproductdelete')->middleware('ceklogin' , 'response');
-Route::get('/product/ProductCategory','PosController@productcategory')->middleware('ceklogin' , 'response');
-Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory')->middleware('ceklogin' , 'response');
-Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore')->middleware('ceklogin' , 'response');
+Route::get('/product/ProductCategory','PosController@productcategory');
+Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory');
+Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore');
 
 
 // Purchase Order ojo di middleware sek
