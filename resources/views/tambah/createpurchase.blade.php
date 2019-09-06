@@ -14,17 +14,17 @@
         <div class="card">
             <div class="card-body">
                 <form action="/purchase_order/CreatePurchaseOrderstore" method="post">
-                {{ csrf_field() }}
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-gorup">
-                            <label>Purchase Order Number <span style="color: #F00">*</span></label>
-                            <input type="number" name="po_number" class="form-control" required autofocus>
+                    {{ csrf_field() }}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-gorup">
+                                <label>Purchase Order Number <span style="color: #F00">*</span></label>
+                                <input type="number" name="po_number" class="form-control" required autofocus>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-gorup">
-                            <label>Outlets<span style="color: #F00">*</span></label>
+                        <div class="col-md-4">
+                            <div class="form-gorup">
+                                <label>Outlets<span style="color: #F00">*</span></label>
                                 <select name="id_outlet" class="form-control" required>
                                     <option disabled selected value=""> --silahkan pilih-- </option>
                                     @foreach ($outlets as $p)
@@ -46,18 +46,18 @@
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px">
-                            <div class="col-md-4">
-                                <div class="form-gorup">
-                                    <label>Created Date <span style="color: #F00">*</span></label>
-                                    <?php $currentDateTime = date('Y-m-d');?>
+                        <div class="col-md-4">
+                            <div class="form-gorup">
+                                <label>Created Date <span style="color: #F00">*</span></label>
+                                <?php $currentDateTime = date('Y-m-d');?>
                                 <input type="date" name="datenow" readonly class="form-control"
                                     value="<?php echo $currentDateTime; ?>">
-                                    <input type="text" value="1" name="status" readonly hidden>
-                                </div>
+                                <input type="text" value="1" name="status" readonly hidden>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-gorup">
-                                    <label>Note</label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-gorup">
+                                <label>Note</label>
                                 <textarea name="note" class="form-control"></textarea>
                             </div>
                         </div>
@@ -68,7 +68,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Search Product <span style="color: #F00">*</span></label>
-                                    <select name="searchproduct" class="form-control select2" style="height:120px;">
+                                    <select name="searchproduct" class="form-control select2" style="height:120px;"
+                                        id="product">
                                         @foreach ($product as $p)
                                         <option value="{{$p->code}}">{{$p->name_product}}</option>
                                         @endforeach
@@ -78,13 +79,14 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <br>
-                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;" onclick="addtolist()">Add to List</button>
+                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;"
+                                        id="addlist">Add to List</button>
                                 </div>
                             </div>
                         </div>
                     </section>
                     <div class="row" style="margin-top: 15px">
-                            <div class="col-md-12">
+                        <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -95,17 +97,18 @@
                                             <th width="10%">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>     
-                                </tbody>
-                            </table>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 15px">
-                            <div class="col-md-12">
+                        <div class="col-md-12">
                             <center>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" style="padding: 15px 40px;" value="submit ">
+                                    <input type="submit" class="btn btn-primary" style="padding: 15px 40px;"
+                                        value="submit ">
                                 </div>
                             </center>
                         </div>
@@ -114,8 +117,8 @@
             </div>
         </div>
         <div class="row" style="margin-top: 15px">
-                <div class="col-md-2">
-                    <a href="{{ url('/purchase_order')}}">
+            <div class="col-md-2">
+                <a href="{{ url('/purchase_order')}}">
                     <button class="btn btn-secondary" style="width: 60%"><i class="fa fa-chevron-left"></i>
                         Back</button></a>
             </div>
@@ -124,13 +127,29 @@
 </div>
 </section>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-<script>
+<script type="text/javascript">
+ $(document).ready(function () {
     $('.select2').select2({
         allowClear: true,
         placeholder: {
-        id: "0",
-        text: "Select an Title" 
-    }
-    })
+            id: "1",
+            text: "Pilih Product"
+        }
+    });
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#addlist").click(function () {
+            var s = document.getElementById("product");
+            var text = s.options[s.selectedIndex].text;
+            var id = s.options[s.selectedIndex].value;
+            var markup = "<tr><td>" + id + "</td><td>" +
+                text + "</td><td><input type='number' name='quality' class='form-control' ></tr>";
+            $("table tbody").append(markup);
+        });
+    });
+
 </script>
 @stop
