@@ -146,10 +146,12 @@
             var text = s.options[s.selectedIndex].text;
             var id = s.options[s.selectedIndex].value;
             var markup = "<tr><td>" + id + "</td><td>" +
-                text + "</td><td><input type='number' name='quality' class='form-control' ></tr>";
+                text + "</td><td><input type='number' name='quality' class='form-control'><td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>";
             $("table tbody").append(markup);
         });
+        $('.table tbody').on('click','#deletbtn', function () {
+           $(this).closest('tr').remove();
+        });
     });
-
 </script>
 @stop
