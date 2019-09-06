@@ -126,7 +126,8 @@ Route::get('/postuser', 'UserController@postuser');
 Route::get('/role', 'PosController@role');
 Route::get('/addrole', 'PosController@addrole');
 
-Route::get('/setting/system_setting', 'PosController@system')->middleware('pnlcek' , 'response');
+Route::get('/setting/system_setting', 'site_settingController@system_setting')->middleware('pnlcek' , 'response');
+Route::put('/setting/system_settingupdate/{id}', 'site_settingController@system_settingupdate')->middleware('pnlcek' , 'response');
 Route::get('/setting/users/adduser', 'UserController@adduser')->middleware('ceklogin' , 'response');
 Route::get('/setting/edituser/{id}', 'UserController@edituser')->middleware('ceklogin' , 'response');
 Route::get('/setting/edituserupdate/{id}', 'UserController@edituserupdate')->middleware('ceklogin' , 'response');
