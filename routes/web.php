@@ -46,6 +46,7 @@ Route::get('/soldbyproduct', 'PosController@soldbyproduct')->middleware('ceklogi
 //expenses
 Route::get('/expenses', 'PosController@expenses')->middleware('ceklogin' , 'response');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses')->middleware('ceklogin' , 'response');
+Route::post('/expenses/addexpensesstore', 'PosController@addexpensesstore')->middleware('ceklogin' , 'response');
 Route::get('/expenses/editexpenses', 'PosController@editexpenses')->middleware('ceklogin' , 'response');
 
 // expenses category

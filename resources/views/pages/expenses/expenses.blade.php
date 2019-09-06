@@ -80,12 +80,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($expenses as $e)
                             <tr style="text-align: center;">
-                                <td>b</td>
-                                <td>active</td>
-                                <td>b</td>
-                                <td>active</td>
-                                <td>b</td>
+                                <td>{{$e->expenses_number}}</td>
+                                <td>{{$e->name_category}}</td>
+                                <td>{{$e->name_outlet}}</td>
+                                <td>{{$e->date}}</td>
+                                <td>Rp. {{$e->amount}}.00</td>
                                 <td><a href="/expenses/editexpenses">
                                         <button type="button" class="btn btn-primary">Edit</button>
                                     </a>
@@ -96,6 +97,7 @@
                                             <i class="fa fa-trash-o"></i> Delete</button>
                                     </a>
                                 </td>
+                                @endforeach
 
                         <tbody>
                             <tr style="text-align: center;">

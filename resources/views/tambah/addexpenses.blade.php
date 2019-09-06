@@ -17,14 +17,23 @@
 <div class="col-sm-9 col-sm-offset-10 col-lg-10 col-lg-offset-2 main">
     <div class="container mt-3">
         <h1>Add New Expenses</h1>
-        <form action="" class="mt-2 panel">
+        <form action="/expenses/addexpensesstore" method="post" class="mt-2 panel" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        @if ($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </div>
+                    @endif
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Expenses Number
                             <span style="color: #F00">*</span>
                         </label>
-                        <input class="form-control" type="text" required>
+                        <input name="number" class="form-control" type="text" required>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -32,7 +41,7 @@
                         <label for="">Outlets
                             <span style="color: #F00">*</span>
                         </label>
-                        <select class="form-control" type="text" required>
+                        <select name="outlet_id" class="form-control" type="text" required>
                             <option disabled selected value> -- select an option -- </option>
                             @foreach ($outlets as $p)
                             <option value="{{$p->id}}">{{$p->name_outlet}}</option>
@@ -45,7 +54,7 @@
                         <label for="">Date
                             <span style="color: #F00">*</span>
                         </label>
-                        <input class="form-control" type="date" required>
+                        <input name="date" class="form-control" type="date" required>
                     </div>
                 </div>
             </div>
@@ -64,17 +73,17 @@
                         <label for="">Amount (SGD)
                             <span style="color: #F00">*</span>
                         </label>
-                        <input class="form-control" type="text" required>
+                        <input name="amount" class="form-control" type="text" required>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <label for="">Edit Expenses Category<span style="color: #F00">*</span>
+                        <label for="">Expenses Category<span style="color: #F00">*</span>
                         </label>
                         <select name="category" class="form-control" required>
                             <option disabled selected value> -- select an option -- </option>
-                            @foreach ($outlets as $o)
-                            <option value="{{$o->id}}">{{$o->name_outlet}}</option>
+                            @foreach ($expensescategory as $o)
+                            <option value="{{$o->id}}">{{$o->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -85,7 +94,7 @@
                     <div class="form-group">
                         <label for="">File (Less than 2MB)<span style="color: #F00">*</span><br>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="CustomFile" required>
+                                <input name="image" type="file" class="custom-file-input" id="CustomFile" required>
                                 <label class="custom-file-label" for="CustomFile">choose file</label>
                             </div>
                     </div>
