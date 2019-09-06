@@ -17,6 +17,7 @@ use App\product;
 use App\outlets;
 use App\users;
 use App\UserRoles;
+use App\expenses;
 
 class PosController extends Controller
 {
@@ -215,12 +216,47 @@ class PosController extends Controller
 
     //expenses
     public function expenses(){
-        return view('pages.expenses.expenses');    
+        $expenses = DB::table('expenses')
+        ->join('outlets', 'outlets.id', '=', 'expenses.outlet_id')
+        ->join('expensescategory', 'expensescategory.id', '=', 'expenses.expense_category')
+        ->select('expenses.*', 'outlets.name_outlet as name_outlet', 'expensescategory.name as name_category')
+        ->get();
+        return view('pages.expenses.expenses', ['expenses' => $expenses]);    
     }
     public function addexpenses(){
         $expensescategory = DB::table('expensescategory')->get();
         $outlets = DB::table('outlets')->get();
         return view('tambah.addexpenses',['expensescategory'=> $expensescategory,'outlets'=>$outlets]); 
+    }
+    public function addexpensesstore(Request $request){
+        $this->validate($request, [
+            'number' => 'required|unique:expenses,expenses_number',
+            'outlet_id' => 'required',
+            'date' => 'required',
+            'reason' => 'required',
+            'amount' => 'required',
+            'category' => 'required',
+            'image' => 'required|file|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        $image = $request->file('image');
+        $image_name = time()."_".$image->getClientOriginalName();
+        $folder = 'expenses_image';
+        $image->move($folder,$image_name);
+        $status = 1;
+
+        expenses::create([
+            'expenses_number' => $request->number,
+            'expense_category' => $request->category,
+            'outlet_id' => $request->outlet_id,
+            'date' => $request->date,
+            'amount' => $request->amount,
+            'reason' => $request->reason,
+            'file_name' => $image_name,
+            'status' => $status
+        ]);
+
+        return redirect ('/expenses')->with('success', 'Expenses Successfully Created');
     }
     public function expenses_category(){
         $expensescategory = DB::table('expensescategory')->get();
