@@ -50,6 +50,7 @@ return array(
     'App\\outlets' => $baseDir . '/app/outlets.php',
     'App\\product' => $baseDir . '/app/product.php',
     'App\\purchase_order' => $baseDir . '/app/purchase_order.php',
+    'App\\site_setting' => $baseDir . '/app/site_setting.php',
     'App\\supplier' => $baseDir . '/app/supplier.php',
     'App\\users' => $baseDir . '/app/users.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

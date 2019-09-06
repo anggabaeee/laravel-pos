@@ -181,7 +181,8 @@
                                     <div class="mt-1">
                                         <a onclick=""> <img height="50px" class="img-thumbnail"
                                                 src="{{ url('/product_image/'.$p->thumbnail) }}">
-                                            <p id="qty">{{$p->qty}}</p> 
+                                            <p>{{$p->name_product}}</p>
+                                            <p id="qty">{{$p->qty}}</p>
                                         </a>
                                     </div>
                                 </div>

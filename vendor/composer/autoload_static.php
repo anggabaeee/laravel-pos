@@ -424,6 +424,7 @@ class ComposerStaticInitbdce83d62a30c72a4aeb006a83b1a87d
         'App\\outlets' => __DIR__ . '/../..' . '/app/outlets.php',
         'App\\product' => __DIR__ . '/../..' . '/app/product.php',
         'App\\purchase_order' => __DIR__ . '/../..' . '/app/purchase_order.php',
+        'App\\site_setting' => __DIR__ . '/../..' . '/app/site_setting.php',
         'App\\supplier' => __DIR__ . '/../..' . '/app/supplier.php',
         'App\\users' => __DIR__ . '/../..' . '/app/users.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
