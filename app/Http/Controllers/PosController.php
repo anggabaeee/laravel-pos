@@ -394,9 +394,82 @@ class PosController extends Controller
     public function editpayment(){
         return view('pages.edit.editpayment'); 
     }
-    public function editexpenses(){
-        return view('pages.edit.editexpenses'); 
+    public function editexpenses($id){
+        $expenses = expenses::find($id);
+        $outlets = outlets::all();
+        $category = expensescategory::all();
+        return view('pages.edit.editexpenses')->with('expenses', $expenses)->with('outlets', $outlets)->with('category', $category); 
     }
+    public function updateexpenses($id, Request $request){
+        
+        if($request->hasFile('image')){
+            $this->validate($request, [
+                'number' => 'required',
+                'outlet_id' => 'required',
+                'date' => 'required',
+                'reason' => 'required',
+                'amount' => 'required',
+                'category' => 'required',
+                'image' => 'required|file|image|mimes:jpeg,png,jpg|max:2048'
+            ]);
+
+            $filename = $request->filename;
+            $filepath = 'expenses_image/'.$filename;
+            if(file_exists($filepath)){
+                @unlink($filepath);
+            } 
+
+            $image = $request->file('image');
+            $image_name = time()."_".$image->getClientOriginalName();
+            $folder = 'expenses_image';
+            $image->move($folder,$image_name);
+            
+            $expenses = expenses::find($id);
+            $expenses->update([
+                'expenses_number' => $request->number,
+                'expense_category' => $request->category,
+                'outlet_id' => $request->outlet_id,
+                'date' => $request->date,
+                'amount' => $request->amount,
+                'reason' => $request->reason,
+                'file_name' => $image_name
+            ]);
+        }
+
+        else {
+            $this->validate($request, [
+                'number' => 'required',
+                'outlet_id' => 'required',
+                'date' => 'required',
+                'reason' => 'required',
+                'amount' => 'required',
+                'category' => 'required',
+            ]);
+            $expenses = expenses::find($id);
+            $expenses->update([
+                'expenses_number' => $request->number,
+                'expense_category' => $request->category,
+                'outlet_id' => $request->outlet_id,
+                'date' => $request->date,
+                'amount' => $request->amount,
+                'reason' => $request->reason
+            ]);
+        }
+        return redirect('/expenses')->with(['success' => 'your data succesfylly updated']);
+    }
+
+    public function deleteexpenses($id){
+        $data = \DB::table('expenses')->where('id', $id)->first();
+        $filename = $data->file_name;
+        $filepath = 'expenses_image/'.$filename;
+        if(file_exists($filepath)){
+            @unlink($filepath);
+        } 
+
+        expenses::find($id)->delete();
+        return redirect('/expenses')->with('success', 'expenses succesfully deleted');
+    }
+
     public function role(){
         $role = UserRoles::all();
         return view('role', ['role'=>$role]); 

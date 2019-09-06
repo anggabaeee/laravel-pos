@@ -16,6 +16,12 @@
 <div class="col-sm-9 col-sm-offset-10 col-lg-10 col-lg-offset-2 main">
     <div class="container">
         <h1>Expenses</h1>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
         <form action="" class="mt-2 panel">
             <div class="d-flex">
                 <div class="mr-auto bd-highlight">
@@ -68,7 +74,7 @@
             </div>
             <div class="row">
                 <div class="table-responsive">
-                <table class="table table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr class="table-active" style="text-align: center;">
                                 <th>Expenses Number</th>
@@ -87,14 +93,11 @@
                                 <td>{{$e->name_outlet}}</td>
                                 <td>{{$e->date}}</td>
                                 <td>Rp. {{$e->amount}}.00</td>
-                                <td><a href="/expenses/editexpenses">
-                                        <button type="button" class="btn btn-primary">Edit</button>
-                                    </a>
-                                    |
-                                    <a href="#">
-                                        <button type="button" class="btn btn-danger"
-                                            onclick="return confirm('Apakah anda Yakin ?')">
-                                            <i class="fa fa-trash-o"></i> Delete</button>
+                                <td><a href="/expenses/editexpenses/{{$e->id}}">
+                                        <button type="button" class="btn btn-primary">Edit </button>
+                                    </a> 
+                                    <a href="/expenses/deleteexpenses/{{$e->id}}" onclick="return confirm('Apakah anda Yakin ?')">
+                                        <i class="fa fa-times-circle fa-2x" style="color: red; margin-left: 3px;"></i>
                                     </a>
                                 </td>
                                 @endforeach

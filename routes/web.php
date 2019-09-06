@@ -47,7 +47,9 @@ Route::get('/soldbyproduct', 'PosController@soldbyproduct')->middleware('ceklogi
 Route::get('/expenses', 'PosController@expenses')->middleware('ceklogin' , 'response');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses')->middleware('ceklogin' , 'response');
 Route::post('/expenses/addexpensesstore', 'PosController@addexpensesstore')->middleware('ceklogin' , 'response');
-Route::get('/expenses/editexpenses', 'PosController@editexpenses')->middleware('ceklogin' , 'response');
+Route::get('/expenses/editexpenses/{id}', 'PosController@editexpenses')->middleware('ceklogin' , 'response');
+Route::post('/expenses/updateexpenses/{id}', 'PosController@updateexpenses')->middleware('ceklogin' , 'response');
+Route::get('/expenses/deleteexpenses/{id}', 'PosController@deleteexpenses')->middleware('ceklogin' , 'response');
 
 // expenses category
 Route::get('/expensescategory', 'PosController@expenses_category')->middleware('ceklogin' , 'response');
