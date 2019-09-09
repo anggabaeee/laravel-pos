@@ -446,18 +446,20 @@
         var price = document.getElementById('' + i + '-price').innerHTML;
 
         var row = document.createElement('div');
-        row.setAttribute("class", "row");
+        row.setAttribute('class', 'row ' + i + '');
         row.setAttribute("style", "margin-right: 5px");
+        row.setAttribute('id', '' + i + '-row');
 
         var div1 = document.createElement('div');
-        div1.setAttribute("class", "col-md-4");
+        div1.setAttribute("class", "col-md-3");
         var pnew = document.createElement('p');
+        pnew.setAttribute('id', '' + i + '-namelist')
         var newname = document.createTextNode(name);
         pnew.appendChild(newname);
         div1.appendChild(pnew)
 
         var div2 = document.createElement('div');
-        div2.setAttribute("class", "col-md-4");
+        div2.setAttribute("class", "col-md-5");
         var row21 = document.createElement('div');
         row21.setAttribute("class", "row");
         div2.appendChild(row21);
@@ -477,6 +479,7 @@
         newqty.setAttribute("value", qty1);
         newqty.setAttribute("class", "form-control");
         newqty.setAttribute("name", "qty[]");
+        newqty.setAttribute('id', '' + i + '-qtylist');
         div22.appendChild(newqty)
 
         var div23 = document.createElement('div');
@@ -506,7 +509,12 @@
         document.getElementById('isitable').appendChild(row);
     }
 
+    function changeqty(){
+
+    }
+
 </script>
+
 <script>
     $(document).ready(function () {
         $("#myBtn1").click(function () {
