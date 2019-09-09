@@ -100,15 +100,7 @@
                 <div class="row">
                     <div class="col-12 mt-2 ml-3">
                         <div class="row isitable" id="isitable" style="margin-top: 5px">
-                            <div class="col-md-3" id="namelist"></div>
-                            <div class="col-md-4" id="qty">
-                                <div class="row">
-                                    <div class="col-md-3" id="plus"></div>
-                                    <div class="col-md-6" id="qtylist">
-                                    </div>
-                                    <div class="col-md-3" id="minus"></a></div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -451,27 +443,67 @@
         var qty = document.getElementById('' + i + '-qty').innerHTML;
         var name = document.getElementById('' + i + '-name_product').innerHTML;
         qty1 = parseInt(qty);
+        var price = document.getElementById('' + i + '-price').innerHTML;
 
+        var row = document.createElement('div');
+        row.setAttribute("class", "row");
+        row.setAttribute("style", "margin-right: 5px");
+
+        var div1 = document.createElement('div');
+        div1.setAttribute("class", "col-md-4");
+        var pnew = document.createElement('p');
+        var newname = document.createTextNode(name);
+        pnew.appendChild(newname);
+        div1.appendChild(pnew)
+
+        var div2 = document.createElement('div');
+        div2.setAttribute("class", "col-md-4");
+        var row21 = document.createElement('div');
+        row21.setAttribute("class", "row");
+        div2.appendChild(row21);
+
+        var div21 = document.createElement('div');
+        div21.setAttribute("class", "col-md-3");
+        row21.appendChild(div21);
+        var plusicon = document.createElement('a');
+        plusicon.setAttribute("class", "fa fa-plus-circle");
+        div21.appendChild(plusicon)
+
+        var div22 = document.createElement('div');
+        div22.setAttribute("class", "col-md-6");
+        row21.appendChild(div22);
         var newqty = document.createElement('input');
         newqty.setAttribute("type", "text");
         newqty.setAttribute("value", qty1);
         newqty.setAttribute("class", "form-control");
         newqty.setAttribute("name", "qty[]");
+        div22.appendChild(newqty)
 
-        var pnew = document.createElement('p');
-        var newname = document.createTextNode(name);
-        pnew.appendChild(newname);
-
-        var plusicon = document.createElement('a');
-        plusicon.setAttribute("class", "fa fa-plus-circle");
-
-        var minusicon =  document.createElement('a');
+        var div23 = document.createElement('div');
+        div23.setAttribute("class", "col-md-3");
+        row21.appendChild(div23);
+        var minusicon = document.createElement('a');
         minusicon.setAttribute("class", "fa fa-minus-circle");
+        div23.appendChild(minusicon);
 
-        document.getElementById('qtylist').appendChild(newqty);
-        document.getElementById('plus').appendChild(plusicon);
-        document.getElementById('minus').appendChild(minusicon);
-        document.getElementById('namelist').appendChild(pnew);
+        var div3 = document.createElement('div');
+        div3.setAttribute("class", "col-md-3");
+        var pnew1 = document.createElement('p');
+        var newprice = document.createTextNode(price);
+        pnew1.appendChild(newprice);
+        div3.appendChild(pnew1)
+
+        var div4 = document.createElement('div');
+        div4.setAttribute("class", "col-md-1")
+        var closeicon = document.createElement('a');
+        closeicon.setAttribute("class", "fa fa-close");
+        div4.appendChild(closeicon)
+
+        row.appendChild(div1);
+        row.appendChild(div2);
+        row.appendChild(div3);
+        row.appendChild(div4);
+        document.getElementById('isitable').appendChild(row);
     }
 
 </script>
