@@ -98,8 +98,18 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 ml-3">
-                        <div class="isitable"></div>
+                    <div class="col-12 mt-2 ml-3">
+                        <div class="row isitable" id="isitable" style="margin-top: 5px">
+                            <div class="col-md-3" id="namelist"></div>
+                            <div class="col-md-4" id="qty">
+                                <div class="row">
+                                    <div class="col-md-3" id="plus"></div>
+                                    <div class="col-md-6" id="qtylist">
+                                    </div>
+                                    <div class="col-md-3" id="minus"></a></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -179,10 +189,11 @@
                                 @foreach ($product as $p)
                                 <div class="col-md-2 stock ml-4 mt-3">
                                     <div class="mt-1">
-                                        <a onclick=""> <img height="50px" class="img-thumbnail"
+                                        <a onclick="addlist('{{$p->id}}')"> <img height="50px" class="img-thumbnail"
                                                 src="{{ url('/product_image/'.$p->thumbnail) }}">
-                                            <p>{{$p->name_product}}</p>
-                                            <p id="qty">{{$p->qty}}</p>
+                                            <p id="{{$p->id}}-name_product">{{$p->name_product}}</p>
+                                            <p id="{{$p->id}}-qty">{{$p->qty}}</p>
+                                            <p id="{{$p->id}}-price">{{$p->price}}</p>
                                         </a>
                                     </div>
                                 </div>
@@ -434,6 +445,36 @@
 
     </div>
 </div>
+
+<script>
+    function addlist(i) {
+        var qty = document.getElementById('' + i + '-qty').innerHTML;
+        var name = document.getElementById('' + i + '-name_product').innerHTML;
+        qty1 = parseInt(qty);
+
+        var newqty = document.createElement('input');
+        newqty.setAttribute("type", "text");
+        newqty.setAttribute("value", qty1);
+        newqty.setAttribute("class", "form-control");
+        newqty.setAttribute("name", "qty[]");
+
+        var pnew = document.createElement('p');
+        var newname = document.createTextNode(name);
+        pnew.appendChild(newname);
+
+        var plusicon = document.createElement('a');
+        plusicon.setAttribute("class", "fa fa-plus-circle");
+
+        var minusicon =  document.createElement('a');
+        minusicon.setAttribute("class", "fa fa-minus-circle");
+
+        document.getElementById('qtylist').appendChild(newqty);
+        document.getElementById('plus').appendChild(plusicon);
+        document.getElementById('minus').appendChild(minusicon);
+        document.getElementById('namelist').appendChild(pnew);
+    }
+
+</script>
 <script>
     $(document).ready(function () {
         $("#myBtn1").click(function () {
