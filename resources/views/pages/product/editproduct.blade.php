@@ -75,7 +75,7 @@
                         <div class="col-md-4" style="margin-top: 32px">
                             <div class="form-group">
                                 <input type="file" class="custom-file-input" id="customFile" name="thumbnail" value="{{$p->thumbnail}}">
-                                <label class="custom-file-label" for="customFile">Product Category</label>
+                                <label class="custom-file-label" for="customFile">Product Image</label>
                                 <br>
                                 <img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}" alt="">
                             </div>

@@ -136,7 +136,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{asset('img/logo.jpg')}}" height="100px">
+                            <img height="100px" src="{{ url('/site_image/'.$s->site_logo) }}"></a>
                         </div>
                     </div>
                     @endforeach
