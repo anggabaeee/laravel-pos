@@ -14,7 +14,7 @@ class PurchaseOrder extends Migration
     public function up()
     {
         Schema::create('purchase_order', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id');
             $table->integer('po_number');
             $table->integer('id_outlet');
             $table->integer('id_supplier');

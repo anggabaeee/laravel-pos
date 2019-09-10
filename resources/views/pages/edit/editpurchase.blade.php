@@ -47,7 +47,6 @@
                                         @endif>
                                         {{$p->supplier_name}}
                                     </option>
-
                                     @endforeach
                                 </select>
                             </div>
@@ -56,10 +55,9 @@
                     <div class="row" style="margin-top: 15px">
                         <div class="col-md-4">
                             <div class="form-gorup">
-                                <label>Created Date <span style="color: #F00">*</span></label>
-                                <?php $currentDateTime = date('Y-m-d');?>
+                                <label>Created  <span style="color: #F00">*</span></label>
                                 <input type="text" name="datenow" readonly class="form-control"
-                                    value="<?php echo $currentDateTime; ?>">
+                                    value="{{$purchase_order->datenow}}">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -116,11 +114,10 @@
                                             <th width="10%">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="additemwrap">
-                                        <tr></tr>
-                                        <tr></tr>
-                                        <tr></tr>
-                                        <tr></tr>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{$purchase_order->purchase_order_items->product_code}}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
