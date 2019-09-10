@@ -14,8 +14,9 @@ function addlist(i) {
 
         var div1 = document.createElement('div');
         div1.setAttribute("class", "col-md-3");
-        var pnew = document.createElement('p');
+        var pnew = document.createElement('label');
         pnew.setAttribute('id', '' + i + '-namelist')
+        pnew.setAttribute("name", "name[]")
         var newname = document.createTextNode(name);
         pnew.appendChild(newname);
         div1.appendChild(pnew)
@@ -26,15 +27,18 @@ function addlist(i) {
         row21.setAttribute("class", "row");
         div2.appendChild(row21);
 
-        var div21 = document.createElement('div');
-        div21.setAttribute("class", "col-md-3");
-        row21.appendChild(div21);
-        var plusicon = document.createElement('a');
-        plusicon.setAttribute("class", "fa fa-plus-circle");
-        div21.appendChild(plusicon)
+        var div23 = document.createElement('div');
+        div23.setAttribute("class", "col-md-3");
+        div23.setAttribute("style", "padding-right: 0");
+        row21.appendChild(div23);
+        var minusicon = document.createElement('a');
+        minusicon.setAttribute("class", "fa fa-minus-circle");
+        minusicon.setAttribute("style", "margin-top: 11px;");
+        div23.appendChild(minusicon);
 
         var div22 = document.createElement('div');
         div22.setAttribute("class", "col-md-6");
+        div22.setAttribute("style", "padding-right: 0; padding-left: 0;");
         row21.appendChild(div22);
         var newqty = document.createElement('input');
         newqty.setAttribute("type", "text");
@@ -44,17 +48,19 @@ function addlist(i) {
         newqty.setAttribute('id', '' + i + '-qtylist');
         div22.appendChild(newqty)
 
-        var div23 = document.createElement('div');
-        div23.setAttribute("class", "col-md-3");
-        row21.appendChild(div23);
-        var minusicon = document.createElement('a');
-        minusicon.setAttribute("class", "fa fa-minus-circle");
-        minusicon.setAttribute('id', '' + i + '-minus');
-        div23.appendChild(minusicon);
+        var div21 = document.createElement('div');
+        div21.setAttribute("class", "col-md-3");
+        div21.setAttribute("style", "padding-left: 0;");
+        row21.appendChild(div21);
+        var plusicon = document.createElement('a');
+        plusicon.setAttribute("class", "fa fa-plus-circle");
+        plusicon.setAttribute("style", "margin-top: 11px");
+        div21.appendChild(plusicon)
 
         var div3 = document.createElement('div');
         div3.setAttribute("class", "col-md-3");
-        var pnew1 = document.createElement('p');
+        var pnew1 = document.createElement('label');
+        pnew1.setAttribute("name", "price[]")
         var newprice = document.createTextNode(price);
         pnew1.appendChild(newprice);
         div3.appendChild(pnew1)
@@ -70,6 +76,7 @@ function addlist(i) {
         row.appendChild(div3);
         row.appendChild(div4);
         document.getElementById('isitable').appendChild(row);
+        total();
     }
     minusicon.onclick = function () {
         getdatamin(i)
@@ -79,6 +86,9 @@ function addlist(i) {
     }
     newqty.onchange = function () {
         changeqty(i)
+    }
+    closeicon.onclick = function () {
+        dataremove(i)
     }
 }
 
@@ -92,6 +102,7 @@ function getdatamin(i) {
         alert("tidak boleh kurang dari 1");
         document.getElementById('' + i + '-qtylist').value = "1";
     }
+    total();
 }
 
 function getdataplus(i) {
@@ -106,6 +117,7 @@ function getdataplus(i) {
         alert("Melebihi batas stok");
         document.getElementById('' + i + '-qtylist').value = qtystock;
     }
+    total();
 }
 
 function changeqty(i) {
@@ -123,4 +135,26 @@ function changeqty(i) {
         alert("tidak boleh kurang dari 1");
         document.getElementById('' + i + '-qtylist').value = "1";
     }
+    total();
+}
+
+function dataremove(i){
+    document.getElementById('' + i + '-row').remove();
+    total();
+}
+
+function total (){
+    var arr = document.getElementsByName('price[]');
+    var arrqty = document.getElementsByName('qty[]');
+    var tot = 0;
+    var totqty = 0;
+
+    for(var i=0; i<arr.length; i++){
+        if(parseInt(arr[i].innerHTML))
+        if(parseInt(arrqty[i].value))
+        tot += (parseInt(arr[i].innerHTML) * parseInt(arrqty[i].value));
+        totqty += parseInt(arrqty[i].value);
+    }
+    document.getElementById('total').innerHTML = tot;
+    document.getElementById('totalqty').innerHTML = totqty;
 }

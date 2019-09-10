@@ -111,13 +111,13 @@
                                 <div>Total Items:</div>
                             </div>
                             <div class="col-3">
-                                <div>0</div>
+                                <div><label id="totalqty" name="totalqty">0.00</label></div>
                             </div>
                             <div class="col-3">
                                 <div>Total:</div>
                             </div>
                             <div class="col-3">
-                                <div>0</div>
+                                <div><label name="totalprice" id="total">0.00</label></div>
                             </div>
 
                         </div>
@@ -186,6 +186,7 @@
                                             <p id="{{$p->id}}-name_product">{{$p->name_product}}</p>
                                             <p id="{{$p->id}}-qty">{{$p->qty}}</p>
                                             <p id="{{$p->id}}-price">{{$p->price}}</p>
+                                            <p id="{{$p->id}}-code">{{$p->product_code}}</p>
                                         </a>
                                     </div>
                                 </div>
