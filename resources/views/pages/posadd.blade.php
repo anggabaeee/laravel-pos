@@ -111,7 +111,7 @@
                                 <div>Total Items:</div>
                             </div>
                             <div class="col-3">
-                                <div><label id="totalqty" name="totalqty">0.00</label></div>
+                                <div><label id="totalqty" name="totalqty"></label></div>
                             </div>
                             <div class="col-3">
                                 <div>Total:</div>
@@ -126,7 +126,7 @@
                                 <div>Dis. Amt./% :</div>
                             </div>
                             <div class="col-3">
-                                <input type="text" class="mx-4 w-75">
+                                <input type="text" class="mx-4 w-75" name="discount" id="discount" onkeyup="disc()">
                             </div>
                             <div class="col-3">
                                 <div>Tax (7.00%) :</div>
@@ -141,7 +141,7 @@
                                 <div>Total Payble</div>
                             </div>
                             <div class="col-6">
-                                <div class="ml-auto">0</div>
+                                <div class="ml-auto"><label name="grandtotal" id="grandtotal"></label></div>
                             </div>
                         </div>
                     </div>

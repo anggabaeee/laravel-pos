@@ -94,7 +94,7 @@ function addlist(i) {
 
 function getdatamin(i) {
     var valueqty = document.getElementById('' + i + '-qtylist').value;
-    nilaiqty = parseInt(valueqty);
+    nilaiqty = parseFloat(valueqty);
     var a = nilaiqty - 1;
     document.getElementById('' + i + '-qtylist').value = a;
 
@@ -107,9 +107,9 @@ function getdatamin(i) {
 
 function getdataplus(i) {
     var valueqty = document.getElementById('' + i + '-qtylist').value;
-    nilaiqty = parseInt(valueqty);
+    nilaiqty = parseFloat(valueqty);
     var qtystock = document.getElementById('' + i + '-qty').innerHTML;
-    nilaiqtystock = parseInt(qtystock);
+    nilaiqtystock = parseFloat(qtystock);
     var a = nilaiqty + 1;
     document.getElementById('' + i + '-qtylist').value = a;
 
@@ -122,9 +122,9 @@ function getdataplus(i) {
 
 function changeqty(i) {
     var valueqty = document.getElementById('' + i + '-qtylist').value;
-    nilaiqty = parseInt(valueqty);
+    nilaiqty = parseFloat(valueqty);
     var qtystock = document.getElementById('' + i + '-qty').innerHTML;
-    nilaiqtystock = parseInt(qtystock);
+    nilaiqtystock = parseFloat(qtystock);
 
     if (nilaiqty > nilaiqtystock) {
         alert("Melebihi batas stok");
@@ -138,23 +138,38 @@ function changeqty(i) {
     total();
 }
 
-function dataremove(i){
+function dataremove(i) {
     document.getElementById('' + i + '-row').remove();
     total();
 }
 
-function total (){
+function total() {
     var arr = document.getElementsByName('price[]');
     var arrqty = document.getElementsByName('qty[]');
     var tot = 0;
     var totqty = 0;
 
-    for(var i=0; i<arr.length; i++){
-        if(parseInt(arr[i].innerHTML))
-        if(parseInt(arrqty[i].value))
-        tot += (parseInt(arr[i].innerHTML) * parseInt(arrqty[i].value));
-        totqty += parseInt(arrqty[i].value);
+    for (var i = 0; i < arr.length; i++) {
+        if (parseFloat(arr[i].innerHTML))
+            if (parseFloat(arrqty[i].value))
+                tot += (parseFloat(arr[i].innerHTML) * parseFloat(arrqty[i].value));
+        totqty += parseFloat(arrqty[i].value);
     }
     document.getElementById('total').innerHTML = tot;
     document.getElementById('totalqty').innerHTML = totqty;
+    document.getElementById('grandtotal').innerHTML = tot;
+}
+
+function disc() {
+    var dis = document.getElementById('discount').value;
+    if (dis !== "") {
+        var total = document.getElementById('total').innerHTML;
+        dis = parseFloat(dis);
+        total = parseFloat(total)
+        var minusdis = total - dis
+        document.getElementById('total').innerHTML = minusdis;
+    }
+    else{
+        total()
+    }
 }
