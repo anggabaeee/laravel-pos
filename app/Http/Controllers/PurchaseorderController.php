@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Session;
 use App\purchase_order_status;
 use App\purchase_order;
+use App\purchase_order_items;
 use App\supplier;
 use App\Customer;
 use App\gift_card;
