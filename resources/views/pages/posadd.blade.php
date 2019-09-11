@@ -405,7 +405,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6 mt-1">
-                        <p>Paid Amount:>
+                        <p>Paid Amount: <p>
                     </div>
                     <div class="col-6">
                         <input type="text" id="paidamount" class="form-control col-sm-12"
@@ -476,19 +476,6 @@
     $(document).ready(function () {
         $("#myBtn4").click(function () {
             $("#myModal4").modal();
-        });
-    });
-
-</script>
-
-<script>
-    $(document).ready(function () {
-        $("#myBtn5").click(function () {
-            $("#myModal5").modal();
-            var totalAmount = document.getElementById('grandtotal').innerHTML;
-            var totalItems = document.getElementById('totalqty').innerHTML;
-            document.getElementById('total_amount').innerHTML = totalAmount;
-            document.getElementById('total_items').innerHTML = totalItems;
         });
     });
 

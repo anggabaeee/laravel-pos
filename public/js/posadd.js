@@ -209,14 +209,40 @@ function disc(val) {
         document.getElementById('grandtotal').innerHTML = parseFloat(grandtot).toFixed(2);
     }
 }
-function PaidAmount(val){
+
+function PaidAmount(val) {
     var totalAmount = document.getElementById('total_amount').innerHTML;
+    var ret = document.getElementById('paidamount').value;
+    if (ret == "") {
+        val = 0;
+    }
     var returnchange = parseFloat(val) - parseFloat(totalAmount);
     document.getElementById('return_change').innerHTML = returnchange;
-    if(returnchange > -1) {
+    if (returnchange > -1) {
         document.getElementById('submit').hidden = false;
-    }
-    else {
+    } else {
         document.getElementById('submit').hidden = true;
     }
 }
+
+$(document).ready(function () {
+    $("#myBtn5").click(function () {
+        $("#myModal5").modal();
+        var totalAmount = document.getElementById('grandtotal').innerHTML;
+        var totalItems = document.getElementById('totalqty').innerHTML;
+        document.getElementById('total_amount').innerHTML = totalAmount;
+        document.getElementById('total_items').innerHTML = totalItems;
+
+        var paid = document.getElementById('paidamount').value;
+        if (paid == "") {
+            paid = 0;
+        }
+        var returnchange = parseFloat(paid) - parseFloat(totalAmount);
+        document.getElementById('return_change').innerHTML = returnchange;
+        if (returnchange > -1) {
+            document.getElementById('submit').hidden = false
+        } else {
+            document.getElementById('submit').hidden = true
+        }
+    });
+});
