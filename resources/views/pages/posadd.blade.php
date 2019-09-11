@@ -111,13 +111,13 @@
                                 <div>Total Items:</div>
                             </div>
                             <div class="col-3">
-                                <div>0</div>
+                                <div><label id="totalqty" name="totalqty">0.00</label></div>
                             </div>
                             <div class="col-3">
                                 <div>Total:</div>
                             </div>
                             <div class="col-3">
-                                <div>0</div>
+                                <div><label name="totalprice" id="total">0.00</label></div>
                             </div>
 
                         </div>
@@ -186,6 +186,7 @@
                                             <p id="{{$p->id}}-name_product">{{$p->name_product}}</p>
                                             <p id="{{$p->id}}-qty">{{$p->qty}}</p>
                                             <p id="{{$p->id}}-price">{{$p->price}}</p>
+                                            <p id="{{$p->id}}-code">{{$p->product_code}}</p>
                                         </a>
                                     </div>
                                 </div>
@@ -438,83 +439,7 @@
     </div>
 </div>
 
-<script>
-    function addlist(i) {
-        var qty = document.getElementById('' + i + '-qty').innerHTML;
-        var name = document.getElementById('' + i + '-name_product').innerHTML;
-        qty1 = parseInt(qty);
-        var price = document.getElementById('' + i + '-price').innerHTML;
-
-        var row = document.createElement('div');
-        row.setAttribute('class', 'row ' + i + '');
-        row.setAttribute("style", "margin-right: 5px");
-        row.setAttribute('id', '' + i + '-row');
-
-        var div1 = document.createElement('div');
-        div1.setAttribute("class", "col-md-3");
-        var pnew = document.createElement('p');
-        pnew.setAttribute('id', '' + i + '-namelist')
-        var newname = document.createTextNode(name);
-        pnew.appendChild(newname);
-        div1.appendChild(pnew)
-
-        var div2 = document.createElement('div');
-        div2.setAttribute("class", "col-md-5");
-        var row21 = document.createElement('div');
-        row21.setAttribute("class", "row");
-        div2.appendChild(row21);
-
-        var div21 = document.createElement('div');
-        div21.setAttribute("class", "col-md-3");
-        row21.appendChild(div21);
-        var plusicon = document.createElement('a');
-        plusicon.setAttribute("class", "fa fa-plus-circle");
-        div21.appendChild(plusicon)
-
-        var div22 = document.createElement('div');
-        div22.setAttribute("class", "col-md-6");
-        row21.appendChild(div22);
-        var newqty = document.createElement('input');
-        newqty.setAttribute("type", "text");
-        newqty.setAttribute("value", qty1);
-        newqty.setAttribute("class", "form-control");
-        newqty.setAttribute("name", "qty[]");
-        newqty.setAttribute('id', '' + i + '-qtylist');
-        div22.appendChild(newqty)
-
-        var div23 = document.createElement('div');
-        div23.setAttribute("class", "col-md-3");
-        row21.appendChild(div23);
-        var minusicon = document.createElement('a');
-        minusicon.setAttribute("class", "fa fa-minus-circle");
-        div23.appendChild(minusicon);
-
-        var div3 = document.createElement('div');
-        div3.setAttribute("class", "col-md-3");
-        var pnew1 = document.createElement('p');
-        var newprice = document.createTextNode(price);
-        pnew1.appendChild(newprice);
-        div3.appendChild(pnew1)
-
-        var div4 = document.createElement('div');
-        div4.setAttribute("class", "col-md-1")
-        var closeicon = document.createElement('a');
-        closeicon.setAttribute("class", "fa fa-close");
-        div4.appendChild(closeicon)
-
-        row.appendChild(div1);
-        row.appendChild(div2);
-        row.appendChild(div3);
-        row.appendChild(div4);
-        document.getElementById('isitable').appendChild(row);
-    }
-
-    function changeqty(){
-
-    }
-
-</script>
-
+<script src="{{ asset('js/posadd.js') }}"></script>
 <script>
     $(document).ready(function () {
         $("#myBtn1").click(function () {
@@ -573,7 +498,6 @@
     var a = d.getDate() + "/";
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
-
 </script>
 
 @stop
