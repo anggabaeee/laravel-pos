@@ -146,30 +146,77 @@ function dataremove(i) {
 function total() {
     var arr = document.getElementsByName('price[]');
     var arrqty = document.getElementsByName('qty[]');
+    var tax = document.getElementById('tax').value;
+    var dis = document.getElementById('discount').value;
     var tot = 0;
     var totqty = 0;
-
+    if (dis == "") {
+        dis = 0;
+    }
     for (var i = 0; i < arr.length; i++) {
-        if (parseInt(arr[i].innerHTML))
+        if (parseFloat(arr[i].innerHTML))
             if (parseInt(arrqty[i].value))
-                tot += (parseInt(arr[i].innerHTML) * parseInt(arrqty[i].value));
+                tot += (parseFloat(arr[i].innerHTML) * parseInt(arrqty[i].value));
         totqty += parseInt(arrqty[i].value);
     }
-    document.getElementById('total').innerHTML = tot;
+    dis = parseFloat(dis);
+    var total = tot - dis;
+    var taxval = (total * parseInt(tax)) / 100;
+    var grandtot = total + taxval
+    document.getElementById('total').innerHTML = parseFloat(total).toFixed(2);
+    document.getElementById('taxval').innerHTML = parseFloat(taxval).toFixed(2);
     document.getElementById('totalqty').innerHTML = totqty;
-    document.getElementById('grandtotal').innerHTML = tot;
+    document.getElementById('grandtotal').innerHTML = parseFloat(grandtot).toFixed(2);
 }
 
-function disc() {
-    var dis = document.getElementById('discount').value;
-    if (dis !== "") {
-        var total = document.getElementById('total').innerHTML;
-        dis = parseInt(dis);
-        total = parseInt(total)
-        total -= dis
-        document.getElementById('total').innerHTML = total;
+function disc(val) {
+    var arr = document.getElementsByName('price[]');
+    var arrqty = document.getElementsByName('qty[]');
+    var tax = document.getElementById('tax').value;
+    var tot = 0;
+    var totqty = 0;
+    if (val == 0) {
+        for (var i = 0; i < arr.length; i++) {
+            if (parseFloat(arr[i].innerHTML))
+                if (parseInt(arrqty[i].value))
+                    tot += (parseFloat(arr[i].innerHTML) * parseInt(arrqty[i].value));
+            totqty += parseInt(arrqty[i].value);
+        }
+        var taxval = (tot * parseInt(tax)) / 100;
+        var grandtot = tot + taxval;
+        document.getElementById('total').innerHTML = parseFloat(tot).toFixed(2);
+        document.getElementById('totalqty').innerHTML = totqty;
+        document.getElementById('taxval').innerHTML = parseFloat(taxval).toFixed(2);
+        document.getElementById('grandtotal').innerHTML = parseFloat(grandtot).toFixed(2);
+    } else {
+        for (var i = 0; i < arr.length; i++) {
+            if (parseFloat(arr[i].innerHTML))
+                if (parseInt(arrqty[i].value))
+                    tot += (parseFloat(arr[i].innerHTML) * parseInt(arrqty[i].value));
+            totqty += parseInt(arrqty[i].value);
+        }
+        if (val > (tot - 1)) {
+            alert("discount Discount Amount must to less than Payable Amount!");
+            document.getElementById('discount').value = "";
+            val = 0;
+        }
+        var total = tot - val;
+        var taxval = (total * parseInt(tax)) / 100;
+        var grandtot = total + taxval
+        document.getElementById('total').innerHTML = parseFloat(total).toFixed(2);
+        document.getElementById('totalqty').innerHTML = totqty;
+        document.getElementById('taxval').innerHTML = parseFloat(taxval).toFixed(2);
+        document.getElementById('grandtotal').innerHTML = parseFloat(grandtot).toFixed(2);
     }
-    else{
-        total()
+}
+function PaidAmount(val){
+    var totalAmount = document.getElementById('total_amount').innerHTML;
+    var returnchange = parseFloat(val) - parseFloat(totalAmount);
+    document.getElementById('return_change').innerHTML = returnchange;
+    if(returnchange > -1) {
+        document.getElementById('submit').hidden = false;
+    }
+    else {
+        document.getElementById('submit').hidden = true;
     }
 }

@@ -99,9 +99,12 @@
                 </div>
                 <div class="row">
                     <div class="col-12 mt-2 ml-3">
-                        <div class="row isitable" id="isitable" style="margin-top: 5px">
+                        <form action="">
+                            <input type="hidden" name="tax" id="tax" value="7">
+                            <div class="row isitable" id="isitable" style="margin-top: 5px">
 
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -126,13 +129,14 @@
                                 <div>Dis. Amt./% :</div>
                             </div>
                             <div class="col-3">
-                                <input type="text" class="mx-4 w-75" name="discount" id="discount" onkeyup="disc()">
+                                <input type="text" class="mx-4 w-75" name="discount" id="discount"
+                                    onkeyup="disc(this.value)">
                             </div>
                             <div class="col-3">
                                 <div>Tax (7.00%) :</div>
                             </div>
                             <div class="col-3">
-                                <div>0</div>
+                                <div><label name="taxval" id="taxval">0.00</label></div>
                             </div>
                         </div>
                         <hr style="border-color:white;">
@@ -351,7 +355,7 @@
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: #373942;">
             <div class="modal-header">
-                <h1 class="modal-title" style="color:white;">Add Customer</h1>
+                <h1 class="modal-title" style="color:white;">Make Payment</h1>
             </div>
             <div class="modal-body" style="background-color:white;">
                 <div class="row">
@@ -360,7 +364,9 @@
                     </div>
                     <div class="col-6">
                         <select class="form-control" type="text">
-                            <option value="10">10</option>
+                            @foreach ($customer as $customer)
+                            <option value="{{$customer->id}}">{{$customer->fullname}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -369,7 +375,7 @@
                         <p>Total Payable Amount</p>
                     </div>
                     <div class="col-6">
-                        <span>00.0</span>
+                        <span id="total_amount">00.0</span>
                     </div>
                 </div>
                 <div class="row">
@@ -377,7 +383,7 @@
                         <p>Total Purchased Items</p>
                     </div>
                     <div class="col-6">
-                        <span>00.0</span>
+                        <span id="total_items">00.0</span>
                     </div>
                 </div>
                 <div class="row">
@@ -399,10 +405,11 @@
                 </div>
                 <div class="row">
                     <div class="col-6 mt-1">
-                        <p>Paid Amount:/p>
+                        <p>Paid Amount:>
                     </div>
                     <div class="col-6">
-                        <input type="text" class="form-control col-sm-12">
+                        <input type="text" id="paidamount" class="form-control col-sm-12"
+                            onkeyup="PaidAmount(this.value)">
                     </div>
                 </div>
                 <div class="row">
@@ -410,7 +417,7 @@
                         <p>Return Change :</p>
                     </div>
                     <div class="col-6">
-                        <span>00.0</span>
+                        <span id="return_change">00.0</span>
                     </div>
                 </div>
             </div>
@@ -418,7 +425,7 @@
         <div class="modal-footer" style="background-color:white;">
             <div class="d-flex">
                 <div class="ml-auto">
-                    <button type="button" class="btn btn-success py-1" hidden="true">Add Customer</button>
+                    <button type="button" id="submit" class="btn btn-success py-1" hidden="true">Submit</button>
                 </div>
             </div>
         </div>
@@ -478,6 +485,10 @@
     $(document).ready(function () {
         $("#myBtn5").click(function () {
             $("#myModal5").modal();
+            var totalAmount = document.getElementById('grandtotal').innerHTML;
+            var totalItems = document.getElementById('totalqty').innerHTML;
+            document.getElementById('total_amount').innerHTML = totalAmount;
+            document.getElementById('total_items').innerHTML = totalItems;
         });
     });
 
@@ -498,6 +509,7 @@
     var a = d.getDate() + "/";
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
+
 </script>
 
 @stop

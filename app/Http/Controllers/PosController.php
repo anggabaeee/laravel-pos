@@ -127,8 +127,9 @@ class PosController extends Controller
         ->join('product', 'product.code', '=', 'inventory.product_code')
         ->select('inventory.*', 'product.name_product as name_product', 'product.thumbnail as thumbnail', 'retail_price as price')
         ->get();
+        $customer = Customer::all();
         // $product = DB::table('product')->get();
-        return view('pages.posadd',['product'=>$product]);    
+        return view('pages.posadd',['product'=>$product], ['customer'=>$customer]);    
     }   
     
 
