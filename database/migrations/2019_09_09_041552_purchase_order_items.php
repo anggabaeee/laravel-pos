@@ -15,12 +15,13 @@ class PurchaseOrderItems extends Migration
     {
         Schema::create('purchase_order_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_po')->unsigned()->nullable();;
+            $table->integer('id_po')->unsigned()->nullable();
             $table->foreign('id_po')
             ->references('id')
             ->on('purchase_order');
-            $table->string('product_code');
-            $table->string('ordered_qty');
+            $table->string('product_code')->nullable();
+            $table->string('ordered_qty')->nullable();
+            $table->timestamps();
         });
     }
 
