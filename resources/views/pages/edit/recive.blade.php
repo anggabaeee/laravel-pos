@@ -3,16 +3,14 @@
 <style>
     .table th {
         background-color: #686868;
-        color: #FFF;
-    }
-
+        co
 </style>
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Recive From Supplier</h1>
         <div class="card">
             <div class="card-body mx-1">
-                <div class="row mt-2">
+                <div class="row">
                     <div class="ml-auto">
                         <button type="button" class="btn btn-success ml-2">Print Purchase Order</button>
                     </div>
