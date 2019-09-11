@@ -116,7 +116,14 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>{{$purchase_order->purchase_order_items->product_code}}</td>
+                                            <td>
+                                            @if($purchase_order->purchase_order_items->id_po == is_null)
+                                                kosongto
+                                            @else
+                                                {{$purchase_order->purchase_order_items->ordered_qty}}
+                                            
+                                            @endif
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

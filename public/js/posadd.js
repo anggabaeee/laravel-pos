@@ -94,7 +94,7 @@ function addlist(i) {
 
 function getdatamin(i) {
     var valueqty = document.getElementById('' + i + '-qtylist').value;
-    nilaiqty = parseFloat(valueqty);
+    nilaiqty = parseInt(valueqty);
     var a = nilaiqty - 1;
     document.getElementById('' + i + '-qtylist').value = a;
 
@@ -107,9 +107,9 @@ function getdatamin(i) {
 
 function getdataplus(i) {
     var valueqty = document.getElementById('' + i + '-qtylist').value;
-    nilaiqty = parseFloat(valueqty);
+    nilaiqty = parseInt(valueqty);
     var qtystock = document.getElementById('' + i + '-qty').innerHTML;
-    nilaiqtystock = parseFloat(qtystock);
+    nilaiqtystock = parseInt(qtystock);
     var a = nilaiqty + 1;
     document.getElementById('' + i + '-qtylist').value = a;
 
@@ -122,9 +122,9 @@ function getdataplus(i) {
 
 function changeqty(i) {
     var valueqty = document.getElementById('' + i + '-qtylist').value;
-    nilaiqty = parseFloat(valueqty);
+    nilaiqty = parseInt(valueqty);
     var qtystock = document.getElementById('' + i + '-qty').innerHTML;
-    nilaiqtystock = parseFloat(qtystock);
+    nilaiqtystock = parseInt(qtystock);
 
     if (nilaiqty > nilaiqtystock) {
         alert("Melebihi batas stok");
@@ -150,10 +150,10 @@ function total() {
     var totqty = 0;
 
     for (var i = 0; i < arr.length; i++) {
-        if (parseFloat(arr[i].innerHTML))
-            if (parseFloat(arrqty[i].value))
-                tot += (parseFloat(arr[i].innerHTML) * parseFloat(arrqty[i].value));
-        totqty += parseFloat(arrqty[i].value);
+        if (parseInt(arr[i].innerHTML))
+            if (parseInt(arrqty[i].value))
+                tot += (parseInt(arr[i].innerHTML) * parseInt(arrqty[i].value));
+        totqty += parseInt(arrqty[i].value);
     }
     document.getElementById('total').innerHTML = tot;
     document.getElementById('totalqty').innerHTML = totqty;
@@ -164,10 +164,10 @@ function disc() {
     var dis = document.getElementById('discount').value;
     if (dis !== "") {
         var total = document.getElementById('total').innerHTML;
-        dis = parseFloat(dis);
-        total = parseFloat(total)
-        var minusdis = total - dis
-        document.getElementById('total').innerHTML = minusdis;
+        dis = parseInt(dis);
+        total = parseInt(total)
+        total -= dis
+        document.getElementById('total').innerHTML = total;
     }
     else{
         total()
