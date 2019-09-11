@@ -45,10 +45,11 @@ class PurchaseorderController extends Controller
 
     public function editpurchaseorder($id){
         $purchase_order = purchase_order::find($id);
+        $purchase_order_items = purchase_order_items::all();
         $outlets = outlets::all();
         $supplier = supplier::all();
         $purchase_order_status = purchase_order_status::all()->take(2);
-        return view('pages.edit.editpurchase')->with('purchase_order',$purchase_order)->with('supplier',$supplier)->with('outlets',$outlets)->with('purchase_order_status',$purchase_order_status);       
+        return view('pages.edit.editpurchase')->with('purchase_order',$purchase_order)->with('supplier',$supplier)->with('outlets',$outlets)->with('purchase_order_status',$purchase_order_status)->with('purchase_order_items',$purchase_order_items);       
     }
 
     public function createpurchase(){
@@ -72,13 +73,12 @@ class PurchaseorderController extends Controller
         ]);
         
         $var = purchase_order::max('id');
-        if ($request->product_code != null) {
             purchase_order_items::create([
                 'id_po'=> $var,
                 'product_code' => $request->product_code,
+                'product_name' => $request->product_name,
                 'ordered_qty' => $request->ordered_qty,
             ]);
-        }
     	return redirect('/purchase_order');
     }
 

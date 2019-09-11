@@ -20,6 +20,7 @@ class PurchaseOrderItems extends Migration
             ->references('id')
             ->on('purchase_order');
             $table->string('product_code')->nullable();
+            $table->string('product_name')->nullable();
             $table->string('ordered_qty')->nullable();
             $table->timestamps();
         });
