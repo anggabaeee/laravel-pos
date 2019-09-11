@@ -115,13 +115,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr >
                                             <td>
-                                            @if($purchase_order->purchase_order_items->id_po == is_null)
-                                                kosongto
+                                                {{$purchase_order->purchase_order_items->product_name}}
+                                            </td>
+                                            <td>
+                                                {{$purchase_order->purchase_order_items->product_code}}
+                                            </td>
+                                            <td>
+                                            @if($purchase_order->purchase_order_items->ordered_qty != null)
+                                            <input type="number" class="form-control col-sm-6" value="{{$purchase_order->purchase_order_items->ordered_qty}}">
                                             @else
-                                                {{$purchase_order->purchase_order_items->ordered_qty}}
-                                            
                                             @endif
                                             </td>
                                         </tr>

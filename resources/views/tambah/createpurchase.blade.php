@@ -145,7 +145,7 @@
             var s = document.getElementById("product");
             var text = s.options[s.selectedIndex].text;
             var id = s.options[s.selectedIndex].value;
-            var markup = "<tr><td>"+ id +"<input type='text'value="+ id +" class='form-control' name='product_code' readonly hidden></td><td>" + text + "</td><td><input type='number' name='ordered_qty' class='form-control'><td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>";
+            var markup = "<tr><td>"+ id +"<input type='text'value="+ id +" class='form-control' name='product_code' readonly hidden></td><td>" + text +"<input type='text'value="+ text +" class='form-control' name='product_name' readonly hidden></td><td><input type='number' name='ordered_qty' class='form-control'><td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>";
             $("table tbody").append(markup);
         });
         $('.table tbody').on('click','#deletbtn', function () {

@@ -9,8 +9,7 @@
             <div class="card-body">
                 @foreach ($product as $p)
                 <div class="text-right">
-                    <a href="/product/ListProduct/editproductdelete/{{$p->id_product}}"
-                        class="btn btn-danger">Hapus</a>
+                    <a href="/product/ListProduct/editproductdelete/{{$p->id_product}}" class="btn btn-danger">Hapus</a>
                 </div>
                 @endforeach
                 <div class="text-right mt-3">
@@ -72,9 +71,11 @@
                                     value="{{$p->retail_price}}">
                             </div>
                         </div>
+                        <input type="hidden" name="filename" value="{{$p->thumbnail}}">
                         <div class="col-md-4" style="margin-top: 32px">
                             <div class="form-group">
-                                <input type="file" class="custom-file-input" id="customFile" name="thumbnail" value="{{$p->thumbnail}}">
+                                <input type="file" class="custom-file-input" id="customFile" name="thumbnail"
+                                    value="{{$p->thumbnail}}">
                                 <label class="custom-file-label" for="customFile">Product Image</label>
                                 <br>
                                 <img height="50px" src="{{ url('/product_image/'.$p->thumbnail) }}" alt="">
@@ -136,6 +137,7 @@
         var fileName = $(this).val().split("\\").pop();
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
+
 </script>
 </section>
 @stop

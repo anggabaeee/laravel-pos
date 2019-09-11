@@ -11,6 +11,12 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>List Product</h1>
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 15px;">

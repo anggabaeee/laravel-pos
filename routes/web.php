@@ -88,6 +88,8 @@ Route::get('/product/ListProduct/editproductdelete/{id_product}','ProductControl
 Route::get('/product/ProductCategory','PosController@productcategory');
 Route::get('/product/ProductCategory/addProductCategory','PosController@addcategory');
 Route::post('/product/ProductCategory/addProductCategorystore','PosController@addProductCategorystore');
+Route::get('/product/ProductCategory/editProductCategory/{id}','PosController@editcategory');
+Route::put('/product/ProductCategory/editProductCategoryupdate/{id}','PosController@editProductCategoryupdate');
 
 
 // Purchase Order ojo di middleware sek

@@ -7,10 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use App\product;
 use App\category;
-use File;
 
 class ProductController extends Controller
 {
@@ -57,7 +55,8 @@ class ProductController extends Controller
         $category = category::all();
         return view('pages.product.editproduct')->with('product', $product)->with('category',$category);
     }
-    public function editProductupdate(Request $request, $id)
+    
+    public function editProductupdatebaru(Request $request, $id)
     {
         $rules = [
             'code' => 'required',
@@ -83,5 +82,61 @@ class ProductController extends Controller
         File::delete('product_image/'.$product->thumbnail);
         product::where('id_product',$id)->delete();
         return redirect('/product/ListProduct')->with(['success' => 'Data Berhasil Dihapus']);
+    }
+    public function editProductupdate(Request $request, $id)
+    {
+        if($request->hasFile('thumbnail')){
+            $this->validate($request,[
+                'code' => 'required',
+                'name_product' => 'required',
+                'category_id' => 'required',
+                'purchase_price' => 'required',
+                'retail_price' => 'required',
+                'thumbnail' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+                'status' => 'required'
+            ]);
+
+            $filename = $request->filename;
+            $filepath = 'product_image/'.$filename;
+            if(file_exists($filepath)){
+                @unlink($filepath);
+            } 
+
+            $thumbnail = $request->file('thumbnail');
+            $nama_thumbnail = time()."_".$thumbnail->getClientOriginalName();
+            $tujuan_upload = "product_image/";
+            $thumbnail->move($tujuan_upload,$nama_thumbnail);
+
+            $product = product::find($id);
+            $product->update([
+                'code' => $request->code,
+                'name_product' => $request->name_product,
+                'category_id' => $request->category_id,
+                'purchase_price' => $request->purchase_price,
+                'retail_price' => $request->retail_price,
+                'thumbnail' => $nama_thumbnail,
+                'status' => $request->status
+            ]);
+        }
+        else {
+            $this->validate($request,[
+                'code' => 'required',
+                'name_product' => 'required',
+                'category_id' => 'required',
+                'purchase_price' => 'required',
+                'retail_price' => 'required',
+                'status' => 'required'
+            ]);
+            $product = product::find($id);
+            $product->update([
+                'code' => $request->code,
+                'name_product' => $request->name_product,
+                'category_id' => $request->category_id,
+                'purchase_price' => $request->purchase_price,
+                'retail_price' => $request->retail_price,
+                'status' => $request->status
+            ]);
+        }
+        return redirect('/product/ListProduct')->with('success', 'data updated');
     }
 }

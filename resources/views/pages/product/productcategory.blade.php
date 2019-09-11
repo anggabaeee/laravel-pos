@@ -9,6 +9,12 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Product Category</h1>
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <div class="row" style="border-bottom: 1px solid #e0dede; padding-bottom: 15px;">
@@ -33,11 +39,11 @@
                                     <tr>
                                         <td>{{$p->category_name}}</td>
                                         @if ($p->status == 0)
-                                        <td>Not Active</td>
+                                        <td style="color:red;"><strong>Not Active</strong></td>
                                         @else
                                         <td style="color: green;"><strong>Active</strong></td>
                                         @endif
-                                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                                        <td><a href="/product/ProductCategory/editProductCategory/{{$p->id}}" class="btn btn-primary">Edit</a></td>
                                     </tr>
                                     @endforeach
                                 <tbody>
