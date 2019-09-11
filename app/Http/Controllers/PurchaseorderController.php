@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Htpp\Kernel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -59,24 +60,25 @@ class PurchaseorderController extends Controller
 
     public function  createpurchasestore(Request $request)
     {
-    	$this->validate($request,[
-    		'po_number' => 'required',
-            'id_outlet' => 'required',
-            'id_supplier' => 'required',
-            'datenow' => 'required',
-            'note' => 'required',
-            'status' => 'required',
-    	]);
-
+        // print_r($request->product_code);
+        // exit;
         purchase_order::create([
     		'po_number' => $request->po_number,
             'id_outlet' => $request->id_outlet,
             'id_supplier' => $request->id_supplier,
             'datenow' => $request->datenow,
             'note' => $request->note,
-            'status' => $request->status,
-    	]);
-
+            'status' => $request->status,   
+        ]);
+        
+        $var = purchase_order::max('id');
+        if ($request->product_code != null) {
+            purchase_order_items::create([
+                'id_po'=> $var,
+                'product_code' => $request->product_code,
+                'ordered_qty' => $request->ordered_qty,
+            ]);
+        }
     	return redirect('/purchase_order');
     }
 
