@@ -185,12 +185,17 @@
                                 @foreach ($product as $p)
                                 <div class="col-md-2 stock ml-4 mt-3">
                                     <div class="mt-1">
-                                        <a onclick="addlist('{{$p->id}}')"> <img height="50px" class="img-thumbnail"
-                                                src="{{ url('/product_image/'.$p->thumbnail) }}">
-                                            <p id="{{$p->id}}-name_product">{{$p->name_product}}</p>
-                                            <p id="{{$p->id}}-qty">{{$p->qty}}</p>
-                                            <p id="{{$p->id}}-price">{{$p->price}}</p>
-                                            <p id="{{$p->id}}-code">{{$p->product_code}}</p>
+                                        <a onclick="addlist('{{$p->id_product}}')"> <img height="50px"
+                                                class="img-thumbnail" src="{{ url('/product_image/'.$p->thumbnail) }}">
+                                            <p id="{{$p->id_product}}-name_product">{{$p->name_product}}</p>
+                                            <p id="{{$p->id_product}}-qty">
+                                                @if ($p->qty === null)
+                                                0
+                                                @endif
+                                                {{$p->qty}}
+                                            </p>
+                                            <p id="{{$p->id_product}}-price">{{$p->retail_price}}</p>
+                                            <p id="{{$p->id_product}}-code">{{$p->code}}</p>
                                         </a>
                                     </div>
                                 </div>
