@@ -83,6 +83,7 @@ function addlist(i) {
             var div3 = document.createElement('div');
             div3.setAttribute("class", "col-md-3");
             var pnew1 = document.createElement('label');
+            pnew1.setAttribute('name', 'pricelist[]');
             var newprice = document.createTextNode(price);
             pnew1.appendChild(newprice);
             var iprice = document.createElement('input')
@@ -180,7 +181,7 @@ function total() {
     var length = document.getElementsByName('row_list').length
     lengthval = parseInt(length);
     document.getElementById('row_length').value = lengthval;
-    var arr = document.getElementsByName('price[]');
+    var arr = document.getElementsByName('pricelist[]');
     var arrqty = document.getElementsByName('qty[]');
     var tax = document.getElementById('tax').value;
     var dis = document.getElementById('discount').value;
@@ -284,16 +285,9 @@ $(document).ready(function () {
 });
 
 $('#submit').click(function(){
-    form1 = $('form1');
-    form2 = $('form2');
     $.ajax({
         type: "POST",
-        url: form1.attr("action"),
-        data: form1.serializeArray(),
+        url: "/posadd/orderadd/{{$outlets->id}}",
+        data: {'length': $('#row_length').val(), 'tax': $('#tax').val(), }
     });
-    $.ajax({
-        type: "POST",
-        url: form2.attr('action'),
-        data: form2.serializeArray(),
-    })
 });

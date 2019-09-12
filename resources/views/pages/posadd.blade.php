@@ -102,7 +102,7 @@
                         <form id="form1" action="/posadd/orderadd/{{$outlets->id}}" method="post">
                             {{ csrf_field() }}
                             <input type="hidden" name="tax" id="tax" value="7">
-                            <input type="text" name="row_length" id="row_length">
+                            <input type="hidden" name="row_length" id="row_length">
                             <div class="row isitable" id="isitable" style="margin-top: 5px">
 
                             </div>
@@ -358,12 +358,12 @@
     </div>
 </div>
 <div class="modal fade" id="myModal5">
-    <form action="/posadd/addorder/{{$outlets->id}}" id="form2">
-        <div class="modal-dialog">
-            <div class="modal-content" style="background-color: #373942;">
-                <div class="modal-header">
-                    <h1 class="modal-title" style="color:white;">Make Payment</h1>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-color: #373942;">
+            <div class="modal-header">
+                <h1 class="modal-title" style="color:white;">Make Payment</h1>
+            </div>
+            <form action="/posadd/addorder/{{$outlets->id}}" id="form2">
                 <div class="modal-body" style="background-color:white;">
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -424,17 +424,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
-    </form>
-    <div class="modal-footer" style="background-color:white;">
-        <div class="d-flex">
-            <div class="ml-auto">
-                <button type="button" onclick="document.getElementById('form1').submit();document.getElementById('form2').submit();" id="submit" name="action" value="addorder" class="btn btn-success py-1"
-                    hidden="true">Submit</button>
+            </form>
+        </div>
+        <div class="modal-footer" style="background-color:white;">
+            <div class="d-flex">
+                <div class="ml-auto">
+                    <button type="button"
+                        onclick="document.getElementById('form1').submit();document.getElementById('form2').submit();"
+                        id="submit" name="action" value="addorder" class="btn btn-success py-1"
+                        hidden="true">Submit</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <div class="modal fade" id="myModal6">
