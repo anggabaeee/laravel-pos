@@ -55,7 +55,7 @@
                     <div class="row" style="margin-top: 15px">
                         <div class="col-md-4">
                             <div class="form-gorup">
-                                <label>Created  <span style="color: #F00">*</span></label>
+                                <label>Created <span style="color: #F00">*</span></label>
                                 <input type="text" name="datenow" readonly class="form-control"
                                     value="{{$purchase_order->datenow}}">
                             </div>
@@ -70,16 +70,16 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                            <label>Status<span style="color: #F00">*</span></label>
+                                <label>Status<span style="color: #F00">*</span></label>
                                 <select name="status" class="form-control" required>
-                                    @foreach($purchase_order_status as $p) 
+                                    @foreach($purchase_order_status as $p)
                                     <option value="{{$p->id}}" @if ($p->id === $purchase_order->status)
                                         selected
                                         @endif>
                                         {{$p->nama}}
                                     </option>
                                     @endforeach
-                                </select>   
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -115,19 +115,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr >
+                                        @foreach($purchase_order_items as $p)
+                                        @if ($p->id_po === $purchase_order->id)
+                                        <tr>
                                             <td>
-                                                {{$purchase_order->purchase_order_items->product_name}}
+                                                {{$p->product_name}}
                                             </td>
                                             <td>
-                                                {{$purchase_order->purchase_order_items->product_code}}
+                                                {{$p->product_code}}
                                             </td>
                                             <td>
-                                            @if($purchase_order->purchase_order_items->ordered_qty != null)
-                                            <input type="number" class="form-control col-sm-6" value="{{$purchase_order->purchase_order_items->ordered_qty}}">
-                                            @else
+                                                <input type="text" value="{{$p->ordered_qty}}" name="" id=""
+                                                    class="form-control">
+                                            </td>
+                                            <td>
+                                            
+                                            </td>
                                             @endif
-                                            </td>
+                                            @endforeach
                                         </tr>
                                     </tbody>
                                 </table>

@@ -85,7 +85,7 @@
                                         {{$purchase_order->purchase_order_items->product_code}}
                                     </td>
                                     <td>
-                                        <input type="number" class="form-control" value="{{$purchase_order->purchase_order_items->ordered_qty}}">
+                                        <input type="number" class="form-control" value="{{$purchase_order->purchase_order_items->ordered_qty}}" readonly>
                                     </td>
                                     <td>
                                         <input type="number" class="form-control">
@@ -93,8 +93,8 @@
                                     <td>
                                         <input type="number" class="form-control">
                                     </td>
-                                    @else
-                                    @endif
+                                @else
+                                @endif
                                 </tr>
                                 <tr>
                                   @if($purchase_order->purchase_order_items->ordered_qty != null)
