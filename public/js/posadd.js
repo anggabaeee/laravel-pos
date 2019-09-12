@@ -282,3 +282,18 @@ $(document).ready(function () {
         }
     });
 });
+
+$('#submit').click(function(){
+    form1 = $('form1');
+    form2 = $('form2');
+    $.ajax({
+        type: "POST",
+        url: form1.attr("action"),
+        data: form1.serializeArray(),
+    });
+    $.ajax({
+        type: "POST",
+        url: form2.attr('action'),
+        data: form2.serializeArray(),
+    })
+});
