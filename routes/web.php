@@ -123,7 +123,7 @@ Route::get('/setting/editsupplier/{id}', 'PosController@editsupplier');
 Route::get('/setting/editsupplierdelete/{id}','PosController@editsupplierdelete');
 Route::post('/setting/editsupplierupdate/{id}', 'PosController@editsupplierupdate');
 
-Route::get('/setting/system_setting', 'PosController@system');
+// Route::get('/setting/system_setting', 'PosController@system');
 Route::get('/setting/users/adduser', 'UserController@adduser');
 Route::get('/setting/edituser', 'UserController@edituser');
 Route::get('/setting/ChangePassword', 'UserController@changepassword');

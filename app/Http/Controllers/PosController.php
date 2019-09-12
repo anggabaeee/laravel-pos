@@ -123,7 +123,12 @@ class PosController extends Controller
     //pages
     public function pos(){
         $outlets = DB::table('outlets')->get();
-        return view('pages.pos',['outlets'=>$outlets]);    
+        if (count($outlets)>0) {
+            return view('pages.pos',['outlets'=>$outlets]);    
+        } else {
+            return redirect('/setting/outlets')->with(['warning' => 'Tambahkan Outlet Terlebih Dahulu']);;
+        }
+        
     }  
     public function posadd($id){
         $inventory = DB::table('inventory')

@@ -49,6 +49,7 @@
     <div class="container">
         <h1 class="header-pos"> Choose Outlet </h1>
         <div class="col-md-6 offset-md-3">
+            @if (count($outlets)>0)
             @foreach ($outlets as $p)
             <a href="/posadd/{{$p->id}}">
                 <div class="kotak  mt-4  mr-5 ml-5">
@@ -59,6 +60,9 @@
                 </div>
             </a>
             @endforeach
+            @else
+            belum ada data
+            @endif
         </div>
     </div>
 </section>
