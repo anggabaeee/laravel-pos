@@ -67,6 +67,7 @@ Route::get('/pnl','PosController@pnl')->middleware('pnlcek', 'response' , 'respo
 Route::get('/pos','PosController@pos')->middleware('ceklogin' , 'response');
 Route::get('/posadd/{id}','PosController@posadd')->middleware('ceklogin' , 'response');
 Route::post('/addCustomerposstore','PosController@addCustomerposstore')->middleware('ceklogin' , 'response');
+Route::post('/posadd/orderadd/{id}', 'PosController@orderadd');
 
 
 // Return Order
@@ -103,6 +104,7 @@ Route::post('/purchase_order/CreatePurchaseOrderstore','PurchaseorderController@
 // Setting 
 Route::get('/setting/payment_method', 'PosController@payment')->middleware('ceklogin' , 'response');
 Route::get('/setting/payment_method/AddPaymentMethod', 'PosController@addpayment')->middleware('ceklogin' , 'response');
+Route::post('/setting/addpayment', 'PosController@addpaymentstore');
 
 // outlet ojo di maddleware sek
 Route::get('/setting/outlets', 'OutletsController@outlets');

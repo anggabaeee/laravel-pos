@@ -10,9 +10,12 @@ function addlist(i) {
         } else {
             var name = document.getElementById('' + i + '-name_product').innerHTML;
             var price = document.getElementById('' + i + '-price').innerHTML;
+            var code = document.getElementById('' + i + '-code').innerHTML;
+            var cost = document.getElementById('' + i + '-cost').innerHTML
 
             var row = document.createElement('div');
-            row.setAttribute('class', 'row a');
+            row.setAttribute('class', 'row');
+            row.setAttribute('name', 'row_list');
             row.setAttribute("style", "margin-right: 5px");
             row.setAttribute('id', '' + i + '-row');
 
@@ -20,10 +23,26 @@ function addlist(i) {
             div1.setAttribute("class", "col-md-3");
             var pnew = document.createElement('label');
             pnew.setAttribute('id', '' + i + '-namelist')
-            pnew.setAttribute("name", "name[]")
             var newname = document.createTextNode(name);
             pnew.appendChild(newname);
+            var iname = document.createElement('input')
+            iname.setAttribute("value", name)
+            iname.setAttribute("name", "name[]")
+            iname.setAttribute('type', 'hidden')
+            var pcode = document.createElement('label');
+            pcode.setAttribute('id', '' + i + '-codelist');
+            var codenew = document.createTextNode(code);
+            pcode.appendChild(codenew);
+            var icode = document.createElement('input')
+            icode.setAttribute('value', code)
+            icode.setAttribute('name', 'code[]')
+            icode.setAttribute('type', 'hidden')
+            var br = document.createElement('br')
             div1.appendChild(pnew)
+            div1.appendChild(br)
+            div1.appendChild(pcode)
+            div1.appendChild(iname)
+            div1.appendChild(icode)
 
             var div2 = document.createElement('div');
             div2.setAttribute("class", "col-md-5");
@@ -64,10 +83,19 @@ function addlist(i) {
             var div3 = document.createElement('div');
             div3.setAttribute("class", "col-md-3");
             var pnew1 = document.createElement('label');
-            pnew1.setAttribute("name", "price[]")
             var newprice = document.createTextNode(price);
             pnew1.appendChild(newprice);
+            var iprice = document.createElement('input')
+            iprice.setAttribute('value', price)
+            iprice.setAttribute("name", "price[]")
+            iprice.setAttribute('type', 'hidden')
+            var icost = document.createElement('input')
+            icost.setAttribute('value', cost)
+            icost.setAttribute('name', 'cost[]')
+            icost.setAttribute('type', 'hidden')
             div3.appendChild(pnew1)
+            div3.appendChild(iprice)
+            div3.appendChild(icost)
 
             var div4 = document.createElement('div');
             div4.setAttribute("class", "col-md-1")
@@ -120,7 +148,7 @@ function getdataplus(i) {
 
     if (nilaiqty == nilaiqtystock) {
         alert("Melebihi batas stok");
-        document.getElementById('' + i + '-qtylist').value = qtystock;
+        document.getElementById('' + i + '-qtylist').value = nilaiqtystock;
     }
     total();
 }
@@ -149,6 +177,9 @@ function dataremove(i) {
 }
 
 function total() {
+    var length = document.getElementsByName('row_list').length
+    lengthval = parseInt(length);
+    document.getElementById('row_length').value = lengthval;
     var arr = document.getElementsByName('price[]');
     var arrqty = document.getElementsByName('qty[]');
     var tax = document.getElementById('tax').value;

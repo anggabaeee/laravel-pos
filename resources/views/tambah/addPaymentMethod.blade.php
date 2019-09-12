@@ -5,7 +5,8 @@
         <h1>Add Payment Method</h1>
         <div class="card">
             <div class="card-body">
-                <form action="">
+                <form action="/setting/addpayment" method="post">
+                {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

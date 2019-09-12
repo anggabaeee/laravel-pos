@@ -31,12 +31,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            @foreach($payment as $p)
                                 <tr>
-                                    <td>Gift Card</td>
-                                    <td tyle="font-weight: bold;"><span style="color:#090;">Active</span></td>
-                                    <td><a href="editpayment" style="margin-left: 5px;"><button
+                                    <td>{{$p->name}}</td>
+                                    @if ($p->status === 1)
+                                    <td style="font-weight: bold;"><span style="color:#090;">Active</span></td>
+                                    @else
+                                    <td style="font-weight: bold;"><span style="color: red;">Inactive</span></td>
+                                    @endif
+                                    <td><a href="editpayment/{{$p->id}}" style="margin-left: 5px;"><button
                                             class="btn btn-primary">Edit</button></a></td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

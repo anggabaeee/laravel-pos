@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
 use App\purchase_order;
 use App\supplier;
 use App\Customer;
@@ -18,6 +19,8 @@ use App\outlets;
 use App\users;
 use App\UserRoles;
 use App\expenses;
+use App\payment_method ;
+use App\order_items;
 
 class PosController extends Controller
 {
@@ -126,22 +129,34 @@ class PosController extends Controller
         $inventory = DB::table('inventory')
         ->select('product_code', 'qty')
         ->where('outlet_id', $id);
-
         $product = DB::table('product')
         ->leftJoinSub($inventory, 'sub', function($join){
             $join->on('product.code', '=', 'sub.product_code');
         })->select('product.*', 'sub.qty')
         ->get();
-
-        $xxx = DB::table('inventory')->where('outlet_id', $id)
-        ->join('product', 'product.code', '=', 'inventory.product_code')
-        ->select('inventory.*', 'product.name_product as name_product', 'product.thumbnail as thumbnail', 'retail_price as price')
-        ->get();
+        $outlets = outlets::find($id);
         $customer = Customer::all();
-        // $product = DB::table('product')->get();
-        return view('pages.posadd',['product'=>$product], ['customer'=>$customer]);    
+        $payment = payment_method::all();
+        return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'customer'=>$customer, 'payment'=>$payment]);    
     }   
-    
+
+    public function orderadd($id, Request $request){
+        $length = $request->row_length;
+        for($i=0; $i<$length; $i++){
+            $answer[] = [
+                'order_id' => $id,
+                'product_code' => $request->code[$i],
+                'product_name' => $request->name[$i],
+                'cost' => 5000,
+                'price' => $request->price[$i],
+                'qty' => $request->qty[$i],
+                'status' => 1,
+            ];
+        }
+        dd($answer);
+        // order_items::insert($answer);
+        // return redirect('/posadd'.$id);
+    }
 
     public function pnl(){
         return view('pages.profitnloss');
@@ -153,7 +168,8 @@ class PosController extends Controller
 
     //Settings
     public function payment(){
-    return view('pages.setting.payment_method');    
+        $payment = payment_method::all();
+    return view('pages.setting.payment_method')->with('payment', $payment);    
     }
     // outlet
     //supllier
@@ -366,6 +382,19 @@ class PosController extends Controller
     public function addpayment(){
         return view('tambah.addPaymentMethod'); 
     }
+
+    public function addpaymentstore(Request $request){
+        $this->validate($request,[
+            'name'=>'required',
+        ]);
+
+        payment_method::create([
+            'name' => $request->name,
+            'status' => 1
+        ]);
+        return redirect('/setting/payment_method');
+    }
+
     public function createreturn(){
         return view('pages.ReturnOrder.createReturnOrder'); 
     }

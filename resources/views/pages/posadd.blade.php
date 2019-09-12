@@ -99,12 +99,15 @@
                 </div>
                 <div class="row">
                     <div class="col-12 mt-2 ml-3">
-                        <form action="">
-                            <input type="hidden" name="tax" id="tax" value="7">
-                            <div class="row isitable" id="isitable" style="margin-top: 5px">
+                    <form action="/posadd/orderadd/{{$outlets->id}}" method="post">
+                    {{ csrf_field() }}
+                        <input type="hidden" name="tax" id="tax" value="7">
+                        <input type="text" name="row_length" id="row_length">
+                        <div class="row isitable" id="isitable" style="margin-top: 5px">
 
-                            </div>
-                        </form>
+                        </div>
+                        <input type="submit" name="submit" value="submit">
+                    </form>
                     </div>
                 </div>
                 <div class="row">
@@ -188,14 +191,15 @@
                                         <a onclick="addlist('{{$p->id_product}}')"> <img height="50px"
                                                 class="img-thumbnail" src="{{ url('/product_image/'.$p->thumbnail) }}">
                                             <p id="{{$p->id_product}}-name_product">{{$p->name_product}}</p>
-                                            <p id="{{$p->id_product}}-qty">
+                                            <p hidden="true" id="{{$p->id_product}}-qty">
                                                 @if ($p->qty === null)
                                                 0
                                                 @endif
                                                 {{$p->qty}}
                                             </p>
-                                            <p id="{{$p->id_product}}-price">{{$p->retail_price}}</p>
-                                            <p id="{{$p->id_product}}-code">{{$p->code}}</p>
+                                            <p hidden="true" id="{{$p->id_product}}-price">{{$p->retail_price}}</p>
+                                            <p hidden="true" id="{{$p->id_product}}-code">{{$p->code}}</p>
+                                            <p hidden="true" id="{{$p->id_product}}-cost">{{$p->purchase_price}}</p>
                                         </a>
                                     </div>
                                 </div>
@@ -315,42 +319,39 @@
                 <h1 class="modal-title" style="color:white;">Add Customer</h1>
             </div>
             <div class="modal-body" style="background-color:white;">
-                <form action="addCustomerposstore" method="post">
-                    {{ csrf_field() }}
-                    <div class="row">
-                        <div class="col-5 mt-1">
-                            <p>Customer Name</p>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" name="fullname">
+                <div class="row">
+                    <div class="col-5 mt-1">
+                        <p>Customer Name</p>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control col-sm-12" name="fullname">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 mt-1">
+                        <p>Customer Email</p>
+                    </div>
+                    <div class="col-7">
+                        <input type="text" class="form-control col-sm-12" name="email" type="email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5 mt-1">
+                        <p>Customer Mobile</p>
+                    </div>
+                    <div class="col-7">
+                        <input name="mobile" type="text" class="form-control col-sm-12">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="d-flex col-12">
+                        <div class="ml-auto">
+                            <input type="submit" name="addcust" class="btn btn-success py-1" value="Add Customer"
+                                id="myBtn6" data-dismiss="modal">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-5 mt-1">
-                            <p>Customer Email</p>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" name="email" type="email">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5 mt-1">
-                            <p>Customer Mobile</p>
-                        </div>
-                        <div class="col-7">
-                            <input name="mobile" type="text" class="form-control col-sm-12">
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="d-flex col-12">
-                            <div class="ml-auto">
-                                <input type="submit" class="btn btn-success py-1" value="Add Customer" id="myBtn6"
-                                    data-dismiss="modal">
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -368,7 +369,7 @@
                         <p>Customer </p>
                     </div>
                     <div class="col-6">
-                        <select class="form-control" type="text">
+                        <select class="form-control" name="customer" type="text">
                             @foreach ($customer as $customer)
                             <option value="{{$customer->id}}">{{$customer->fullname}}</option>
                             @endforeach
@@ -380,7 +381,7 @@
                         <p>Total Payable Amount</p>
                     </div>
                     <div class="col-6">
-                        <span id="total_amount">00.0</span>
+                        <span id="total_amount" name="total_amount">00.0</span>
                     </div>
                 </div>
                 <div class="row">
@@ -388,7 +389,7 @@
                         <p>Total Purchased Items</p>
                     </div>
                     <div class="col-6">
-                        <span id="total_items">00.0</span>
+                        <span id="total_items" name="total_items">00.0</span>
                     </div>
                 </div>
                 <div class="row">
@@ -396,15 +397,11 @@
                         <p>Paid By:</p>
                     </div>
                     <div class="col-6">
-                        <select class="form-control" type="text">
-                            <option value="">choice</option>
-                            <option value="cash">cash</option>
-                            <option value="Nett">Nett</option>
-                            <option value="Visa">Visa</option>
-                            <option value="Master Card">Master Card</option>
-                            <option value="Cheque">Master Card</option>
-                            <option value="Debit">Debit</option>
-                            <option value="GiftCard">Gift Card</option>
+                        <select class="form-control" type="text" name="payment_method">
+                            <option disabled selected value>choice</option>
+                            @foreach ($payment as $p)
+                            <option value="{{$p->id}}">{{$p->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -413,7 +410,7 @@
                         <p>Paid Amount: <p>
                     </div>
                     <div class="col-6">
-                        <input type="text" id="paidamount" class="form-control col-sm-12"
+                        <input type="text" id="paidamount" name="paidamount" class="form-control col-sm-12"
                             onkeyup="PaidAmount(this.value)">
                     </div>
                 </div>
@@ -422,7 +419,7 @@
                         <p>Return Change :</p>
                     </div>
                     <div class="col-6">
-                        <span id="return_change">00.0</span>
+                        <span id="return_change" name="return_change">00.0</span>
                     </div>
                 </div>
             </div>
@@ -430,7 +427,8 @@
         <div class="modal-footer" style="background-color:white;">
             <div class="d-flex">
                 <div class="ml-auto">
-                    <button type="button" id="submit" class="btn btn-success py-1" hidden="true">Submit</button>
+                    <button type="submit" id="submit" name="action" value="addorder" class="btn btn-success py-1"
+                        hidden="true">Submit</button>
                 </div>
             </div>
         </div>
