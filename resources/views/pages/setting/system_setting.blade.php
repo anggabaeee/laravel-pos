@@ -129,6 +129,7 @@
                                 <br>
                                 <div class="custom-file">
                                     <input type="file" name="site_logo" class="custom-file-input" id="CustomFile">
+                                    <input type="text" name="filename" value="{{$s->site_logo}}" readonly hidden>
                                     <label class="custom-file-label" for="CustomFile">choose file</label>
                                 </div>
                             </div>
