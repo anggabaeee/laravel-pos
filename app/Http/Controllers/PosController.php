@@ -21,6 +21,9 @@ use App\UserRoles;
 use App\expenses;
 use App\payment_method ;
 use App\order_items;
+use App\orders;
+use Validator;
+use Response;
 
 class PosController extends Controller
 {
@@ -145,7 +148,7 @@ class PosController extends Controller
         return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'customer'=>$customer, 'payment'=>$payment]);    
     }   
 
-    public function orderadd($id, Request $request){
+    public function addorder($id, Request $request){
         $length = $request->row_length;
         for($i=0; $i<$length; $i++){
             $answer[] = [
@@ -158,9 +161,31 @@ class PosController extends Controller
                 'status' => 1,
             ];
         }
-        dd($answer);
-        // order_items::insert($answer);
-        // return redirect('/posadd'.$id);
+        order_items::insert($answer);
+        return redirect('/posadd/'.$id);
+    }
+
+    public function orderadd(Request $request)
+    {
+        $orders = new orders();
+        $orders->customer_id = $request->customer;
+        $orders->customer_name = "aaaa";
+        $orders->outlet_id = $request->outlet_id;
+            $orders->ordered_datetime = 1312324;
+            $orders->subtotal = $request->ttl_amount;
+            $orders->discount_total = 8000;
+            $orders->tax = 200;
+            $orders->grandtotal = 45000;
+            $orders->total_items = $request->ttl_item;
+            $orders->payment_method = $request->payment_method;
+            $orders->payment_method_name = "sjfjs";
+            $orders->paid_amt = $request->paidamount;
+            $orders->return_change = 200;
+            $orders->vt_status = 1;
+            $orders->status = 1;
+            $orders->refund_status = 1;
+            $orders->save();    
+        return response()->json(['success'=>'Got Simple Ajax Request.']);
     }
 
     public function pnl(){

@@ -8,5 +8,5 @@ class order_items extends Model
 {
     //
     protected $table = 'order_items';
-    protected $fillabe = ['order_id', 'product_code', 'product_name', 'cost', 'price', 'status'];
+    protected $fillable = ['order_id', 'product_code', 'product_name', 'cost', 'price', 'status'];
 }

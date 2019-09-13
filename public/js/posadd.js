@@ -264,11 +264,12 @@ function PaidAmount(val) {
 
 $(document).ready(function () {
     $("#myBtn5").click(function () {
-        $("#myModal5").modal();
         var totalAmount = document.getElementById('grandtotal').innerHTML;
         var totalItems = document.getElementById('totalqty').innerHTML;
         document.getElementById('total_amount').innerHTML = totalAmount;
         document.getElementById('total_items').innerHTML = totalItems;
+        document.getElementById('ttl_amount').value = totalAmount;
+        document.getElementById('ttl_item').value = totalItems;
 
         var paid = document.getElementById('paidamount').value;
         if (paid == "") {
@@ -284,10 +285,27 @@ $(document).ready(function () {
     });
 });
 
-$('#submit').click(function(){
-    $.ajax({
-        type: "POST",
-        url: "/posadd/orderadd/{{$outlets->id}}",
-        data: {'length': $('#row_length').val(), 'tax': $('#tax').val(), }
+$(function(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $('#ajaxsubmit').click(function(e){
+        e.preventDefault();
+        
+        $.ajax({
+            type: "post",
+            url: "/posadd/addorder",
+            data: $('#Form1').serialize(),
+            dataType: 'json',
+            success: function(){
+               alert('berhasil');
+            },
+            error: function(){
+                alert("gagal");
+            }
+        });
     });
 });
+
