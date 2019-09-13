@@ -167,25 +167,51 @@ class PosController extends Controller
 
     public function orderadd(Request $request)
     {
-        $orders = new orders();
-        $orders->customer_id = $request->customer;
-        $orders->customer_name = "aaaa";
-        $orders->outlet_id = $request->outlet_id;
-            $orders->ordered_datetime = 1312324;
-            $orders->subtotal = $request->ttl_amount;
-            $orders->discount_total = 8000;
-            $orders->tax = 200;
-            $orders->grandtotal = 45000;
-            $orders->total_items = $request->ttl_item;
-            $orders->payment_method = $request->payment_method;
-            $orders->payment_method_name = "sjfjs";
-            $orders->paid_amt = $request->paidamount;
-            $orders->return_change = 200;
-            $orders->vt_status = 1;
-            $orders->status = 1;
-            $orders->refund_status = 1;
-            $orders->save();    
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
+        $validation = Validator::make($request->all(), [
+            'customer' => 'required',
+            'outlet_id'  => 'required',
+            'ttl_amount'  => 'required',
+            'ttl_item'  => 'required',
+            'payment_method'  => 'required',
+            'paidamount'  => 'required',
+        ]);
+
+        $error_array = array();
+        $success_output = '';
+        if ($validation->fails()){
+            foreach($validation->messages()->getMessages() as $field_name => $messages)
+            {
+                $error_array[] = $messages;
+            }
+        }
+        else
+        {
+            $orders = new orders();
+            $orders->customer_id = $request->customer;
+            $orders->customer_name = "aaaa";
+            $orders->outlet_id = $request->outlet_id;
+                $orders->ordered_datetime = 1312324;
+                $orders->subtotal = $request->ttl_amount;
+                $orders->discount_total = 8000;
+                $orders->tax = 200;
+                $orders->grandtotal = 45000;
+                $orders->total_items = $request->ttl_item;
+                $orders->payment_method = $request->payment_method;
+                $orders->payment_method_name = "sjfjs";
+                $orders->paid_amt = $request->paidamount;
+                $orders->return_change = 200;
+                $orders->vt_status = 1;
+                $orders->status = 1;
+                $orders->refund_status = 1;
+                $orders->save();    
+
+                $success_output = '<div class="alert alert-success">Data Inserted</div>';
+        }
+        $output = array(
+            'error'     =>  $error_array,
+            'success'   =>  $success_output
+        );
+        echo json_encode($output);
     }
 
     public function pnl(){

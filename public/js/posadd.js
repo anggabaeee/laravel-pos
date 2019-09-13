@@ -14,7 +14,7 @@ function addlist(i) {
             var cost = document.getElementById('' + i + '-cost').innerHTML
 
             var row = document.createElement('div');
-            row.setAttribute('class', 'row');
+            row.setAttribute('class', 'row row_list');
             row.setAttribute('name', 'row_list');
             row.setAttribute("style", "margin-right: 5px");
             row.setAttribute('id', '' + i + '-row');
@@ -251,19 +251,22 @@ function PaidAmount(val) {
     var totalAmount = document.getElementById('total_amount').innerHTML;
     var ret = document.getElementById('paidamount').value;
     if (ret == "") {
-        val = 0;
-    }
-    var returnchange = parseFloat(val) - parseFloat(totalAmount);
-    document.getElementById('return_change').innerHTML = returnchange;
-    if (returnchange > -1) {
-        document.getElementById('submit').hidden = false;
+        document.getElementById('return_change').innerHTML = 0.00;
     } else {
-        document.getElementById('submit').hidden = true;
+        var returnchange = parseFloat(val) - parseFloat(totalAmount);
+        document.getElementById('return_change').innerHTML = returnchange;
+        if (returnchange > -1) {
+            document.getElementById('ajaxsubmit').hidden = false;
+        } else {
+            document.getElementById('ajaxsubmit').hidden = true;
+        }
     }
 }
 
 $(document).ready(function () {
     $("#myBtn5").click(function () {
+        $('#form_output').html('');
+        
         var totalAmount = document.getElementById('grandtotal').innerHTML;
         var totalItems = document.getElementById('totalqty').innerHTML;
         document.getElementById('total_amount').innerHTML = totalAmount;
@@ -273,39 +276,48 @@ $(document).ready(function () {
 
         var paid = document.getElementById('paidamount').value;
         if (paid == "") {
-            paid = 0;
-        }
-        var returnchange = parseFloat(paid) - parseFloat(totalAmount);
-        document.getElementById('return_change').innerHTML = returnchange;
-        if (returnchange > -1) {
-            document.getElementById('submit').hidden = false
+            document.getElementById('return_change').innerHTML = 0.00;
         } else {
-            document.getElementById('submit').hidden = true
+            var returnchange = parseFloat(paid) - parseFloat(totalAmount);
+            document.getElementById('return_change').innerHTML = returnchange;
+            if (returnchange > -1) {
+                document.getElementById('submit').hidden = false
+            } else {
+                document.getElementById('submit').hidden = true
+            }
         }
     });
 });
 
-$(function(){
+$(function () {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $('#ajaxsubmit').click(function(e){
+    $('#ajaxsubmit').click(function (e) {
         e.preventDefault();
-        
         $.ajax({
             type: "post",
             url: "/posadd/addorder",
             data: $('#Form1').serialize(),
             dataType: 'json',
-            success: function(){
-               alert('berhasil');
-            },
-            error: function(){
-                alert("gagal");
+            success: function (data) {
+                if(data.error.length > 0)
+                {
+                    var error_html = '';
+                    for(var count = 0; count < data.error.length; count++)
+                    {
+                        error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
+                    }
+                    $('#form_output').html(error_html);
+                }
+                else{
+                    $('#form_output').html(data.success);
+                    $('#Form1')[0].reset();
+                    $('.row_list').remove();
+                }
             }
         });
     });
 });
-

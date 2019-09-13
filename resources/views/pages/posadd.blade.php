@@ -74,7 +74,7 @@
 </style>
 <div class="form mx-4">
     <div class="row">
-    {{ csrf_field() }}
+        {{ csrf_field() }}
         <div class="col-sm-4">
             <div class="kiri">
                 <div class="row">
@@ -377,88 +377,88 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="Modal5" tabindex="-1" role="dialog" aria-labelledby="Modal5Label"
-    aria-hidden="true">
-    <form id="From1" action="/posadd/addorder" method="post" name="From1" class="form-horizontal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #373942;">
-            <div class="modal-header">
-                <h1 class="modal-title" style="color:white;">Make Payment</h1>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="background-color:white;">
-            {{csrf_field()}}
-                <input type="hidden" name="outlet_id" id="outlet_id" value="{{$outlets->id}}">
-                <div class="row">
-                    <div class="col-6 mt-1">
-                        <p>Customer </p>
+<div class="modal fade" id="Modal5" tabindex="-1" role="dialog" aria-labelledby="Modal5Label" aria-hidden="true">
+    <form id="Form1" action="/posadd/addorder" method="post" name="Form1" class="form-horizontal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #373942;">
+                <div class="modal-header">
+                    <h1 class="modal-title" style="color:white;">Make Payment</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color:white;">
+                <span id="form_output"></span>
+                    {{csrf_field()}}
+                    <input type="hidden" name="outlet_id" id="outlet_id" value="{{$outlets->id}}">
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Customer </p>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control" name="customer" id="customer" type="text">
+                                @foreach ($customer as $c)
+                                <option value="{{$c->id}}">{{$c->fullname}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <select class="form-control" name="customer" id="customer" type="text">
-                            @foreach ($customer as $c)
-                            <option value="{{$c->id}}">{{$c->fullname}}</option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Total Payable Amount</p>
+                        </div>
+                        <div class="col-6">
+                            <span id="total_amount" name="total_amount">00.0</span>
+                            <input type="hidden" name="ttl_amount" id="ttl_amount">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Total Purchased Items</p>
+                        </div>
+                        <div class="col-6">
+                            <span id="total_items" name="total_items">00.0</span>
+                            <input type="hidden" name="ttl_item" id="ttl_item">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Paid By:</p>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control" type="text" name="payment_method" id="payment_method">
+                                <option disabled selected value>choice</option>
+                                @foreach ($payment as $p)
+                                <option value="{{$p->id}}">{{$p->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Paid Amount: <p>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="paidamount" name="paidamount" class="form-control col-sm-12"
+                                onkeyup="PaidAmount(this.value)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Return Change :</p>
+                        </div>
+                        <div class="col-6">
+                            <span id="return_change" name="return_change">00.0</span>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-6 mt-1">
-                        <p>Total Payable Amount</p>
-                    </div>
-                    <div class="col-6">
-                        <span id="total_amount" name="total_amount">00.0</span>
-                        <input type="hidden" name="ttl_amount" id="ttl_amount">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 mt-1">
-                        <p>Total Purchased Items</p>
-                    </div>
-                    <div class="col-6">
-                        <span id="total_items" name="total_items">00.0</span>
-                        <input type="hidden" name="ttl_item" id="ttl_item">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 mt-1">
-                        <p>Paid By:</p>
-                    </div>
-                    <div class="col-6">
-                        <select class="form-control" type="text" name="payment_method" id="payment_method">
-                            <option disabled selected value>choice</option>
-                            @foreach ($payment as $p)
-                            <option value="{{$p->id}}">{{$p->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 mt-1">
-                        <p>Paid Amount: <p>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" id="paidamount" name="paidamount" class="form-control col-sm-12"
-                            onkeyup="PaidAmount(this.value)">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 mt-1">
-                        <p>Return Change :</p>
-                    </div>
-                    <div class="col-6">
-                        <span id="return_change" name="return_change">00.0</span>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer" style="background-color:white;">
-            <input type="submit" id="ajaxsubmit" name="ajaxsubmit" class="btn btn-success ajaxsubmit" value="Submit">
-                
-            </div>
-        </div>
-    </div>
     </form>
+    <div class="modal-footer" style="background-color:white;">
+        <input type="submit" id="ajaxsubmit" name="ajaxsubmit" class="btn btn-success ajaxsubmit" value="Submit"
+            hidden="true">
+    </div>
+</div>
+</div>
 </div>
 <script src="{{ asset('js/posadd.js') }}"></script>
 <script>
@@ -514,10 +514,10 @@
 </script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
 
 @stop
