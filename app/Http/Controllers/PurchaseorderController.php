@@ -61,8 +61,8 @@ class PurchaseorderController extends Controller
 
     public function  createpurchasestore(Request $request)
     {
-        // print_r($request->product_code);
-        // exit;
+      
+       
         purchase_order::create([
     		'po_number' => $request->po_number,
             'id_outlet' => $request->id_outlet,
@@ -70,15 +70,18 @@ class PurchaseorderController extends Controller
             'datenow' => $request->datenow,
             'note' => $request->note,
             'status' => $request->status,   
-        ]);
-        
-        $var = purchase_order::max('id');
-            purchase_order_items::create([
+        ]);   
+        $var = purchase_order::max('id'); 
+        $panjang = $request->panjang;
+        for ($i = 0; $i < $panjang; $i++) {
+            $answers[] = [
                 'id_po'=> $var,
-                'product_code' => $request->product_code,
-                'product_name' => $request->product_name,
-                'ordered_qty' => $request->ordered_qty,
-            ]);
+                'product_name' => $request->product_name[$i],
+                'product_code' => $request->product_code[$i],
+                'ordered_qty' => $request->ordered_qty[$i],
+            ];
+        }
+        purchase_order_items::insert($answers);     
     	return redirect('/purchase_order');
     }
 

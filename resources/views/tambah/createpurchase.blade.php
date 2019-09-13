@@ -97,9 +97,10 @@
                                             <th width="10%">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="mytbody">
                                     </tbody>
                                 </table>
+                            <input type="number" id="row" name="panjang">
                             </div>
                         </div>
                     </div>
@@ -145,11 +146,16 @@
             var s = document.getElementById("product");
             var text = s.options[s.selectedIndex].text;
             var id = s.options[s.selectedIndex].value;
-            var markup = "<tr><td>"+ id +"<input type='text'value="+ id +" class='form-control' name='product_code' readonly hidden></td><td>" + text +"<input type='text'value="+ text +" class='form-control' name='product_name' readonly hidden></td><td><input type='number' name='ordered_qty' class='form-control'><td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>";
+            var markup = "<tr><td>" + text +"<input type='text'value="+ text +" class='form-control' name='product_name[]' readonly hidden></td><td>"+ id +"<input type='text'value="+ id +" class='form-control' name='product_code[]' readonly hidden></td><td><input type='number' name='ordered_qty[]' class='form-control'><td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>";
             $("table tbody").append(markup);
+            var count = $('#mytbody tr').length;
+            document.getElementById("row").value = count
         });
         $('.table tbody').on('click','#deletbtn', function () {
            $(this).closest('tr').remove();
+           var x = document.getElementById("row").value
+           var d = x -1
+           document.getElementById("row").value = d
         });
     });
 </script>
