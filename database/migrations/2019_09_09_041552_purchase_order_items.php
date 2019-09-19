@@ -22,7 +22,8 @@ class PurchaseOrderItems extends Migration
             $table->string('product_code')->nullable();
             $table->string('product_name')->nullable();
             $table->string('ordered_qty')->nullable();
-            $table->timestamps();
+            $table->string('received_qty')->nullable();
+            $table->string('cost')->nullable();
         });
     }
 
