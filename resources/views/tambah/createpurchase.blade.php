@@ -68,8 +68,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Search Product <span style="color: #F00">*</span></label>
-                                    <select name="searchproduct" class="form-control select2" style="height:120px;"
-                                        id="product">
+                                    <select name="searchproduct" class="form-control select2" style="height:120px;"  id="product">
                                         @foreach ($product as $p)
                                         <option value="{{$p->code}}">{{$p->name_product}}</option>
                                         @endforeach
@@ -79,8 +78,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <br>
-                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;"
-                                        id="addlist">Add to List</button>
+                                    <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;" id="addlist">Add to List</button>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +98,10 @@
                                     <tbody id="mytbody">
                                     </tbody>
                                 </table>
-                            <input type="number" id="row" name="panjang">
+                            <input type="number" id="row" name="panjang" hidden>
+                            <input type="text" name="total" hidden value="#">
+                            <input type="text" name="total_pay" hidden value="#">
+                            <input type="text" name="discount_amount" hidden value="#">
                             </div>
                         </div>
                     </div>
@@ -146,7 +147,7 @@
             var s = document.getElementById("product");
             var text = s.options[s.selectedIndex].text;
             var id = s.options[s.selectedIndex].value;
-            var markup = "<tr><td>" + text +"<input type='text'value="+ text +" class='form-control' name='product_name[]' readonly hidden></td><td>"+ id +"<input type='text'value="+ id +" class='form-control' name='product_code[]' readonly hidden></td><td><input type='number' name='ordered_qty[]' class='form-control'><td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>";
+            var markup = "<tr><td>" + text +"<input type='text'value="+ text +" class='form-control' name='product_name[]' readonly hidden></td><td>"+ id +"<input type='text'value="+ id +" class='form-control' name='product_code[]' readonly hidden><input type='text'value='0' class='form-control' name='received_qty[]' readonly hidden><input type='text'value='0' class='form-control' name='cost[]' readonly hidden></td><td><input type='number' name='ordered_qty[]' class='form-control'><td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>";
             $("table tbody").append(markup);
             var count = $('#mytbody tr').length;
             document.getElementById("row").value = count

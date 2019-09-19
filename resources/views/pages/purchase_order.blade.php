@@ -10,7 +10,8 @@
     }
 
 </style>
-
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Purchase Order</h1>
@@ -51,10 +52,10 @@
                                     <td>
                                         @if ($p->status == 2)
                                         <a href="/purchase_order/recivepurchaseorder/{{ $p->id }}"
-                                            style="margin-left: 5px;" ><button  class="btn btn-primary">Recive</button></a>
+                                            style="margin-left: 5px;"><button
+                                                class="btn btn-primary">Recive</button></a>
                                         <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
-                                            style="margin-left: 5px;" ><button
-                                                class="btn btn-primary">view</button></a>
+                                            style="margin-left: 5px;"><button class="btn btn-primary">view</button></a>
                                         @elseif ($p->status == 3)
                                         <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
                                             style="margin-left: 5px;" id="btnRcv"><button
@@ -62,6 +63,9 @@
                                         @else
                                         <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
                                             style="margin-left: 5px;"><button class="btn btn-primary">Edit</button></a>
+                                        <a href="/purchase_order/delete_order/{{ $p->id }}"
+                                            style="margin-left: 5px;"><button class="btn btn-danger"
+                                                onclick="return confirm('Yakin ingin menghapus data?')">delete</button></a>
                                         @endif
                                     </td>
                                 </tr>
@@ -81,4 +85,15 @@
     </div>
 </div>
 </section>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@if(Session::has('p'))
+    <script>
+        toastr.success('{{Session::get('p')}}')
+    </script>
+@elseif(Session::has('d'))
+    <script>
+         toastr.error('{{Session::get('d')}}')
+    </script>
+@endif
 @stop
