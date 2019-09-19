@@ -99,9 +99,7 @@
                                             <input type="text" class="form-control" name="received_qty[]" id="a@php echo($a++) @endphp" value="{{$p->received_qty}}">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control uang" id="b@php echo($b++) @endphp" name="cost[]" value="{{$p->cost }}">
-
-                                            <input type="number" class="form-control" id="row" name="panjang" hidden> </td>
+                                            <input type="number" class="form-control " id="b@php echo($b++) @endphp" name="cost[]" value="{{$p->cost}}"></td>
                                     </tr>
                                     @endif
                                     @endforeach
@@ -133,6 +131,7 @@
                                         <input type="text" value="3" name="status" readonly hidden>
                                             <input type="submit" class="btn btn-primary col-sm-2" style="height:75px;"
                                                 value="Recive">
+                                                <input type="number" class="form-control" id="row" name="panjang" >
                                         </td>
                                     </tr>
                                 </tbody>

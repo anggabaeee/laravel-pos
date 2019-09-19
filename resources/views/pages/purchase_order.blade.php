@@ -32,7 +32,7 @@
                                     <th width="15%">Supplier</th>
                                     <th width="10%">Created Date</th>
                                     <th width="15%">Status</th>
-                                    <th width="15%">Action</th>
+                                    <th width="25%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,14 +51,15 @@
                                     @endif
                                     <td>
                                         @if ($p->status == 2)
-                                        <a href="/purchase_order/recivepurchaseorder/{{ $p->id }}"
-                                            style="margin-left: 5px;"><button
+                                        <a href="/purchase_order/recivepurchaseorder/{{ $p->id }}"><button
                                                 class="btn btn-primary">Recive</button></a>
                                         <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
                                             style="margin-left: 5px;"><button class="btn btn-primary">view</button></a>
+                                            <a href="/purchase_order/delete_order/{{ $p->id }}"
+                                            style="margin-left: 5px;"><button class="btn btn-danger"
+                                                onclick="return confirm('Yakin ingin menghapus data?')">delete</button></a>
                                         @elseif ($p->status == 3)
-                                        <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
-                                            style="margin-left: 5px;" id="btnRcv"><button
+                                        <a href="/purchase_order/editpurchaseorder/{{ $p->id }}" id="btnRcv"><button
                                                 class="btn btn-primary">view</button></a>
                                         @else
                                         <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"

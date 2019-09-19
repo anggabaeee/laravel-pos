@@ -15,7 +15,7 @@ class PurchaseOrder extends Migration
     {
         Schema::create('purchase_order', function (Blueprint $table) {
             $table->Increments('id');
-            $table->integer('po_number');
+            $table->integer('po_number')->unique();
             $table->integer('total_pay')->nullable();
             $table->integer('total')->nullable();
             $table->integer('discount_amount')->nullable();
