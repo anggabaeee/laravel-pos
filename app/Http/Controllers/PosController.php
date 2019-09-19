@@ -145,7 +145,7 @@ class PosController extends Controller
         $outlets = outlets::find($id);
         $customer = Customer::all();
         $payment = payment_method::all();
-        return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'customer'=>$customer, 'payment'=>$payment]);    
+        return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer,]);    
     }   
 
     public function addorder($id, Request $request){

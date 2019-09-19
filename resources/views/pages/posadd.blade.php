@@ -7,7 +7,7 @@
         border-radius: 10px;
         text-align: center;
         margin-top: 100px
-    }
+    } 
 
     .kiri {
         text-align: center;
@@ -102,8 +102,6 @@
                     <div class="col-12 mt-2 ml-3">
                         <form id="form2" action="/posadd/orderadd/{{$outlets->id}}" method="post">
                             {{ csrf_field() }}
-                            <input type="hidden" name="tax" id="tax" value="7">
-                            <input type="hidden" name="row_length" id="row_length">
                             <div class="row isitable" id="isitable" style="margin-top: 5px">
 
                             </div>
@@ -390,7 +388,13 @@
                 <div class="modal-body" style="background-color:white;">
                 <span id="form_output"></span>
                     {{csrf_field()}}
-                    <input type="hidden" name="outlet_id" id="outlet_id" value="{{$outlets->id}}">
+                    <input type="hidden" name="row_length" id="row_length">
+                    <input type="hidden" name="tax" id="tax" value="7">
+                    <input type="hidden" name="product_code[]" id="product_code">
+                    <input type="hidden" name="name_product[]" id="name_product[]">
+                    <input type="hidden" name="qtymodal[]" id="qtymodal">
+                    <input type="hidden" name="price[]" id="price">
+                    <input type="hidden" name="costmodal[]" id="costmodal">
                     <div class="row">
                         <div class="col-6 mt-1">
                             <p>Customer </p>

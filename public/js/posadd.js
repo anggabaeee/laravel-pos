@@ -214,9 +214,9 @@ function disc(val) {
     var totqty = 0;
     if (val == 0) {
         for (var i = 0; i < arr.length; i++) {
-            if (parseFloat(arr[i].innerHTML))
+            if (parseFloat(arr[i].value))
                 if (parseInt(arrqty[i].value))
-                    tot += (parseFloat(arr[i].innerHTML) * parseInt(arrqty[i].value));
+                    tot += (parseFloat(arr[i].value) * parseInt(arrqty[i].value));
             totqty += parseInt(arrqty[i].value);
         }
         var taxval = (tot * parseInt(tax)) / 100;
@@ -227,9 +227,9 @@ function disc(val) {
         document.getElementById('grandtotal').innerHTML = parseFloat(grandtot).toFixed(2);
     } else {
         for (var i = 0; i < arr.length; i++) {
-            if (parseFloat(arr[i].innerHTML))
+            if (parseFloat(arr[i].value))
                 if (parseInt(arrqty[i].value))
-                    tot += (parseFloat(arr[i].innerHTML) * parseInt(arrqty[i].value));
+                    tot += (parseFloat(arr[i].value) * parseInt(arrqty[i].value));
             totqty += parseInt(arrqty[i].value);
         }
         if (val > (tot - 1)) {
@@ -266,7 +266,6 @@ function PaidAmount(val) {
 $(document).ready(function () {
     $("#myBtn5").click(function () {
         $('#form_output').html('');
-        
         var totalAmount = document.getElementById('grandtotal').innerHTML;
         var totalItems = document.getElementById('totalqty').innerHTML;
         document.getElementById('total_amount').innerHTML = totalAmount;
@@ -289,35 +288,25 @@ $(document).ready(function () {
     });
 });
 
-$(function () {
+$(document).ready(function () {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $('#ajaxsubmit').click(function (e) {
+    $("#ajaxsubmit").click(function (e) {
         e.preventDefault();
         $.ajax({
-            type: "post",
-            url: "/posadd/addorder",
-            data: $('#Form1').serialize(),
+            type: 'get',
+            url: "{{url('/posadd/addorder')}}",
+            data: {'customer': $('#customer').val(), 'outlet_id': $('#outlet_id').val(), 'outlet_id': $('#outlet_id').val(), 'ttl_amount': $('#ttl_amount').val(), 'ttl_item': $('#ttl_item').val(), 'payment_method': $('#payment_method').val(), 'paidamount': $('#paidamount').val(), },
             dataType: 'json',
             success: function (data) {
-                if(data.error.length > 0)
-                {
-                    var error_html = '';
-                    for(var count = 0; count < data.error.length; count++)
-                    {
-                        error_html += '<div class="alert alert-danger">'+data.error[count]+'</div>';
-                    }
-                    $('#form_output').html(error_html);
-                }
-                else{
-                    $('#form_output').html(data.success);
+                   alert(data);
                     $('#Form1')[0].reset();
                     $('.row_list').remove();
-                }
             }
         });
+        
     });
 });
