@@ -55,11 +55,11 @@
                                                 class="btn btn-primary">Recive</button></a>
                                         <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
                                             style="margin-left: 5px;"><button class="btn btn-primary">view</button></a>
-                                            <a href="/purchase_order/delete_order/{{ $p->id }}"
+                                        <a href="/purchase_order/delete_order/{{ $p->id }}"
                                             style="margin-left: 5px;"><button class="btn btn-danger"
                                                 onclick="return confirm('Yakin ingin menghapus data?')">delete</button></a>
                                         @elseif ($p->status == 3)
-                                        <a href="/purchase_order/editpurchaseorder/{{ $p->id }}" id="btnRcv"><button
+                                        <a href="/purchase_order/viewpurchase/{{ $p->id }}" id="btnRcv"><button
                                                 class="btn btn-primary">view</button></a>
                                         @else
                                         <a href="/purchase_order/editpurchaseorder/{{ $p->id }}"
@@ -89,12 +89,16 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @if(Session::has('p'))
-    <script>
-        toastr.success('{{Session::get('p')}}')
-    </script>
+<script>
+    toastr.success('{{Session::get('p')}}')
+</script>
 @elseif(Session::has('d'))
-    <script>
-         toastr.error('{{Session::get('d')}}')
-    </script>
+<script>
+    toastr.error('{{Session::get('d')}}')
+</script>
+@elseif(Session::has('a'))
+<script> toastr.info('{{Session::get('a')}}')</script> 
+@elseif(Session::has('c'))
+<script>toastr.warning('{{Session::get('c')}}')</script> 
 @endif
 @stop

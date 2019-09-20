@@ -97,21 +97,21 @@
                                             <input type="number" class="form-control" name="ordered_qty[]"      value="{{$p->ordered_qty}}" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control " name="received_qty[]" id="a@php echo($a++) @endphp" value="{{$p->received_qty}}">
+                                            <input type="text" class="form-control " name="received_qty[]" id="a@php echo($a++) @endphp" value="{{$p->received_qty}}" readonly>
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control " id="b@php echo($b++) @endphp" name="cost[]" value="{{$p->cost}}"></td>
+                                            <input type="number" class="form-control " id="b@php echo($b++) @endphp" name="cost[]" value="{{$p->cost}}" readonly></td>
                                     </tr>
                                     @endif
                                     @endforeach
                                     <tr>
                                         <td colspan="3">
-                                            <strong>Discount Amount (SGD) : <input type="number" class="form-control" 
-                                                    id="discon" style="display:inline; width:200px;" name="discount_amount"></strong>
+                                            <strong>Discount Amount (SGD) : <input type="number" class="form-control"
+                                                    id="discon" style="display:inline; width:200px;" value="{{$purchase_order->discount_amount}}" readonly></strong>
                                         </td>
                                         <td colspan="2" style="text-align:right;">
-                                            <strong>Total (SGD) : <input type="number" class="form-control" name="subtotal"
-                                                    style="display:inline; width:200px;" id="total" readonly></strong>
+                                            <strong>Total (SGD) : <input type="number" class="form-control"
+                                                    style="display:inline; width:200px;" id="total" value="{{$purchase_order->subtotal}}" readonly></strong>
                                         </td>
                                     </tr>
                                     <tr>
@@ -123,16 +123,12 @@
                                     <tr>
                                         <td colspan="5" style="text-align:right;">
                                             <strong>Total Payable (SGD): : <input type="number" class="form-control"
-                                                    id="total_pay" style="display:inline; width:200px;" value="0.00"
-                                                    readonly name="grandtotal"></strong>
+                                                    id="total_pay" style="display:inline; width:200px;" value="{{$purchase_order->grandtotal}}"
+                                                    readonly></strong>
                                         </td>
                                     </tr>
-                                    <tr id="btn">
-                                        <td colspan="5" style="text-align:center;">
-                                        <input type="text" value="3" name="status" readonly hidden>
-                                            <input type="submit" class="btn btn-primary col-sm-2" style="height:75px;"
-                                                value="Recive">
-                                                <input type="number" class="form-control" id="row" name="panjang" style="display : none;" >
+                                    <tr hidden>
+                                                <input type="number" class="form-control" id="row" name="panjang    " hidden >
                                         </td>
                                     </tr>
                                 </tbody>
@@ -175,5 +171,9 @@
         });
     });
 </script>
-
+@if(Session::has('a'))
+<script>
+ toastr.info('{{Session::get('a')}}')
+</script>
+@endif
 @stop

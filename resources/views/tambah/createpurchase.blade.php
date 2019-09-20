@@ -102,8 +102,8 @@
                                     </tbody>
                                 </table>
                             <input type="number" id="row" name="panjang" hidden>
-                            <input type="text" name="total" hidden value="#">
-                            <input type="text" name="total_pay" hidden value="#">
+                            <input type="text" name="grandtotal" hidden value="#">
+                            <input type="text" name="subtotal" hidden value="#">
                             <input type="text" name="discount_amount" hidden value="#">
                             </div>
                         </div>

@@ -98,6 +98,7 @@ Route::get('/purchase_order/recivepurchaseorder/{id}','PurchaseorderController@r
 Route::put('/purchase_order/updaterecivepurchaseorder/{id}','PurchaseorderController@updaterecivepurchaseorder');
 Route::put('/purchase_order/updatepurchaseorder/{id}', 'PurchaseorderController@updatepurchaseorder' , 'response');
 Route::get('/purchase_order/editpurchaseorder/{id}','PurchaseorderController@editpurchaseorder' , 'response');
+Route::get('/purchase_order/viewpurchase/{id}','PurchaseorderController@viewpurchase');
 Route::get('/purchase_order/delete_order/{id}','PurchaseorderController@delete_order');
 Route::get('/purchase_order','PurchaseorderController@purchase');
 Route::get('/purchase_order/CreatePurchaseOrder','PurchaseorderController@createpurchase' , 'response');

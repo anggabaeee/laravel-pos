@@ -74,8 +74,8 @@ class PurchaseorderController extends Controller
         $this->validate($request, [ 'po_number'=> 'required|unique:purchase_order,po_number',
             ]);
         purchase_order::create([ 'po_number'=> $request->po_number,
-                'total'=> $request->total,
-                'total_pay'=> $request->total_pay,
+                'grandtotal'=> $request->grandtotal,
+                'subtotal'=> $request->subtotal,
                 'discount_amount'=> $request->discount_amount,
                 'id_outlet'=> $request->id_outlet,
                 'id_supplier'=> $request->id_supplier,
@@ -101,7 +101,7 @@ class PurchaseorderController extends Controller
             purchase_order_items::insert($answers);
         }
 
-        return redirect('/purchase_order')->with('p', 'berhasil ndan');
+        return redirect('/purchase_order')->with('p', 'Create Order Succses');
     }
 
     public function updatepurchaseorder($id, Request $request) {
@@ -122,7 +122,6 @@ class PurchaseorderController extends Controller
                 ];
 
             }
-
             $d=$request->product_name;
             purchase_order_items::where('id_po', $id)->where('product_name', $d)->insert($answers);
         }
@@ -135,16 +134,20 @@ class PurchaseorderController extends Controller
         $purchase_order->note=$request->note;
         $purchase_order->status=$request->status;
         $purchase_order->save();
-        return redirect('/purchase_order');
+
+        if( $request->status == 2)
+        {
+            return redirect('/purchase_order')->with('c', 'Succses Send To Supplier');   
+        }
+        return redirect('/purchase_order')->with('a', 'Succses Update Data');
     }
 
     public function updaterecivepurchaseorder($id, Request $request) {
-        $purchase_order_items=purchase_order_items::where('id_po', $id);
-        $purchase_order_items->delete();
         if($request->product_name !=null) {
+            $purchase_order_items=purchase_order_items::where('id_po', $id);
+            $purchase_order_items->delete();
             $f= ".00";
             $panjang=$request->panjang;
-
             for ($i=0; $i < $panjang; $i++) {
                 $answers[]=[ 'id_po'=>$id,
                 'product_code'=>$request->product_code[$i],
@@ -157,10 +160,22 @@ class PurchaseorderController extends Controller
             }
             purchase_order_items::where('id_po', $id)->insert($answers);
         }
+        $d= ".00";
         $purchase_order=purchase_order::find($id);    
         $purchase_order->status=$request->status;
+        $purchase_order->grandtotal=$request->grandtotal;
+        $purchase_order->discount_amount=$request->discount_amount.$d;
+        $purchase_order->subtotal=$request->subtotal;
         $purchase_order->save();
-   
+        return redirect("/purchase_order/viewpurchase/$id")->with('a', 'Succses Recive Data');;
+    }
+    public function viewpurchase($id){
+        $purchase_order=purchase_order::find($id);
+        $purchase_order_items=purchase_order_items::all();
+        $outlets=outlets::all();
+        $supplier=supplier::all();
+        $purchase_order_status=purchase_order_status::all();
+        return view('pages.edit.view')->with('purchase_order', $purchase_order)->with('supplier', $supplier)->with('outlets', $outlets)->with('purchase_order_status', $purchase_order_status)->with('purchase_order_items', $purchase_order_items);
     }
 
 }
