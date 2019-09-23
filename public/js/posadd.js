@@ -201,7 +201,9 @@ function total() {
     var taxval = (total * parseInt(tax)) / 100;
     var grandtot = total + taxval
     document.getElementById('total').innerHTML = parseFloat(total).toFixed(2);
+    document.getElementById('totalinput').value = parseFloat(total).toFixed(2);
     document.getElementById('taxval').innerHTML = parseFloat(taxval).toFixed(2);
+    document.getElementById('taxvalue').value = parseFloat(taxval).toFixed(2);
     document.getElementById('totalqty').innerHTML = totqty;
     document.getElementById('grandtotal').innerHTML = parseFloat(grandtot).toFixed(2);
 }
@@ -222,8 +224,10 @@ function disc(val) {
         var taxval = (tot * parseInt(tax)) / 100;
         var grandtot = tot + taxval;
         document.getElementById('total').innerHTML = parseFloat(tot).toFixed(2);
+        document.getElementById('totalinput').value = parseFloat(tot).toFixed(2);
         document.getElementById('totalqty').innerHTML = totqty;
         document.getElementById('taxval').innerHTML = parseFloat(taxval).toFixed(2);
+        document.getElementById('taxvalue').value = parseFloat(taxval).toFixed(2);
         document.getElementById('grandtotal').innerHTML = parseFloat(grandtot).toFixed(2);
     } else {
         for (var i = 0; i < arr.length; i++) {
@@ -241,8 +245,10 @@ function disc(val) {
         var taxval = (total * parseInt(tax)) / 100;
         var grandtot = total + taxval
         document.getElementById('total').innerHTML = parseFloat(total).toFixed(2);
+        document.getElementById('totalinput').value = parseFloat(total).toFixed(2);
         document.getElementById('totalqty').innerHTML = totqty;
         document.getElementById('taxval').innerHTML = parseFloat(taxval).toFixed(2);
+        document.getElementById('taxvalue').value = parseFloat(taxval).toFixed(2);
         document.getElementById('grandtotal').innerHTML = parseFloat(grandtot).toFixed(2);
     }
 }
@@ -252,9 +258,11 @@ function PaidAmount(val) {
     var ret = document.getElementById('paidamount').value;
     if (ret == "") {
         document.getElementById('return_change').innerHTML = 0.00;
+        document.getElementById('returninput').value = 0.00;
     } else {
         var returnchange = parseFloat(val) - parseFloat(totalAmount);
         document.getElementById('return_change').innerHTML = returnchange;
+        document.getElementById('returninput').value = returnchange;
         if (returnchange > -1) {
             document.getElementById('ajaxsubmit').hidden = false;
         } else {
@@ -275,14 +283,15 @@ $(document).ready(function () {
 
         var paid = document.getElementById('paidamount').value;
         if (paid == "") {
-            document.getElementById('return_change').innerHTML = 0.00;
+            paid = 0.00;
         } else {
             var returnchange = parseFloat(paid) - parseFloat(totalAmount);
             document.getElementById('return_change').innerHTML = returnchange;
-            if (returnchange > -1) {
-                document.getElementById('submit').hidden = false
+            document.getElementById('returninput').value = returnchange;
+            if (returnchange < 0) {
+                document.getElementById('ajaxsubmit').hidden = true
             } else {
-                document.getElementById('submit').hidden = true
+                document.getElementById('ajaxsubmit').hidden = false
             }
         }
     });

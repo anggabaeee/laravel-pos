@@ -7,7 +7,7 @@
         border-radius: 10px;
         text-align: center;
         margin-top: 100px
-    } 
+    }
 
     .kiri {
         text-align: center;
@@ -72,141 +72,147 @@
     }
 
 </style>
-<div class="form mx-4">
-    <div class="row">
-        {{ csrf_field() }}
-        <div class="col-sm-4">
-            <div class="kiri">
-                <div class="row">
-                    <div class="col-12 ">
-                        <button type="button" class="btn btn-primary col-12 py-0" id="myBtn4"><i class="icono-plus"></i>
-                            add Customer</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mt-2">
-                        <input type="text" class="form-control" placeholder="scan your barcode">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mt-2 ml-3">
-                        <div class="row tableku" style="text-align: center;">
-                            <div class="col-md-4">Products</div>
-                            <div class="col-md-3">Qyt</div>
-                            <div class="col-md-4">Per Item</div>
-                            <div class="col-md-1">X</div>
+<form action="/posadd/orderadd/{{$outlets->id}}" method="post">
+    {{ csrf_field() }}
+    <div class="form mx-4">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="kiri">
+                    <div class="row">
+                        <div class="col-12 ">
+                            <button type="button" class="btn btn-primary col-12 py-0" id="myBtn4"><i
+                                    class="icono-plus"></i>
+                                add Customer</button>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mt-2 ml-3">
-                        <form id="form2" action="/posadd/orderadd/{{$outlets->id}}" method="post">
-                            {{ csrf_field() }}
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <input type="text" class="form-control" placeholder="scan your barcode">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-2 ml-3">
+                            <div class="row tableku" style="text-align: center;">
+                                <div class="col-md-4">Products</div>
+                                <div class="col-md-3">Qyt</div>
+                                <div class="col-md-4">Per Item</div>
+                                <div class="col-md-1">X</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mt-2 ml-3">
+                            <input type="hidden" name="row_length" id="row_length">
+                            <input type="hidden" name="tax" id="tax" value="7">
                             <div class="row isitable" id="isitable" style="margin-top: 5px">
 
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 tableku" style="">
-                        <div class="row">
-                            <div class="col-3">
-                                <div>Total Items:</div>
-                            </div>
-                            <div class="col-3">
-                                <div><label id="totalqty" name="totalqty"></label></div>
-                            </div>
-                            <div class="col-3">
-                                <div>Total:</div>
-                            </div>
-                            <div class="col-3">
-                                <div><label name="totalprice" id="total">0.00</label></div>
-                            </div>
+                    <div class="row">
+                        <div class="col-12 tableku" style="">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div>Total Items:</div>
+                                </div>
+                                <div class="col-3">
+                                    <div><label id="totalqty" name="totalqty"></label></div>
+                                </div>
+                                <div class="col-3">
+                                    <div>Total:</div>
+                                </div>
+                                <div class="col-3">
+                                    <div><label id="total">0.00</label></div>
+                                    <input type="hidden" name="totalprice" id="totalinput">
+                                </div>
 
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-3">
-                                <div>Dis. Amt./% :</div>
                             </div>
-                            <div class="col-3">
-                                <input type="text" class="mx-4 w-75" name="discount" id="discount"
-                                    onkeyup="disc(this.value)">
+                            <div class="row mt-2">
+                                <div class="col-3">
+                                    <div>Dis. Amt./% :</div>
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" class="mx-4 w-75" name="discount" id="discount"
+                                        onkeyup="disc(this.value)">
+                                </div>
+                                <div class="col-3">
+                                    <div>Tax (7.00%) :</div>
+                                </div>
+                                <div class="col-3">
+                                    <div><label id="taxval">0.00</label></div>
+                                    <input type="hidden" name="taxval" id="taxvalue">
+                                </div>
                             </div>
-                            <div class="col-3">
-                                <div>Tax (7.00%) :</div>
-                            </div>
-                            <div class="col-3">
-                                <div><label name="taxval" id="taxval">0.00</label></div>
-                            </div>
-                        </div>
-                        <hr style="border-color:white;">
-                        <div class="row pt-1 mt-1">
-                            <div class="col-6" style="text-align:left;">
-                                <div>Total Payble</div>
-                            </div>
-                            <div class="col-6">
-                                <div class="ml-auto"><label name="grandtotal" id="grandtotal"></label></div>
+                            <hr style="border-color:white;">
+                            <div class="row pt-1 mt-1">
+                                <div class="col-6" style="text-align:left;">
+                                    <div>Total Payble</div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="ml-auto"><label name="grandtotal" id="grandtotal"></label></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-4"><button type="button" class="btn btn-danger col-sm-12">Cancel</button></div>
-                    <div class="col-4"><button type="button" class="btn btn-primary col-sm-12" id="myBtn3">Hold</button>
-                    </div>
-                    <div class="col-4">
-                        <!-- Button trigger modal -->
-                        <button type="button" id="myBtn5" class="btn btn-success col-sm-12" data-toggle="modal"
-                            data-target="#Modal5">
-                            Payment
-                        </button>
+                    <div class="row mt-2">
+                        <div class="col-4"><button type="button" class="btn btn-danger col-sm-12">Cancel</button></div>
+                        <div class="col-4"><button type="button" class="btn btn-primary col-sm-12"
+                                id="myBtn3">Hold</button>
+                        </div>
+                        <div class="col-4">
+                            <!-- Button trigger modal -->
+                            <button type="button" id="myBtn5" class="btn btn-success col-sm-12" data-toggle="modal"
+                                data-target="#Modal5">
+                                Payment
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-8">
-            <div class="kanan">
-                <div class="row">
-                    <div class="container">
-                        <div class="col-sm-12 my-2">
-                            <input type="text" class="form-control col-sm-12" placeholder="search your product">
+            <div class="col-sm-8">
+                <div class="kanan">
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-sm-12 my-2">
+                                <input type="text" class="form-control col-sm-12" placeholder="search your product">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="container">
-                        <div class="col-2 ">
-                            <a href="#">
-                                <div class="tableku py-3" style="text-align: center;">
-                                    All</div>
-                            </a>
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-2 ">
+                                <a href="#">
+                                    <div class="tableku py-3" style="text-align: center;">
+                                        All</div>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="tablepilihan border">
-                            <div class="row">
-                                @foreach ($product as $p)
-                                <div class="col-md-2 stock ml-4 mt-3">
-                                    <div class="mt-1">
-                                        <a onclick="addlist('{{$p->id_product}}')"> <img height="50px"
-                                                class="img-thumbnail" src="{{ url('/product_image/'.$p->thumbnail) }}">
-                                            <p id="{{$p->id_product}}-name_product">{{$p->name_product}}</p>
-                                            <p hidden="true" id="{{$p->id_product}}-qty">
-                                                @if ($p->qty === null)
-                                                0
-                                                @endif
-                                                {{$p->qty}}
-                                            </p>
-                                            <p hidden="true" id="{{$p->id_product}}-price">{{$p->retail_price}}</p>
-                                            <p hidden="true" id="{{$p->id_product}}-code">{{$p->code}}</p>
-                                            <p hidden="true" id="{{$p->id_product}}-cost">{{$p->purchase_price}}</p>
-                                        </a>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="tablepilihan border">
+                                <div class="row">
+                                    @foreach ($product as $p)
+                                    <div class="col-md-2 stock ml-4 mt-3">
+                                        <div class="mt-1">
+                                            <a onclick="addlist('{{$p->id_product}}')"> <img height="50px"
+                                                    class="img-thumbnail"
+                                                    src="{{ url('/product_image/'.$p->thumbnail) }}">
+                                                <p id="{{$p->id_product}}-name_product">{{$p->name_product}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-qty">
+                                                    @if ($p->qty === null)
+                                                    0
+                                                    @endif
+                                                    {{$p->qty}}
+                                                </p>
+                                                <p hidden="true" id="{{$p->id_product}}-price">{{$p->retail_price}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-code">{{$p->code}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-cost">{{$p->purchase_price}}</p>
+                                            </a>
+                                        </div>
                                     </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -214,7 +220,87 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="modal fade" id="Modal5" tabindex="-1" role="dialog" aria-labelledby="Modal5Label" aria-hidden="true">
+        <form id="Form1" action="/posadd/addorder" method="post" name="Form1" class="form-horizontal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="background-color: #373942;">
+                    <div class="modal-header">
+                        <h1 class="modal-title" style="color:white;">Make Payment</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="background-color:white;">
+                        <span id="form_output"></span>
+                        <div class="row">
+                            <div class="col-6 mt-1">
+                                <p>Customer </p>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-control" name="customer" id="customer" type="text" required>
+                                    @foreach ($customer as $c)
+                                    <option value="{{$c->id}}">{{$c->fullname}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mt-1">
+                                <p>Total Payable Amount</p>
+                            </div>
+                            <div class="col-6">
+                                <span id="total_amount" name="total_amount">00.0</span>
+                                <input type="hidden" name="ttl_amount" id="ttl_amount">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mt-1">
+                                <p>Total Purchased Items</p>
+                            </div>
+                            <div class="col-6">
+                                <span id="total_items" name="total_items">00.0</span>
+                                <input type="hidden" name="ttl_item" id="ttl_item">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mt-1">
+                                <p>Paid By:</p>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-control" type="text" name="payment_method" id="payment_method" required>
+                                    <option disabled selected value>choice</option>
+                                    @foreach ($payment as $p)
+                                    <option value="{{$p->id}}">{{$p->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mt-1">
+                                <p>Paid Amount: <p>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" id="paidamount" name="paidamount" class="form-control col-sm-12"
+                                    onkeyup="PaidAmount(this.value)" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mt-1">
+                                <p>Return Change :</p>
+                            </div>
+                            <div class="col-6">
+                                <span id="return_change">00.0</span>
+                                <input type="hidden" name="return_change" id="returninput" readonly>
+                            </div>
+                        </div>
+                    </div>
+        </form>
+        <div class="modal-footer" style="background-color:white;">
+            <input type="submit" id="ajaxsubmit" name="ajaxsubmit" class="btn btn-success ajaxsubmit" value="Submit"
+                hidden="true">
+        </div>
+    </div>
+</form>
 <div class="modal fade" id="myModal1">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color: #373942;">
@@ -375,93 +461,6 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="Modal5" tabindex="-1" role="dialog" aria-labelledby="Modal5Label" aria-hidden="true">
-    <form id="Form1" action="/posadd/addorder" method="post" name="Form1" class="form-horizontal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #373942;">
-                <div class="modal-header">
-                    <h1 class="modal-title" style="color:white;">Make Payment</h1>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" style="background-color:white;">
-                <span id="form_output"></span>
-                    {{csrf_field()}}
-                    <input type="hidden" name="row_length" id="row_length">
-                    <input type="hidden" name="tax" id="tax" value="7">
-                    <input type="hidden" name="product_code[]" id="product_code">
-                    <input type="hidden" name="name_product[]" id="name_product[]">
-                    <input type="hidden" name="qtymodal[]" id="qtymodal">
-                    <input type="hidden" name="price[]" id="price">
-                    <input type="hidden" name="costmodal[]" id="costmodal">
-                    <div class="row">
-                        <div class="col-6 mt-1">
-                            <p>Customer </p>
-                        </div>
-                        <div class="col-6">
-                            <select class="form-control" name="customer" id="customer" type="text">
-                                @foreach ($customer as $c)
-                                <option value="{{$c->id}}">{{$c->fullname}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
-                            <p>Total Payable Amount</p>
-                        </div>
-                        <div class="col-6">
-                            <span id="total_amount" name="total_amount">00.0</span>
-                            <input type="hidden" name="ttl_amount" id="ttl_amount">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
-                            <p>Total Purchased Items</p>
-                        </div>
-                        <div class="col-6">
-                            <span id="total_items" name="total_items">00.0</span>
-                            <input type="hidden" name="ttl_item" id="ttl_item">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
-                            <p>Paid By:</p>
-                        </div>
-                        <div class="col-6">
-                            <select class="form-control" type="text" name="payment_method" id="payment_method">
-                                <option disabled selected value>choice</option>
-                                @foreach ($payment as $p)
-                                <option value="{{$p->id}}">{{$p->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
-                            <p>Paid Amount: <p>
-                        </div>
-                        <div class="col-6">
-                            <input type="text" id="paidamount" name="paidamount" class="form-control col-sm-12"
-                                onkeyup="PaidAmount(this.value)">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mt-1">
-                            <p>Return Change :</p>
-                        </div>
-                        <div class="col-6">
-                            <span id="return_change" name="return_change">00.0</span>
-                        </div>
-                    </div>
-                </div>
-    </form>
-    <div class="modal-footer" style="background-color:white;">
-        <input type="submit" id="ajaxsubmit" name="ajaxsubmit" class="btn btn-success ajaxsubmit" value="Submit"
-            hidden="true">
-    </div>
-</div>
 </div>
 </div>
 <script src="{{ asset('js/posadd.js') }}"></script>
