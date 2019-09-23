@@ -129,7 +129,7 @@
                                             <td>
                                             <input type='text'value='0' class='form-control' name="received_qty[]" readonly hidden>
                                             <input type='text'value='0' class='form-control' name="cost[]" readonly hidden>
-                                                <input type="text" value="{{$p->ordered_qty}}" name="ordered_qty[]" class="form-control">
+                                            <input type="text" value="{{$p->ordered_qty}}" name="ordered_qty[]" class="form-control">
                                             </td>
                                             <td>
                                             <button type="button" class="btn btn-danger"  id="deletbtn">Delete</button>

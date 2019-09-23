@@ -8,6 +8,8 @@
     }
 
 </style>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Create Purchase Order</h1>
@@ -15,6 +17,7 @@
             <div class="card-body">
                 <form action="/purchase_order/CreatePurchaseOrderstore" method="post">
                     {{ csrf_field() }}
+                   
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-gorup">
@@ -99,8 +102,8 @@
                                     </tbody>
                                 </table>
                             <input type="number" id="row" name="panjang" hidden>
-                            <input type="text" name="total" hidden value="#">
-                            <input type="text" name="total_pay" hidden value="#">
+                            <input type="text" name="grandtotal" hidden value="#">
+                            <input type="text" name="subtotal" hidden value="#">
                             <input type="text" name="discount_amount" hidden value="#">
                             </div>
                         </div>
@@ -128,6 +131,8 @@
     </div>
 </div>
 </section>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script type="text/javascript">
  $(document).ready(function () {
@@ -160,4 +165,7 @@
         });
     });
 </script>
+ @if ($errors->any())
+<script>toastr.warning("data sudah ada")</script>
+@endif
 @stop
