@@ -1,6 +1,6 @@
 <?php 
 namespace App\Http\Controllers;
-
+use PDF;
 use App\Htpp\Kernel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,6 +22,15 @@ use App\UserRoles;
 
 class PurchaseorderController extends Controller
  {
+    public function exportPDF() {
+        $purchase_order=purchase_order::all();
+        $purchase_order_items=purchase_order_items::all();
+        $outlets=outlets::all();
+        $supplier=supplier::all();
+        $purchase_order_status=purchase_order_status::all();
+        $pdf = PDF::loadview('pages.edit.pdf_purchase',['purchase_order'=>$purchase_order,]);
+        return $pdf->stream();
+    }
 
     public function purchase() {
         $purchase_order = DB::table('purchase_order')
