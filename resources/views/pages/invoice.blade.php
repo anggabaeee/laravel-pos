@@ -1,4 +1,10 @@
 <style>
+    @media print {
+        #bkpos_wrp{
+            visibility: hidden;
+        }
+    }
+
     body {
         max-width: 300px;
         margin: 0 auto;
@@ -47,8 +53,7 @@
     <div id="wrapper">
         <div id="printdiv" name="printdiv">
             <div class="row"><img src="{{asset('img/logo.jpg')}}" style="width: 60px;"></div>
-            <div class="row" style="margin-top: 10px"><strong
-                    style="font-size: 24px">{{$outlets->name_outlet}}</strong>
+            <div class="row" style="margin-top: 10px"><strong style="font-size: 24px">{{$outlets->name_outlet}}</strong>
             </div>
             <div class="row" style="text-align: left;">
                 <p>Address : {{$outlets->address_outlet}}</p>
@@ -173,7 +178,7 @@
             </div>
         </div>
         <div class="row">
-            <a href="/posadd/{{$orders->outlet_id}}" id="bkpos_wrp1"
+            <a href="/posadd/{{$orders->outlet_id}}" id="bkpos_wrp"
                 style="width:100%; display:block; font-size:13px; text-decoration: none; text-align:center; color:#FFF; background-color:#005b8a; border:0px solid #007FFF; padding: 10px 1px; margin: 5px auto 10px auto; font-weight:bold;">Back
                 to Point of Sales</a>
         </div>
@@ -196,17 +201,9 @@
         </div>
     </div>
 </div>
-<textarea id="printing-css" style="display:none;"> body {max-width: 300px; margin: 0 auto; text-align: center; color: #000; font-family: Arial, Helvetica, sans-serif; font-size: 13px;} #wrapper {min-width: 250px;margin: 0px auto;} p {margin: 5px;} .table th {border-top: 1px solid #000; border-bottom: 1px solid #000; padding-top: 4px; padding-bottom: 4px; font-size: 13px;} .table td {font-size: 13px;} .totals td {font-size: 13px;} .table { margin-top: 10px;} .totals { width: 100%; margin: 10px 0;}
-</textarea>
-<iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none;"></iframe>
 <script>
     function printfunc() {
-        var a = document.getElementById('printing-css').value;
-        var b = document.getElementById('printdiv').innerHTML;
-        window.frames["print_frame"].document.title = document.title;
-        window.frames["print_frame"].document.body.innerHTML = '<style>' + a + '</style>' + '<div class="container">' + '<div id="wrapper">' + b + '</div>' + '</div>';
-        window.frames["print_frame"].window.focus();
-        window.frames["print_frame"].window.print();
+        window.print();
     }
-window.onload = printfunc();
+    window.onload = window.print();
 </script>

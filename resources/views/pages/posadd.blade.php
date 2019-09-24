@@ -156,8 +156,8 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-4"><button type="button" class="btn btn-danger col-sm-12">Cancel</button></div>
-                        <div class="col-4"><button type="button" class="btn btn-primary col-sm-12"
-                                id="myBtn3">Hold</button>
+                        <div class="col-4"><button type="button" class="btn btn-primary col-sm-12" data-toggle="modal"
+                                data-target="#myModal3" id="myBtn3">Hold</button>
                         </div>
                         <div class="col-4">
                             <!-- Button trigger modal -->
@@ -221,248 +221,249 @@
         </div>
     </div>
     <div class="modal fade" id="Modal5" tabindex="-1" role="dialog" aria-labelledby="Modal5Label" aria-hidden="true">
-        <form id="Form1" action="/posadd/addorder" method="post" name="Form1" class="form-horizontal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content" style="background-color: #373942;">
-                    <div class="modal-header">
-                        <h1 class="modal-title" style="color:white;">Make Payment</h1>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="background-color:white;">
-                        <span id="form_output"></span>
-                        <div class="row">
-                            <div class="col-6 mt-1">
-                                <p>Customer </p>
-                            </div>
-                            <div class="col-6">
-                                <select class="form-control" name="customer" id="customer" type="text" required>
-                                    @foreach ($customer as $c)
-                                    <option value="{{$c->id}}">{{$c->fullname}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #373942;">
+                <div class="modal-header">
+                    <h1 class="modal-title" style="color:white;">Make Payment</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color:white;">
+                    <span id="form_output"></span>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Customer </p>
                         </div>
-                        <div class="row">
-                            <div class="col-6 mt-1">
-                                <p>Total Payable Amount</p>
-                            </div>
-                            <div class="col-6">
-                                <span id="total_amount" name="total_amount">00.0</span>
-                                <input type="hidden" name="ttl_amount" id="ttl_amount">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 mt-1">
-                                <p>Total Purchased Items</p>
-                            </div>
-                            <div class="col-6">
-                                <span id="total_items" name="total_items">00.0</span>
-                                <input type="hidden" name="ttl_item" id="ttl_item">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 mt-1">
-                                <p>Paid By:</p>
-                            </div>
-                            <div class="col-6">
-                                <select class="form-control" type="text" name="payment_method" id="payment_method" required>
-                                    <option disabled selected value>choice</option>
-                                    @foreach ($payment as $p)
-                                    <option value="{{$p->id}}">{{$p->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 mt-1">
-                                <p>Paid Amount: <p>
-                            </div>
-                            <div class="col-6">
-                                <input type="text" id="paidamount" name="paidamount" class="form-control col-sm-12"
-                                    onkeyup="PaidAmount(this.value)" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 mt-1">
-                                <p>Return Change :</p>
-                            </div>
-                            <div class="col-6">
-                                <span id="return_change">00.0</span>
-                                <input type="hidden" name="return_change" id="returninput" readonly>
-                            </div>
+                        <div class="col-6">
+                            <select class="form-control" name="customer" id="customer" type="text" required>
+                                @foreach ($customer as $c)
+                                <option value="{{$c->id}}">{{$c->fullname}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-        </form>
-        <div class="modal-footer" style="background-color:white;">
-            <input type="submit" id="ajaxsubmit" name="ajaxsubmit" class="btn btn-success ajaxsubmit" value="Submit"
-                hidden="true">
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Total Payable Amount</p>
+                        </div>
+                        <div class="col-6">
+                            <span id="total_amount" name="total_amount">00.0</span>
+                            <input type="hidden" name="ttl_amount" id="ttl_amount">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Total Purchased Items</p>
+                        </div>
+                        <div class="col-6">
+                            <span id="total_items" name="total_items">00.0</span>
+                            <input type="hidden" name="ttl_item" id="ttl_item">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Paid By:</p>
+                        </div>
+                        <div class="col-6">
+                            <select class="form-control" type="text" name="payment_method" id="payment_method" required>
+                                <option disabled selected value>choice</option>
+                                @foreach ($payment as $p)
+                                <option value="{{$p->id}}">{{$p->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Paid Amount: <p>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" id="paidamount" name="paidamount" class="form-control col-sm-12"
+                                onkeyup="PaidAmount(this.value)" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mt-1">
+                            <p>Return Change :</p>
+                        </div>
+                        <div class="col-6">
+                            <span id="return_change">00.0</span>
+                            <input type="hidden" name="return_change" id="returninput" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color:white;">
+                    <input type="submit" id="ajaxsubmit" name="ajaxsubmit" class="btn btn-success ajaxsubmit"
+                        value="Submit" hidden="true">
+                </div>
+            </div>
+            <div class="modal fade" id="myModal1">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: #373942;">
+                        <div class="modal-header">
+                            <h1 class="modal-title" style="color:white;">Todays's Sales <span id="datenow"></span></h1>
+                        </div>
+                        <div class="modal-body" style="background-color:white;">
+                            <div class="container mt-2">
+                                <div class="row isimodel" style="color: #5f6468; background-color: #ededed;">
+                                    <div class="col-sm-12 mt-3">
+                                        Cash : 0.00
+                                    </div>
+                                </div>
+                                <div class="row isimodel">
+                                    <div class="col-sm-12 mt-3">
+                                        Nett : 0.00
+                                    </div>
+                                </div>
+                                <div class="row isimodel" style="background-color: #ededed; color: #5f6468;">
+                                    <div class="col-sm-12 mt-3">
+                                        VISA : 0.00
+                                    </div>
+                                </div>
+                                <div class="row isimodel" style="color: #5f6468;">
+                                    <div class="col-sm-12 mt-3">
+                                        MASTER : 0.00
+                                    </div>
+                                </div>
+                                <div class="row isimodel" style="background-color: #005b8a; color:white;">
+                                    <div class="col-sm-12 mt-3">
+                                        Cheque : 0.00
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal2">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: #373942;">
+                        <div class="modal-header">
+                            <h1 class="modal-title" style="color:white;">Opened Bill</h1>
+                        </div>
+                        <div class="modal-body" style="background-color:white;">
+                            <div class="row">
+                                <div class="col-5 mt-1">
+                                    <p>Search Opened Bill :</p>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="background-color:white;">
+                            <div class="row">
+                                <div class="col-12 isitable">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background-color: #373942;">
+                        <div class="modal-header">
+                            <h1 class="modal-title" style="color:white;">Opened Bill</h1>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                        </div>
+                        <div class="modal-body" style="background-color:white;">
+                            <div class="row">
+                                <div class="col-5 mt-1">
+                                    <p>Customers</p>
+                                </div>
+                                <div class="col-7">
+                                    <select class="form-control" type="text">
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5 mt-1">
+                                    <p>Hold Bill Ref. Number</p>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="background-color:white;">
+                        <div class="d-flex">
+                            <div class="ml-auto">
+                                <button type="button" class="btn btn-success py-1">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal4">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: #373942;">
+                        <div class="modal-header">
+                            <h1 class="modal-title" style="color:white;">Add Customer</h1>
+                        </div>
+                        <div class="modal-body" style="background-color:white;">
+                            <div class="row">
+                                <div class="col-5 mt-1">
+                                    <p>Customer Name</p>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control col-sm-12" name="fullname">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5 mt-1">
+                                    <p>Customer Email</p>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control col-sm-12" name="email" type="email">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5 mt-1">
+                                    <p>Customer Mobile</p>
+                                </div>
+                                <div class="col-7">
+                                    <input name="mobile" type="text" class="form-control col-sm-12">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="d-flex col-12">
+                                    <div class="ml-auto">
+                                        <input type="submit" name="addcust" class="btn btn-success py-1"
+                                            value="Add Customer" id="myBtn6" data-dismiss="modal">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal6">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content" style="background-color: #373942;">
+                        <div class="modal-header">
+                            <h1 class="modal-title" style="color:white;">Add Customer</h1>
+                        </div>
+                        <div class="modal-body" style="background-color:white;">
+                            <h1 style="text-align:center; color:green;">Successfully Added New Customer</h1>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 </form>
-<div class="modal fade" id="myModal1">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #373942;">
-            <div class="modal-header">
-                <h1 class="modal-title" style="color:white;">Todays's Sales <span id="datenow"></span></h1>
-            </div>
-            <div class="modal-body" style="background-color:white;">
-                <div class="container mt-2">
-                    <div class="row isimodel" style="color: #5f6468; background-color: #ededed;">
-                        <div class="col-sm-12 mt-3">
-                            Cash : 0.00
-                        </div>
-                    </div>
-                    <div class="row isimodel">
-                        <div class="col-sm-12 mt-3">
-                            Nett : 0.00
-                        </div>
-                    </div>
-                    <div class="row isimodel" style="background-color: #ededed; color: #5f6468;">
-                        <div class="col-sm-12 mt-3">
-                            VISA : 0.00
-                        </div>
-                    </div>
-                    <div class="row isimodel" style="color: #5f6468;">
-                        <div class="col-sm-12 mt-3">
-                            MASTER : 0.00
-                        </div>
-                    </div>
-                    <div class="row isimodel" style="background-color: #005b8a; color:white;">
-                        <div class="col-sm-12 mt-3">
-                            Cheque : 0.00
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="myModal2">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #373942;">
-            <div class="modal-header">
-                <h1 class="modal-title" style="color:white;">Opened Bill</h1>
-            </div>
-            <div class="modal-body" style="background-color:white;">
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Search Opened Bill :</p>
-                    </div>
-                    <div class="col-7">
-                        <input type="text" class="form-control col-sm-12" placeholder="ref.number">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer" style="background-color:white;">
-                <div class="row">
-                    <div class="col-12 isitable">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="myModal3">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #373942;">
-            <div class="modal-header">
-                <h1 class="modal-title" style="color:white;">Opened Bill</h1>
-            </div>
-            <div class="modal-body" style="background-color:white;">
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Customers</p>
-                    </div>
-                    <div class="col-7">
-                        <select class="form-control" type="text">
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Hold Bill Ref. Number</p>
-                    </div>
-                    <div class="col-7">
-                        <input type="text" class="form-control col-sm-12" placeholder="ref.number">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer" style="background-color:white;">
-            <div class="d-flex">
-                <div class="ml-auto">
-                    <button type="button" class="btn btn-success py-1">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="myModal4">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-color: #373942;">
-            <div class="modal-header">
-                <h1 class="modal-title" style="color:white;">Add Customer</h1>
-            </div>
-            <div class="modal-body" style="background-color:white;">
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Customer Name</p>
-                    </div>
-                    <div class="col-7">
-                        <input type="text" class="form-control col-sm-12" name="fullname">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Customer Email</p>
-                    </div>
-                    <div class="col-7">
-                        <input type="text" class="form-control col-sm-12" name="email" type="email">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-5 mt-1">
-                        <p>Customer Mobile</p>
-                    </div>
-                    <div class="col-7">
-                        <input name="mobile" type="text" class="form-control col-sm-12">
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="d-flex col-12">
-                        <div class="ml-auto">
-                            <input type="submit" name="addcust" class="btn btn-success py-1" value="Add Customer"
-                                id="myBtn6" data-dismiss="modal">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div class="modal fade" id="myModal6">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="background-color: #373942;">
-            <div class="modal-header">
-                <h1 class="modal-title" style="color:white;">Add Customer</h1>
-            </div>
-            <div class="modal-body" style="background-color:white;">
-                <h1 style="text-align:center; color:green;">Successfully Added New Customer</h1>
-            </div>
-        </div>
-
-    </div>
-</div>
-<!-- Modal -->
-</div>
-</div>
 <script src="{{ asset('js/posadd.js') }}"></script>
 <script>
     $(document).ready(function () {
@@ -476,14 +477,6 @@
     $(document).ready(function () {
         $("#myBtn2").click(function () {
             $("#myModal2").modal();
-        });
-    });
-
-</script>
-<script>
-    $(document).ready(function () {
-        $("#myBtn3").click(function () {
-            $("#myModal3").modal();
         });
     });
 

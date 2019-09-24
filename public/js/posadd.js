@@ -295,6 +295,9 @@ $(document).ready(function () {
             }
         }
     });
+    $("#myBtn4").click(function () {
+        $("#myModal4").modal();
+    });
 });
 
 $(document).ready(function () {
