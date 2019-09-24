@@ -149,24 +149,6 @@ class PosController extends Controller
     }   
 
     public function addorder($id, Request $request){
-        $length = $request->row_length;
-        for($i=0; $i<$length; $i++){
-            $answer[] = [
-                'order_id' => $id,
-                'product_code' => $request->code[$i],
-                'product_name' => $request->name[$i],
-                'cost' => 5000,
-                'price' => $request->price[$i],
-                'qty' => $request->qty[$i],
-                'status' => 1,
-            ];
-        }
-        order_items::insert($answer);
-        return redirect('/posadd/'.$id);
-    }
-
-    public function orderadd(Request $request)
-    {
         $validation = Validator::make($request->all(), [
             'customer' => 'required',
             'outlet_id'  => 'required',
@@ -174,8 +156,75 @@ class PosController extends Controller
             'ttl_item'  => 'required',
             'payment_method'  => 'required',
             'paidamount'  => 'required',
+            'code[]'  => 'required',
+            'name[]'  => 'required',
+            'price[]'  => 'required',
+            'qty[]'  => 'required',
+            'cost[]'  => 'required',
+            'discount' => 'required',
+            'totalprice' => 'required',
+            'return_change' => 'required',
+            'taxval' => 'required',
         ]);
 
+        $customer = DB::table('customer')->where('id', $request->customer)->first();
+        $payment = DB::table('payment_methods')->where('id', $request->payment_method)->first();
+        $discount = $request->discount;
+        if ($discount == null){
+            $discount = 0;
+        }
+
+        $orders = new orders();
+        $orders->customer_id = $request->customer;
+        $orders->customer_name = $customer->fullname;
+        $orders->outlet_id = $id;
+        $orders->ordered_datetime = DB::raw('now()');
+        $orders->subtotal = $request->totalprice;
+        $orders->discount_total = $discount;
+        $orders->tax = $request->taxval;
+        $orders->grandtotal = $request->ttl_amount;
+        $orders->total_items = $request->ttl_item;
+        $orders->payment_method = $request->payment_method;
+        $orders->payment_method_name = $payment->name;
+        $orders->paid_amt = $request->paidamount;
+        $orders->return_change = $request->return_change;
+        $orders->vt_status = 1;
+        $orders->status = 1;
+        $orders->refund_status = 1;
+        $orders->save();    
+
+        $length = $request->row_length;
+        for($i=0; $i<$length; $i++){
+            $answer[] = [
+                'order_id' => $orders->id,
+                'product_code' => $request->code[$i],
+                'product_name' => $request->name[$i],
+                'cost' => $request->cost[$i],
+                'price' => $request->price[$i],
+                'qty' => $request->qty[$i],
+                'status' => 1,
+            ];
+        }
+        order_items::insert($answer);
+        return redirect('/view_invoice/'.$orders->id);
+    }
+
+    public function invoice($id){
+        $orders = orders::find($id);
+        $data = DB::table('orders')->where('id', $id)->first();
+        $outlets = outlets::find($data->outlet_id);
+        $customer = Customer::find($data->customer_id);
+        $items = DB::table('order_items')->where('order_id', $id)
+        ->select(DB::raw('(order_items.qty*order_items.price) AS total'), 'order_items.*')
+        ->get();
+        $total = DB::table('order_items')->where('order_id', $id)
+        ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))
+        ->get();
+        return view('pages.invoice')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total);
+    }
+
+    public function orderadd(Request $request)
+    {
         $error_array = array();
         $success_output = '';
         if ($validation->fails()){
@@ -186,24 +235,7 @@ class PosController extends Controller
         }
         else
         {
-            $orders = new orders();
-            $orders->customer_id = $request->customer;
-            $orders->customer_name = "aaaa";
-            $orders->outlet_id = $request->outlet_id;
-                $orders->ordered_datetime = 1312324;
-                $orders->subtotal = $request->ttl_amount;
-                $orders->discount_total = 8000;
-                $orders->tax = 200;
-                $orders->grandtotal = 45000;
-                $orders->total_items = $request->ttl_item;
-                $orders->payment_method = $request->payment_method;
-                $orders->payment_method_name = "sjfjs";
-                $orders->paid_amt = $request->paidamount;
-                $orders->return_change = 200;
-                $orders->vt_status = 1;
-                $orders->status = 1;
-                $orders->refund_status = 1;
-                $orders->save();    
+           
 
                 $success_output = '<div class="alert alert-success">Data Inserted</div>';
         }

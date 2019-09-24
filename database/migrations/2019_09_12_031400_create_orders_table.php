@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->integer('customer_id');
             $table->string('customer_name');
             $table->integer('outlet_id');
-            $table->integer('ordered_datetime');
+            $table->datetime('ordered_datetime');
             $table->double('subtotal', 11, 2);
             $table->double('discount_total', 11, 2);
             $table->double('tax', 11, 2);
