@@ -22,14 +22,20 @@ use App\UserRoles;
 
 class PurchaseorderController extends Controller
  {
-    public function exportPDF() {
-        $purchase_order=purchase_order::all();
+    public function exportPDF($id) {
+        $purchase_order=purchase_order::find($id);
         $purchase_order_items=purchase_order_items::all();
         $outlets=outlets::all();
         $supplier=supplier::all();
         $purchase_order_status=purchase_order_status::all();
-        $pdf = PDF::loadview('pages.edit.pdf_purchase',['purchase_order'=>$purchase_order,]);
-        return $pdf->stream();
+        return view('pages.edit.pdf_purchase')->with('purchase_order', $purchase_order)->with('supplier', $supplier)->with('outlets', $outlets)->with('purchase_order_status', $purchase_order_status)->with('purchase_order_items', $purchase_order_items);
+        // $purchase_order=purchase_order::all();
+        // $purchase_order_items=purchase_order_items::all();
+        // $outlets=outlets::all();
+        // $supplier=supplier::all();
+        // $purchase_order_status=purchase_order_status::all();
+        // $pdf = PDF::loadview('pages.edit.pdf_purchase',['purchase_order'=>$purchase_order,]);
+        // return $pdf->stream();
     }
 
     public function purchase() {
