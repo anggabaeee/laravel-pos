@@ -78,7 +78,8 @@
                 <div></div>
                 <div class="row">
                     <div class="col-md-6" style="float: left; padding-top: 10px;">
-                        Showing 1 to 1 of 1 entries
+                 
+                    {{$purchase_order->links() }}
                     </div>
                 </div>
             </div>

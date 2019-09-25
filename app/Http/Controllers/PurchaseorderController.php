@@ -44,7 +44,7 @@ class PurchaseorderController extends Controller
         ->join('supplier', 'supplier.id', '=', 'purchase_order.id_supplier')
         ->join('purchase_order_status', 'purchase_order_status.id', '=', 'purchase_order.status')
         ->select('purchase_order.*', 'outlets.name_outlet', 'supplier.supplier_name','purchase_order_status.nama')
-        ->get();
+        ->paginate(5);
         return view('pages.purchase_order',['purchase_order'=>$purchase_order]);    
     }
 

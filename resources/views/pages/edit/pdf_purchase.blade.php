@@ -26,6 +26,10 @@
     p {
         display: inline;
     }
+
+  
+    }
+
 </style>
 <div class="container-fluid mt-2" id="frame">
     <div class="row ">
@@ -34,11 +38,11 @@
         </div>
     </div>
     <div class="row mt-5 atas">
-        <div class="col-md-5 kanan">
+        <div class="col-md-5 kanan ">
             <div class="row ">
                 <div class="col-md-4">
-                    @foreach($supplier as $p)
-                    @if($p->id === $purchase_order->id_supplier)
+                    @foreach( $supplier as $p)
+                    @if ($p->id === $purchase_order->id_supplier)
                     <p>SUPPLIERS </p>
                 </div>
                 <div class="col-md-1">
@@ -115,7 +119,7 @@
                     <div class="col-1">
                         <p>:</p>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                         <p>{{$purchase_order->datenow}}</p>
                     </div>
                 </div>
@@ -124,19 +128,18 @@
     </div>
     <hr style="background-color:black;">
     <h2>SHIP TO</h2>
-    @foreach( $outlets as $p)
-    @if ($p->id === $purchase_order->id_outlet)
     <div class="row atas mb-4">
-        <div class="col-12 kanan">
+        <div class="col kanan mr-a">
             <div class="row mt-3">
-               
+                @foreach( $outlets as $p)
+                @if ($p->id === $purchase_order->id_outlet)
                 <div class="col-md-2">
                     <p>OUTLETS</p>
                 </div>
                 <div class="col-md-1">
                     <p>: </p>
                 </div>
-                <div class="col">
+                <div class="col-md-1">
                     <p>{{$p->name_outlet}}</p>
                 </div>
             </div>
@@ -147,7 +150,7 @@
                 <div class="col-md-1">
                     <p>: </p>
                 </div>
-                <div class="col">
+                <div class="col-md-1">
                     <p>{{$p->address_outlet}}</p>
                 </div>
             </div>
@@ -158,16 +161,16 @@
                 <div class="col-md-1">
                     <p>: </p>
                 </div>
-                <div class="col">
+                <div class="col-md-1">
                     <p>{{$p->contact_number}}</p>
                 </div>
             </div>
-        </div>
-    </div>
             @endif
             @endforeach
+        </div>
+    </div>
     <div class="row">
-        <div class="col-sm-12 mt-4">
+        <div class="col-sm-12">
             <div class="table-responsive" style="text-align:left;">
                 <table class="table">
                     <thead>
