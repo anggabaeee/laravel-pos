@@ -104,6 +104,7 @@ Route::get('/purchase_order/delete_order/{id}','PurchaseorderController@delete_o
 Route::get('/purchase_order','PurchaseorderController@purchase');
 Route::get('/purchase_order/CreatePurchaseOrder','PurchaseorderController@createpurchase' , 'response');
 Route::post('/purchase_order/CreatePurchaseOrderstore','PurchaseorderController@createpurchasestore' , 'response');
+Route::get('/purchase_order_pdf/{id}', 'PurchaseorderController@exportPDF');
 
 // Setting 
 Route::get('/setting/payment_method', 'PosController@payment')->middleware('ceklogin' , 'response');

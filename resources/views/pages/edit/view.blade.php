@@ -18,7 +18,8 @@
                 <div class="card-body mx-1">
                     <div class="row">
                         <div class="ml-auto">
-                            <button type="button" class="btn btn-success ml-2">Print Purchase Order</button>
+                        <a href="/purchase_order_pdf/{{$purchase_order->id}}" target="_blank"><button type="button" class="btn btn-success ml-2">Print Purchase Order</button>
+                        </a>
                         </div>
                     </div>
                     <div class="row mt-4" style="text-align:left;">
