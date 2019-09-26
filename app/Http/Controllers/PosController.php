@@ -223,6 +223,21 @@ class PosController extends Controller
         return view('pages.invoice')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total);
     }
 
+    public function invoice_a4($id)
+    {
+        $orders = orders::find($id);
+        $data = DB::table('orders')->where('id', $id)->first();
+        $outlets = outlets::find($data->outlet_id);
+        $customer = Customer::find($data->customer_id);
+        $items = DB::table('order_items')->where('order_id', $id)
+        ->select(DB::raw('(order_items.qty*order_items.price) AS total'), 'order_items.*')
+        ->get();
+        $total = DB::table('order_items')->where('order_id', $id)
+        ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))
+        ->get();
+        return view('pages.invoice_a4')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total);
+    }
+
     public function orderadd(Request $request)
     {
         $error_array = array();

@@ -6,16 +6,16 @@
     }
 
     body {
-        width: 300px;
+        width: 950px;
         margin: 0 auto;
         text-align: center;
         color: #000;
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 13px;
+        font-size: 15px;
     }
 
     #wrapper {
-        min-width: 250px;
+        min-width: 900px;
         margin: 0px auto;
     }
 
@@ -202,5 +202,11 @@
     </div>
 </div>
 <script>
+    function printfunc() {
+        window.print();
+    }
+    function printcoba(){
+        window.print();
+    }
     window.onload = window.print();
 </script>

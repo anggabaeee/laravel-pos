@@ -1,7 +1,8 @@
 function addlist(i) {
+    jQuery.noConflict();
     var invqty = document.getElementById('' + i + '-qty').innerHTML;
     if (invqty == 0) {
-        alert("update stock first")
+        $('#myModal7').modal('show');
     } else {
         var length = $('[id^=' + i + '-row]').length
         lengthval = parseInt(length);
@@ -272,31 +273,44 @@ function PaidAmount(val) {
 }
 
 $(document).ready(function () {
+    jQuery.noConflict();
     $("#myBtn5").click(function () {
-        $('#form_output').html('');
-        var totalAmount = document.getElementById('grandtotal').innerHTML;
-        var totalItems = document.getElementById('totalqty').innerHTML;
-        document.getElementById('total_amount').innerHTML = totalAmount;
-        document.getElementById('total_items').innerHTML = totalItems;
-        document.getElementById('ttl_amount').value = totalAmount;
-        document.getElementById('ttl_item').value = totalItems;
-
-        var paid = document.getElementById('paidamount').value;
-        if (paid == "") {
-            paid = 0.00;
+        row_length = document.getElementById('row_length').value;
+        if (row_length < 1) {
+            $('#myModal8').modal('show');
         } else {
-            var returnchange = parseFloat(paid) - parseFloat(totalAmount);
-            document.getElementById('return_change').innerHTML = returnchange;
-            document.getElementById('returninput').value = returnchange;
-            if (returnchange < 0) {
-                document.getElementById('ajaxsubmit').hidden = true
+            $('#Modal5').modal('show');
+            $('#form_output').html('');
+            var totalAmount = document.getElementById('grandtotal').innerHTML;
+            var totalItems = document.getElementById('totalqty').innerHTML;
+            document.getElementById('total_amount').innerHTML = totalAmount;
+            document.getElementById('total_items').innerHTML = totalItems;
+            document.getElementById('ttl_amount').value = totalAmount;
+            document.getElementById('ttl_item').value = totalItems;
+
+            var paid = document.getElementById('paidamount').value;
+            if (paid == "") {
+                paid = 0.00;
             } else {
-                document.getElementById('ajaxsubmit').hidden = false
+                var returnchange = parseFloat(paid) - parseFloat(totalAmount);
+                document.getElementById('return_change').innerHTML = returnchange;
+                document.getElementById('returninput').value = returnchange;
+                if (returnchange < 0) {
+                    document.getElementById('ajaxsubmit').hidden = true
+                } else {
+                    document.getElementById('ajaxsubmit').hidden = false
+                }
             }
         }
     });
     $("#myBtn4").click(function () {
         $("#myModal4").modal();
+    });
+    $("#mybtncancel").click(function () {
+        var rowlength = document.getElementById('row_length').value;
+        for (var i = 0; i < rowlength; i++) {
+            document.getElementById('' + i + '-row').remove();
+        }
     });
 });
 
@@ -311,14 +325,22 @@ $(document).ready(function () {
         $.ajax({
             type: 'get',
             url: "{{url('/posadd/addorder')}}",
-            data: {'customer': $('#customer').val(), 'outlet_id': $('#outlet_id').val(), 'outlet_id': $('#outlet_id').val(), 'ttl_amount': $('#ttl_amount').val(), 'ttl_item': $('#ttl_item').val(), 'payment_method': $('#payment_method').val(), 'paidamount': $('#paidamount').val(), },
+            data: {
+                'customer': $('#customer').val(),
+                'outlet_id': $('#outlet_id').val(),
+                'outlet_id': $('#outlet_id').val(),
+                'ttl_amount': $('#ttl_amount').val(),
+                'ttl_item': $('#ttl_item').val(),
+                'payment_method': $('#payment_method').val(),
+                'paidamount': $('#paidamount').val(),
+            },
             dataType: 'json',
             success: function (data) {
-                   alert(data);
-                    $('#Form1')[0].reset();
-                    $('.row_list').remove();
+                alert(data);
+                $('#Form1')[0].reset();
+                $('.row_list').remove();
             }
         });
-        
+
     });
 });
