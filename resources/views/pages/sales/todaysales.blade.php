@@ -46,7 +46,6 @@
                             <tr class="table">
                                 <th>date</th>
                                 <th>sale Id</th>
-                                <th >Type</th>
                                 <th >outlets</th>
                                 <th >Customer</th>
                                 <th >Item</th>
@@ -57,9 +56,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @if(!$sales)
                             <tr style="text-align: center;">
                             <td colspan="10" class="dataTables_empty">No data available in table</td>
                             </tr>
+                            @else
+                            @foreach($sales as $s)
+                            <tr>
+                                <td>{{$s->date}}</td>
+                                <td>{{$s->id}}</td>
+                                <td>{{$s->outlet_id}}</td>
+                                <td>{{$s->payment_method_name}}</td>
+                                <td>{{$s->customer_name}}</td>
+                                <td>{{$s->subtotal}}</td>
+                                <td>{{$s->tax}}</td>
+                                <td>{{$s->grandtotal}}</td>
+                            </tr>
+                            @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

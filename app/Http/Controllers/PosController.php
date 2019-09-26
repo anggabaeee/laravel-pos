@@ -238,29 +238,6 @@ class PosController extends Controller
         return view('pages.invoice_a4')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total);
     }
 
-    public function orderadd(Request $request)
-    {
-        $error_array = array();
-        $success_output = '';
-        if ($validation->fails()){
-            foreach($validation->messages()->getMessages() as $field_name => $messages)
-            {
-                $error_array[] = $messages;
-            }
-        }
-        else
-        {
-           
-
-                $success_output = '<div class="alert alert-success">Data Inserted</div>';
-        }
-        $output = array(
-            'error'     =>  $error_array,
-            'success'   =>  $success_output
-        );
-        echo json_encode($output);
-    }
-
     public function pnl(){
         return view('pages.profitnloss');
     }
@@ -433,9 +410,11 @@ class PosController extends Controller
     }
 
     public function todaysales(){
-        return view('pages.sales.todaysales');
+        $sales = DB::table('orders')->whereRaw("DATE(orders.ordered_datetime) = curdate()")
+        ->select('orders.*', DB::raw('DATE(orders.ordered_datetime) as date'))
+        ->get();
+        return view('pages.sales.todaysales')->with('sales', $sales);
     }
-
 
     //report
     public function salesreports(){

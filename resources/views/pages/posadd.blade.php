@@ -393,8 +393,8 @@
                     <div class="row">
                         <div class="d-flex col-12">
                             <div class="ml-auto">
-                                <input type="submit" name="addcust" class="btn btn-success py-1" value="Add Customer"
-                                    id="myBtn6" data-toggle="modal" data-target="#myModal6">
+                                <button name="addcust" class="btn btn-success py-1" value="Add Customer"
+                                    id="myBtn6" data-toggle="modal" data-target="#myModal6">Add Customer</button>
                             </div>
                         </div>
                     </div>

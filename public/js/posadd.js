@@ -310,6 +310,8 @@ $(document).ready(function () {
         var rowlength = document.getElementById('row_length').value;
         for (var i = 0; i < rowlength; i++) {
             document.getElementById('' + i + '-row').remove();
+            document.getElementById('discount').value = "";
+            total();
         }
     });
 });
@@ -319,28 +321,5 @@ $(document).ready(function () {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    });
-    $("#ajaxsubmit").click(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'get',
-            url: "{{url('/posadd/addorder')}}",
-            data: {
-                'customer': $('#customer').val(),
-                'outlet_id': $('#outlet_id').val(),
-                'outlet_id': $('#outlet_id').val(),
-                'ttl_amount': $('#ttl_amount').val(),
-                'ttl_item': $('#ttl_item').val(),
-                'payment_method': $('#payment_method').val(),
-                'paidamount': $('#paidamount').val(),
-            },
-            dataType: 'json',
-            success: function (data) {
-                alert(data);
-                $('#Form1')[0].reset();
-                $('.row_list').remove();
-            }
-        });
-
     });
 });
