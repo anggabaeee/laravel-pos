@@ -11,7 +11,7 @@
 <link href="{{ asset('css/sidebar-customer.css') }}" rel="stylesheet">
 <link rel="shortcut icon" href="{{ asset('img/logo.jpg')}}" />
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <title>POS - Multi Outlets</title>
 
