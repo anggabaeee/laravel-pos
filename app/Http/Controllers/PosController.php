@@ -38,11 +38,7 @@ class PosController extends Controller
         return view('tambah.addCustomer');    
     }
     public function addCustomerstore(Request $request){
-        $this->validate($request,[
-            'fullname' => 'required',
-            'email' => 'required',
-            'mobile' => 'required'
-        ]);
+
         customer::create([
             'fullname' => $request->fullname,
             'email' => $request->email,
@@ -52,11 +48,6 @@ class PosController extends Controller
     }
 
     public function addCustomerposstore(Request $request){
-        $this->validate($request,[
-            'fullname' => 'required',
-            'email' => 'required',
-            'mobile' => 'required'
-        ]);
         customer::create([
             'fullname' => $request->fullname,
             'email' => $request->email,

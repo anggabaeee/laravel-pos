@@ -10,6 +10,8 @@
 <link href="{{ asset('css/icono.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/sidebar-customer.css') }}" rel="stylesheet">
 <link rel="shortcut icon" href="{{ asset('img/logo.jpg')}}" />
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
 
 
 <title>POS - Multi Outlets</title>
