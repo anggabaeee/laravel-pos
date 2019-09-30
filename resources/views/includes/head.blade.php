@@ -10,7 +10,7 @@
 <link href="{{ asset('css/icono.min.css') }}" rel="stylesheet">
 <link href="{{ asset('css/sidebar-customer.css') }}" rel="stylesheet">
 <link rel="shortcut icon" href="{{ asset('img/logo.jpg')}}" />
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 <title>POS - Multi Outlets</title>
 

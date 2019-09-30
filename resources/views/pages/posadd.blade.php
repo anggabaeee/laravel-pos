@@ -98,9 +98,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 mt-2 ml-3"><input type="hidden" name="row_length" id="row_length"><input
-                                type="hidden" name="tax" id="tax" value="7">
-                            <div class="row isitable" id="isitable" style="margin-top: 5px"></div>
+                        <div class="col-12 mt-2 ml-3">
+                            <input type="hidden" name="row_length" id="row_length">
+                            <input type="hidden" name="tax" id="tax" value="7">
+                            <div class="row isitable" id="isitable" style="margin-top: 5px">
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -146,7 +148,8 @@
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="col-4"><button type="button" id="mybtncancel" class="btn btn-danger col-sm-12">Cancel</button></div>
+                        <div class="col-4"><button type="button" id="mybtncancel"
+                                class="btn btn-danger col-sm-12">Cancel</button></div>
                         <div class="col-4"><button type="button" class="btn btn-primary col-sm-12" data-toggle="modal"
                                 data-target="#myModal3" id="myBtn3">Hold</button></div>
                         <div class="col-4">
@@ -175,7 +178,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="tablepilihan border">
-                            @php $n=0; $a=0; $b=0; $c=0; $d=0; $e=0;@endphp
+                                @php $n=0; $a=0; $b=0; $c=0; $d=0; $e=0;@endphp
                                 <div class="row">@foreach ($product as $p) <div class="col-md-2 stock ml-4 mt-3">
                                         <div class="mt-1"><a onclick="addlist('{{$n++}}')" id="addlist11"><img
                                                     height="50px" class="img-thumbnail"
@@ -393,8 +396,8 @@
                     <div class="row">
                         <div class="d-flex col-12">
                             <div class="ml-auto">
-                                <button name="addcust" class="btn btn-success py-1" value="Add Customer"
-                                    id="myBtn6" data-toggle="modal" data-target="#myModal6">Add Customer</button>
+                                <button name="addcust" class="btn btn-success py-1" value="Add Customer" id="myBtn6"
+                                    data-toggle="modal" data-target="#myModal6">Add Customer</button>
                             </div>
                         </div>
                     </div>

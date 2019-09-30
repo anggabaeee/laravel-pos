@@ -274,6 +274,10 @@ function PaidAmount(val) {
 
 $(document).ready(function () {
     jQuery.noConflict();
+    $("#mybtncancel").click(function () {
+        $("#isitable").empty();
+        total();
+    });
     $("#myBtn5").click(function () {
         row_length = document.getElementById('row_length').value;
         if (row_length < 1) {
@@ -305,14 +309,6 @@ $(document).ready(function () {
     });
     $("#myBtn4").click(function () {
         $("#myModal4").modal();
-    });
-    $("#mybtncancel").click(function () {
-        var rowlength = document.getElementById('row_length').value;
-        for (var i = 0; i < rowlength; i++) {
-            document.getElementById('' + i + '-row').remove();
-            document.getElementById('discount').value = "";
-            total();
-        }
     });
 });
 
