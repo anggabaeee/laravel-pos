@@ -358,7 +358,8 @@
             </div>
         </div>
     </div>
-    </div>
+</form>
+<form>
     <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -372,7 +373,7 @@
                             <p>Customer Name</p>
                         </div>
                         <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" name="fullname">
+                            <input type="text" class="form-control col-sm-12" name="fullname" id="customername">
                         </div>
                     </div>
                     <div class="row">
@@ -380,7 +381,8 @@
                             <p>Customer Email</p>
                         </div>
                         <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" name="email" type="email">
+                            <input type="text" class="form-control col-sm-12" name="email" type="email"
+                                id="customeremail">
                         </div>
                     </div>
                     <div class="row">
@@ -388,7 +390,7 @@
                             <p>Customer Mobile</p>
                         </div>
                         <div class="col-7">
-                            <input name="mobile" type="text" class="form-control col-sm-12">
+                            <input name="mobile" type="text" class="form-control col-sm-12" id="customernumber">
                         </div>
                     </div>
                 </div>
@@ -396,8 +398,8 @@
                     <div class="row">
                         <div class="d-flex col-12">
                             <div class="ml-auto">
-                                <button name="addcust" class="btn btn-success py-1" value="Add Customer" id="myBtn6"
-                                    data-toggle="modal" data-target="#myModal6">Add Customer</button>
+                                <input type="button" name="addcust" class="btn btn-success py-1" value="Add Customer"
+                                    id="btnAdd">
                             </div>
                         </div>
                     </div>
@@ -405,57 +407,81 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModal6Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #373942;">
-                <div class="modal-header">
-                    <h3 class="modal-title" style="color:white;">Add Customer</h3>
-                </div>
-                <div class="modal-body" style="background-color:white;">
-                    <h3 style="text-align:center; color:green;">Successfully Added New Customer</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModal7Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="background: white; border-radius: 12px;">
-                    <div class="row">
-                        <div class="col-md-12"
-                            style="text-align: center; font-size: 25px; padding-top: 20px; padding-bottom: 20px; color: #c72a25;">
-                            Out of Stock! <br>
-                            Please update inventory OR make Purchase Order to Supplier! </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModal8Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="background: white; border-radius: 12px;">
-                    <div class="row">
-                        <div class="col-md-12"
-                            style="text-align: center; font-size: 25px; padding-top: 20px; padding-bottom: 20px; color: #090;">
-                            Please add product first to make a payment!
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </form>
+<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModal6Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #373942;">
+            <div class="modal-header">
+                <h3 class="modal-title" style="color:white;">Add Customer</h3>
+            </div>
+            <div class="modal-body" style="background-color:white;">
+                <h3 style="text-align:center; color:green;">Successfully Added New Customer</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModal7Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body" style="background: white; border-radius: 12px;">
+                <div class="row">
+                    <div class="col-md-12"
+                        style="text-align: center; font-size: 25px; padding-top: 20px; padding-bottom: 20px; color: #c72a25;">
+                        Out of Stock! <br>
+                        Please update inventory OR make Purchase Order to Supplier! </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModal8Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body" style="background: white; border-radius: 12px;">
+                <div class="row">
+                    <div class="col-md-12"
+                        style="text-align: center; font-size: 25px; padding-top: 20px; padding-bottom: 20px; color: #090;">
+                        Please add product first to make a payment!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="{{ asset('js/posadd.js') }}"></script>
 <script>
     var d = new Date();
     var a = d.getDate() + "/";
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
+
+    $(document).ready(function () {
+        $('#btnAdd').click(function () {
+            var fulname = $('#customername').val();
+            var email = $('#customeremail').val();
+            var mobile = $('#customernumber').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '/addCustomerposstore',
+                type: 'post',
+                data: {
+                    fullname: fulname,
+                    email: email,
+                    mobile: mobile
+                },
+                complete:function(){
+                    $('#myModal4').modal('hide');
+                    $('#myModal6').modal('show');
+                }
+            });
+        });
+    });
 
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
