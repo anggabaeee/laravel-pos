@@ -310,6 +310,66 @@ $(document).ready(function () {
     $("#myBtn4").click(function () {
         $("#myModal4").modal();
     });
+    $("#myBtn1").click(function () {
+        $("#myModal1").modal('show');
+        var outlets = $('#outlet_id').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '/todaysale',
+            type: 'get',
+            data: {
+                outlets: outlets
+            },
+            success:function(data){
+                $.each(data, function(i, value){
+                    if(value.cash == null){
+                        value.cash = "0.00";
+                    }
+                    if(value.master_card == null){
+                        value.master_card = "0.00";
+                    }
+                    if(value.nett == null){
+                        value.nett = "0.00";
+                    }
+                    if(value.visa == null){
+                        value.visa = "0.00";
+                    }
+                    if(value.cheque == null){
+                        value.cheque = "0.00";
+                    }
+                    $('#divcash').empty();
+                    $('#divnett').empty();
+                    $('#divvisa').empty();
+                    $('#divmaster').empty();
+                    $('#divcheq').empty();
+                    $('#divcash').append($("<label/>",{
+                        text : value.cash
+                    })).append($);
+                    $('#divnett').append($("<label/>",{
+                        text : value.nett
+                    })).append($);
+                    $('#divvisa').append($("<label/>",{
+                        text : value.visa
+                    })).append($);
+                    $('#divmaster').append($("<label/>",{
+                        text : value.master_card
+                    })).append($);
+                    $('#divcheq').append($("<label/>",{
+                        text : value.cheque
+                    })).append($);
+                    
+                });
+            }
+        });
+        // $.get("/todaysale/{{$outlets->id}}",function(data){
+        //     console.log(data)
+        // });
+    });
 });
 
 $(document).ready(function () {

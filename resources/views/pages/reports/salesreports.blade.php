@@ -1,7 +1,7 @@
 @extends('layouts.default-sidebar')
 @section('content')
 <style>
-    #display{
+    #display {
         display: none;
     }
 
@@ -14,46 +14,43 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Outlets</label>
-                        <select class="form-control" type="text" required>
+                        <select id="outlets" class="form-control" type="text" required>
                             <option value="">Choose Outlets</option>
                             @foreach ($outlets as $p)
-                                    <option value="{{$p->id}}">{{$p->name_outlet}}</option>
-                                    @endforeach
+                            <option value="{{$p->id}}">{{$p->name_outlet}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Paid By</label>
-                        <select name="paid" class="form-control" required>
+                        <select id="paid" class="form-control" required>
                             <option value="">Choose Paid By</option>
-                            <option value="-">All</option>
-                            <option value="1">Cash </option>
-                            <option value="5"> Cheque </option>
-                            <option value="6"> Debit </option>
-                            <option value="7">Gift Card </option>
-                            <option value="4">Master Card </option>
-                            <option value="2">Nett </option>
-                            <option value="3">VISA </option>
+                            <option value="0">All</option>
+                            @foreach($payment as $p)
+                            <option value="{{$p->id}}">{{$p->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="">Start Date</label>
-                        <input class="form-control datepicker" type="text">
+                        <input id="startdate" class="form-control datepicker" type="text">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="">End Date</label>
-                        <input class="form-control datepicker" type="text">
+                        <input id="enddate" class="form-control datepicker" type="text">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="">&nbsp</label><br>
-                        <input type="submit" class="btn btn-primary" style="width: 100%;" id="btnreport" value="Get Report">
+                        <input type="submit" class="btn btn-primary" style="width: 100%;" id="btnreport"
+                            value="Get Report">
                     </div>
                 </div>
             </div>
@@ -64,66 +61,76 @@
                     </div>
                 </div>
                 <br>
-                <div class="d-flex">
-                    <div class="mr-auto bd-highlight">
-                        <label> Show <select type="text">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                                <option value="500">500</option>
-                                <option value="1000">1000</option>
-                            </select> Enteris </label>
-                    </div>
-                    <div class="ml-auto bd-highlight">
-                        <label>Search: <input type="text" class="" placeholder="" aria-controls="example"> </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr class="table">
-                                    <th>date</th>
-                                    <th>sale Id</th>
-                                    <th>Type</th>
-                                    <th>outlets</th>
-                                    <th>Customer</th>
-                                    <th>Item</th>
-                                    <th>Sub Totals</th>
-                                    <th>Tax</th>
-                                    <th>Grand Total</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="text-align: center;">
-                                    <td colspan="10" class="dataTables_empty">No data available in table</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6" style="float: left; padding-top: 10px;">
-                        Showing 0 to 0 of 0 entries </div>
+                <div class="table-responsive">
+                    <table class="table" id="exampel">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Sale Id</th>
+                                <th>Outlets</th>
+                                <th>Payment Method</th>
+                                <th>Sub Total(SGD)</th>
+                                <th>Tax(SGD)</th>
+                                <th>Grand Total(SGD)</th>
+                                <th>Print</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportinfo">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
-<script>
-document.getElementById("btnreport").addEventListener("click", displaytable);
-
-function displaytable() {
-    document.getElementById("display").style.display = "block";
-}
-$(function () {
-        $(".datepicker").datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true,
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true,
+            });
         });
-    });
-</script>
-</section>
-@stop
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#exampel').DataTable();
+            $("#btnreport").click(function () {
+                $("#display").css({
+                    "display": "block"
+                });
+                var outlets = $('#outlets').val();
+                var paid = $('#paid').val();
+                var start = $('#startdate').val();
+                var end = $('#enddate').val();
+                
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: '/reportsale',
+                    type: 'get',
+                    data: {
+                        outlets: outlets,
+                        paid: paid,
+                        start: start,
+                        end: end
+                    },
+                    success: function (data) {
+                        $('#reportinfo'). empty().html(data);
+                        // $.each(data, function(i, value){
+
+                        // });
+                    }
+                });
+            });
+        });
+
+    </script>
+    </section>
+    @stop

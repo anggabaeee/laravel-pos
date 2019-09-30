@@ -78,6 +78,7 @@
             <div class="col-sm-4">
                 <div class="kiri">
                     <div class="row">
+                        <input type="hidden" name="outlet_id" id="outlet_id" value="{{$outlets->id}}">
                         <div class="col-12 ">
                             <button type="button" class="btn btn-primary col-12 py-0" id="myBtn4" data-toggle="modal"
                                 data-target="#myModal4"><i class="icono-plus"></i>add Customer</button>
@@ -213,19 +214,19 @@
                 <div class="modal-body" style="background-color:white;">
                     <div class="container mt-2">
                         <div class="row isimodel" style="color: #5f6468; background-color: #ededed;">
-                            <div class="col-sm-12 mt-3">Cash : 0.00 </div>
+                            <div class="col-sm-12 mt-3">Cash : <label id="divcash"></label></div>
                         </div>
                         <div class="row isimodel">
-                            <div class="col-sm-12 mt-3">Nett : 0.00 </div>
+                            <div class="col-sm-12 mt-3">Nett : <label id="divnett"></label></div>
                         </div>
                         <div class="row isimodel" style="background-color: #ededed; color: #5f6468;">
-                            <div class="col-sm-12 mt-3">VISA : 0.00 </div>
+                            <div class="col-sm-12 mt-3">VISA : <label id="divvisa"></label></div>
                         </div>
                         <div class="row isimodel" style="color: #5f6468;">
-                            <div class="col-sm-12 mt-3">MASTER : 0.00 </div>
+                            <div class="col-sm-12 mt-3">MASTER : <label  id="divmaster"></label></div>
                         </div>
                         <div class="row isimodel" style="background-color: #005b8a; color:white;">
-                            <div class="col-sm-12 mt-3">Cheque : 0.00 </div>
+                            <div class="col-sm-12 mt-3">Cheque : <label id="divcheq"></label></div>
                         </div>
                     </div>
                 </div>
@@ -478,6 +479,9 @@
                 complete:function(){
                     $('#myModal4').modal('hide');
                     $('#myModal6').modal('show');
+                    $('#customername').val('');
+                    $('#customeremail').val('');
+                    $('#customernumber').val('');
                 }
             });
         });

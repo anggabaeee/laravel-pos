@@ -124,6 +124,7 @@ class PosController extends Controller
         }
         
     }  
+
     public function posadd($id){
         $inventory = DB::table('inventory')
         ->select('product_code', 'qty')
@@ -138,6 +139,13 @@ class PosController extends Controller
         $payment = payment_method::all();
         return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer,]);    
     }   
+
+    public function getsaletoday(Request $request)
+    {
+        $outlet = $request->outlets;
+        $todaysale = DB::select("SELECT t1.cash, t2.nett, t3.visa, t4.master_card, t5.cheque FROM (SELECT Sum(orders.grandtotal) AS cash FROM orders WHERE orders.payment_method = 1 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t1,(SELECT Sum(orders.grandtotal) AS nett FROM orders WHERE orders.payment_method = 2 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t2, (SELECT Sum(orders.grandtotal) AS visa FROM orders WHERE orders.payment_method = 3 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t3, (SELECT Sum(orders.grandtotal) AS master_card FROM orders WHERE orders.payment_method = 4 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t4, (SELECT Sum(orders.grandtotal) AS cheque FROM orders WHERE orders.payment_method = 5 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t5");
+        return response($todaysale);
+    }
 
     public function addorder($id, Request $request){
         $validation = Validator::make($request->all(), [
@@ -410,11 +418,27 @@ class PosController extends Controller
     //report
     public function salesreports(){
         $outlets = DB::table('outlets')->get();
-        return view('pages.reports.salesreports',['outlets'=>$outlets]);
+        $payment = payment_method::all();
+        return view('pages.reports.salesreports',['outlets'=>$outlets, 'payment'=>$payment]);
     }
 
     public function soldbyproduct(){
         return view('pages.reports.soldbyproduct');
+    }
+
+    public function reportsale(Request $request)
+    {
+        $outlet = $request->outlets;
+        $paid = $request->paid;
+        $start = $request->start;
+        $end = $request->end;
+
+        $reportsale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+        ->where('outlet_id', '=', $outlet)
+        ->where('payment_method', '=', $paid)
+        ->select('orders.*', DB::raw('DATE(ordered_datetime) as date'))
+        ->get();
+        return view('pages.reports.reportajax', compact('reportsale'));
     }
 
     // product category

@@ -41,6 +41,7 @@ Route::get('/openedbil', 'PosController@openedbil')->middleware('ceklogin' , 're
 
 //reports
 Route::get('/salesreports', 'PosController@salesreports')->middleware('ceklogin' , 'response');
+Route::get('/reportsale', 'PosController@reportsale');
 Route::get('/soldbyproduct', 'PosController@soldbyproduct')->middleware('ceklogin' , 'response');
 
 //expenses
@@ -70,6 +71,7 @@ Route::post('/addCustomerposstore','PosController@addCustomerposstore')->middlew
 Route::post('/posadd/orderadd/{id}', 'PosController@addorder');
 Route::get('/view_invoice/{id}', 'PosController@invoice');
 Route::get('/view_invoice_a4/{id}', 'PosController@invoice_a4');
+Route::get('/todaysale', 'PosController@getsaletoday');
 
 // Return Order
 Route::get('/returnorder/CreateReturn','PosController@createreturn')->middleware('ceklogin' , 'response');
