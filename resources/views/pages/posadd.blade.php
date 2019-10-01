@@ -151,7 +151,7 @@
                         <div class="col-4"><button type="button" class="btn btn-primary col-sm-12" data-toggle="modal"
                                 data-target="#myModal3" id="myBtn3">Hold</button></div>
                         <div class="col-4">
-                            <button type="button" id="myBtn5" class="btn btn-success col-sm-12"
+                            <button type="button" id="myBtn5" class="btn btn-success col-sm-12" 
                                 data-toggle="modal">Payment
                             </button>
                         </div>
@@ -241,10 +241,11 @@
                         <div class="col-6 mt-1">
                             <p>Customer </p>
                         </div>
-                        <div class="col-6"><select class="form-control" name="customer" id="customer" type="text"
+                        <div class="col-6">
+                        <select class="form-control" name="customer" id="customerpayment" type="text"
                                 required>
                                 @foreach ($customer as $c)
-                                <option value="{{$c->id}}"> {{$c->fullname}}</option>
+                                <option value="" id="option"> {{$c->fullname}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -380,7 +381,7 @@
                         </div>
                         <div class="col-7">
                             <input type="text" class="form-control col-sm-12" name="email" type="email"
-                                id="customeremail">
+                                id="customeremail" require>
                         </div>
                     </div>
                     <div class="row">
@@ -453,31 +454,59 @@
     var a = d.getDate() + "/";
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
-
     $(document).ready(function () {
         $('#btnAdd').click(function () {
             var fulname = $('#customername').val();
             var email = $('#customeremail').val();
             var mobile = $('#customernumber').val();
+            if (fulname == "", email == "", mobile == "") {
+      alert("Please Fill All Required Field");
+    }
+    else{
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/addCustomerposstore',
+            type: 'post',
+            data: {
+                fullname: fulname,
+                email: email,
+                mobile: mobile
+            },
+            complete:function(){
+                $('#myModal4').modal('hide');
+                $('#myModal6').modal('show');
+                $('#customername').val('');
+                $('#customeremail').val('');
+                $('#customernumber').val('');
+            }
+        });
+    }
+        });
+    });
+
+</script>
+<script>
+ $(document).ready(function () {
+        $('#myBtn5').click(function () {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $.ajax({
-                url: '/addCustomerposstore',
-                type: 'post',
-                data: {
-                    fullname: fulname,
-                    email: email,
-                    mobile: mobile
-                },
-                complete:function(){
-                    $('#myModal4').modal('hide');
-                    $('#myModal6').modal('show');
+            url: '/load',
+            type: "get",
+            serverSide: true,
+            processing: true,
+                complete:function(  ){
+                  
+
                 }
-            });
+        });
         });
     });
 
