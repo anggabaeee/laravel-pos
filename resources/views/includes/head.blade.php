@@ -13,7 +13,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 
 
-
 <title>POS - Multi Outlets</title>
 
 <body>
