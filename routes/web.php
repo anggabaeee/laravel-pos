@@ -72,6 +72,7 @@ Route::post('/posadd/orderadd/{id}', 'PosController@addorder');
 Route::get('/view_invoice/{id}', 'PosController@invoice');
 Route::get('/view_invoice_a4/{id}', 'PosController@invoice_a4');
 Route::get('/todaysale', 'PosController@getsaletoday');
+Route::get('/getcustomer', 'PosController@getcustomer');
 
 // Return Order
 Route::get('/returnorder/CreateReturn','PosController@createreturn')->middleware('ceklogin' , 'response');

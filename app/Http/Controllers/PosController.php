@@ -147,6 +147,12 @@ class PosController extends Controller
         return response($todaysale);
     }
 
+    public function getcustomer()
+    {
+        $customer = Customer::all();
+        return response($customer);
+    }
+
     public function addorder($id, Request $request){
         $validation = Validator::make($request->all(), [
             'customer' => 'required',

@@ -322,9 +322,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/todaysale',
             type: 'get',
-            data: {
-                outlets: outlets
-            },
+            data: {outlets: outlets},
             success:function(data){
                 $.each(data, function(i, value){
                     if(value.cash == null){
@@ -370,6 +368,20 @@ $(document).ready(function () {
         //     console.log(data)
         // });
     });
+    $("#myBtn3").click(function () {
+        $("#myModal3").modal('show');
+        $.get('/getcustomer', function(data){
+            $('#customeroption').empty();
+            $.each(data, function(i, value){
+                $('#customeroption').append($("<option/>",{
+                    text : value.fullname,
+                    value : value.id
+                })).append($);
+               
+            });
+        })
+    });
+
 });
 
 $(document).ready(function () {

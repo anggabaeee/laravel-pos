@@ -152,7 +152,7 @@
                         <div class="col-4"><button type="button" id="mybtncancel"
                                 class="btn btn-danger col-sm-12">Cancel</button></div>
                         <div class="col-4"><button type="button" class="btn btn-primary col-sm-12" data-toggle="modal"
-                                data-target="#myModal3" id="myBtn3">Hold</button></div>
+                                id="myBtn3">Hold</button></div>
                         <div class="col-4">
                             <button type="button" id="myBtn5" class="btn btn-success col-sm-12"
                                 data-toggle="modal">Payment
@@ -223,7 +223,7 @@
                             <div class="col-sm-12 mt-3">VISA : <label id="divvisa"></label></div>
                         </div>
                         <div class="row isimodel" style="color: #5f6468;">
-                            <div class="col-sm-12 mt-3">MASTER : <label  id="divmaster"></label></div>
+                            <div class="col-sm-12 mt-3">MASTER : <label id="divmaster"></label></div>
                         </div>
                         <div class="row isimodel" style="background-color: #005b8a; color:white;">
                             <div class="col-sm-12 mt-3">Cheque : <label id="divcheq"></label></div>
@@ -335,8 +335,8 @@
                             <p>Customers</p>
                         </div>
                         <div class="col-7">
-                            <select class="form-control" type="text">
-                                <option value="10">10</option>
+                            <select id="customeroption" class="form-control" type="text">
+                                <option disabled selected>choose</option>
                             </select>
                         </div>
                     </div>
@@ -476,7 +476,7 @@
                     email: email,
                     mobile: mobile
                 },
-                complete:function(){
+                complete: function () {
                     $('#myModal4').modal('hide');
                     $('#myModal6').modal('show');
                     $('#customername').val('');
