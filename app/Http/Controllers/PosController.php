@@ -136,8 +136,14 @@ class PosController extends Controller
         ->get();
         $outlets = outlets::find($id);
         $customer = Customer::all();
+        $load = Customer::select('id')->get();
         $payment = payment_method::all();
-        return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer,]);    
+        return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer, 'load'=>$load ]);    
+    }   
+
+        public function load(){
+        $customer = Customer::all();
+        return view('pages.posadd',['customer'=>$customer, ]);    
     }   
 
     public function getsaletoday(Request $request)
