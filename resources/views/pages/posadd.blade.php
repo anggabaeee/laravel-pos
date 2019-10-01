@@ -247,9 +247,6 @@
                         <div class="col-6">
                         <select class="form-control" name="customer" id="customerpayment" type="text"
                                 required>
-                                @foreach ($customer as $c)
-                                <option value="" id="option"> {{$c->fullname}}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -495,30 +492,18 @@
 <script>
  $(document).ready(function () {
         $('#myBtn5').click(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+        $.get('/getcustomer', function(data){
+            $('#customerpayment').empty();
+            $.each(data, function(i, value){
+                $('#customerpayment').append($("<option/>",{
+                    text : value.fullname,
+                    value : value.id
+                })).append($);
+               
             });
-            $.ajax({
-                url: '/addCustomerposstore',
-                type: 'post',
-                data: {
-                    fullname: fulname,
-                    email: email,
-                    mobile: mobile
-                },
-                complete: function () {
-                    $('#myModal4').modal('hide');
-                    $('#myModal6').modal('show');
-                    $('#customername').val('');
-                    $('#customeremail').val('');
-                    $('#customernumber').val('');
-                }
-        });
         });
     });
-
+});
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
