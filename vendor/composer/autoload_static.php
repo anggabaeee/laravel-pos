@@ -459,6 +459,8 @@ class ComposerStaticInitbdce83d62a30c72a4aeb006a83b1a87d
         'App\\purchase_order_items' => __DIR__ . '/../..' . '/app/purchase_order_items.php',
         'App\\site_setting' => __DIR__ . '/../..' . '/app/site_setting.php',
         'App\\supplier' => __DIR__ . '/../..' . '/app/supplier.php',
+        'App\\suspend' => __DIR__ . '/../..' . '/app/suspend.php',
+        'App\\suspend_item' => __DIR__ . '/../..' . '/app/suspend_item.php',
         'App\\users' => __DIR__ . '/../..' . '/app/users.php',
         'Barryvdh\\DomPDF\\Facade' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',

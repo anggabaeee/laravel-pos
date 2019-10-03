@@ -58,6 +58,8 @@ return array(
     'App\\purchase_order_items' => $baseDir . '/app/purchase_order_items.php',
     'App\\site_setting' => $baseDir . '/app/site_setting.php',
     'App\\supplier' => $baseDir . '/app/supplier.php',
+    'App\\suspend' => $baseDir . '/app/suspend.php',
+    'App\\suspend_item' => $baseDir . '/app/suspend_item.php',
     'App\\users' => $baseDir . '/app/users.php',
     'Barryvdh\\DomPDF\\Facade' => $vendorDir . '/barryvdh/laravel-dompdf/src/Facade.php',
     'Barryvdh\\DomPDF\\PDF' => $vendorDir . '/barryvdh/laravel-dompdf/src/PDF.php',
