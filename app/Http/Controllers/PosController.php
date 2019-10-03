@@ -143,7 +143,7 @@ class PosController extends Controller
 
         public function load(){
         $customer = Customer::all();
-        return view('pages.posadd',['customer'=>$customer, ]);    
+         return response($customer);
     }   
 
     public function getsaletoday(Request $request)

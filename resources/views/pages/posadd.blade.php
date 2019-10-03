@@ -154,7 +154,7 @@
                         <div class="col-4"><button type="button" class="btn btn-primary col-sm-12" data-toggle="modal"
                                 id="myBtn3">Hold</button></div>
                         <div class="col-4">
-                            <button type="button" id="myBtn5" class="btn btn-success col-sm-12" 
+                            <button type="button" id="myBtn5" class="btn btn-success col-sm-12"
                                 data-toggle="modal">Payment
                             </button>
                         </div>
@@ -245,8 +245,7 @@
                             <p>Customer </p>
                         </div>
                         <div class="col-6">
-                        <select class="form-control" name="customer" id="customerpayment" type="text"
-                                required>
+                            <select class="form-control" name="customer" id="customerpayment" type="text" required>
                             </select>
                         </div>
                     </div>
@@ -460,50 +459,53 @@
             var email = $('#customeremail').val();
             var mobile = $('#customernumber').val();
             if (fulname == "", email == "", mobile == "") {
-      alert("Please Fill All Required Field");
-    }
-    else{
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                alert("Please Fill All Required Field");
+            } else {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: '/addCustomerposstore',
+                    type: 'post',
+                    data: {
+                        fullname: fulname,
+                        email: email,
+                        mobile: mobile
+                    },
+                    complete: function () {
+                        $('#myModal4').modal('hide');
+                        $('#myModal6').modal('show');
+                        $('#customername').val('');
+                        $('#customeremail').val('');
+                        $('#customernumber').val('');
+                    }
+                });
             }
-        });
-        $.ajax({
-            url: '/addCustomerposstore',
-            type: 'post',
-            data: {
-                fullname: fulname,
-                email: email,
-                mobile: mobile
-            },
-            complete:function(){
-                $('#myModal4').modal('hide');
-                $('#myModal6').modal('show');
-                $('#customername').val('');
-                $('#customeremail').val('');
-                $('#customernumber').val('');
-            }
-        });
-    }
         });
     });
 
 </script>
 <script>
- $(document).ready(function () {
+    $(document).ready(function () {
         $('#myBtn5').click(function () {
-        $.get('/getcustomer', function(data){
-            $('#customerpayment').empty();
-            $.each(data, function(i, value){
-                $('#customerpayment').append($("<option/>",{
-                    text : value.fullname,
-                    value : value.id
-                })).append($);
-               
+            $.ajax({
+                url: '/load',
+                type: 'get',
+                complete: function (xhr) {
+                    // datanerespon
+                    var data = JSON.parse(xhr.responseText);
+                    // Loopinge bos
+                    data.forEach(function (post) {
+                        $("#customerpayment").append(`<option value='`+post.id+`'>`+post.fullname+`</option>`);
+                    });
+
+                }
             });
         });
     });
-});
+
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
