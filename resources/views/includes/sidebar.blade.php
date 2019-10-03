@@ -13,7 +13,7 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-lg-2 sidebar collapse show" id="sidebar-collapse"
+        <div class="col-sm-3 col-lg-2 sidebar collapse" id="sidebar-collapse"
             style="padding-left: 0px; padding-right: 0px;">
             <ul class="sidebar-ul" style="padding-left: 0px;">
                 <li class="{{ Request::is('dashboard') ? "active-link" : "" }}">
@@ -110,7 +110,8 @@
                         </div>
                     </div>
                 </li>
-                <li class="{{ Request::is('purchase_order') ? "active-link" : "" }}"><a href="/purchase_order" id="purchaseord">Purchase
+                <li class="{{ Request::is('purchase_order') ? "active-link" : "" }}"><a href="/purchase_order"
+                        id="purchaseord">Purchase
                         Order</a></li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Setting</a>
@@ -152,23 +153,28 @@
 
         </script>
 
-<script>
-$role = {{Session::get('role')}}
-if($role == "1" ){
-    document.getElementById("pnl").style.display = "none";
-    document.getElementById("excat").style.display = "none";
-    document.getElementById("prodcat").style.display = "none";
-    document.getElementById("supplier").style.display = "none";
-    document.getElementById("payment").style.display = "none";
-    document.getElementById("system").style.display = "none";
-    document.getElementById("purchaseord").style.display = "none";
-}
-if($role == "2"){
-    document.getElementById("pnl").style.display = "none";
-    document.getElementById("pnl").style.display = "none";
-    document.getElementById("supplier").style.display = "none";
-    document.getElementById("payment").style.display = "none";
-    document.getElementById("system").style.display = "none";
-    document.getElementById("prodcat").style.display = "none";
-}
-</script>
+        <script>
+            $role = {
+                {
+                    Session::get('role')
+                }
+            }
+            if ($role == "1") {
+                document.getElementById("pnl").style.display = "none";
+                document.getElementById("excat").style.display = "none";
+                document.getElementById("prodcat").style.display = "none";
+                document.getElementById("supplier").style.display = "none";
+                document.getElementById("payment").style.display = "none";
+                document.getElementById("system").style.display = "none";
+                document.getElementById("purchaseord").style.display = "none";
+            }
+            if ($role == "2") {
+                document.getElementById("pnl").style.display = "none";
+                document.getElementById("pnl").style.display = "none";
+                document.getElementById("supplier").style.display = "none";
+                document.getElementById("payment").style.display = "none";
+                document.getElementById("system").style.display = "none";
+                document.getElementById("prodcat").style.display = "none";
+            }
+
+        </script>
