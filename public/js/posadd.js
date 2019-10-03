@@ -378,17 +378,26 @@ $(document).ready(function () {
             });
         })
     });
+    $("#ad").click(function () {
+        console.log(code + name + price + cost + qty)
+        event.preventDefault();
+    });
     $('#saveBill').click(function () {
-        var code =  $('input[name="code[]"]').val();
-        var name = $('input[name="name[]"]').val();
-        var qty = $('input[name="qty[]"]').val();
-        var cost = $('input[name="cost[]"]').val();
-        var price = $('input[name="price[]"]').val();
-        code1 = JSON.stringify(code);
-        name1 = JSON.stringify(name);
-        qty1 = JSON.stringify(qty);
-        cost1 = JSON.stringify(cost);
-        price1 = JSON.stringify(price);
+        var code = $('input[name="code[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var name = $('input[name="name[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var qty = $('input[name="qty[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var cost = $('input[name="cost[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var price = $('input[name="price[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
         var totalitem = $('#totalqty').html();
         var subtotal = $('#total').html();
         var taxvalue = $('#taxvalue').val();
@@ -409,11 +418,11 @@ $(document).ready(function () {
             type: 'post',
             dataType: 'json',
             data: {
-                code: code1,
-                name: name1,
-                qty: qty1,
-                cost: cost1,
-                price: price1,
+                code: code,
+                name: name,
+                qty: qty,
+                cost: cost,
+                price: price,
                 totalitem: totalitem,
                 subtotal: subtotal,
                 taxvalue: taxvalue,
@@ -425,12 +434,8 @@ $(document).ready(function () {
                 row_length: row_length,
             },
             complete: function (data) {
-                alert(data);
-                $('#myModal6').modal('show');
+        
             },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
         });
     });
 });

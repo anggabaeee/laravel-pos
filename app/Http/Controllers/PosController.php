@@ -172,20 +172,16 @@ class PosController extends Controller
         $suspend->total_items = $request->totalitem;
         $suspend->status = 0;
         $suspend->save();
-
-        $code = json_decode($request->code);
-        $name = json_decode($request->name);
-        $cost = json_decode($request->cost);
         
         $length = $request->row_length;
-        for($i=0; $i<2; $i++){
+        for($i=0; $i<$length; $i++){
             $answer[] = [
                 'suspend_id' => $suspend->id,
-                'product_code' => $code[$i],
-                'product_name' => $name[$i],
-                'cost' => $cost[$i],
-                'price' => 0,
-                'qty' => 0,
+                'product_code' => $request->code[$i],
+                'product_name' => $request->name[$i],
+                'cost' => $request->cost[$i],
+                'price' => $request->price[$i],
+                'qty' => $request->qty[$i],
             ];
         }
         suspend_item::insert($answer);
