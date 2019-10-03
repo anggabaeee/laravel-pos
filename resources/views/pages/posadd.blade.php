@@ -275,12 +275,27 @@
                         <div class="col-6 mt-1">
                             <p>Paid By:</p>
                         </div>
-                        <div class="col-6"><select class="form-control" type="text" name="payment_method"
-                                id="payment_method" required>
-                                <option disabled selected value>choice</option>@foreach ($payment as $p) <option
-                                    value="{{$p->id}}"> {{ $p->name}}
-                                </option>@endforeach
+                        <div class="col-6">
+                        <select class="form-control" type="text" name="payment_method" id="payment_method" required>
+                                <option disabled selected value>choice</option>
+                                @foreach ($payment as $p)
+                                 <option value="{{$p->id}}"> {{ $p->name}}</option>
+                                 @endforeach
                             </select></div>
+                    </div>
+                    <div class="row" id="giftcard">
+                        <div class="col-6 mt-1">
+                            <p>Gift Card :<p>
+                        </div>
+                        <div class="col-6">
+                        <input type="text" class="form-control" required></div>
+                    </div>
+                    <div class="row" id="chequenumber">
+                        <div class="col-6 mt-1">
+                            <p>Cheque Number :<p>
+                        </div>
+                        <div class="col-6">
+                        <input type="text" class="form-control" required></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -288,6 +303,13 @@
                         </div>
                         <div class="col-6"><input type="text" id="paidamount" name="paidamount"
                                 class="form-control col-sm-12" onkeyup="PaidAmount(this.value)" required></div>
+                    </div>
+                    <div class="row" id="cardnumber">
+                        <div class="col-6 mt-1">
+                            <p>Card Number :<p>
+                        </div>
+                        <div class="col-6">
+                        <input type="text" class="form-control" required></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -315,8 +337,7 @@
                         <div class="col-5 mt-1">
                             <p>Search Opened Bill :</p>
                         </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                        <div class="col-7"><input type="text" class="form-control col-sm-12" placeholder="ref.number">
                         </div>
                     </div>
                     <div class="row" style="overflow: scroll; height: 400px; margin-top: 10px;">
@@ -333,6 +354,42 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #373942;">
+                    <h3 class="modal-title" style="color:white;">Save to Opened Bill</h3>
+                </div>
+                <div class="modal-body" style="background-color:white;">
+                    <div class="row">
+                        <div class="col-5 mt-1">
+                            <p>Customers</p>
+                        </div>
+                        <div class="col-7">
+                            <select id="customeroption" class="form-control" type="text">
+                                <option disabled selected>choose</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 mt-1">
+                            <p>Hold Bill Ref. Number</p>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:white;">
+                <div class="d-flex">
+                    <div class="ml-auto">
+                        <button type="button" class="btn btn-success py-1">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 <form>
@@ -384,50 +441,6 @@
         </div>
     </div>
 </form>
-
-<form>
-    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #373942;">
-                <div class="modal-header">
-                    <h3 class="modal-title" style="color:white;">Save to Opened Bill</h3>
-                </div>
-                <div class="modal-body" style="background-color:white;">
-                    <div class="row">
-                        <div class="col-5 mt-1">
-                            <p>Customers</p>
-                        </div>
-                        <div class="col-7">
-                            <select id="customeroption" class="form-control" type="text">
-                                <option disabled selected>choose</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5 mt-1">
-                            <p>Hold Bill Ref. Number</p>
-                        </div>
-                        <div class="col-7">
-                            <input id="ref_number" type="text" class="form-control col-sm-12" placeholder="ref.number">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer" style="background-color:white;">
-                    <div class="row">
-                        <div class="d-flex col-12">
-                            <div class="ml-auto">
-                                <input type="button" name="saveBill" class="btn btn-success py-1" value="Submit"
-                                    id="saveBill">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-
 <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModal6Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="background-color: #373942;">
@@ -471,13 +484,18 @@
 </div>
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 <script src="{{ asset('js/posadd.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
 <script>
     var d = new Date();
     var a = d.getDate() + "/";
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
     $(document).ready(function () {
-        jQuery.noConflict();
         $('#btnAdd').click(function () {
             var fulname = $('#customername').val();
             var email = $('#customeremail').val();
@@ -508,11 +526,7 @@
                 });
             }
         });
-    });
-
-</script>
-<script>
-    $(document).ready(function () {
+      
         $('#myBtn5').click(function () {
             $.ajax({
                 url: '/load',
@@ -529,6 +543,32 @@
                 }
             });
         });
+        $('#giftcard').hide();
+        $('#chequenumber').hide();
+        $('#cardnumber').hide();
+        $("#payment_method").change(function(){
+        var selected = $("#payment_method").children("option:selected").val();
+        if(selected == 3 || selected == 4){
+            $('#cardnumber').show();
+            $('#chequenumber').hide();
+            $('#giftcard').hide();
+        }
+        else if( selected == 5){
+            $('#giftcard').hide();
+            $('#cardnumber').hide();
+            $('#chequenumber').show();
+        }
+        else if( selected == 7){
+            $('#cardnumber').hide();
+            $('#chequenumber').hide();
+            $('#giftcard').show();
+        }
+        else{
+            $('#chequenumber').hide();
+             $('#cardnumber').hide(); 
+             $('#giftcard').hide();
+        }
+    });
     });
 
 </script>
