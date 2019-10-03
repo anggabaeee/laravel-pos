@@ -71,10 +71,18 @@
         border: none;
     }
 
+    #notif {
+        display: none;
+    }
+
 </style>
 <form action="/posadd/orderadd/{{$outlets->id}}" method="post">
     {{csrf_field()}}
     <div class="form mx-4">
+        <div id="notif" class="alert alert-success alert-block">
+            <i class="icono-checkCircle" style="color: #090; font-size: 11px;"></i>
+            <strong>Successfully Added to Opened Bill</strong>
+        </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="kiri">
@@ -182,15 +190,15 @@
                             <div class="tablepilihan border">
                                 @php $n=0; $a=0; $b=0; $c=0; $d=0; $e=0;@endphp
                                 <div class="row">@foreach ($product as $p) <div class="col-md-2 stock ml-4 mt-3">
-                                        <div class="mt-1"><a onclick="addlist('{{$n++}}')" id="addlist11"><img
+                                        <div class="mt-1"><a onclick="addlist('{{$p->id_product}}')" id="addlist11"><img
                                                     height="50px" class="img-thumbnail"
                                                     src="{{ url('/product_image/'.$p->thumbnail) }}">
-                                                <p id="{{$a++}}-name_product"> {{$p->name_product}}</p>
-                                                <p hidden="true" id="{{$b++}}-qty">@if ($p->qty===null) 0
+                                                <p id="{{$p->id_product}}-name_product"> {{$p->name_product}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-qty">@if ($p->qty===null) 0
                                                     @endif {{$p->qty}}</p>
-                                                <p hidden="true" id="{{$c++}}-price"> {{$p->retail_price}}</p>
-                                                <p hidden="true" id="{{$d++}}-code"> {{$p->code}}</p>
-                                                <p hidden="true" id="{{$e++}}-cost"> {{$p->purchase_price}}
+                                                <p hidden="true" id="{{$p->id_product}}-price"> {{$p->retail_price}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-code"> {{$p->code}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-cost"> {{$p->purchase_price}}
                                                 </p>
                                             </a>
                                         </div>
@@ -327,17 +335,22 @@
                     <h3 class="modal-title" style="color:white;">Opened Bill</h3>
                 </div>
                 <div class="modal-body" style="background-color:white;">
-                    <div class="row">
+                    <div class="row" style="border-bottom: 1px solid #ddd;">
                         <div class="col-5 mt-1">
                             <p>Search Opened Bill :</p>
                         </div>
                         <div class="col-7"><input type="text" class="form-control col-sm-12" placeholder="ref.number">
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer" style="background-color:white;">
-                    <div class="row">
-                        <div class="col-12 isitable"></div>
+                    <div class="row" style="overflow: scroll; height: 400px; margin-top: 10px;">
+                        <div class="col-md-5"
+                            style="background-color: #834f50; color: #FFF; margin: 7px 10px; padding-top: 10px; padding-bottom: 10px; height: 190px;">
+                            <b>Ref. Number</b> : mn <br>
+                            <b>Customer Name </b> : qwertyuiop<br>
+                            <b>Date </b> : 03-10-2019 15:09 PM<br>
+                            <b>Qty</b> : 1<br>
+                            <b>Total </b> : 1509.60
+                        </div>
                     </div>
                 </div>
             </div>
@@ -471,6 +484,7 @@
         </div>
     </div>
 </div>
+<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 <script src="{{ asset('js/posadd.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
