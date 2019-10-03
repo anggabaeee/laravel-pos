@@ -4,7 +4,7 @@
             @foreach ($site_setting as $s)
             <a class="navbar-brand" href="/dashboard">{{$s->site_name}}</a>
             @endforeach
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebar-collapse"
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#sidebar-collapse"
             aria-expanded="false">
             <span class="fa fa-bars"></span>
         </button>

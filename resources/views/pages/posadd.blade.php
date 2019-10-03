@@ -246,9 +246,6 @@
                         </div>
                         <div class="col-6">
                             <select class="form-control" name="customer" id="customerpayment" type="text" required>
-                                @foreach ($customer as $c)
-                                <option value="{{$c->id}}" id="option"> {{$c->fullname}}</option>
-                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -500,6 +497,24 @@
     });
 
 </script>
+<script>
+    $(document).ready(function () {
+        $('#myBtn5').click(function () {
+            $.ajax({
+                url: '/load',
+                type: 'get',
+                complete: function (xhr) {
+                    // datanerespon
+                    var data = JSON.parse(xhr.responseText);
+                    // Loopinge bos
+                    data.forEach(function (post) {
+                        $("#customerpayment").append(`<option value='`+post.id+`'>`+post.fullname+`</option>`);
+                    });
+
+                }
+            });
+        });
+    });
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
