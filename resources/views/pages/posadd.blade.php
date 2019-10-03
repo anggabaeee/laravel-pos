@@ -1,4 +1,5 @@
-@extends('layouts.defaultpos') @section('content')
+@extends('layouts.defaultpos') 
+@section('content')
 <style>
     .form {
         background-color: white;
@@ -268,11 +269,11 @@
                             <p>Paid By:</p>
                         </div>
                         <div class="col-6">
-                        <select class="form-control" type="text" name="payment_method" id="payment_method" required>
+                            <select class="form-control" type="text" name="payment_method" id="payment_method" required>
                                 <option disabled selected value>choice</option>
                                 @foreach ($payment as $p)
-                                 <option value="{{$p->id}}"> {{ $p->name}}</option>
-                                 @endforeach
+                                <option value="{{$p->id}}"> {{ $p->name}}</option>
+                                @endforeach
                             </select></div>
                     </div>
                     <div class="row" id="giftcard">
@@ -280,14 +281,15 @@
                             <p>Gift Card :<p>
                         </div>
                         <div class="col-6">
-                        <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control input-element" name="giftcard" id="gift" required>
+                        </div>
                     </div>
                     <div class="row" id="chequenumber">
                         <div class="col-6 mt-1">
                             <p>Cheque Number :<p>
                         </div>
                         <div class="col-6">
-                        <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control" required></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -301,7 +303,7 @@
                             <p>Card Number :<p>
                         </div>
                         <div class="col-6">
-                        <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control" required></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -477,11 +479,14 @@
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
 </script>
 <script>
+</script>
+<script>
     var d = new Date();
     var a = d.getDate() + "/";
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
     $(document).ready(function () {
+        $('.input-element').inputmask("9999 9999 9999 9999");
         $('#btnAdd').click(function () {
             var fulname = $('#customername').val();
             var email = $('#customeremail').val();
@@ -512,7 +517,7 @@
                 });
             }
         });
-      
+
         $('#myBtn5').click(function () {
             $.ajax({
                 url: '/load',
@@ -522,38 +527,37 @@
                     var data = JSON.parse(xhr.responseText);
                     // Loopinge bos
                     data.forEach(function (post) {
-                        $("#customerpayment").append(`<option value='`+post.id+`'>`+post.fullname+`</option>`);
+                        $("#customerpayment").append(`<option value='` + post.id +
+                            `'>` + post.fullname + `</option>`);
                     });
 
                 }
             });
+            $('#giftcard').hide();
+            $('#chequenumber').hide();
+            $('#cardnumber').hide();
+            $("#payment_method").change(function () {
+                var selected = $("#payment_method").children("option:selected").val();
+                if (selected == 3 || selected == 4) {
+                    $('#cardnumber').show();
+                    $('#chequenumber').hide();
+                    $('#giftcard').hide();
+                } else if (selected == 5) {
+                    $('#giftcard').hide();
+                    $('#cardnumber').hide();
+                    $('#chequenumber').show();
+                } else if (selected == 7) {
+                    $('#cardnumber').hide();
+                    $('#chequenumber').hide();
+                    $('#giftcard').show();
+                } else {
+                    $('#chequenumber').hide();
+                    $('#cardnumber').hide();
+                    $('#giftcard').hide();
+                }
+            });
         });
-        $('#giftcard').hide();
-        $('#chequenumber').hide();
-        $('#cardnumber').hide();
-        $("#payment_method").change(function(){
-        var selected = $("#payment_method").children("option:selected").val();
-        if(selected == 3 || selected == 4){
-            $('#cardnumber').show();
-            $('#chequenumber').hide();
-            $('#giftcard').hide();
-        }
-        else if( selected == 5){
-            $('#giftcard').hide();
-            $('#cardnumber').hide();
-            $('#chequenumber').show();
-        }
-        else if( selected == 7){
-            $('#cardnumber').hide();
-            $('#chequenumber').hide();
-            $('#giftcard').show();
-        }
-        else{
-            $('#chequenumber').hide();
-             $('#cardnumber').hide(); 
-             $('#giftcard').hide();
-        }
     });
-    });
+
 </script>
 @stop
