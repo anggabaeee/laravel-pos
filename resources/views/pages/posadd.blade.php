@@ -154,7 +154,7 @@
                         <div class="col-4"><button type="button" class="btn btn-primary col-sm-12" data-toggle="modal"
                                 id="myBtn3">Hold</button></div>
                         <div class="col-4">
-                            <button type="button" id="myBtn5" class="btn btn-success col-sm-12" 
+                            <button type="button" id="myBtn5" class="btn btn-success col-sm-12"
                                 data-toggle="modal">Payment
                             </button>
                         </div>
@@ -245,10 +245,9 @@
                             <p>Customer </p>
                         </div>
                         <div class="col-6">
-                        <select class="form-control" name="customer" id="customerpayment" type="text"
-                                required>
+                            <select class="form-control" name="customer" id="customerpayment" type="text" required>
                                 @foreach ($customer as $c)
-                                <option value="" id="option"> {{$c->fullname}}</option>
+                                <option value="{{$c->id}}" id="option"> {{$c->fullname}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -311,50 +310,15 @@
                         <div class="col-5 mt-1">
                             <p>Search Opened Bill :</p>
                         </div>
-                        <div class="col-7"><input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                        <div class="col-7">
+                        <input type="text" class="form-control col-sm-12"
+                                placeholder="ref.number">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer" style="background-color:white;">
                     <div class="row">
                         <div class="col-12 isitable"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #373942;">
-                    <h3 class="modal-title" style="color:white;">Save to Opened Bill</h3>
-                </div>
-                <div class="modal-body" style="background-color:white;">
-                    <div class="row">
-                        <div class="col-5 mt-1">
-                            <p>Customers</p>
-                        </div>
-                        <div class="col-7">
-                            <select id="customeroption" class="form-control" type="text">
-                                <option disabled selected>choose</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5 mt-1">
-                            <p>Hold Bill Ref. Number</p>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" placeholder="ref.number">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer" style="background-color:white;">
-                <div class="d-flex">
-                    <div class="ml-auto">
-                        <button type="button" class="btn btn-success py-1">Submit</button>
                     </div>
                 </div>
             </div>
@@ -410,6 +374,50 @@
         </div>
     </div>
 </form>
+
+<form>
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #373942;">
+                <div class="modal-header">
+                    <h3 class="modal-title" style="color:white;">Save to Opened Bill</h3>
+                </div>
+                <div class="modal-body" style="background-color:white;">
+                    <div class="row">
+                        <div class="col-5 mt-1">
+                            <p>Customers</p>
+                        </div>
+                        <div class="col-7">
+                            <select id="customeroption" class="form-control" type="text">
+                                <option disabled selected>choose</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 mt-1">
+                            <p>Hold Bill Ref. Number</p>
+                        </div>
+                        <div class="col-7">
+                            <input id="ref_number" type="text" class="form-control col-sm-12" placeholder="ref.number">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color:white;">
+                    <div class="row">
+                        <div class="d-flex col-12">
+                            <div class="ml-auto">
+                                <input type="button" name="saveBill" class="btn btn-success py-1" value="Submit"
+                                    id="saveBill">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 <div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModal6Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="background-color: #373942;">
@@ -458,68 +466,41 @@
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
     $(document).ready(function () {
+        jQuery.noConflict();
         $('#btnAdd').click(function () {
             var fulname = $('#customername').val();
             var email = $('#customeremail').val();
             var mobile = $('#customernumber').val();
             if (fulname == "", email == "", mobile == "") {
-      alert("Please Fill All Required Field");
-    }
-    else{
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                alert("Please Fill All Required Field");
+            } else {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: '/addCustomerposstore',
+                    type: 'post',
+                    data: {
+                        fullname: fulname,
+                        email: email,
+                        mobile: mobile
+                    },
+                    complete: function () {
+                        $('#myModal4').modal('hide');
+                        $('#myModal6').modal('show');
+                        $('#customername').val('');
+                        $('#customeremail').val('');
+                        $('#customernumber').val('');
+                    }
+                });
             }
-        });
-        $.ajax({
-            url: '/addCustomerposstore',
-            type: 'post',
-            data: {
-                fullname: fulname,
-                email: email,
-                mobile: mobile
-            },
-            complete:function(){
-                $('#myModal4').modal('hide');
-                $('#myModal6').modal('show');
-                $('#customername').val('');
-                $('#customeremail').val('');
-                $('#customernumber').val('');
-            }
-        });
-    }
         });
     });
 
 </script>
-<script>
- $(document).ready(function () {
-        $('#myBtn5').click(function () {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: '/addCustomerposstore',
-                type: 'post',
-                data: {
-                    fullname: fulname,
-                    email: email,
-                    mobile: mobile
-                },
-                complete: function () {
-                    $('#myModal4').modal('hide');
-                    $('#myModal6').modal('show');
-                    $('#customername').val('');
-                    $('#customeremail').val('');
-                    $('#customernumber').val('');
-                }
-        });
-        });
-    });
 
-</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
 </script>

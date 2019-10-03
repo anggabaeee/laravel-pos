@@ -22,6 +22,8 @@ use App\expenses;
 use App\payment_method ;
 use App\order_items;
 use App\orders;
+use App\suspend;
+use App\suspend_item;
 use Validator;
 use Response;
 
@@ -151,6 +153,43 @@ class PosController extends Controller
         $outlet = $request->outlets;
         $todaysale = DB::select("SELECT t1.cash, t2.nett, t3.visa, t4.master_card, t5.cheque FROM (SELECT Sum(orders.grandtotal) AS cash FROM orders WHERE orders.payment_method = 1 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t1,(SELECT Sum(orders.grandtotal) AS nett FROM orders WHERE orders.payment_method = 2 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t2, (SELECT Sum(orders.grandtotal) AS visa FROM orders WHERE orders.payment_method = 3 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t3, (SELECT Sum(orders.grandtotal) AS master_card FROM orders WHERE orders.payment_method = 4 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t4, (SELECT Sum(orders.grandtotal) AS cheque FROM orders WHERE orders.payment_method = 5 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t5");
         return response($todaysale);
+    }
+
+    public function addBill(Request $request)
+    {
+
+        $customer = DB::table('customer')->where('id', $request->customer_id)->first();
+
+        $suspend = new suspend();
+        $suspend->ref_number = $request->ref_number;
+        $suspend->customer_id = $request->customer_id;
+        $suspend->customer_name = $customer->fullname;
+        $suspend->outlet_id = $request->outlet_id;
+        $suspend->subtotal = $request->subtotal;
+        $suspend->discount_total = $request->discount;
+        $suspend->tax = $request->taxvalue;
+        $suspend->grandtotal = $request->grandtotal;
+        $suspend->total_items = $request->totalitem;
+        $suspend->status = 0;
+        $suspend->save();
+
+        $code = json_decode($request->code);
+        $name = json_decode($request->name);
+        $cost = json_decode($request->cost);
+        
+        $length = $request->row_length;
+        for($i=0; $i<2; $i++){
+            $answer[] = [
+                'suspend_id' => $suspend->id,
+                'product_code' => $code[$i],
+                'product_name' => $name[$i],
+                'cost' => $cost[$i],
+                'price' => 0,
+                'qty' => 0,
+            ];
+        }
+        suspend_item::insert($answer);
+        return redirect('/posadd', compact('suspend'));
     }
 
     public function getcustomer()

@@ -23,7 +23,7 @@ function addlist(i) {
             var div1 = document.createElement('div');
             div1.setAttribute("class", "col-md-3");
             var pnew = document.createElement('label');
-            pnew.setAttribute('id', '' + i + '-namelist')
+            pnew.setAttribute('id', 'namelist')
             var newname = document.createTextNode(name);
             pnew.appendChild(newname);
             var iname = document.createElement('input')
@@ -31,7 +31,7 @@ function addlist(i) {
             iname.setAttribute("name", "name[]")
             iname.setAttribute('type', 'hidden')
             var pcode = document.createElement('label');
-            pcode.setAttribute('id', '' + i + '-codelist');
+            pcode.setAttribute('id', 'codelist');
             var codenew = document.createTextNode(code);
             pcode.appendChild(codenew);
             var icode = document.createElement('input')
@@ -124,6 +124,7 @@ function addlist(i) {
         closeicon.onclick = function () {
             dataremove(i)
         }
+
     }
 }
 
@@ -313,31 +314,27 @@ $(document).ready(function () {
     $("#myBtn1").click(function () {
         $("#myModal1").modal('show');
         var outlets = $('#outlet_id').val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             url: '/todaysale',
             type: 'get',
-            data: {outlets: outlets},
-            success:function(data){
-                $.each(data, function(i, value){
-                    if(value.cash == null){
+            data: {
+                outlets: outlets
+            },
+            success: function (data) {
+                $.each(data, function (i, value) {
+                    if (value.cash == null) {
                         value.cash = "0.00";
                     }
-                    if(value.master_card == null){
+                    if (value.master_card == null) {
                         value.master_card = "0.00";
                     }
-                    if(value.nett == null){
+                    if (value.nett == null) {
                         value.nett = "0.00";
                     }
-                    if(value.visa == null){
+                    if (value.visa == null) {
                         value.visa = "0.00";
                     }
-                    if(value.cheque == null){
+                    if (value.cheque == null) {
                         value.cheque = "0.00";
                     }
                     $('#divcash').empty();
@@ -345,22 +342,22 @@ $(document).ready(function () {
                     $('#divvisa').empty();
                     $('#divmaster').empty();
                     $('#divcheq').empty();
-                    $('#divcash').append($("<label/>",{
-                        text : value.cash
+                    $('#divcash').append($("<label/>", {
+                        text: value.cash
                     })).append($);
-                    $('#divnett').append($("<label/>",{
-                        text : value.nett
+                    $('#divnett').append($("<label/>", {
+                        text: value.nett
                     })).append($);
-                    $('#divvisa').append($("<label/>",{
-                        text : value.visa
+                    $('#divvisa').append($("<label/>", {
+                        text: value.visa
                     })).append($);
-                    $('#divmaster').append($("<label/>",{
-                        text : value.master_card
+                    $('#divmaster').append($("<label/>", {
+                        text: value.master_card
                     })).append($);
-                    $('#divcheq').append($("<label/>",{
-                        text : value.cheque
+                    $('#divcheq').append($("<label/>", {
+                        text: value.cheque
                     })).append($);
-                    
+
                 });
             }
         });
@@ -370,18 +367,72 @@ $(document).ready(function () {
     });
     $("#myBtn3").click(function () {
         $("#myModal3").modal('show');
-        $.get('/getcustomer', function(data){
+        $.get('/getcustomer', function (data) {
             $('#customeroption').empty();
-            $.each(data, function(i, value){
-                $('#customeroption').append($("<option/>",{
-                    text : value.fullname,
-                    value : value.id
+            $.each(data, function (i, value) {
+                $('#customeroption').append($("<option/>", {
+                    text: value.fullname,
+                    value: value.id
                 })).append($);
-               
+
             });
         })
     });
+    $('#saveBill').click(function () {
+        var code =  $('input[name="code[]"]').val();
+        var name = $('input[name="name[]"]').val();
+        var qty = $('input[name="qty[]"]').val();
+        var cost = $('input[name="cost[]"]').val();
+        var price = $('input[name="price[]"]').val();
+        code1 = JSON.stringify(code);
+        name1 = JSON.stringify(name);
+        qty1 = JSON.stringify(qty);
+        cost1 = JSON.stringify(cost);
+        price1 = JSON.stringify(price);
+        var totalitem = $('#totalqty').html();
+        var subtotal = $('#total').html();
+        var taxvalue = $('#taxvalue').val();
+        var grandtotal = $('#grandtotal').html();
+        var discount = $('#discount').val();
+        var customer_id = $('#customeroption').val();
+        var outlet_id = $('#outlet_id').val();
+        var ref_number = $('#ref_number').val();
+        var row_length = $('input[name="row_length"]').val();
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/addBill',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                code: code1,
+                name: name1,
+                qty: qty1,
+                cost: cost1,
+                price: price1,
+                totalitem: totalitem,
+                subtotal: subtotal,
+                taxvalue: taxvalue,
+                grandtotal: grandtotal,
+                discount: discount,
+                customer_id: customer_id,
+                outlet_id: outlet_id,
+                ref_number: ref_number,
+                row_length: row_length,
+            },
+            complete: function (data) {
+                alert(data);
+                $('#myModal6').modal('show');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
+        });
+    });
 });
 
 $(document).ready(function () {
