@@ -378,10 +378,6 @@ $(document).ready(function () {
             });
         })
     });
-    $("#ad").click(function () {
-        console.log(code + name + price + cost + qty)
-        event.preventDefault();
-    });
     $('#saveBill').click(function () {
         var code = $('input[name="code[]"]').map(function (idx, elem) {
             return $(elem).val();
@@ -433,8 +429,14 @@ $(document).ready(function () {
                 ref_number: ref_number,
                 row_length: row_length,
             },
-            complete: function (data) {
-        
+            complete: function () {
+                $('#myModal3').modal('hide');
+                $('#isitable').empty();
+                total();
+                window.scrollTo(0, 0); 
+                $('#notif').css('display', 'block').fadeOut(4000);
+                $('#discount').val('');
+                $('#ref_number').val('');
             },
         });
     });

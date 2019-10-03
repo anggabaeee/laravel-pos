@@ -159,6 +159,10 @@ class PosController extends Controller
     {
 
         $customer = DB::table('customer')->where('id', $request->customer_id)->first();
+        $discount = $request->discount;
+        if($discount == null){
+            $discount = 0;
+        }
 
         $suspend = new suspend();
         $suspend->ref_number = $request->ref_number;
@@ -166,7 +170,7 @@ class PosController extends Controller
         $suspend->customer_name = $customer->fullname;
         $suspend->outlet_id = $request->outlet_id;
         $suspend->subtotal = $request->subtotal;
-        $suspend->discount_total = $request->discount;
+        $suspend->discount_total = $ $discount;
         $suspend->tax = $request->taxvalue;
         $suspend->grandtotal = $request->grandtotal;
         $suspend->total_items = $request->totalitem;
