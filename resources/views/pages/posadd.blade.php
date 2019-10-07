@@ -1,4 +1,5 @@
-@extends('layouts.defaultpos') @section('content')
+@extends('layouts.defaultpos') 
+@section('content')
 <style>
     .form {
         background-color: white;
@@ -288,7 +289,8 @@
                             <p>Gift Card :<p>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control input-element" name="giftcard" id="gift" required>
+                        </div>
                     </div>
                     <div class="row" id="chequenumber">
                         <div class="col-6 mt-1">
@@ -488,11 +490,14 @@
 <script src="{{ asset('js/posadd.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 <script>
+</script>
+<script>
     var d = new Date();
     var a = d.getDate() + "/";
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
     $(document).ready(function () {
+        $('.input-element').inputmask("9999 9999 9999 9999");
         $('#btnAdd').click(function () {
             var fulname = $('#customername').val();
             var email = $('#customeremail').val();
@@ -539,39 +544,31 @@
 
                 }
             });
-        });
-        $('#giftcard').hide();
-        $('#chequenumber').hide();
-        $('#cardnumber').hide();
-        $("#payment_method").change(function () {
-            var selected = $("#payment_method").children("option:selected").val();
-            if (selected == 3 || selected == 4) {
-                $('#cardnumber').show();
-                $('#chequenumber').hide();
-                $('#giftcard').hide();
-            } else if (selected == 5) {
-                $('#giftcard').hide();
-                $('#cardnumber').hide();
-                $('#chequenumber').show();
-            } else if (selected == 7) {
-                $('#cardnumber').hide();
-                $('#chequenumber').hide();
-                $('#giftcard').show();
-            } else {
-                $('#chequenumber').hide();
-                $('#cardnumber').hide();
-                $('#giftcard').hide();
-            }
+            $('#giftcard').hide();
+            $('#chequenumber').hide();
+            $('#cardnumber').hide();
+            $("#payment_method").change(function () {
+                var selected = $("#payment_method").children("option:selected").val();
+                if (selected == 3 || selected == 4) {
+                    $('#cardnumber').show();
+                    $('#chequenumber').hide();
+                    $('#giftcard').hide();
+                } else if (selected == 5) {
+                    $('#giftcard').hide();
+                    $('#cardnumber').hide();
+                    $('#chequenumber').show();
+                } else if (selected == 7) {
+                    $('#cardnumber').hide();
+                    $('#chequenumber').hide();
+                    $('#giftcard').show();
+                } else {
+                    $('#chequenumber').hide();
+                    $('#cardnumber').hide();
+                    $('#giftcard').hide();
+                }
+            });
         });
     });
 
-</script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-</script>
-<script>
 </script>
 @stop
