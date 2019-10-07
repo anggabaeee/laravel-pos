@@ -488,6 +488,7 @@
     </div>
 </div>
 <script src="{{ asset('js/posadd.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 <script>
 </script>
