@@ -361,9 +361,6 @@ $(document).ready(function () {
                 });
             }
         });
-        // $.get("/todaysale/{{$outlets->id}}",function(data){
-        //     console.log(data)
-        // });
     });
     $("#myBtn3").click(function () {
         $("#myModal3").modal('show');
@@ -377,6 +374,19 @@ $(document).ready(function () {
 
             });
         })
+    });
+    $("#xx").click(function () {
+        var code = $('input[name="code[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var name = $('input[name="name[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var row_length = $('input[name="row_length"]').val();
+        console.log(code)
+        console.log(name)
+        console.log(row_length)
+        event.preventDefault();
     });
     $('#saveBill').click(function () {
         var code = $('input[name="code[]"]').map(function (idx, elem) {
@@ -439,13 +449,5 @@ $(document).ready(function () {
                 $('#ref_number').val('');
             },
         });
-    });
-});
-
-$(document).ready(function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
     });
 });

@@ -170,7 +170,7 @@ class PosController extends Controller
         $suspend->customer_name = $customer->fullname;
         $suspend->outlet_id = $request->outlet_id;
         $suspend->subtotal = $request->subtotal;
-        $suspend->discount_total = $ $discount;
+        $suspend->discount_total = $discount;
         $suspend->tax = $request->taxvalue;
         $suspend->grandtotal = $request->grandtotal;
         $suspend->total_items = $request->totalitem;

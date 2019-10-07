@@ -276,11 +276,11 @@
                             <p>Paid By:</p>
                         </div>
                         <div class="col-6">
-                        <select class="form-control" type="text" name="payment_method" id="payment_method" required>
+                            <select class="form-control" type="text" name="payment_method" id="payment_method" required>
                                 <option disabled selected value>choice</option>
                                 @foreach ($payment as $p)
-                                 <option value="{{$p->id}}"> {{ $p->name}}</option>
-                                 @endforeach
+                                <option value="{{$p->id}}"> {{ $p->name}}</option>
+                                @endforeach
                             </select></div>
                     </div>
                     <div class="row" id="giftcard">
@@ -288,14 +288,14 @@
                             <p>Gift Card :<p>
                         </div>
                         <div class="col-6">
-                        <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control" required></div>
                     </div>
                     <div class="row" id="chequenumber">
                         <div class="col-6 mt-1">
                             <p>Cheque Number :<p>
                         </div>
                         <div class="col-6">
-                        <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control" required></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -309,7 +309,7 @@
                             <p>Card Number :<p>
                         </div>
                         <div class="col-6">
-                        <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control" required></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -357,7 +357,7 @@
     <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="background-color: #373942;">
                 <div class="modal-header" style="background-color: #373942;">
                     <h3 class="modal-title" style="color:white;">Save to Opened Bill</h3>
                 </div>
@@ -377,15 +377,18 @@
                             <p>Hold Bill Ref. Number</p>
                         </div>
                         <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                            <input type="text" class="form-control col-sm-12" placeholder="ref.number" id="ref_number" name="ref_number">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer" style="background-color:white;">
-                <div class="d-flex">
-                    <div class="ml-auto">
-                        <button type="button" class="btn btn-success py-1">Submit</button>
+                <div class="modal-footer" style="background-color:white;">
+                    <div class="row">
+                        <div class="d-flex col-12">
+                            <div class="ml-auto">
+                                <input type="button" name="saveBill" class="btn btn-success py-1" value="Submit"
+                                    id="saveBill">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -482,14 +485,8 @@
         </div>
     </div>
 </div>
-<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 <script src="{{ asset('js/posadd.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-</script>
+<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 <script>
     var d = new Date();
     var a = d.getDate() + "/";
@@ -526,7 +523,7 @@
                 });
             }
         });
-      
+
         $('#myBtn5').click(function () {
             $.ajax({
                 url: '/load',
@@ -546,29 +543,26 @@
         $('#giftcard').hide();
         $('#chequenumber').hide();
         $('#cardnumber').hide();
-        $("#payment_method").change(function(){
-        var selected = $("#payment_method").children("option:selected").val();
-        if(selected == 3 || selected == 4){
-            $('#cardnumber').show();
-            $('#chequenumber').hide();
-            $('#giftcard').hide();
-        }
-        else if( selected == 5){
-            $('#giftcard').hide();
-            $('#cardnumber').hide();
-            $('#chequenumber').show();
-        }
-        else if( selected == 7){
-            $('#cardnumber').hide();
-            $('#chequenumber').hide();
-            $('#giftcard').show();
-        }
-        else{
-            $('#chequenumber').hide();
-             $('#cardnumber').hide(); 
-             $('#giftcard').hide();
-        }
-    });
+        $("#payment_method").change(function () {
+            var selected = $("#payment_method").children("option:selected").val();
+            if (selected == 3 || selected == 4) {
+                $('#cardnumber').show();
+                $('#chequenumber').hide();
+                $('#giftcard').hide();
+            } else if (selected == 5) {
+                $('#giftcard').hide();
+                $('#cardnumber').hide();
+                $('#chequenumber').show();
+            } else if (selected == 7) {
+                $('#cardnumber').hide();
+                $('#chequenumber').hide();
+                $('#giftcard').show();
+            } else {
+                $('#chequenumber').hide();
+                $('#cardnumber').hide();
+                $('#giftcard').hide();
+            }
+        });
     });
 
 </script>
