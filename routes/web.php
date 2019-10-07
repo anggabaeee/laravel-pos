@@ -77,8 +77,9 @@ Route::get('/getcustomer', 'PosController@getcustomer');
 Route::post('/addBill', 'PosController@addBill');
 
 // Return Order
-Route::get('/returnorder/CreateReturn','PosController@createreturn')->middleware('ceklogin' , 'response');
-Route::get('/returnorder/ReportReturn','PosController@reportreturn')->middleware('ceklogin' , 'response');
+Route::get('/returnorder/CreateReturn','ReturnContrrol@createreturn')->middleware('ceklogin' , 'response');
+Route::get('/returnorder/ReportReturn','ReturnContrrol@reportreturn')->middleware('ceklogin' , 'response');
+Route::post('/createstore','ReturnContrrol@createstore')->middleware('ceklogin' , 'response');
 
 // Inventory
 Route::get('/inventory','inventorycontroller@inventory')->middleware('ceklogin' , 'response');

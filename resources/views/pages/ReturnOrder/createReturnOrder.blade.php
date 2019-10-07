@@ -19,14 +19,18 @@
         <h1>Create Return Order</h1>
         <div class="card">
             <div class="card-body">
-                <form action="#">
+                <form action="/createstore" method="post">
+                {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Customers <span style="color: #F00">*</span></label>
                                 <div style="position: relative; width: 294px;">
-                                    <select name="searchcustomers" class="form-control" style="height: 60px;">
-                                        <option value="">Search Customers</option>
+                                    <select name="customer" class="form-control" style="height: 60px;">
+                                    <option value="" disabled selected>Choice</option>
+                                    @foreach($customer as $c)
+                                        <option value="{{$c->id}}">{{$c->fullname}}</option>
+                                    @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -35,7 +39,10 @@
                             <div class="form-group">
                                 <label>Outlets <span style="color: #F00">*</span></label>
                                 <select name="outlets" placeholder="Search Outlets" class="form-control">
-                                    <option value="">Search Outlets</option>
+                                <option value="" disabled selected>Choice</option>
+                                @foreach($outlets as $c)
+                                        <option value="{{$c->id}}">{{$c->name_outlet}}</option>
+                                @endforeach
                                 </select>
                             </div>
                         </div>
@@ -155,11 +162,11 @@
                     <div class="row">
                         <div class="col-md-12">
                             <center>
+                            <input type="text" id="tglskrng">
                                 <button class="btn btn-primary" style="padding: 12px 20px;">Submit</button>
                             </center>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
         <br>
@@ -188,6 +195,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
+        var d = new Date();
+  var c = d.getFullYear();
+  var a = d.getDate();
+  var b = d.getMonth();
+  $("#tglskrng").val() = a+"/"+b+"/"+c;
         $(".add_product_po").select2({
             placeholder: "Search Product by Name OR Code",
             allowClear: true
