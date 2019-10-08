@@ -11,16 +11,17 @@
     }
 
 </style>
+<!-- toast -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 <!-- select2 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
-
+<form action="/createstore" method="post">
+                {{ csrf_field() }}
 <div class="col-sm-9 col-lg-10">
-    <div class="container">
+    <div class="container mb-5">
         <h1>Create Return Order</h1>
         <div class="card">
             <div class="card-body">
-                <form action="/createstore" method="post">
-                {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -94,13 +95,10 @@
                         </div>
                         <div class="col-md-4">
                             <select name="refundby" class="form-control">
-                                <option value="">Choose Refund By</option>
-                                <option value="1">Cash</option>
-                                <option value="2">Nett</option>
-                                <option value="3">VISA</option>
-                                <option value="4">Master Card</option>
-                                <option value="5">Cheque</option>
-                                <option value="10">ac</option>
+                            <option value="" disabled selected>Choice</option>  
+                            @foreach($payment_method as $m)
+                            <option value="{{$m->id}}">{{$m->name}}</option>
+                            @endforeach
                             </select>
                         </div>
                     </div>
@@ -110,7 +108,7 @@
                         </div>
                         <div class="col-md-4">
                             <select name="refundmethod" class="form-control">
-                                <option value="">Choose Refund Method</option>
+                            <option value="" disabled selected>Choose Refund Method</option>
                                 <option value="1">Full Refund</option>
                                 <option value="2">Partial Refund</option>
                             </select>
@@ -123,7 +121,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00;">*</span></label>
-                                <select id="typeahead" class="form-control add_product_po" required>
+                                <select id="typeahead" class="form-control add_product_po" >
                                     <option value=""></option>
                                 </select>
                             </div>
@@ -162,18 +160,16 @@
                     <div class="row">
                         <div class="col-md-12">
                             <center>
-                            <input type="text" id="tglskrng">
-                                <button class="btn btn-primary" style="padding: 12px 20px;">Submit</button>
+                            <input type="text" id="tglskrng" name="datenow" hidden>
+                                <input type="submit" class="btn btn-primary" style="padding: 12px 20px;">
                             </center>
                         </div>
                     </div>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
     </div>
 </div>
+</form>
 <script>
     function hasil() {
         var amount = document.getElementById("amount").value;
@@ -199,7 +195,9 @@
   var c = d.getFullYear();
   var a = d.getDate();
   var b = d.getMonth();
-  $("#tglskrng").val() = a+"/"+b+"/"+c;
+  var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+  var output = a+"/"+b+"/"+c+" "+ time;
+  $("#tglskrng").val(output) 
         $(".add_product_po").select2({
             placeholder: "Search Product by Name OR Code",
             allowClear: true
@@ -207,5 +205,12 @@
     });
 
 </script>
+<!-- toast -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@if(Session::has('p'))
+<script>
+    toastr.success('{{Session::get('p')}}')
+</script>
+@endif
 </section>
 @stop
