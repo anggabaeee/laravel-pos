@@ -22,29 +22,41 @@ class ReturnContrrol extends Controller
     
     public function createreturn(){
         $customer=Customer::all();
+        $product=product::all();
         $outlets=outlets::all();
         $supplier=supplier::all();
-        return view('pages.ReturnOrder.createReturnOrder')->with('supplier', $supplier)->with('outlets', $outlets)->with('customer', $customer); 
+        $payment_method=payment_method::all();
+        return view('pages.ReturnOrder.createReturnOrder')->with('supplier', $supplier)->with('outlets', $outlets)->with('customer', $customer)->with('payment_method', $payment_method)->with('product', $product); 
     }
     public function reportreturn(){
         return view('pages.ReturnOrder.returnreport'); 
     }   
     public function createstore(Request $request) {
         $customer=Customer::find( $request->customer);
-        dd($customer->fullname);
-        exit();
-        orders::create([ 
-                'po_number'=> $request->po_number,
-                'grandtotal'=> $request->grandtotal,
-                'subtotal'=> $request->subtotal,
-                'discount_amount'=> $request->discount_amount,
-                'id_outlet'=> $request->id_outlet,
-                'id_supplier'=> $request->id_supplier,
-                'datenow'=> $request->datenow,
-                'note'=> $request->note,
-                'status'=> $request->status,
-                ]);
-
-        return redirect('/returnorder/CreateReturn')->with('p', 'Create Order Succses');
+        $payment_method=payment_method::find( $request->refundby);
+        $amount = -1 * ($request->amount);
+        $tax = -1 * ($request->tax);
+        $grandtotal = -1 * ($request->grandtotal);
+        $status = 2;
+        $vt_status = 1;
+        $return = 0.00;
+        orders::create([  
+            'customer_id'=> $request->customer,
+            'customer_name'=> $customer->fullname,
+            'outlet_id'=>$request->outlets,
+            'remark'=>$request->remark,
+            'ordered_datetime'=>DB::raw('now()'),
+            'subtotal'=>$amount,
+            'paid_amt'=>$amount,
+            'vt_status'=>$vt_status,
+            'status'=>$status,
+            'return_change'=>$return,
+            'tax'=>$tax,
+            'grandtotal'=>$grandtotal,
+            'payment_method'=>$request->refundby,
+            'payment_method_name'=>$payment_method->name,
+            'refund_status'=>$request->refundmethod
+            ]);
+        return redirect('/returnorder/CreateReturn')->with('p', 'Refund Order Succses');
     }
 }
