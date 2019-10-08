@@ -22,10 +22,11 @@ class ReturnContrrol extends Controller
     
     public function createreturn(){
         $customer=Customer::all();
+        $product=product::all();
         $outlets=outlets::all();
         $supplier=supplier::all();
         $payment_method=payment_method::all();
-        return view('pages.ReturnOrder.createReturnOrder')->with('supplier', $supplier)->with('outlets', $outlets)->with('customer', $customer)->with('payment_method', $payment_method); 
+        return view('pages.ReturnOrder.createReturnOrder')->with('supplier', $supplier)->with('outlets', $outlets)->with('customer', $customer)->with('payment_method', $payment_method)->with('product', $product); 
     }
     public function reportreturn(){
         return view('pages.ReturnOrder.returnreport'); 

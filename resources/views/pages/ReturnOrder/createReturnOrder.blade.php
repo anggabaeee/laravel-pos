@@ -122,7 +122,9 @@
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00;">*</span></label>
                                 <select id="typeahead" class="form-control add_product_po" >
-                                    <option value=""></option>
+                                @foreach ($product as $p)
+                                        <option value="{{$p->code}}">{{$p->name_product}}</option>
+                                @endforeach
                                 </select>
                             </div>
                         </div>
