@@ -278,7 +278,7 @@
                             <p>Cheque Number :<p>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control"></div>
+                            <input type="text" name="chequenumber" class="form-control"></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -292,7 +292,7 @@
                             <p>Card Number :<p>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control"></div>
+                            <input type="text" name="cardnumber" class="form-control"></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -551,27 +551,30 @@
 
                 }
             });
-            $('#giftcard').hide();
-            $('#chequenumber').hide();
-            $('#cardnumber').hide();
             $("#payment_method").change(function () {
                 var selected = $("#payment_method").children("option:selected").val();
                 if (selected == 3 || selected == 4) {
                     $('#cardnumber').show();
                     $('#chequenumber').hide();
                     $('#giftcard').hide();
+                    $('input[name="cardnumber"]').attr('required', true);
                 } else if (selected == 5) {
                     $('#giftcard').hide();
                     $('#cardnumber').hide();
                     $('#chequenumber').show();
+                    $('input[name="chequenumber"]').attr('required', true);
                 } else if (selected == 7) {
                     $('#cardnumber').hide();
                     $('#chequenumber').hide();
                     $('#giftcard').show();
+                    $('input[name="giftcard"]').attr('required', true);
                 } else {
                     $('#chequenumber').hide();
                     $('#cardnumber').hide();
                     $('#giftcard').hide();
+                    $('input[name="giftcard"]').removeAttr('required');
+                    $('input[name="chequenumber"]').removeAttr('required');
+                    $('input[name="cardnumber"]').removeAttr('required');
                 }
             });
         });

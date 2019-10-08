@@ -292,6 +292,33 @@ function addfromhold(i) {
     });
 }
 
+function paymentchange() {
+    var selected = $('#payment_method').val();
+            if (selected == 3 || selected == 4) {
+                $('#cardnumber').show();
+                $('#chequenumber').hide();
+                $('#giftcard').hide();
+                $('input[name="cardnumber"]').attr('required', true);
+            } else if (selected == 5) {
+                $('#giftcard').hide();
+                $('#cardnumber').hide();
+                $('#chequenumber').show();
+                $('input[name="chequenumber"]').attr('required', true);
+            } else if (selected == 7) {
+                $('#cardnumber').hide();
+                $('#chequenumber').hide();
+                $('#giftcard').show();
+                $('input[name="giftcard"]').attr('required', true);
+            } else {
+                $('#chequenumber').hide();
+                $('#cardnumber').hide();
+                $('#giftcard').hide();
+                $('input[name="giftcard"]').removeAttr('required');
+                $('input[name="chequenumber"]').removeAttr('required');
+                $('input[name="cardnumber"]').removeAttr('required');
+            }
+}
+
 $(document).ready(function () {
     jQuery.noConflict();
     $("#mybtncancel").click(function () {
@@ -304,14 +331,14 @@ $(document).ready(function () {
             $('#myModal8').modal('show');
         } else {
             $('#Modal5').modal('show');
-            $('#form_output').html('');
+            paymentchange();
             var totalAmount = document.getElementById('grandtotal').innerHTML;
             var totalItems = document.getElementById('totalqty').innerHTML;
             document.getElementById('total_amount').innerHTML = totalAmount;
             document.getElementById('total_items').innerHTML = totalItems;
             document.getElementById('ttl_amount').value = totalAmount;
             document.getElementById('ttl_item').value = totalItems;
-
+           
             var paid = document.getElementById('paidamount').value;
             if (paid == "") {
                 paid = 0.00;
@@ -325,6 +352,7 @@ $(document).ready(function () {
                     document.getElementById('ajaxsubmit').hidden = false
                 }
             }
+            
         }
     });
     $("#myBtn4").click(function () {
