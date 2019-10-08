@@ -220,8 +220,14 @@ class PosController extends Controller
         $customer = DB::table('customer')->where('id', $request->customer)->first();
         $payment = DB::table('payment_methods')->where('id', $request->payment_method)->first();
         $discount = $request->discount;
+        $id_suspend = $request->id_susp;
         if ($discount == null){
             $discount = 0;
+        }
+        if($id_suspend != null){
+            $suspend = suspend::find($id_suspend);
+            $suspend->status = 1;
+            $suspend->save();   
         }
 
         $orders = new orders();
@@ -257,6 +263,27 @@ class PosController extends Controller
         }
         order_items::insert($answer);
         return redirect('/view_invoice/'.$orders->id);
+    }
+
+    public function openedHold(Request $request)
+    {
+        $outlet = $request->outlets;
+        $suspend = DB::table('suspends')
+        ->where('outlet_id', $outlet)
+        ->where('status', 0)
+        ->get();
+        return response($suspend);
+    }
+
+    public function getHold(Request $request)
+    {
+        $id = $request->suspend_id;
+        $suspends = DB::table('suspend_items')->where('suspend_id', $id)
+        ->join('product', 'product.code', '=', 'suspend_items.product_code')
+        ->join('suspends', 'suspends.id', '=', 'suspend_items.suspend_id')
+        ->select('product.id_product as id_product', 'suspend_items.*', 'suspends.discount_total as discount_total', 'suspends.id as id_susp')
+        ->get();
+        return response($suspends);
     }
 
     public function invoice($id){

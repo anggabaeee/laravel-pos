@@ -75,6 +75,8 @@ Route::get('/view_invoice_a4/{id}', 'PosController@invoice_a4');
 Route::get('/todaysale', 'PosController@getsaletoday');
 Route::get('/getcustomer', 'PosController@getcustomer');
 Route::post('/addBill', 'PosController@addBill');
+Route::get('/openedHold', 'PosController@openedHold');
+Route::get('/getHold', 'PosController@getHold');
 
 // Return Order
 Route::get('/returnorder/CreateReturn','ReturnContrrol@createreturn')->middleware('ceklogin' , 'response');

@@ -15,7 +15,7 @@
                 <button type="button" class="btn btn-success mt-1 py-1" id="myBtn1" data-toggle="modal">Today's Sales</button>
             </li>
             <li class="nav-item mx-1">
-                <button type="button" class="btn btn-danger mt-1 py-1" id="myBtn2" data-toggle="modal" data-target="#myModal2">Opened Hold</button>
+                <button type="button" class="btn btn-danger mt-1 py-1" id="myBtn2">Opened Hold</button>
             </li>
             <li class="nav-item mx-1">
                 <i>
