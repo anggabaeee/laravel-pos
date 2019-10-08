@@ -1,5 +1,4 @@
 function addlist(i) {
-    jQuery.noConflict();
     var invqty = document.getElementById('' + i + '-qty').innerHTML;
     if (invqty == 0) {
         $('#myModal7').modal('show');
@@ -273,6 +272,26 @@ function PaidAmount(val) {
     }
 }
 
+function addfromhold(i) {
+    $.ajax({
+        url: '/getHold',
+        type: 'get',
+        data: {
+            suspend_id: i
+        },
+        success: function (data) {
+            $('#isitable').empty();
+            $.each(data, function (i, value) {
+                $('#myModal2').modal('hide');
+                var msg = '<div class="row row_list" name="row_list" style="margin-right: 5px" id="'+value.id_product+'-row"><div class="col-md-3"><input type="hidden" value='+value.suspend_id+' name="suspend_id" id="suspend_id"><label id="namelist"> Contoh 1</label><br><label id="codelist">'+value.product_code+'</label><input value="'+value.product_name+'" name="name[]" type="hidden"><input value="'+value.product_code+'" name="code[]" type="hidden"></div><div class="col-md-5"><div class="row"><div class="col-md-3" style="padding-right: 0"><a onclick="getdatamin('+value.id_product+')" class="fa fa-minus-circle" style="margin-top: 11px;"></a></div><div class="col-md-6" style="padding-right: 0; padding-left: 0;"><input onchange="changeqty('+value.id_product+')" type="text" value="'+value.qty+'" class="form-control" name="qty[]" id="'+value.id_product+'-qtylist"></div><div class="col-md-3" style="padding-left: 0;"><a onclick="getdataplus('+value.id_product+')" class="fa fa-plus-circle" style="margin-top: 11px"></a></div></div></div><div class="col-md-3"><label name="pricelist[]">'+value.price+'</label><input value="'+value.price+'" name="price[]" type="hidden"><input value="'+value.cost+'" name="cost[]" type="hidden"></div><div class="col-md-1"><a onclick="dataremove('+value.id_product+')" class="fa fa-close"></a></div><input value="'+value.id_susp+'" name="id_susp" id="id_susp" type="hidden"></div>' 
+                $('#isitable').append(msg);
+                $('#discount').val(value.discount_total);
+                total();
+            });
+        }
+    });
+}
+
 $(document).ready(function () {
     jQuery.noConflict();
     $("#mybtncancel").click(function () {
@@ -450,4 +469,23 @@ $(document).ready(function () {
             },
         });
     });
+    $('#myBtn2').click(function(){
+        $("#myModal2").modal('show');
+        var outlets = $('#outlet_id').val();
+        $.ajax({
+            url: '/openedHold',
+            type: 'get',
+            data: {
+                outlets: outlets
+            },
+            success: function (data) {
+                console.log(data)
+                $('#isihold').empty();
+                $.each(data, function (i, value) {
+                    var msg = '<div id="holddata" class="col-md-5">  <a onclick="addfromhold('+value.id+')"><b>Ref. Number</b> : '+value.ref_number+' <br><b>Customer Name </b> : '+value.customer_name+'<br><b>Date </b> : '+value.created_at+'<br><b>Qty</b> : '+value.total_items+'<br><b>Total </b> : '+value.grandtotal+' <input type="hidden" value="'+value.id+'" name="id_suspend" id="id_suspend"></a></div>' 
+                    $('#isihold').append(msg);
+                });
+            }
+        });
+    })
 });

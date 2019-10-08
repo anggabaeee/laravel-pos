@@ -1,4 +1,4 @@
-@extends('layouts.defaultpos') 
+@extends('layouts.defaultpos')
 @section('content')
 <style>
     .form {
@@ -73,6 +73,17 @@
 
     #notif {
         display: none;
+    }
+
+    #holddata {
+        background-color: #834f50;
+        color: #FFF;
+        margin: 7px 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        height: 140px;
+        font-size: 14px;
+        text-align: center;
     }
 
 </style>
@@ -212,36 +223,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #373942;">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color:white;" id="examplemyModal1Label">Todays's Sales <span
-                            id="datenow"></span></h5>
-                </div>
-                <div class="modal-body" style="background-color:white;">
-                    <div class="container mt-2">
-                        <div class="row isimodel" style="color: #5f6468; background-color: #ededed;">
-                            <div class="col-sm-12 mt-3">Cash : <label id="divcash"></label></div>
-                        </div>
-                        <div class="row isimodel">
-                            <div class="col-sm-12 mt-3">Nett : <label id="divnett"></label></div>
-                        </div>
-                        <div class="row isimodel" style="background-color: #ededed; color: #5f6468;">
-                            <div class="col-sm-12 mt-3">VISA : <label id="divvisa"></label></div>
-                        </div>
-                        <div class="row isimodel" style="color: #5f6468;">
-                            <div class="col-sm-12 mt-3">MASTER : <label id="divmaster"></label></div>
-                        </div>
-                        <div class="row isimodel" style="background-color: #005b8a; color:white;">
-                            <div class="col-sm-12 mt-3">Cheque : <label id="divcheq"></label></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade" id="Modal5" tabindex="-1" role="dialog" aria-labelledby="Modal5Label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color: #373942;">
@@ -289,7 +270,7 @@
                             <p>Gift Card :<p>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control input-element" name="giftcard" id="gift" required>
+                            <input type="text" class="form-control input-element" name="giftcard" id="gift">
                         </div>
                     </div>
                     <div class="row" id="chequenumber">
@@ -297,7 +278,7 @@
                             <p>Cheque Number :<p>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control"></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -311,7 +292,7 @@
                             <p>Card Number :<p>
                         </div>
                         <div class="col-6">
-                            <input type="text" class="form-control" required></div>
+                            <input type="text" class="form-control"></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -324,6 +305,36 @@
                 <div class="modal-footer" style="background-color:white;">
                     <input type="submit" id="ajaxsubmit" name="ajaxsubmit" class="btn btn-success ajaxsubmit"
                         value="Submit" hidden="true"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #373942;">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white;" id="examplemyModal1Label">Todays's Sales <span
+                            id="datenow"></span></h5>
+                </div>
+                <div class="modal-body" style="background-color:white;">
+                    <div class="container mt-2">
+                        <div class="row isimodel" style="color: #5f6468; background-color: #ededed;">
+                            <div class="col-sm-12 mt-3">Cash : <label id="divcash"></label></div>
+                        </div>
+                        <div class="row isimodel">
+                            <div class="col-sm-12 mt-3">Nett : <label id="divnett"></label></div>
+                        </div>
+                        <div class="row isimodel" style="background-color: #ededed; color: #5f6468;">
+                            <div class="col-sm-12 mt-3">VISA : <label id="divvisa"></label></div>
+                        </div>
+                        <div class="row isimodel" style="color: #5f6468;">
+                            <div class="col-sm-12 mt-3">MASTER : <label id="divmaster"></label></div>
+                        </div>
+                        <div class="row isimodel" style="background-color: #005b8a; color:white;">
+                            <div class="col-sm-12 mt-3">Cheque : <label id="divcheq"></label></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -342,15 +353,8 @@
                         <div class="col-7"><input type="text" class="form-control col-sm-12" placeholder="ref.number">
                         </div>
                     </div>
-                    <div class="row" style="overflow: scroll; height: 400px; margin-top: 10px;">
-                        <div class="col-md-5"
-                            style="background-color: #834f50; color: #FFF; margin: 7px 10px; padding-top: 10px; padding-bottom: 10px; height: 190px;">
-                            <b>Ref. Number</b> : mn <br>
-                            <b>Customer Name </b> : qwertyuiop<br>
-                            <b>Date </b> : 03-10-2019 15:09 PM<br>
-                            <b>Qty</b> : 1<br>
-                            <b>Total </b> : 1509.60
-                        </div>
+                    <div class="row" id="isihold" style="overflow: scroll; height: 400px; margin-top: 10px;">
+
                     </div>
                 </div>
             </div>
@@ -379,7 +383,8 @@
                             <p>Hold Bill Ref. Number</p>
                         </div>
                         <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" placeholder="ref.number" id="ref_number" name="ref_number">
+                            <input type="text" class="form-control col-sm-12" placeholder="ref.number" id="ref_number"
+                                name="ref_number">
                         </div>
                     </div>
                 </div>
@@ -397,6 +402,9 @@
         </div>
     </div>
 </form>
+
+
+
 <form>
     <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label"
         aria-hidden="true">
@@ -488,9 +496,6 @@
     </div>
 </div>
 <script src="{{ asset('js/posadd.js') }}"></script>
-<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
-<script>
-</script>
 <script>
     var d = new Date();
     var a = d.getDate() + "/";
@@ -571,4 +576,5 @@
     });
 
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 @stop
