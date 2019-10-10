@@ -350,7 +350,8 @@
                         <div class="col-5 mt-1">
                             <p>Search Opened Bill :</p>
                         </div>
-                        <div class="col-7"><input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                        <div class="col-7">
+                        <input type="text" class="form-control col-sm-12" id="searchold" placeholder="ref.number">
                         </div>
                     </div>
                     <div class="row" id="isihold" style="overflow: scroll; height: 400px; margin-top: 10px;">
@@ -504,7 +505,7 @@
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
     $(document).ready(function () {
-        $('.input-element').inputmask("9999 9999 9999 9999");
+      
         $('#btnAdd').click(function () {
             var fulname = $('#customername').val();
             var email = $('#customeremail').val();

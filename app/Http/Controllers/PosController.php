@@ -127,7 +127,8 @@ class PosController extends Controller
         
     }  
 
-    public function posadd($id){
+    public function posadd(Request $request){
+        $id = $request->id;
         $inventory = DB::table('inventory')
         ->select('product_code', 'qty')
         ->where('outlet_id', $id);
@@ -271,6 +272,18 @@ class PosController extends Controller
         $suspend = DB::table('suspends')
         ->where('outlet_id', $outlet)
         ->where('status', 0)
+        ->get();
+        return response($suspend);
+    }
+
+    public function searchHold(Request $request)
+    {
+        $outlet = $request->outlets;
+        $ref_number = $request->ref_number;
+        $suspend = DB::table('suspends')
+        ->where('outlet_id', $outlet)
+        ->where('status', 0)
+        ->where('ref_number', 'like', '%'.$ref_number.'%')
         ->get();
         return response($suspend);
     }

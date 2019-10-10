@@ -51,7 +51,10 @@
         <div class="col-md-6 offset-md-3">
             @if (count($outlets)>0)
             @foreach ($outlets as $p)
-            <a href="/posadd/{{$p->id}}">
+            <form id="form1-{{$p->id}}" action="/posadd" method="get">
+                <input type="hidden" name="id" value="{{$p->id}}">
+            </form>
+            <a onclick="submitform('{{$p->id}}')">
                 <div class="kotak  mt-4  mr-5 ml-5">
                     <i class="fa fa-building-o"></i>
                     <h4>{{$p->name_outlet}}</h4>
@@ -65,5 +68,12 @@
             @endif
         </div>
     </div>
+
+    <script>
+        function submitform(i) 
+        {
+            document.getElementById('form1-'+i+'').submit();   
+        }
+    </script>
 </section>
 @stop

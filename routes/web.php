@@ -66,7 +66,7 @@ Route::get('/pnl','PosController@pnl')->middleware('pnlcek', 'response' , 'respo
 
 // POS
 Route::get('/pos','PosController@pos')->middleware('ceklogin' , 'response');
-Route::get('/posadd/{id}','PosController@posadd')->middleware('ceklogin' , 'response');
+Route::get('/posadd','PosController@posadd')->middleware('ceklogin' , 'response');
 Route::get('/load','PosController@load');
 Route::post('/addCustomerposstore','PosController@addCustomerposstore')->middleware('ceklogin' , 'response');
 Route::post('/posadd/orderadd/{id}', 'PosController@addorder');
@@ -77,6 +77,7 @@ Route::get('/getcustomer', 'PosController@getcustomer');
 Route::post('/addBill', 'PosController@addBill');
 Route::get('/openedHold', 'PosController@openedHold');
 Route::get('/getHold', 'PosController@getHold');
+Route::get('/searchHold', 'PosController@searchHold');
 
 // Return Order
 Route::get('/returnorder/CreateReturn','ReturnContrrol@createreturn')->middleware('ceklogin' , 'response');
