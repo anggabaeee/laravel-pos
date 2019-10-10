@@ -40,8 +40,7 @@ Route::get('/todaysales', 'PosController@todaysales')->middleware('ceklogin' , '
 Route::get('/openedbil', 'PosController@openedbil')->middleware('ceklogin' , 'response');
 
 //reports
-Route::get('/salesreports', 'PosController@salesreports')->middleware('ceklogin' , 'response');
-Route::get('/reportsale', 'PosController@reportsale');
+Route::get('/salesreports', 'PosController@salesreports');
 Route::get('/soldbyproduct', 'PosController@soldbyproduct')->middleware('ceklogin' , 'response');
 
 //expenses

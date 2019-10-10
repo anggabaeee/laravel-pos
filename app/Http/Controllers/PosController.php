@@ -514,10 +514,20 @@ class PosController extends Controller
     }
 
     //report
-    public function salesreports(){
+    public function salesreports(Request $request){
+        $outlet = $request->outlets;
+        $paid = $request->paid;
+        $start = $request->startdate;
+        $end = $request->enddate;
+        
         $outlets = DB::table('outlets')->get();
         $payment = payment_method::all();
-        return view('pages.reports.salesreports',['outlets'=>$outlets, 'payment'=>$payment]);
+        $reportsale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+        ->where('outlet_id', '=', $outlet)
+        ->where('payment_method', '=', $paid)
+        ->select('orders.*', DB::raw('DATE(ordered_datetime) as date'))
+        ->get();
+        return view('pages.reports.salesreports')->with('outlets', $outlets)->with('payment', $payment)->with('reportsale', $reportsale);
     }
 
     public function soldbyproduct(){
@@ -526,16 +536,6 @@ class PosController extends Controller
 
     public function reportsale(Request $request)
     {
-        $outlet = $request->outlets;
-        $paid = $request->paid;
-        $start = $request->start;
-        $end = $request->end;
-
-        $reportsale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
-        ->where('outlet_id', '=', $outlet)
-        ->where('payment_method', '=', $paid)
-        ->select('orders.*', DB::raw('DATE(ordered_datetime) as date'))
-        ->get();
         return view('pages.reports.reportajax', compact('reportsale'));
     }
 
