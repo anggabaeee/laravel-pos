@@ -78,6 +78,7 @@ Route::post('/addBill', 'PosController@addBill');
 Route::get('/openedHold', 'PosController@openedHold');
 Route::get('/getHold', 'PosController@getHold');
 Route::get('/searchHold', 'PosController@searchHold');
+Route::get('/checkGift', 'PosController@checkGift');
 
 // Return Order
 Route::get('/returnorder/CreateReturn','ReturnContrrol@createreturn')->middleware('ceklogin' , 'response');

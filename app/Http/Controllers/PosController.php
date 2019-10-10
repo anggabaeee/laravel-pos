@@ -144,7 +144,7 @@ class PosController extends Controller
         return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer, 'load'=>$load ]);    
     }   
 
-        public function load(){
+    public function load(){
         $customer = Customer::all();
          return response($customer);
     }   
@@ -264,6 +264,13 @@ class PosController extends Controller
         }
         order_items::insert($answer);
         return redirect('/view_invoice/'.$orders->id);
+    }
+
+    public function checkGift(Request $request)
+    {
+        $giftcard = $request->giftcard;
+        $check = gift_card::where('cardnumber', $giftcard)->get();
+        return response($check);
     }
 
     public function openedHold(Request $request)

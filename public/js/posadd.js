@@ -424,19 +424,6 @@ $(document).ready(function () {
             });
         })
     });
-    $("#xx").click(function () {
-        var code = $('input[name="code[]"]').map(function (idx, elem) {
-            return $(elem).val();
-        }).get();
-        var name = $('input[name="name[]"]').map(function (idx, elem) {
-            return $(elem).val();
-        }).get();
-        var row_length = $('input[name="row_length"]').val();
-        console.log(code)
-        console.log(name)
-        console.log(row_length)
-        event.preventDefault();
-    });
     $('#saveBill').click(function () {
         var code = $('input[name="code[]"]').map(function (idx, elem) {
             return $(elem).val();
@@ -556,4 +543,25 @@ $(document).ready(function () {
             });
         }
     });
+    $('#gift').change(function () {
+        var giftcard = $(this).val();
+        $.ajax({
+            url: '/checkGift',
+            type: 'get',
+            data: {
+                giftcard: giftcard
+            },
+            success: function (data) {
+                console.log(data);
+                if(data.length == 0) {
+                    alert('Gift Card Not Registered')
+                }
+                else{
+                    $.each(data, function (i, value) {
+                        alert('Nilai = '+value.value+' ')
+                    });
+                }
+            }
+        });
+    })
 });
