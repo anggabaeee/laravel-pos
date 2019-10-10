@@ -16,22 +16,22 @@
 <!-- select2 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
 <form action="/createstore" method="post">
-                {{ csrf_field() }}
-<div class="col-sm-9 col-lg-10">
-    <div class="container mb-5">
-        <h1>Create Return Order</h1>
-        <div class="card">
-            <div class="card-body">
+    {{ csrf_field() }}
+    <div class="col-sm-9 col-lg-10">
+        <div class="container mb-5">
+            <h1>Create Return Order</h1>
+            <div class="card">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Customers <span style="color: #F00">*</span></label>
                                 <div style="position: relative; width: 294px;">
                                     <select name="customer" class="form-control" style="height: 60px;">
-                                    <option value="" disabled selected>Choice</option>
-                                    @foreach($customer as $c)
+                                        <option value="" disabled selected>Choice</option>
+                                        @foreach($customer as $c)
                                         <option value="{{$c->id}}">{{$c->fullname}}</option>
-                                    @endforeach
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -40,10 +40,10 @@
                             <div class="form-group">
                                 <label>Outlets <span style="color: #F00">*</span></label>
                                 <select name="outlets" placeholder="Search Outlets" class="form-control">
-                                <option value="" disabled selected>Choice</option>
-                                @foreach($outlets as $c)
-                                        <option value="{{$c->id}}">{{$c->name_outlet}}</option>
-                                @endforeach
+                                    <option value="" disabled selected>Choice</option>
+                                    @foreach($outlets as $c)
+                                    <option value="{{$c->id}}">{{$c->name_outlet}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -95,10 +95,10 @@
                         </div>
                         <div class="col-md-4">
                             <select name="refundby" class="form-control">
-                            <option value="" disabled selected>Choice</option>  
-                            @foreach($payment_method as $m)
-                            <option value="{{$m->id}}">{{$m->name}}</option>
-                            @endforeach
+                                <option value="" disabled selected>Choice</option>
+                                @foreach($payment_method as $m)
+                                <option value="{{$m->id}}">{{$m->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-md-4">
                             <select name="refundmethod" class="form-control">
-                            <option value="" disabled selected>Choose Refund Method</option>
+                                <option value="" disabled selected>Choose Refund Method</option>
                                 <option value="1">Full Refund</option>
                                 <option value="2">Partial Refund</option>
                             </select>
@@ -121,16 +121,17 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00;">*</span></label>
-                                <select id="typeahead" class="form-control add_product_po" >
-                                @foreach ($product as $p)
-                                        <option value="{{$p->code}}">{{$p->name_product}}</option>
-                                @endforeach
+                                <select id="typeahead" class="form-control add_product_po">
+                                    @foreach ($product as $p)
+                                    <option value="{{$p->code}}">{{$p->name_product}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <br>
-                            <button class="btn btn-secondary" style="width: 90%">Add to Return Item(s) List</button>
+                            <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;"
+                                id="addlist">Add Return Item to List</button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 10px">
@@ -146,32 +147,25 @@
                                             <th width="10%">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                    <tbody id="mytbody">
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <center>
-                            <input type="text" id="tglskrng" name="datenow" hidden>
-                                <input type="submit" class="btn btn-primary" style="padding: 12px 20px;">
-                            </center>
-                        </div>
-                    </div>
-            </div>
-        </div>
+</form>
+<div class="row">
+    <div class="col-md-12">
+        <center>
+            <input type="text" id="tglskrng" name="datenow" hidden>
+            <input type="submit" class="btn btn-primary" style="padding: 12px 20px;">
+        </center>
     </div>
 </div>
-</form>
+</div>
+</div>
+</div>
+</div>
 <script>
     function hasil() {
         var amount = document.getElementById("amount").value;
@@ -193,16 +187,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
-        var d = new Date();
-  var c = d.getFullYear();
-  var a = d.getDate();
-  var b = d.getMonth();
-  var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-  var output = a+"/"+b+"/"+c+" "+ time;
-  $("#tglskrng").val(output) 
         $(".add_product_po").select2({
             placeholder: "Search Product by Name OR Code",
             allowClear: true
+        });
+        $("#addlist").click(function () {
+            var s = document.getElementById("typeahead");
+            var text = s.options[s.selectedIndex].text;
+            var id = s.options[s.selectedIndex].value;
+            var markup = `<tr><td>` + id + `<input type='text'value=` + id + ` class='form-control' name='product_code[]' readonly hidden> </td>
+            <td>` + text + `<input type='text'value=` + text + ` class='form-control' name='product_name[]' readonly hidden></td>
+            <td><input type='number' name='ordered_qty[]' class='form-control'></td>
+            <td><input type="checkbox" id="check" style="display:inline;" class='form-control col-6'><strong id="status" style='font-size: 30px;'>Good</strong>
+            <td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>`;
+            $("table tbody").append(markup);
+        });
+        $('#mytbody').on('click', function () {
+            $("#check").change(function () {
+                if (this.checked) {
+                    $("#status").css("color", "#575757");
+                } else {
+                    $("#status").css("color", "black");
+                }
+            });
+            $("#deletbtn").click(function () {
+                $(this)closest("tr").remove();
+            });
         });
     });
 
@@ -211,7 +221,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @if(Session::has('p'))
 <script>
-    toastr.success('{{Session::get('p')}}')
+    toastr.success('{{Session::get('
+        p ')}}')
+
 </script>
 @endif
 </section>
