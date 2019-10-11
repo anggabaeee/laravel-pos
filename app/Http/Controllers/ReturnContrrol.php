@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use App\supplier;
 use App\Customer;
 use App\product;
+use App\ReturnItem;
 use App\outlets;
 use App\payment_method;
 use App\orders;
@@ -32,6 +33,20 @@ class ReturnContrrol extends Controller
         return view('pages.ReturnOrder.returnreport'); 
     }   
     public function createstore(Request $request) {
+        if($request->qty !=null) {
+            $var=orders::max('id');
+            $panjang=$request->panjang;
+            for ($i=0; $i < $panjang; $i++) {
+                $answers[]=[ 'order_id'=>$var,
+                'price'=>$request->retail_price[$i],
+                'product_code'=>$request->product_code[$i],
+                'qty'=>$request->qty[$i],
+                'item_condition'=>$request->item_condition[$i],
+                ];
+            }
+
+            returnItem::insert($answers);
+        }
         $customer=Customer::find( $request->customer);
         $payment_method=payment_method::find( $request->refundby);
         $amount = -1 * ($request->amount);
@@ -53,6 +68,7 @@ class ReturnContrrol extends Controller
             'return_change'=>$return,
             'tax'=>$tax,
             'grandtotal'=>$grandtotal,
+            'total_items'=>$request->panjang,
             'payment_method'=>$request->refundby,
             'payment_method_name'=>$payment_method->name,
             'refund_status'=>$request->refundmethod

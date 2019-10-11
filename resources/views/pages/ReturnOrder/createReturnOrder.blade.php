@@ -61,7 +61,7 @@
                             <label>Refund Amount (SGD)</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="amount" id="amount" class="form-control" onkeyup="hasil()">
+                            <input type="number" name="amount" id="amount" class="form-control" onkeyup="hasil()">
                         </div>
                         <div class="col-md-5" style="padding-top: 10px; color: #afb1b2;">
                             * Please type positive value for Refund Amount, invoice will effect with minus.
@@ -122,9 +122,9 @@
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00;">*</span></label>
                                 <select id="typeahead" class="form-control add_product_po">
-                                    @foreach ($product as $p)
-                                    <option value="{{$p->code}}">{{$p->name_product}}</option>
-                                    @endforeach
+                                @foreach ($product as $p)
+                                <option value="{{$p->code}}" data-aku="{{$p->retail_price}}">{{$p->name_product}}</option>
+                                @endforeach
                                 </select>
                             </div>
                         </div>
@@ -132,6 +132,7 @@
                             <br>
                             <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;"
                                 id="addlist">Add Return Item to List</button>
+                                <input type="text" id="row" name="panjang">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 10px">
@@ -142,7 +143,7 @@
                                         <tr>
                                             <th width="20%">Product Code</th>
                                             <th width="20%">Product Name</th>
-                                            <th width="20%">Return Quality</th>
+                                            <th width="20%">Return Quantity</th>
                                             <th width="20%">Condition</th>
                                             <th width="10%">Action</th>
                                         </tr>
@@ -157,7 +158,6 @@
 <div class="row">
     <div class="col-md-12">
         <center>
-            <input type="text" id="tglskrng" name="datenow" hidden>
             <input type="submit" class="btn btn-primary" style="padding: 12px 20px;">
         </center>
     </div>
@@ -187,32 +187,40 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
+        $("#row").val("0");
         $(".add_product_po").select2({
             placeholder: "Search Product by Name OR Code",
             allowClear: true
         });
         $("#addlist").click(function () {
             var s = document.getElementById("typeahead");
-            var text = s.options[s.selectedIndex].text;
-            var id = s.options[s.selectedIndex].value;
-            var markup = `<tr><td>` + id + `<input type='text'value=` + id + ` class='form-control' name='product_code[]' readonly hidden> </td>
+            var text = $( "#typeahead option:selected" ).text();
+            var id =$( "#typeahead option:selected" ).val();
+            var ids =$( "#typeahead option:selected" ).data('aku');
+            var count = $('#mytbody tr').length;
+            var row = count + 1;
+            document.getElementById("row").value = row
+            var markup = `<tr><td>` + id + `<input name='retail_price[]' value=`+ ids +` hidden><input type='text'value=` + id + ` class='form-control' name='product_code[]' readonly hidden> </td>
             <td>` + text + `<input type='text'value=` + text + ` class='form-control' name='product_name[]' readonly hidden></td>
-            <td><input type='number' name='ordered_qty[]' class='form-control'></td>
-            <td><input type="checkbox" id="check" style="display:inline;" class='form-control col-6'><strong id="status" style='font-size: 30px;'>Good</strong>
+            <td><input type='number' value='1' name='qty[]' class='form-control'></td>
+            <td><input type="checkbox" id="check`+ row +`" style="display:inline;" class='form-control col-6'><strong id="keterangan`+ row +`" value='0' style='font-size: 30px;'>Good</strong><input type="number" id="status`+ row +`" value="1" name='item_condition[]' style="display:inline;" class='form-control col-6'> 
             <td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>`;
             $("table tbody").append(markup);
-        });
-        $('#mytbody').on('click', function () {
-            $("#check").change(function () {
-                if (this.checked) {
-                    $("#status").css("color", "#575757");
+            $("#mytbody").on('click','#check'+row, function () {
+            if (this.checked) {
+                    $("#keterangan"+ row).css("color", "#575757");
+                    $("#status"+ row).val("2");
                 } else {
-                    $("#status").css("color", "black");
+                    $("#keterangan"+ row).css("color", "black");
+                    $("#status"+ row).val("1");
                 }
-            });
-            $("#deletbtn").click(function () {
-                $(this)closest("tr").remove();
-            });
+        });
+        });
+        $("#mytbody").on('click','#deletbtn', function () {
+           $(this).closest('tr').remove();
+           var x = document.getElementById("row").value
+           var d = x -1
+           document.getElementById("row").value = d
         });
     });
 
@@ -221,8 +229,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @if(Session::has('p'))
 <script>
-    toastr.success('{{Session::get('
-        p ')}}')
+    toastr.success('{{Session::get('p')}}')
 
 </script>
 @endif
