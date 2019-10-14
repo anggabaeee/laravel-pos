@@ -17,11 +17,11 @@
     <div class="container">
         <h1>Expenses</h1>
         @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{ $message }}</strong>
-            </div>
-            @endif
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
         <form action="" class="mt-2 panel">
             <div class="d-flex">
                 <div class="mr-auto bd-highlight">
@@ -40,7 +40,9 @@
                     <div class="form-group">
                         <label for="">Expenses Category</label>
                         <select class="form-control" type="text">
-                            <option value="">all-category</option>
+                            @foreach ($expensescategory as $ec)
+                            <option value="{{$ec->name}}">{{$ec->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -48,10 +50,9 @@
                     <div class="form-group">
                         <label for="">Outlets</label>
                         <select class="form-control" type="text">
-                            <option value="-">All Outlets</option>
-                            <option value="3">Uniqlo - Bugis Outlet</option>
-                            <option value="2">Uniqlo - Changi Outlet</option>
-                            <option value="1">Uniqlo - NEX Outlet</option>
+                            @foreach ($outlets as $o)
+                            <option value="{{$o -> id}}">{{$o -> name_outlet}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -74,7 +75,7 @@
             </div>
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="exampel">
                         <thead>
                             <tr class="table-active" style="text-align: center;">
                                 <th>Expenses Number</th>
@@ -95,23 +96,16 @@
                                 <td>Rp. {{$e->amount}}.00</td>
                                 <td><a href="/expenses/editexpenses/{{$e->id}}">
                                         <button type="button" class="btn btn-primary">Edit </button>
-                                    </a> 
-                                    <a href="/expenses/deleteexpenses/{{$e->id}}" onclick="return confirm('Apakah anda Yakin ?')">
+                                    </a>
+                                    <a href="/expenses/deleteexpenses/{{$e->id}}"
+                                        onclick="return confirm('Apakah anda Yakin ?')">
                                         <i class="fa fa-times-circle fa-2x" style="color: red; margin-left: 3px;"></i>
                                     </a>
                                 </td>
                                 @endforeach
 
-                        <tbody>
-                            <tr style="text-align: center;">
-                                <td colspan="10">No data available in table</td>
-                            </tr>
-                        </tbody>
-                        </tbody>
                     </table>
                 </div>
-                <div class="col-md-6" style="float: left; padding-top: 10px;">
-                    Showing 0 to 0 of 0 entries </div>
             </div>
         </form>
     </div>
@@ -125,6 +119,11 @@
         });
     });
 
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#exampel').DataTable();
+    });
 </script>
 
 </section>@stop
