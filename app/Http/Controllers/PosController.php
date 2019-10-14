@@ -127,8 +127,7 @@ class PosController extends Controller
         
     }  
 
-    public function posadd(Request $request){
-        $id = $request->id;
+    public function posadd($id, Request $request){
         $inventory = DB::table('inventory')
         ->select('product_code', 'qty')
         ->where('outlet_id', $id);

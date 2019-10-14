@@ -65,7 +65,7 @@ Route::get('/pnl','PosController@pnl')->middleware('pnlcek', 'response' , 'respo
 
 // POS
 Route::get('/pos','PosController@pos')->middleware('ceklogin' , 'response');
-Route::get('/posadd','PosController@posadd')->middleware('ceklogin' , 'response');
+Route::get('/posadd/{id}','PosController@posadd')->middleware('ceklogin' , 'response');
 Route::get('/load','PosController@load');
 Route::post('/addCustomerposstore','PosController@addCustomerposstore')->middleware('ceklogin' , 'response');
 Route::post('/posadd/orderadd/{id}', 'PosController@addorder');

@@ -263,8 +263,8 @@ function PaidAmount(val) {
         document.getElementById('returninput').value = 0.00;
     } else {
         var returnchange = parseFloat(val) - parseFloat(totalAmount);
-        document.getElementById('return_change').innerHTML = returnchange;
-        document.getElementById('returninput').value = returnchange;
+        document.getElementById('return_change').innerHTML = parseFloat(returnchange).toFixed(2);
+        document.getElementById('returninput').value = parseFloat(returnchange).toFixed(2);
         if (returnchange > -1) {
             document.getElementById('ajaxsubmit').hidden = false;
         } else {
@@ -551,13 +551,13 @@ $(document).ready(function () {
             data: {
                 giftcard: giftcard
             },
-            success: function (data) {
-                console.log(data);
-                if(data.length == 0) {
+            success: function (nilai) {
+                console.log(nilai);
+                if(nilai.length == 0) {
                     alert('Gift Card Not Registered')
                 }
                 else{
-                    $.each(data, function (i, value) {
+                    $.each(nilai, function (i, value) {
                         alert('Nilai = '+value.value+' ')
                     });
                 }
