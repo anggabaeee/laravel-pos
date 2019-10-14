@@ -24,6 +24,7 @@ use App\order_items;
 use App\orders;
 use App\suspend;
 use App\suspend_item;
+use App\order_payments;
 use Validator;
 use Response;
 
@@ -230,24 +231,126 @@ class PosController extends Controller
             $suspend->save();   
         }
 
-        $orders = new orders();
-        $orders->customer_id = $request->customer;
-        $orders->customer_name = $customer->fullname;
-        $orders->outlet_id = $id;
-        $orders->ordered_datetime = DB::raw('now()');
-        $orders->subtotal = $request->totalprice;
-        $orders->discount_total = $discount;
-        $orders->tax = $request->taxval;
-        $orders->grandtotal = $request->ttl_amount;
-        $orders->total_items = $request->ttl_item;
-        $orders->payment_method = $request->payment_method;
-        $orders->payment_method_name = $payment->name;
-        $orders->paid_amt = $request->paidamount;
-        $orders->return_change = $request->return_change;
-        $orders->vt_status = 1;
-        $orders->status = 1;
-        $orders->refund_status = 1;
-        $orders->save();    
+        $payment_method = $request->payment_method;
+        $vt_status = 1;
+        if($payment_method == 6){
+            $vt_status = 0;
+        }
+
+        if($payment_method == 1 || $payment_method == 2 || $payment_method == 6){
+            $orders = new orders();
+            $orders->customer_id = $request->customer;
+            $orders->customer_name = $customer->fullname;
+            $orders->outlet_id = $id;
+            $orders->ordered_datetime = DB::raw('now()');
+            $orders->subtotal = $request->totalprice;
+            $orders->discount_total = $discount;
+            $orders->tax = $request->taxval;
+            $orders->grandtotal = $request->ttl_amount;
+            $orders->total_items = $request->ttl_item;
+            $orders->payment_method = $request->payment_method;
+            $orders->payment_method_name = $payment->name;
+            $orders->paid_amt = $request->paidamount;
+            $orders->return_change = $request->return_change;
+            $orders->vt_status = $vt_status;
+            $orders->status = 1;
+            $orders->refund_status = 1;
+            $orders->save();
+
+            $order_payment = new order_payments();
+            $order_payment->order_id = $orders->id;
+            $order_payment->payment_method_id = $request->payment_method;
+            $order_payment->payment_amount = $request->paidamount;
+            $order_payment->status = 1;
+            $order_payment->save();
+        }
+        elseif($payment_method == 3 || $payment_method == 4){
+            $orders = new orders();
+            $orders->customer_id = $request->customer;
+            $orders->customer_name = $customer->fullname;
+            $orders->outlet_id = $id;
+            $orders->ordered_datetime = DB::raw('now()');
+            $orders->subtotal = $request->totalprice;
+            $orders->discount_total = $discount;
+            $orders->tax = $request->taxval;
+            $orders->grandtotal = $request->ttl_amount;
+            $orders->total_items = $request->ttl_item;
+            $orders->payment_method = $request->payment_method;
+            $orders->payment_method_name = $payment->name;
+            $orders->paid_amt = $request->paidamount;
+            $orders->return_change = $request->return_change;
+            $orders->card_number = $request->cardnumber;
+            $orders->vt_status = 1;
+            $orders->status = 1;
+            $orders->refund_status = 1;
+            $orders->save();
+
+            $order_payment = new order_payments();
+            $order_payment->order_id = $orders->id;
+            $order_payment->payment_method_id = $request->payment_method;
+            $order_payment->payment_amount = $request->paidamount;
+            $order_payment->number = $request->cardnumber;
+            $order_payment->status = 1;
+            $order_payment->save();
+        }
+        elseif($payment_method == 5){
+            $orders = new orders();
+            $orders->customer_id = $request->customer;
+            $orders->customer_name = $customer->fullname;
+            $orders->outlet_id = $id;
+            $orders->ordered_datetime = DB::raw('now()');
+            $orders->subtotal = $request->totalprice;
+            $orders->discount_total = $discount;
+            $orders->tax = $request->taxval;
+            $orders->grandtotal = $request->ttl_amount;
+            $orders->total_items = $request->ttl_item;
+            $orders->payment_method = $request->payment_method;
+            $orders->payment_method_name = $payment->name;
+            $orders->paid_amt = $request->paidamount;
+            $orders->return_change = $request->return_change;
+            $orders->cheque_number = $request->chequenumber;
+            $orders->vt_status = 1;
+            $orders->status = 1;
+            $orders->refund_status = 1;
+            $orders->save();
+
+            $order_payment = new order_payments();
+            $order_payment->order_id = $orders->id;
+            $order_payment->payment_method_id = $request->payment_method;
+            $order_payment->payment_amount = $request->paidamount;
+            $order_payment->number = $request->chequenumber;
+            $order_payment->status = 1;
+            $order_payment->save();
+        }
+        else{
+            $orders = new orders();
+            $orders->customer_id = $request->customer;
+            $orders->customer_name = $customer->fullname;
+            $orders->outlet_id = $id;
+            $orders->ordered_datetime = DB::raw('now()');
+            $orders->subtotal = $request->totalprice;
+            $orders->discount_total = $discount;
+            $orders->tax = $request->taxval;
+            $orders->grandtotal = $request->ttl_amount;
+            $orders->total_items = $request->ttl_item;
+            $orders->payment_method = $request->payment_method;
+            $orders->payment_method_name = $payment->name;
+            $orders->paid_amt = $request->paidamount;
+            $orders->return_change = $request->return_change;
+            $orders->gift_card = $request->giftcard;
+            $orders->vt_status = 1;
+            $orders->status = 1;
+            $orders->refund_status = 1;
+            $orders->save();
+
+            $order_payment = new order_payments();
+            $order_payment->order_id = $orders->id;
+            $order_payment->payment_method_id = $request->payment_method;
+            $order_payment->payment_amount = $request->paidamount;
+            $order_payment->number = $request->giftcard;
+            $order_payment->status = 1;
+            $order_payment->save();
+        }
 
         $length = $request->row_length;
         for($i=0; $i<$length; $i++){
@@ -262,6 +365,7 @@ class PosController extends Controller
             ];
         }
         order_items::insert($answer);
+
         return redirect('/view_invoice/'.$orders->id);
     }
 
