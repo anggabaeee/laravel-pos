@@ -1,5 +1,4 @@
 function addlist(i) {
-    jQuery.noConflict();
     var invqty = document.getElementById('' + i + '-qty').innerHTML;
     if (invqty == 0) {
         $('#myModal7').modal('show');
@@ -23,7 +22,7 @@ function addlist(i) {
             var div1 = document.createElement('div');
             div1.setAttribute("class", "col-md-3");
             var pnew = document.createElement('label');
-            pnew.setAttribute('id', '' + i + '-namelist')
+            pnew.setAttribute('id', 'namelist')
             var newname = document.createTextNode(name);
             pnew.appendChild(newname);
             var iname = document.createElement('input')
@@ -124,6 +123,7 @@ function addlist(i) {
         closeicon.onclick = function () {
             dataremove(i)
         }
+
     }
 }
 
@@ -160,9 +160,10 @@ function changeqty(i) {
     nilaiqty = parseInt(valueqty);
     var qtystock = document.getElementById('' + i + '-qty').innerHTML;
     nilaiqtystock = parseInt(qtystock);
+    var codebarang = document.getElementById('' + i + '-codelist').innerHTML;
 
     if (nilaiqty > nilaiqtystock) {
-        alert("Melebihi batas stok");
+        alert('Kode Barang ' + codebarang + ' Melebihi batas stok. Stok kurang dari ' + nilaiqty + '');
         document.getElementById('' + i + '-qtylist').value = qtystock;
     }
 
@@ -262,13 +263,61 @@ function PaidAmount(val) {
         document.getElementById('returninput').value = 0.00;
     } else {
         var returnchange = parseFloat(val) - parseFloat(totalAmount);
-        document.getElementById('return_change').innerHTML = returnchange;
-        document.getElementById('returninput').value = returnchange;
+        document.getElementById('return_change').innerHTML = parseFloat(returnchange).toFixed(2);
+        document.getElementById('returninput').value = parseFloat(returnchange).toFixed(2);
         if (returnchange > -1) {
             document.getElementById('ajaxsubmit').hidden = false;
         } else {
             document.getElementById('ajaxsubmit').hidden = true;
         }
+    }
+}
+
+function addfromhold(i) {
+    $.ajax({
+        url: '/getHold',
+        type: 'get',
+        data: {
+            suspend_id: i
+        },
+        success: function (data) {
+            $('#isitable').empty();
+            $.each(data, function (i, value) {
+                $('#myModal2').modal('hide');
+                var msg = '<div class="row row_list" name="row_list" style="margin-right: 5px" id="' + value.id_product + '-row"><div class="col-md-3"><input type="hidden" value=' + value.suspend_id + ' name="suspend_id" id="suspend_id"><label id="namelist"> Contoh 1</label><br><label id="' + value.id_product + '-codelist">' + value.product_code + '</label><input value="' + value.product_name + '" name="name[]" type="hidden"><input value="' + value.product_code + '" name="code[]" type="hidden"></div><div class="col-md-5"><div class="row"><div class="col-md-3" style="padding-right: 0"><a onclick="getdatamin(' + value.id_product + ')" class="fa fa-minus-circle" style="margin-top: 11px;"></a></div><div class="col-md-6" style="padding-right: 0; padding-left: 0;"><input onchange="changeqty(' + value.id_product + ')" type="text" value="' + value.qty + '" class="form-control" name="qty[]" id="' + value.id_product + '-qtylist"></div><div class="col-md-3" style="padding-left: 0;"><a onclick="getdataplus(' + value.id_product + ')" class="fa fa-plus-circle" style="margin-top: 11px"></a></div></div></div><div class="col-md-3"><label name="pricelist[]">' + value.price + '</label><input value="' + value.price + '" name="price[]" type="hidden"><input value="' + value.cost + '" name="cost[]" type="hidden"></div><div class="col-md-1"><a onclick="dataremove(' + value.id_product + ')" class="fa fa-close"></a></div><input value="' + value.id_susp + '" name="id_susp" id="id_susp" type="hidden"></div>'
+                $('#isitable').append(msg);
+                $('#discount').val(value.discount_total);
+                total();
+                changeqty(value.id_product);
+            });
+        }
+    });
+}
+
+function paymentchange() {
+    var selected = $('#payment_method').val();
+    if (selected == 3 || selected == 4) {
+        $('#cardnumber').show();
+        $('#chequenumber').hide();
+        $('#giftcard').hide();
+        $('input[name="cardnumber"]').attr('required', true);
+    } else if (selected == 5) {
+        $('#giftcard').hide();
+        $('#cardnumber').hide();
+        $('#chequenumber').show();
+        $('input[name="chequenumber"]').attr('required', true);
+    } else if (selected == 7) {
+        $('#cardnumber').hide();
+        $('#chequenumber').hide();
+        $('#giftcard').show();
+        $('input[name="giftcard"]').attr('required', true);
+    } else {
+        $('#chequenumber').hide();
+        $('#cardnumber').hide();
+        $('#giftcard').hide();
+        $('input[name="giftcard"]').removeAttr('required');
+        $('input[name="chequenumber"]').removeAttr('required');
+        $('input[name="cardnumber"]').removeAttr('required');
     }
 }
 
@@ -284,7 +333,7 @@ $(document).ready(function () {
             $('#myModal8').modal('show');
         } else {
             $('#Modal5').modal('show');
-            $('#form_output').html('');
+            paymentchange();
             var totalAmount = document.getElementById('grandtotal').innerHTML;
             var totalItems = document.getElementById('totalqty').innerHTML;
             document.getElementById('total_amount').innerHTML = totalAmount;
@@ -305,6 +354,7 @@ $(document).ready(function () {
                     document.getElementById('ajaxsubmit').hidden = false
                 }
             }
+
         }
     });
     $("#myBtn4").click(function () {
@@ -313,31 +363,27 @@ $(document).ready(function () {
     $("#myBtn1").click(function () {
         $("#myModal1").modal('show');
         var outlets = $('#outlet_id').val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             url: '/todaysale',
             type: 'get',
-            data: {outlets: outlets},
-            success:function(data){
-                $.each(data, function(i, value){
-                    if(value.cash == null){
+            data: {
+                outlets: outlets
+            },
+            success: function (data) {
+                $.each(data, function (i, value) {
+                    if (value.cash == null) {
                         value.cash = "0.00";
                     }
-                    if(value.master_card == null){
+                    if (value.master_card == null) {
                         value.master_card = "0.00";
                     }
-                    if(value.nett == null){
+                    if (value.nett == null) {
                         value.nett = "0.00";
                     }
-                    if(value.visa == null){
+                    if (value.visa == null) {
                         value.visa = "0.00";
                     }
-                    if(value.cheque == null){
+                    if (value.cheque == null) {
                         value.cheque = "0.00";
                     }
                     $('#divcash').empty();
@@ -345,49 +391,156 @@ $(document).ready(function () {
                     $('#divvisa').empty();
                     $('#divmaster').empty();
                     $('#divcheq').empty();
-                    $('#divcash').append($("<label/>",{
-                        text : value.cash
+                    $('#divcash').append($("<label/>", {
+                        text: value.cash
                     })).append($);
-                    $('#divnett').append($("<label/>",{
-                        text : value.nett
+                    $('#divnett').append($("<label/>", {
+                        text: value.nett
                     })).append($);
-                    $('#divvisa').append($("<label/>",{
-                        text : value.visa
+                    $('#divvisa').append($("<label/>", {
+                        text: value.visa
                     })).append($);
-                    $('#divmaster').append($("<label/>",{
-                        text : value.master_card
+                    $('#divmaster').append($("<label/>", {
+                        text: value.master_card
                     })).append($);
-                    $('#divcheq').append($("<label/>",{
-                        text : value.cheque
+                    $('#divcheq').append($("<label/>", {
+                        text: value.cheque
                     })).append($);
-                    
+
                 });
             }
         });
-        // $.get("/todaysale/{{$outlets->id}}",function(data){
-        //     console.log(data)
-        // });
     });
     $("#myBtn3").click(function () {
         $("#myModal3").modal('show');
-        $.get('/getcustomer', function(data){
+        $.get('/getcustomer', function (data) {
             $('#customeroption').empty();
-            $.each(data, function(i, value){
-                $('#customeroption').append($("<option/>",{
-                    text : value.fullname,
-                    value : value.id
+            $.each(data, function (i, value) {
+                $('#customeroption').append($("<option/>", {
+                    text: value.fullname,
+                    value: value.id
                 })).append($);
-               
+
             });
         })
     });
+    $('#saveBill').click(function () {
+        var code = $('input[name="code[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var name = $('input[name="name[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var qty = $('input[name="qty[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var cost = $('input[name="cost[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var price = $('input[name="price[]"]').map(function (idx, elem) {
+            return $(elem).val();
+        }).get();
+        var totalitem = $('#totalqty').html();
+        var subtotal = $('#total').html();
+        var taxvalue = $('#taxvalue').val();
+        var grandtotal = $('#grandtotal').html();
+        var discount = $('#discount').val();
+        var customer_id = $('#customeroption').val();
+        var outlet_id = $('#outlet_id').val();
+        var ref_number = $('#ref_number').val();
+        var row_length = $('input[name="row_length"]').val();
 
-});
-
-$(document).ready(function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/addBill',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                code: code,
+                name: name,
+                qty: qty,
+                cost: cost,
+                price: price,
+                totalitem: totalitem,
+                subtotal: subtotal,
+                taxvalue: taxvalue,
+                grandtotal: grandtotal,
+                discount: discount,
+                customer_id: customer_id,
+                outlet_id: outlet_id,
+                ref_number: ref_number,
+                row_length: row_length,
+            },
+            complete: function () {
+                $('#myModal3').modal('hide');
+                $('#isitable').empty();
+                total();
+                window.scrollTo(0, 0);
+                $('#notif').css('display', 'block').fadeOut(4000);
+                $('#discount').val('');
+                $('#ref_number').val('');
+            },
+        });
+    });
+    $('#myBtn2').click(function () {
+        $("#myModal2").modal('show');
+        var outlets = $('#outlet_id').val();
+        $.ajax({
+            url: '/openedHold',
+            type: 'get',
+            data: {
+                outlets: outlets
+            },
+            success: function (data) {
+                console.log(data)
+                $('#isihold').empty();
+                $.each(data, function (i, value) {
+                    var msg = '<div id="holddata" class="col-md-5">  <a onclick="addfromhold(' + value.id + ')"><b>Ref. Number</b> : ' + value.ref_number + ' <br><b>Customer Name </b> : ' + value.customer_name + '<br><b>Date </b> : ' + value.created_at + '<br><b>Qty</b> : ' + value.total_items + '<br><b>Total </b> : ' + value.grandtotal + ' <input type="hidden" value="' + value.id + '" name="id_suspend" id="id_suspend"></a></div>'
+                    $('#isihold').append(msg);
+                });
+            }
+        });
+    })
+    $('#searchold').keyup(function () {
+        var outlets = $('#outlet_id').val();
+        var ref_number = $(this).val();
+        if (ref_number == null) {
+            $.ajax({
+                url: '/openedHold',
+                type: 'get',
+                data: {
+                    outlets: outlets
+                },
+                success: function (data) {
+                    console.log(data)
+                    $('#isihold').empty();
+                    $.each(data, function (i, value) {
+                        var msg = '<div id="holddata" class="col-md-5">  <a onclick="addfromhold(' + value.id + ')"><b>Ref. Number</b> : ' + value.ref_number + ' <br><b>Customer Name </b> : ' + value.customer_name + '<br><b>Date </b> : ' + value.created_at + '<br><b>Qty</b> : ' + value.total_items + '<br><b>Total </b> : ' + value.grandtotal + ' <input type="hidden" value="' + value.id + '" name="id_suspend" id="id_suspend"></a></div>'
+                        $('#isihold').append(msg);
+                    });
+                }
+            });
+        } else {
+            $.ajax({
+                url: '/searchHold',
+                type: 'get',
+                data: {
+                    outlets: outlets,
+                    ref_number: ref_number
+                },
+                success: function (data) {
+                    console.log(data)
+                    $('#isihold').empty();
+                    $.each(data, function (i, value) {
+                        var msg = '<div id="holddata" class="col-md-5">  <a onclick="addfromhold(' + value.id + ')"><b>Ref. Number</b> : ' + value.ref_number + ' <br><b>Customer Name </b> : ' + value.customer_name + '<br><b>Date </b> : ' + value.created_at + '<br><b>Qty</b> : ' + value.total_items + '<br><b>Total </b> : ' + value.grandtotal + ' <input type="hidden" value="' + value.id + '" name="id_suspend" id="id_suspend"></a></div>'
+                        $('#isihold').append(msg);
+                    });
+                }
+            });
         }
     });
 });

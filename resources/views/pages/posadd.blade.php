@@ -1,4 +1,5 @@
-@extends('layouts.defaultpos') @section('content')
+@extends('layouts.defaultpos')
+@section('content')
 <style>
     .form {
         background-color: white;
@@ -70,10 +71,29 @@
         border: none;
     }
 
+    #notif {
+        display: none;
+    }
+
+    #holddata {
+        background-color: #834f50;
+        color: #FFF;
+        margin: 7px 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        height: 140px;
+        font-size: 14px;
+        text-align: center;
+    }
+
 </style>
 <form action="/posadd/orderadd/{{$outlets->id}}" method="post">
     {{csrf_field()}}
     <div class="form mx-4">
+        <div id="notif" class="alert alert-success alert-block">
+            <i class="icono-checkCircle" style="color: #090; font-size: 11px;"></i>
+            <strong>Successfully Added to Opened Bill</strong>
+        </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="kiri">
@@ -181,15 +201,15 @@
                             <div class="tablepilihan border">
                                 @php $n=0; $a=0; $b=0; $c=0; $d=0; $e=0;@endphp
                                 <div class="row">@foreach ($product as $p) <div class="col-md-2 stock ml-4 mt-3">
-                                        <div class="mt-1"><a onclick="addlist('{{$n++}}')" id="addlist11"><img
+                                        <div class="mt-1"><a onclick="addlist('{{$p->id_product}}')" id="addlist11"><img
                                                     height="50px" class="img-thumbnail"
                                                     src="{{ url('/product_image/'.$p->thumbnail) }}">
-                                                <p id="{{$a++}}-name_product"> {{$p->name_product}}</p>
-                                                <p hidden="true" id="{{$b++}}-qty">@if ($p->qty===null) 0
+                                                <p id="{{$p->id_product}}-name_product"> {{$p->name_product}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-qty">@if ($p->qty===null) 0
                                                     @endif {{$p->qty}}</p>
-                                                <p hidden="true" id="{{$c++}}-price"> {{$p->retail_price}}</p>
-                                                <p hidden="true" id="{{$d++}}-code"> {{$p->code}}</p>
-                                                <p hidden="true" id="{{$e++}}-cost"> {{$p->purchase_price}}
+                                                <p hidden="true" id="{{$p->id_product}}-price"> {{$p->retail_price}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-code"> {{$p->code}}</p>
+                                                <p hidden="true" id="{{$p->id_product}}-cost"> {{$p->purchase_price}}
                                                 </p>
                                             </a>
                                         </div>
@@ -197,36 +217,6 @@
                                     @endforeach
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: #373942;">
-                <div class="modal-header">
-                    <h5 class="modal-title" style="color:white;" id="examplemyModal1Label">Todays's Sales <span
-                            id="datenow"></span></h5>
-                </div>
-                <div class="modal-body" style="background-color:white;">
-                    <div class="container mt-2">
-                        <div class="row isimodel" style="color: #5f6468; background-color: #ededed;">
-                            <div class="col-sm-12 mt-3">Cash : <label id="divcash"></label></div>
-                        </div>
-                        <div class="row isimodel">
-                            <div class="col-sm-12 mt-3">Nett : <label id="divnett"></label></div>
-                        </div>
-                        <div class="row isimodel" style="background-color: #ededed; color: #5f6468;">
-                            <div class="col-sm-12 mt-3">VISA : <label id="divvisa"></label></div>
-                        </div>
-                        <div class="row isimodel" style="color: #5f6468;">
-                            <div class="col-sm-12 mt-3">MASTER : <label id="divmaster"></label></div>
-                        </div>
-                        <div class="row isimodel" style="background-color: #005b8a; color:white;">
-                            <div class="col-sm-12 mt-3">Cheque : <label id="divcheq"></label></div>
                         </div>
                     </div>
                 </div>
@@ -267,12 +257,28 @@
                         <div class="col-6 mt-1">
                             <p>Paid By:</p>
                         </div>
-                        <div class="col-6"><select class="form-control" type="text" name="payment_method"
-                                id="payment_method" required>
-                                <option disabled selected value>choice</option>@foreach ($payment as $p) <option
-                                    value="{{$p->id}}"> {{ $p->name}}
-                                </option>@endforeach
+                        <div class="col-6">
+                            <select class="form-control" type="text" name="payment_method" id="payment_method" required>
+                                <option disabled selected value>choice</option>
+                                @foreach ($payment as $p)
+                                <option value="{{$p->id}}"> {{ $p->name}}</option>
+                                @endforeach
                             </select></div>
+                    </div>
+                    <div class="row" id="giftcard">
+                        <div class="col-6 mt-1">
+                            <p>Gift Card :<p>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control input-element" name="giftcard" id="gift">
+                        </div>
+                    </div>
+                    <div class="row" id="chequenumber">
+                        <div class="col-6 mt-1">
+                            <p>Cheque Number :<p>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="chequenumber" class="form-control"></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -280,6 +286,13 @@
                         </div>
                         <div class="col-6"><input type="text" id="paidamount" name="paidamount"
                                 class="form-control col-sm-12" onkeyup="PaidAmount(this.value)" required></div>
+                    </div>
+                    <div class="row" id="cardnumber">
+                        <div class="col-6 mt-1">
+                            <p>Card Number :<p>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" name="cardnumber" class="form-control"></div>
                     </div>
                     <div class="row">
                         <div class="col-6 mt-1">
@@ -295,6 +308,36 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModal1Label"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #373942;">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:white;" id="examplemyModal1Label">Todays's Sales <span
+                            id="datenow"></span></h5>
+                </div>
+                <div class="modal-body" style="background-color:white;">
+                    <div class="container mt-2">
+                        <div class="row isimodel" style="color: #5f6468; background-color: #ededed;">
+                            <div class="col-sm-12 mt-3">Cash : <label id="divcash"></label></div>
+                        </div>
+                        <div class="row isimodel">
+                            <div class="col-sm-12 mt-3">Nett : <label id="divnett"></label></div>
+                        </div>
+                        <div class="row isimodel" style="background-color: #ededed; color: #5f6468;">
+                            <div class="col-sm-12 mt-3">VISA : <label id="divvisa"></label></div>
+                        </div>
+                        <div class="row isimodel" style="color: #5f6468;">
+                            <div class="col-sm-12 mt-3">MASTER : <label id="divmaster"></label></div>
+                        </div>
+                        <div class="row isimodel" style="background-color: #005b8a; color:white;">
+                            <div class="col-sm-12 mt-3">Cheque : <label id="divcheq"></label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2Label"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -303,17 +346,16 @@
                     <h3 class="modal-title" style="color:white;">Opened Bill</h3>
                 </div>
                 <div class="modal-body" style="background-color:white;">
-                    <div class="row">
+                    <div class="row" style="border-bottom: 1px solid #ddd;">
                         <div class="col-5 mt-1">
                             <p>Search Opened Bill :</p>
                         </div>
-                        <div class="col-7"><input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                        <div class="col-7">
+                        <input type="text" class="form-control col-sm-12" id="searchold" placeholder="ref.number">
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer" style="background-color:white;">
-                    <div class="row">
-                        <div class="col-12 isitable"></div>
+                    <div class="row" id="isihold" style="overflow: scroll; height: 400px; margin-top: 10px;">
+
                     </div>
                 </div>
             </div>
@@ -322,7 +364,7 @@
     <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModal3Label"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="background-color: #373942;">
                 <div class="modal-header" style="background-color: #373942;">
                     <h3 class="modal-title" style="color:white;">Save to Opened Bill</h3>
                 </div>
@@ -342,21 +384,28 @@
                             <p>Hold Bill Ref. Number</p>
                         </div>
                         <div class="col-7">
-                            <input type="text" class="form-control col-sm-12" placeholder="ref.number">
+                            <input type="text" class="form-control col-sm-12" placeholder="ref.number" id="ref_number"
+                                name="ref_number">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer" style="background-color:white;">
-                <div class="d-flex">
-                    <div class="ml-auto">
-                        <button type="button" class="btn btn-success py-1">Submit</button>
+                <div class="modal-footer" style="background-color:white;">
+                    <div class="row">
+                        <div class="d-flex col-12">
+                            <div class="ml-auto">
+                                <input type="button" name="saveBill" class="btn btn-success py-1" value="Submit"
+                                    id="saveBill">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+
+
 <form>
     <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModal4Label"
         aria-hidden="true">
@@ -449,11 +498,14 @@
 </div>
 <script src="{{ asset('js/posadd.js') }}"></script>
 <script>
+</script>
+<script>
     var d = new Date();
     var a = d.getDate() + "/";
     var c = d.getMonth() + 1 + "/" + d.getFullYear();
     document.getElementById("datenow").innerHTML = a + c;
     $(document).ready(function () {
+        $('.input-element').inputmask("9999 9999 9999 9999");
         $('#btnAdd').click(function () {
             var fulname = $('#customername').val();
             var email = $('#customeremail').val();
@@ -484,11 +536,7 @@
                 });
             }
         });
-    });
 
-</script>
-<script>
-    $(document).ready(function () {
         $('#myBtn5').click(function () {
             $.ajax({
                 url: '/load',
@@ -498,21 +546,41 @@
                     var data = JSON.parse(xhr.responseText);
                     // Loopinge bos
                     data.forEach(function (post) {
-                        $("#customerpayment").append(`<option value='`+post.id+`'>`+post.fullname+`</option>`);
+                        $("#customerpayment").append(`<option value='` + post.id +
+                            `'>` + post.fullname + `</option>`);
                     });
 
+                }
+            });
+            $("#payment_method").change(function () {
+                var selected = $("#payment_method").children("option:selected").val();
+                if (selected == 3 || selected == 4) {
+                    $('#cardnumber').show();
+                    $('#chequenumber').hide();
+                    $('#giftcard').hide();
+                    $('input[name="cardnumber"]').attr('required', true);
+                } else if (selected == 5) {
+                    $('#giftcard').hide();
+                    $('#cardnumber').hide();
+                    $('#chequenumber').show();
+                    $('input[name="chequenumber"]').attr('required', true);
+                } else if (selected == 7) {
+                    $('#cardnumber').hide();
+                    $('#chequenumber').hide();
+                    $('#giftcard').show();
+                    $('input[name="giftcard"]').attr('required', true);
+                } else {
+                    $('#chequenumber').hide();
+                    $('#cardnumber').hide();
+                    $('#giftcard').hide();
+                    $('input[name="giftcard"]').removeAttr('required');
+                    $('input[name="chequenumber"]').removeAttr('required');
+                    $('input[name="cardnumber"]').removeAttr('required');
                 }
             });
         });
     });
 
 </script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-</script>
-<script>
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 @stop

@@ -22,6 +22,8 @@ use App\expenses;
 use App\payment_method ;
 use App\order_items;
 use App\orders;
+use App\suspend;
+use App\suspend_item;
 use Validator;
 use Response;
 
@@ -125,7 +127,7 @@ class PosController extends Controller
         
     }  
 
-    public function posadd($id){
+    public function posadd($id, Request $request){
         $inventory = DB::table('inventory')
         ->select('product_code', 'qty')
         ->where('outlet_id', $id);
@@ -141,7 +143,7 @@ class PosController extends Controller
         return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer, 'load'=>$load ]);    
     }   
 
-        public function load(){
+    public function load(){
         $customer = Customer::all();
          return response($customer);
     }   
@@ -151,6 +153,43 @@ class PosController extends Controller
         $outlet = $request->outlets;
         $todaysale = DB::select("SELECT t1.cash, t2.nett, t3.visa, t4.master_card, t5.cheque FROM (SELECT Sum(orders.grandtotal) AS cash FROM orders WHERE orders.payment_method = 1 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t1,(SELECT Sum(orders.grandtotal) AS nett FROM orders WHERE orders.payment_method = 2 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t2, (SELECT Sum(orders.grandtotal) AS visa FROM orders WHERE orders.payment_method = 3 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t3, (SELECT Sum(orders.grandtotal) AS master_card FROM orders WHERE orders.payment_method = 4 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t4, (SELECT Sum(orders.grandtotal) AS cheque FROM orders WHERE orders.payment_method = 5 AND DATE(orders.ordered_datetime) = curdate() AND orders.outlet_id = (".$outlet.")) AS t5");
         return response($todaysale);
+    }
+
+    public function addBill(Request $request)
+    {
+
+        $customer = DB::table('customer')->where('id', $request->customer_id)->first();
+        $discount = $request->discount;
+        if($discount == null){
+            $discount = 0;
+        }
+
+        $suspend = new suspend();
+        $suspend->ref_number = $request->ref_number;
+        $suspend->customer_id = $request->customer_id;
+        $suspend->customer_name = $customer->fullname;
+        $suspend->outlet_id = $request->outlet_id;
+        $suspend->subtotal = $request->subtotal;
+        $suspend->discount_total = $discount;
+        $suspend->tax = $request->taxvalue;
+        $suspend->grandtotal = $request->grandtotal;
+        $suspend->total_items = $request->totalitem;
+        $suspend->status = 0;
+        $suspend->save();
+        
+        $length = $request->row_length;
+        for($i=0; $i<$length; $i++){
+            $answer[] = [
+                'suspend_id' => $suspend->id,
+                'product_code' => $request->code[$i],
+                'product_name' => $request->name[$i],
+                'cost' => $request->cost[$i],
+                'price' => $request->price[$i],
+                'qty' => $request->qty[$i],
+            ];
+        }
+        suspend_item::insert($answer);
+        return redirect('/posadd', compact('suspend'));
     }
 
     public function getcustomer()
@@ -181,8 +220,14 @@ class PosController extends Controller
         $customer = DB::table('customer')->where('id', $request->customer)->first();
         $payment = DB::table('payment_methods')->where('id', $request->payment_method)->first();
         $discount = $request->discount;
+        $id_suspend = $request->id_susp;
         if ($discount == null){
             $discount = 0;
+        }
+        if($id_suspend != null){
+            $suspend = suspend::find($id_suspend);
+            $suspend->status = 1;
+            $suspend->save();   
         }
 
         $orders = new orders();
@@ -218,6 +263,46 @@ class PosController extends Controller
         }
         order_items::insert($answer);
         return redirect('/view_invoice/'.$orders->id);
+    }
+
+    public function checkGift(Request $request)
+    {
+        $giftcard = $request->giftcard;
+        $check = gift_card::where('cardnumber', $giftcard)->get();
+        return response($check);
+    }
+
+    public function openedHold(Request $request)
+    {
+        $outlet = $request->outlets;
+        $suspend = DB::table('suspends')
+        ->where('outlet_id', $outlet)
+        ->where('status', 0)
+        ->get();
+        return response($suspend);
+    }
+
+    public function searchHold(Request $request)
+    {
+        $outlet = $request->outlets;
+        $ref_number = $request->ref_number;
+        $suspend = DB::table('suspends')
+        ->where('outlet_id', $outlet)
+        ->where('status', 0)
+        ->where('ref_number', 'like', '%'.$ref_number.'%')
+        ->get();
+        return response($suspend);
+    }
+
+    public function getHold(Request $request)
+    {
+        $id = $request->suspend_id;
+        $suspends = DB::table('suspend_items')->where('suspend_id', $id)
+        ->join('product', 'product.code', '=', 'suspend_items.product_code')
+        ->join('suspends', 'suspends.id', '=', 'suspend_items.suspend_id')
+        ->select('product.id_product as id_product', 'suspend_items.*', 'suspends.discount_total as discount_total', 'suspends.id as id_susp')
+        ->get();
+        return response($suspends);
     }
 
     public function invoice($id){
@@ -428,10 +513,20 @@ class PosController extends Controller
     }
 
     //report
-    public function salesreports(){
+    public function salesreports(Request $request){
+        $outlet = $request->outlets;
+        $paid = $request->paid;
+        $start = $request->startdate;
+        $end = $request->enddate;
+        
         $outlets = DB::table('outlets')->get();
         $payment = payment_method::all();
-        return view('pages.reports.salesreports',['outlets'=>$outlets, 'payment'=>$payment]);
+        $reportsale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+        ->where('outlet_id', '=', $outlet)
+        ->where('payment_method', '=', $paid)
+        ->select('orders.*', DB::raw('DATE(ordered_datetime) as date'))
+        ->get();
+        return view('pages.reports.salesreports')->with('outlets', $outlets)->with('payment', $payment)->with('reportsale', $reportsale);
     }
 
     public function soldbyproduct(){
@@ -440,16 +535,6 @@ class PosController extends Controller
 
     public function reportsale(Request $request)
     {
-        $outlet = $request->outlets;
-        $paid = $request->paid;
-        $start = $request->start;
-        $end = $request->end;
-
-        $reportsale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
-        ->where('outlet_id', '=', $outlet)
-        ->where('payment_method', '=', $paid)
-        ->select('orders.*', DB::raw('DATE(ordered_datetime) as date'))
-        ->get();
         return view('pages.reports.reportajax', compact('reportsale'));
     }
 

@@ -157,7 +157,7 @@
             var count = $('#mytbody tr').length;
             document.getElementById("row").value = count
         });
-        $('.table tbody').on('click','#deletbtn', function () {
+        $("#mytbody").on('click','#deletbtn', function () {
            $(this).closest('tr').remove();
            var x = document.getElementById("row").value
            var d = x -1

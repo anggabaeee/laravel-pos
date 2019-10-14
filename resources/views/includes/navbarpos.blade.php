@@ -31,7 +31,7 @@
                     Owner
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="/logout">
                         <i class="fa fa-power-off" style="font-size: x-large;"></i>
                         Log Out
                     </a>
