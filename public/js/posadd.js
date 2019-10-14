@@ -258,17 +258,30 @@ function disc(val) {
 function PaidAmount(val) {
     var totalAmount = document.getElementById('total_amount').innerHTML;
     var ret = document.getElementById('paidamount').value;
-    if (ret == "") {
+    var payment_method = document.getElementById('payment_method').value;
+    if (payment_method == 6){
         document.getElementById('return_change').innerHTML = 0.00;
         document.getElementById('returninput').value = 0.00;
-    } else {
-        var returnchange = parseFloat(val) - parseFloat(totalAmount);
-        document.getElementById('return_change').innerHTML = parseFloat(returnchange).toFixed(2);
-        document.getElementById('returninput').value = parseFloat(returnchange).toFixed(2);
-        if (returnchange > -1) {
-            document.getElementById('ajaxsubmit').hidden = false;
-        } else {
+        if(parseFloat(val) >= totalAmount){
             document.getElementById('ajaxsubmit').hidden = true;
+        }
+        else{
+            document.getElementById('ajaxsubmit').hidden = false;
+        }
+    }
+    else{
+        if (ret == "") {
+            document.getElementById('return_change').innerHTML = 0.00;
+            document.getElementById('returninput').value = 0.00;
+        } else {
+            var returnchange = parseFloat(val) - parseFloat(totalAmount);
+            document.getElementById('return_change').innerHTML = parseFloat(returnchange).toFixed(2);
+            document.getElementById('returninput').value = parseFloat(returnchange).toFixed(2);
+            if (returnchange >= 0) {
+                document.getElementById('ajaxsubmit').hidden = false;
+            } else {
+                document.getElementById('ajaxsubmit').hidden = true;
+            }
         }
     }
 }
@@ -356,6 +369,52 @@ $(document).ready(function () {
             }
 
         }
+        $.ajax({
+            url: '/load',
+            type: 'get',
+            complete: function (xhr) {
+                // datanerespon
+                var data = JSON.parse(xhr.responseText);
+                // Loopinge bos
+                $('#customerpayment').empty();
+                data.forEach(function (post) {
+                    $("#customerpayment").append(`<option value='` + post.id +
+                        `'>` + post.fullname + `</option>`);
+                });
+            }
+        });
+        $("#payment_method").change(function () {
+            var selected = $("#payment_method").children("option:selected").val();
+            if (selected == 3 || selected == 4) {
+                $('#cardnumber').show();
+                $('#chequenumber').hide();
+                $('#giftcard').hide();
+                $('input[name="cardnumber"]').attr('required', true);
+            } else if (selected == 5) {
+                $('#giftcard').hide();
+                $('#cardnumber').hide();
+                $('#chequenumber').show();
+                $('input[name="chequenumber"]').attr('required', true);
+            } else if (selected == 7) {
+                $('#cardnumber').hide();
+                $('#chequenumber').hide();
+                $('#giftcard').show();
+                $('input[name="giftcard"]').attr('required', true);
+            } else {
+                $('#chequenumber').hide();
+                $('#cardnumber').hide();
+                $('#giftcard').hide();
+                $('input[name="giftcard"]').removeAttr('required');
+                $('input[name="chequenumber"]').removeAttr('required');
+                $('input[name="cardnumber"]').removeAttr('required');
+            }
+            if(selected == 6){
+                document.getElementById('ajaxsubmit').hidden = false;
+            }
+            else{
+                document.getElementById('ajaxsubmit').hidden = true;
+            }
+        });
     });
     $("#myBtn4").click(function () {
         $("#myModal4").modal();

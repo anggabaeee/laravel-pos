@@ -30,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->double('paid_amt', 11, 2);
             $table->double('return_change', 11, 2);
             $table->string('card_number');
+            $table->string('gift_card');
             $table->boolean('vt_status')->comment('0: Debit Payment, 1: Completed');
             $table->boolean('status')->comment('1: Sales, 2: Return');
             $table->boolean('refund_status')->comment('1: Full Refund, 2: Partial Refund');
