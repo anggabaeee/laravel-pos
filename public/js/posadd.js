@@ -543,25 +543,4 @@ $(document).ready(function () {
             });
         }
     });
-    $('#gift').change(function () {
-        var giftcard = $(this).val();
-        $.ajax({
-            url: '/checkGift',
-            type: 'get',
-            data: {
-                giftcard: giftcard
-            },
-            success: function (nilai) {
-                console.log(nilai);
-                if(nilai.length == 0) {
-                    alert('Gift Card Not Registered')
-                }
-                else{
-                    $.each(nilai, function (i, value) {
-                        alert('Nilai = '+value.value+' ')
-                    });
-                }
-            }
-        });
-    })
 });
