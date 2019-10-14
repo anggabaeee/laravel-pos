@@ -545,6 +545,7 @@
                     // datanerespon
                     var data = JSON.parse(xhr.responseText);
                     // Loopinge bos
+                    $('#customerpayment').empty();
                     data.forEach(function (post) {
                         $("#customerpayment").append(`<option value='` + post.id +
                             `'>` + post.fullname + `</option>`);
