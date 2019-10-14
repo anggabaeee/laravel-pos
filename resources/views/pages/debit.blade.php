@@ -20,13 +20,13 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Date From</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="date">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Date To</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="date">
                     </div>
                 </div>
                 <div class="col-sm-2">

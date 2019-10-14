@@ -75,7 +75,6 @@
     $(document).ready(function () {
         $('#exampel').DataTable();
     });
-
 </script>
 </section>
 @stop
