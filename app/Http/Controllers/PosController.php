@@ -428,6 +428,22 @@ class PosController extends Controller
         ->get();
         return view('pages.expenses.expenses', ['expenses' => $expenses,'expensescategory'=> $expensescategory,'outlets'=>$outlets]);    
     }
+    public function expensessearch(Request $request){
+        $cari = $request->cari;
+        $caricategory = $request->caricategory;
+        $carioutlet = $request->carioutlet;
+        $expensescategory = DB::table('expensescategory')->get();
+        $outlets = DB::table('outlets')->get();
+        $expenses = DB::table('expenses')
+        ->join('outlets', 'outlets.id', '=', 'expenses.outlet_id')
+        ->join('expensescategory', 'expensescategory.id', '=', 'expenses.expense_category')
+        ->select('expenses.*', 'outlets.name_outlet as name_outlet', 'expensescategory.name as name_category')
+        ->Where('expenses_number','like',"%".$cari."%")
+        ->Where('expense_category','like',"%".$caricategory."%")
+        ->Where('outlet_id','like',"%".$carioutlet."%")
+        ->get();
+        return view('pages.expenses.expensessearch', ['expenses' => $expenses,'expensescategory'=> $expensescategory,'outlets'=>$outlets]);    
+    }
     public function addexpenses(){
         $expensescategory = DB::table('expensescategory')->get();
         $outlets = DB::table('outlets')->get();
