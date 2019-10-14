@@ -122,6 +122,7 @@
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00;">*</span></label>
                                 <select id="typeahead" class="form-control add_product_po">
+                                <option value="" disabled selected></option>
                                 @foreach ($product as $p)
                                 <option value="{{$p->code}}" data-aku="{{$p->retail_price}}">{{$p->name_product}}</option>
                                 @endforeach

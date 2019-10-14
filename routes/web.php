@@ -81,6 +81,7 @@ Route::get('/checkGift', 'PosController@checkGift');
 
 // Return Order
 Route::get('/returnorder/CreateReturn','ReturnContrrol@createreturn')->middleware('ceklogin' , 'response');
+Route::get('/returnorder/ViewCreateReturn/{id}','ReturnContrrol@viewcreatereturn')->middleware('ceklogin' , 'response');
 Route::get('/returnorder/ReportReturn','ReturnContrrol@reportreturn')->middleware('ceklogin' , 'response');
 Route::post('/createstore','ReturnContrrol@createstore')->middleware('ceklogin' , 'response');
 

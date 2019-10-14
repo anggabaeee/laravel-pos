@@ -31,8 +31,17 @@ class ReturnContrrol extends Controller
     }
     public function reportreturn(){
         return view('pages.ReturnOrder.returnreport'); 
+    }
+    public function viewcreatereturn($id){
+        $orders=orders::find($id);
+        $outlets=outlets::all();
+        $returnItem= returnItem::all();
+        $product=product::all();
+        return view('pages.ReturnOrder.ViewcreateReturnOrder')->with('orders', $orders)->with('outlets', $outlets)->with('returnItem', $returnItem)->with('product', $product); 
     }   
     public function createstore(Request $request) {
+
+        $id=$request->id;
         if($request->qty !=null) {
             $var=orders::max('id');
             $panjang=$request->panjang;
@@ -55,7 +64,7 @@ class ReturnContrrol extends Controller
         $status = 2;
         $vt_status = 1;
         $return = 0.00;
-        orders::create([  
+        $order=orders::create([  
             'customer_id'=> $request->customer,
             'customer_name'=> $customer->fullname,
             'outlet_id'=>$request->outlets,
@@ -72,7 +81,8 @@ class ReturnContrrol extends Controller
             'payment_method'=>$request->refundby,
             'payment_method_name'=>$payment_method->name,
             'refund_status'=>$request->refundmethod
-            ]);
-        return redirect('/returnorder/CreateReturn')->with('p', 'Refund Order Succses');
+            ]);        
+            $id=orders::max('id');
+        return redirect("/returnorder/ViewCreateReturn/$id")->with('p', 'Refund Order Succses');
     }
 }
