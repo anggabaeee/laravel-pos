@@ -11,7 +11,7 @@
 </style>
 <div class="col-sm-9 col-lg-10">
     <div class="container">
-        <h1>Make Payment for Sale Id : </h1>
+        <h1>Make Payment for Sale Id : {{$orders->id}}</h1>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -23,13 +23,12 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
                         <div class="row">
-                            <h2 style="color: #5f6468; font-weight: 400; margin-bottom: 20px;">Uniqlo - Bugis Outlet
-                            </h2>
+                            <h2 style="color: #5f6468; font-weight: 400; margin-bottom: 20px;">{{$outlets->name_outlet}}</h2>
                         </div>
-                        <div class="row" style="margin-top: 7px">Address : #02-10, B2, Bugis Shopping Mall</div>
-                        <div class="row" style="margin-top: 7px">Telephone : 292948484</div>
-                        <div class="row" style="margin-top: 7px">Ordered Date : 23-08-2019 10:26 AM</div>
-                        <div class="row" style="margin-top: 7px">Customers : A</div>
+                        <div class="row" style="margin-top: 7px">Address : {{$outlets->address_outlet}}</div>
+                        <div class="row" style="margin-top: 7px">Telephone : {{$outlets->contact_number}}</div>
+                        <div class="row" style="margin-top: 7px">Ordered Date : {{$orders->ordered_datetime}}</div>
+                        <div class="row" style="margin-top: 7px">Customers : {{$orders->customer_name}}</div>
                         <div class="row" style="margin-top: 20px">
                             <table class="table" cellspacing="0" border="0" style="margin-bottom: 0px; width: 100%;">
                                 <thead>
@@ -42,12 +41,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $n = 1; ?>
+                                    @foreach($order_items as $oi)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><?php $n++; ?></td>
+                                        <td>{{$oi->product_name}} <br> [{{$oi->product_code}}]</td>
+                                        <td>{{$oi->qty}}</td>
+                                        <td>{{$oi->price}}</td>
+                                        <td>{{$oi->total}}</td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             <table class="totals" cellspacing="0" border="0"
@@ -93,32 +96,23 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="text-align:left; font-weight:bold; padding-top:5px;">
-                                            Unaid Amount</td>
+                                            Unpaid Amount</td>
                                         <td colspan="2" style="text-align:right; font-weight:bold; padding-top:5px;">#
                                         </td>
                                     </tr>
+                                    @foreach($order_payments as $op)
                                     <tr>
                                         <td colspan="2"
                                             style="text-align:left; font-weight:bold; padding-top:5px; border-top: 1px solid #000;">
                                             Paid By</td>
                                         <td
                                             style="text-align:right; font-weight:bold; padding-top:5px; border-top: 1px solid #000;">
-                                            Debit []</td>
+                                            {{$op->name}} [{{$op->date}}]</td>
                                         <td
                                             style="padding-top:5px; text-align:right; font-weight:bold; border-top: 1px solid #000;">
-                                            #</td>
+                                            {{$op->payment_amount}}</td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="2"
-                                            style="text-align:left; font-weight:bold; padding-top:5px; border-top: 1px solid #000;">
-                                            Paid By</td>
-                                        <td
-                                            style="text-align:right; font-weight:bold; padding-top:5px; border-top: 1px solid #000;">
-                                            Cash []</td>
-                                        <td
-                                            style="padding-top:5px; text-align:right; font-weight:bold; border-top: 1px solid #000;">
-                                            #</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

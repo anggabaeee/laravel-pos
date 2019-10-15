@@ -50,18 +50,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($debit as $d)
                         <tr style="text-align: center;">
-                            <td>wt</td>
-                            <td>wt</td>
-                            <td>wt</td>
-                            <td>wt</td>
-                            <td>wt</td>
-                            <td>wt</td>
-                            <td><a href="/customer/editcustomer">
+                            <td>{{$d->id}}</td>
+                            <td>{{$d->date}}</td>
+                            <td>{{$d->name_outlet}}</td>
+                            <td>{{$d->customer_name}}</td>
+                            <td>{{$d->grandtotal}}</td>
+                            <td>{{$d->minus}}</td>
+                            <td><a href="/debit/makepayment/{{$d->id}}">
                                     <button type="button" class="btn btn-primary">Make Payment</button>
                                 </a>
                             </td>
                         </tr>
+                        @endforeach
                     <tbody>
                         <tr style="text-align: center;">
                             <td colspan="10">No data available in table</td>

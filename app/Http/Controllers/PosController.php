@@ -84,7 +84,12 @@ class PosController extends Controller
     }
     
     public function debit(){
-        return view('pages.debit');    
+        $debit = DB::table('orders')
+        ->where('vt_status', '=', 0)
+        ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+        ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+        ->get();
+        return view('pages.debit')->with('debit', $debit);    
     }
     
     // addgift
@@ -442,8 +447,18 @@ class PosController extends Controller
         return view('pages.profitnloss');
     }
 
-    public function makepayment(){
-        return view('pages.makepayment'); 
+    public function makepayment($id){
+        $orders = orders::find($id);
+        $data = DB::table('orders')->where('id', $id)->first();
+        $outlets = outlets::find($data->outlet_id);
+        $order_items = DB::table('order_items')->where('order_id', $id)
+        ->select('order_items.*', DB::raw('(order_items.price*order_items.qty) as total'))
+        ->get();
+        $order_payments = DB::table('order_payments')->where('order_id', $id)
+        ->join('payment_methods', 'payment_methods.id', '=', 'order_payments.payment_method_id')
+        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))
+        ->get();
+        return view('pages.makepayment')->with('orders', $orders)->with('outlets', $outlets)->with('order_items', $order_items)->with('order_payments', $order_payments); 
     }
 
     //Settings

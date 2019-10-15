@@ -33,7 +33,7 @@ Route::get('/listgiftdelete/{id}','PosController@listgiftdelete')->middleware('c
 
 //debit
 Route::get('/debit','PosController@debit')->middleware('ceklogin' , 'response');
-Route::get('/debit/makepayment','PosController@makepayment')->middleware('ceklogin' , 'response');
+Route::get('/debit/makepayment/{id}','PosController@makepayment')->middleware('ceklogin' , 'response');
 
 //sales
 Route::get('/todaysales', 'PosController@todaysales')->middleware('ceklogin' , 'response');
