@@ -45,6 +45,7 @@ Route::get('/soldbyproduct', 'PosController@soldbyproduct')->middleware('ceklogi
 
 //expenses
 Route::get('/expenses', 'PosController@expenses')->middleware('ceklogin' , 'response');
+Route::get('/expensessearch', 'PosController@expensessearch')->middleware('ceklogin' , 'response');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses')->middleware('ceklogin' , 'response');
 Route::post('/expenses/addexpensesstore', 'PosController@addexpensesstore')->middleware('ceklogin' , 'response');
 Route::get('/expenses/editexpenses/{id}', 'PosController@editexpenses')->middleware('ceklogin' , 'response');
@@ -81,6 +82,7 @@ Route::get('/checkGift', 'PosController@checkGift');
 
 // Return Order
 Route::get('/returnorder/CreateReturn','ReturnContrrol@createreturn')->middleware('ceklogin' , 'response');
+Route::get('/returnorder/ViewCreateReturn/{id}','ReturnContrrol@viewcreatereturn')->middleware('ceklogin' , 'response');
 Route::get('/returnorder/ReportReturn','ReturnContrrol@reportreturn')->middleware('ceklogin' , 'response');
 Route::post('/createstore','ReturnContrrol@createstore')->middleware('ceklogin' , 'response');
 
