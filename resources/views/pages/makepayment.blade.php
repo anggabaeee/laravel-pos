@@ -117,7 +117,7 @@
                                     <tr>
                                         <td colspan="2" style="text-align:left; font-weight:bold; padding-top:5px;">
                                             Unpaid Amount</td>
-                                        <td colspan="2" style="text-align:right; font-weight:bold; padding-top:5px;">
+                                        <td colspan="2" id="unpaid" style="text-align:right; font-weight:bold; padding-top:5px;">
                                             {{ ((float)$orders['paid_amt'] - (float)$orders['grandtotal'])}}
                                         </td>
                                     </tr>
@@ -185,14 +185,14 @@
                                     <b>Payment Amount :</b>
                                 </div>
                                 <div class="col-md-6" style="text-align: right;">
-                                    <input type="text" name="amount" class="form-control" placeholder="0.00"
+                                    <input type="text" onkeyup="amountval(this.value)" name="amount" class="form-control" placeholder="0.00"
                                         style="border: 1px solid; color: #010101" required>
                                 </div>
                             </div>
                             <div class="row" style="margin-top: 20px">
                                 <div class="col-md-6"></div>
                                 <div class="col-md-6">
-                                    <input type="submit" class="btn btn-primary" value="Submit Payment">
+                                    <input id="submitPayment" type="submit" class="btn btn-primary" value="Submit Payment">
                                 </div>
                             </div>
                         </form>
@@ -233,6 +233,18 @@
 
             document.getElementById("cheqNum").style.display = "none";
             document.getElementById("cheque").required = false;
+        }
+    }
+
+    function amountval(val) {
+        var unpaid = document.getElementById('unpaid').innerHTML;
+        val1 = parseFloat(val);
+        unpaid1 = parseFloat(unpaid);
+        var hasil = val1 + unpaid1;
+        if(hasil > 0){
+            document.getElementById('submitPayment').hidden = true;
+        } else{
+            document.getElementById('submitPayment').hidden = false;
         }
     }
 

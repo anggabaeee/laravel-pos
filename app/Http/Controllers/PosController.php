@@ -459,7 +459,8 @@ class PosController extends Controller
         ->select('order_items.*', DB::raw('(order_items.price*order_items.qty) as total'))->get();
         $order_payments = DB::table('order_payments')->where('order_id', $id)
         ->join('payment_methods', 'payment_methods.id', '=', 'order_payments.payment_method_id')
-        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))->get();
+        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))
+        ->orderBy('created_at', 'ASC')->get();
         $total = DB::table('order_items')->where('order_id', $id)
         ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))->get();
         $payment_method = payment_method::where('id', '!=', 6)->where('id', '!=', 7)->get();
