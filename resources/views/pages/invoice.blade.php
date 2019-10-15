@@ -148,6 +148,19 @@
                                 {{$orders->paid_amt}}
                             </td>
                         </tr>
+                        @if(((float)$orders['paid_amt'] - (float)$orders['grandtotal']) < 0)
+                        <tr>
+                            <td colspan="2"
+                                style="text-align:left; font-weight:bold; padding-top: 5px; padding-bottom: 5px;">Unpaid
+                                Amount</td>
+                            <td colspan="2"
+                                style="text-align:right; font-weight:bold; padding-top: 5px; padding-bottom: 5px;">
+                                {{ ((float)$orders['paid_amt'] - (float)$orders['grandtotal'])}}
+                            </td>
+                        </tr>
+                        @else
+                        <tr></tr>
+                        @endif
                         @if($orders->return_change == 0)
                         <tr></tr>
                         @else
@@ -161,15 +174,17 @@
                             </td>
                         </tr>
                         @endif
+                        @foreach($order_payments as $op)
                         <tr>
                             <td colspan="3"
                                 style="text-align:left; border-top: 1px solid #000; padding-top: 5px; padding-bottom: 5px;">
-                                <b>Paid By :</b> {{$orders->payment_method_name}} [20-09-2019]
+                                <b>Paid By :</b> {{$op->name}} [{{$op->date}}]
                             </td>
                             <td
                                 style="text-align:right; border-top: 1px solid #000; padding-top: 5px; padding-bottom: 5px;">
-                                {{$orders->paid_amt}} </td>
+                                {{$op->payment_amount}} </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

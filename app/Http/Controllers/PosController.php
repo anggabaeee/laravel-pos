@@ -419,13 +419,17 @@ class PosController extends Controller
         $data = DB::table('orders')->where('id', $id)->first();
         $outlets = outlets::find($data->outlet_id);
         $customer = Customer::find($data->customer_id);
+        $order_payments = DB::table('order_payments')->where('order_id', $id)
+        ->join('payment_methods', 'payment_methods.id', '=', 'order_payments.payment_method_id')
+        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))
+        ->get();
         $items = DB::table('order_items')->where('order_id', $id)
         ->select(DB::raw('(order_items.qty*order_items.price) AS total'), 'order_items.*')
         ->get();
         $total = DB::table('order_items')->where('order_id', $id)
         ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))
         ->get();
-        return view('pages.invoice')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total);
+        return view('pages.invoice')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total)->with('order_payments', $order_payments);
     }
 
     public function invoice_a4($id)
@@ -452,13 +456,51 @@ class PosController extends Controller
         $data = DB::table('orders')->where('id', $id)->first();
         $outlets = outlets::find($data->outlet_id);
         $order_items = DB::table('order_items')->where('order_id', $id)
-        ->select('order_items.*', DB::raw('(order_items.price*order_items.qty) as total'))
-        ->get();
+        ->select('order_items.*', DB::raw('(order_items.price*order_items.qty) as total'))->get();
         $order_payments = DB::table('order_payments')->where('order_id', $id)
         ->join('payment_methods', 'payment_methods.id', '=', 'order_payments.payment_method_id')
-        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))
-        ->get();
-        return view('pages.makepayment')->with('orders', $orders)->with('outlets', $outlets)->with('order_items', $order_items)->with('order_payments', $order_payments); 
+        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))->get();
+        $total = DB::table('order_items')->where('order_id', $id)
+        ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))->get();
+        $payment_method = payment_method::where('id', '!=', 6)->where('id', '!=', 7)->get();
+        return view('pages.makepayment')->with('orders', $orders)->with('outlets', $outlets)->with('order_items', $order_items)->with('order_payments', $order_payments)->with('total', $total)->with('payment_method', $payment_method); 
+    }
+
+    public function submitmakepayment($id, Request $request)
+    {
+        $payment = $request->paymentmethod;
+        if($payment == 3 || $payment == 4){
+            $number =  $request->card;
+            $card_number = $request->card;
+        }
+        elseif($payment == 5){
+            $number = $request->cheque;
+            $card_number = $request->cheque;
+        }
+        else{
+            $number = 0;
+            $card_number = null;
+        }
+        $order_payments = new order_payments();
+        $order_payments->order_id = $id;
+        $order_payments->payment_method_id = $request->paymentmethod;
+        $order_payments->payment_amount = $request->amount;
+        $order_payments->number = $number;
+        $order_payments->status = 1;
+        $order_payments->save();
+
+        $data = DB::table('payment_methods')->where('id', $request->paymentmethod)->first();
+
+        $orders = orders::find($id);
+        if(($orders->paid_amt + $request->amount) >= $orders->grandtotal){
+            $orders->vt_status = 1;
+        }
+        $orders->paid_amt = $orders->paid_amt + $request->amount;
+        $orders->payment_method = $request->paymentmethod;
+        $orders->payment_method_name = $data->name;
+        $orders->card_number = $card_number;
+        $orders->save();
+        return redirect('/debit/makepayment/'.$id);
     }
 
     //Settings
