@@ -39,7 +39,9 @@
                         <p></p>
                     </div>
                     <div class="col-3 ml-auto">
-                        <button type="button" class="btn btn-success col-12 ">Print Purchase Order</button>
+                        <a href="/returnorder/printCreateReturn/{{$orders->id}}">
+                            <button type="button" class="btn btn-success col-12 ">Print Purchase Order</button>
+                        </a>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -129,10 +131,10 @@
                             <td><strong>Good</strong></td>
                             @else
                             <td><strong>Not Good</strong></td>
+                        </tr>
                             @endif
                             @endif
                             @endforeach
-                        </tr>
                     </tbody>
                 </table>
             </div>
