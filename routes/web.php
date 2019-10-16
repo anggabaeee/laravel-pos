@@ -33,7 +33,8 @@ Route::get('/listgiftdelete/{id}','PosController@listgiftdelete')->middleware('c
 
 //debit
 Route::get('/debit','PosController@debit')->middleware('ceklogin' , 'response');
-Route::get('/debit/makepayment','PosController@makepayment')->middleware('ceklogin' , 'response');
+Route::get('/debit/makepayment/{id}','PosController@makepayment')->middleware('ceklogin' , 'response');
+Route::post('/submitmakepayment/{id}','PosController@submitmakepayment')->middleware('ceklogin' , 'response');
 
 //sales
 Route::get('/todaysales', 'PosController@todaysales')->middleware('ceklogin' , 'response');
@@ -41,10 +42,12 @@ Route::get('/openedbil', 'PosController@openedbil')->middleware('ceklogin' , 're
 
 //reports
 Route::get('/salesreports', 'PosController@salesreports');
+Route::get('/salesreportsearch', 'PosController@salesreportsearch');
 Route::get('/soldbyproduct', 'PosController@soldbyproduct')->middleware('ceklogin' , 'response');
 
 //expenses
 Route::get('/expenses', 'PosController@expenses')->middleware('ceklogin' , 'response');
+Route::get('/expensessearch', 'PosController@expensessearch')->middleware('ceklogin' , 'response');
 Route::get('/expenses/addexpenses', 'PosController@addexpenses')->middleware('ceklogin' , 'response');
 Route::post('/expenses/addexpensesstore', 'PosController@addexpensesstore')->middleware('ceklogin' , 'response');
 Route::get('/expenses/editexpenses/{id}', 'PosController@editexpenses')->middleware('ceklogin' , 'response');

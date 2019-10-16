@@ -12,8 +12,8 @@
                             <select id="outlets" name="outlets" class="form-control" type="text" required>
                                 <option value="">Choose Outlets</option>
                                 <option value="0">All</option>
-                                @foreach ($outlets as $p)
-                                <option value="{{$p->id}}">{{$p->name_outlet}}</option>
+                                @foreach ($outlet as $outlet)
+                                <option value="{{$outlet->id}}">{{$outlet->name_outlet}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -33,13 +33,13 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="">Start Date</label>
-                            <input id="startdate" name="startdate" class="form-control datepicker" type="text" autocomplete="off" required>
+                            <input id="startdate" name="startdate" class="form-control datepicker" type="text" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="">End Date</label>
-                            <input id="enddate" name="enddate" class="form-control datepicker" type="text" autocomplete="off" required>
+                            <input id="enddate" name="enddate" class="form-control datepicker" type="text" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </form>
-            <div id="display" hidden="true">
+            <div id="display">
                 <div class="d-flex">
                     <div class="ml-auto bd-highlight"><input class="btn btn-success" type="button"
                             value="Export To Excel">
@@ -73,7 +73,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr></tr>
+                            @foreach($sale as $r)
+                            <tr>
+                                <td>{{$r->date}}</td>
+                                <td>{{$r->id}}</td>
+                                <td>{{$r->name_outlet}}</td>
+                                <td>{{$r->payment_method_name}}</td>
+                                <td>{{$r->subtotal}}</td>
+                                <td>{{$r->tax}}</td>
+                                <td>{{$r->grandtotal}}</td>
+                                <td><a href="#"><i class="fa fa-print fa-2x"></i></a></td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -94,9 +105,6 @@
     <script>
         $(document).ready(function () {
             $('#exampel').DataTable();
-            $('#btnreport').click(function(){
-                document.getElementById('display').hidden = false;
-            });
         });
 
     </script>

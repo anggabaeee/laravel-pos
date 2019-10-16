@@ -84,7 +84,12 @@ class PosController extends Controller
     }
     
     public function debit(){
-        return view('pages.debit');    
+        $debit = DB::table('orders')
+        ->where('vt_status', '=', 0)
+        ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+        ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+        ->get();
+        return view('pages.debit')->with('debit', $debit);    
     }
     
     // addgift
@@ -414,13 +419,17 @@ class PosController extends Controller
         $data = DB::table('orders')->where('id', $id)->first();
         $outlets = outlets::find($data->outlet_id);
         $customer = Customer::find($data->customer_id);
+        $order_payments = DB::table('order_payments')->where('order_id', $id)
+        ->join('payment_methods', 'payment_methods.id', '=', 'order_payments.payment_method_id')
+        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))
+        ->get();
         $items = DB::table('order_items')->where('order_id', $id)
         ->select(DB::raw('(order_items.qty*order_items.price) AS total'), 'order_items.*')
         ->get();
         $total = DB::table('order_items')->where('order_id', $id)
         ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))
         ->get();
-        return view('pages.invoice')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total);
+        return view('pages.invoice')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total)->with('order_payments', $order_payments);
     }
 
     public function invoice_a4($id)
@@ -442,8 +451,57 @@ class PosController extends Controller
         return view('pages.profitnloss');
     }
 
-    public function makepayment(){
-        return view('pages.makepayment'); 
+    public function makepayment($id){
+        $orders = orders::find($id);
+        $data = DB::table('orders')->where('id', $id)->first();
+        $outlets = outlets::find($data->outlet_id);
+        $order_items = DB::table('order_items')->where('order_id', $id)
+        ->select('order_items.*', DB::raw('(order_items.price*order_items.qty) as total'))->get();
+        $order_payments = DB::table('order_payments')->where('order_id', $id)
+        ->join('payment_methods', 'payment_methods.id', '=', 'order_payments.payment_method_id')
+        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))
+        ->orderBy('created_at', 'ASC')->get();
+        $total = DB::table('order_items')->where('order_id', $id)
+        ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))->get();
+        $payment_method = payment_method::where('id', '!=', 6)->where('id', '!=', 7)->get();
+        return view('pages.makepayment')->with('orders', $orders)->with('outlets', $outlets)->with('order_items', $order_items)->with('order_payments', $order_payments)->with('total', $total)->with('payment_method', $payment_method); 
+    }
+
+    public function submitmakepayment($id, Request $request)
+    {
+        $payment = $request->paymentmethod;
+        if($payment == 3 || $payment == 4){
+            $number =  $request->card;
+            $card_number = $request->card;
+        }
+        elseif($payment == 5){
+            $number = $request->cheque;
+            $card_number = $request->cheque;
+        }
+        else{
+            $number = 0;
+            $card_number = null;
+        }
+        $order_payments = new order_payments();
+        $order_payments->order_id = $id;
+        $order_payments->payment_method_id = $request->paymentmethod;
+        $order_payments->payment_amount = $request->amount;
+        $order_payments->number = $number;
+        $order_payments->status = 1;
+        $order_payments->save();
+
+        $data = DB::table('payment_methods')->where('id', $request->paymentmethod)->first();
+
+        $orders = orders::find($id);
+        if(($orders->paid_amt + $request->amount) >= $orders->grandtotal){
+            $orders->vt_status = 1;
+        }
+        $orders->paid_amt = $orders->paid_amt + $request->amount;
+        $orders->payment_method = $request->paymentmethod;
+        $orders->payment_method_name = $data->name;
+        $orders->card_number = $card_number;
+        $orders->save();
+        return redirect('/debit/makepayment/'.$id);
     }
 
     //Settings
@@ -532,6 +590,22 @@ class PosController extends Controller
         ->get();
         return view('pages.expenses.expenses', ['expenses' => $expenses,'expensescategory'=> $expensescategory,'outlets'=>$outlets]);    
     }
+    public function expensessearch(Request $request){
+        $cari = $request->cari;
+        $caricategory = $request->caricategory;
+        $carioutlet = $request->carioutlet;
+        $expensescategory = DB::table('expensescategory')->get();
+        $outlets = DB::table('outlets')->get();
+        $expenses = DB::table('expenses')
+        ->join('outlets', 'outlets.id', '=', 'expenses.outlet_id')
+        ->join('expensescategory', 'expensescategory.id', '=', 'expenses.expense_category')
+        ->select('expenses.*', 'outlets.name_outlet as name_outlet', 'expensescategory.name as name_category')
+        ->Where('expenses_number','like',"%".$cari."%")
+        ->Where('expense_category','like',"%".$caricategory."%")
+        ->Where('outlet_id','like',"%".$carioutlet."%")
+        ->get();
+        return view('pages.expenses.expensessearch', ['expenses' => $expenses,'expensescategory'=> $expensescategory,'outlets'=>$outlets]);    
+    }
     public function addexpenses(){
         $expensescategory = DB::table('expensescategory')->get();
         $outlets = DB::table('outlets')->get();
@@ -608,7 +682,11 @@ class PosController extends Controller
 
     //sales
     public function openedbil(){
-        return view('pages.sales.openedbil');    
+        $bill = DB::table('suspends')
+        ->join('outlets', 'outlets.id', '=', 'suspends.outlet_id')
+        ->select('suspends.*', 'outlets.name_outlet', DB::raw('DATE(suspends.created_at) as date'))
+        ->get();
+        return view('pages.sales.openedbil', ['bill' => $bill]);    
     }
 
     public function todaysales(){
@@ -619,21 +697,45 @@ class PosController extends Controller
     }
 
     //report
-    public function salesreports(Request $request){
-        $outlet = $request->outlets;
-        $paid = $request->paid;
-        $start = $request->startdate;
-        $end = $request->enddate;
-        
+    public function salesreports(){
         $outlets = DB::table('outlets')->get();
         $payment = payment_method::all();
-        $reportsale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
-        ->where('outlet_id', '=', $outlet)
-        ->where('payment_method', '=', $paid)
-        ->select('orders.*', DB::raw('DATE(ordered_datetime) as date'))
-        ->get();
-        return view('pages.reports.salesreports')->with('outlets', $outlets)->with('payment', $payment)->with('reportsale', $reportsale);
+        return view('pages.reports.salesreports')->with('outlets', $outlets)->with('payment', $payment);
     }
+
+    public function salesreportsearch(Request $request)
+    {
+        $outlet = DB::table('outlets')->get();
+        $payment = payment_method::all();
+        $outlets = $request->outlets;
+        $paidby = $request->paid;
+        $start = $request->startdate;
+        $end = $request->enddate;
+        if($outlets == 0 && $paidby == 0){
+            $sale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
+        }
+        elseif($outlets == 0){
+            $sale = DB::table('orders')->where('payment_method', $paidby)
+            ->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
+        }
+        elseif($paidby == 0){
+            $sale = DB::table('orders')->where('outlet_id', $outlets)
+            ->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
+        }
+        else{
+            $sale = DB::table('orders')->where('outlet_id', $outlets)
+            ->where('payment_method', $paidby)->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
+        }
+        return view('pages.reports.salesreportsearch')->with('outlet', $outlet)->with('payment', $payment)->with('sale' , $sale);
+    } 
 
     public function soldbyproduct(){
         return view('pages.reports.soldbyproduct');

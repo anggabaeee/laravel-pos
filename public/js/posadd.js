@@ -353,21 +353,33 @@ $(document).ready(function () {
             document.getElementById('total_items').innerHTML = totalItems;
             document.getElementById('ttl_amount').value = totalAmount;
             document.getElementById('ttl_item').value = totalItems;
-
             var paid = document.getElementById('paidamount').value;
-            if (paid == "") {
-                paid = 0.00;
-            } else {
-                var returnchange = parseFloat(paid) - parseFloat(totalAmount);
-                document.getElementById('return_change').innerHTML = returnchange;
-                document.getElementById('returninput').value = returnchange;
-                if (returnchange < 0) {
-                    document.getElementById('ajaxsubmit').hidden = true
-                } else {
-                    document.getElementById('ajaxsubmit').hidden = false
+            var payment_method = document.getElementById('payment_method').value;
+
+            if(payment_method == 6){
+                document.getElementById('return_change').innerHTML = 0.00;
+                document.getElementById('returninput').value = 0.00;
+                if(parseFloat(val) >= totalAmount){
+                    document.getElementById('ajaxsubmit').hidden = true;
+                }
+                else{
+                    document.getElementById('ajaxsubmit').hidden = false;
                 }
             }
-
+            else{
+                if (paid == "") {
+                    paid = 0.00;
+                } else {
+                    var returnchange = parseFloat(paid) - parseFloat(totalAmount);
+                    document.getElementById('return_change').innerHTML = returnchange;
+                    document.getElementById('returninput').value = returnchange;
+                    if (returnchange < 0) {
+                        document.getElementById('ajaxsubmit').hidden = true
+                    } else {
+                        document.getElementById('ajaxsubmit').hidden = false
+                    }
+                }
+            }
         }
         $.ajax({
             url: '/load',
