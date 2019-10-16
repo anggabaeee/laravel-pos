@@ -40,22 +40,7 @@ class ReturnContrrol extends Controller
         return view('pages.ReturnOrder.ViewcreateReturnOrder')->with('orders', $orders)->with('outlets', $outlets)->with('returnItem', $returnItem)->with('product', $product); 
     }   
     public function createstore(Request $request) {
-
-        $id=$request->id;
-        if($request->qty !=null) {
-            $var=orders::max('id');
-            $panjang=$request->panjang;
-            for ($i=0; $i < $panjang; $i++) {
-                $answers[]=[ 'order_id'=>$var,
-                'price'=>$request->retail_price[$i],
-                'product_code'=>$request->product_code[$i],
-                'qty'=>$request->qty[$i],
-                'item_condition'=>$request->item_condition[$i],
-                ];
-            }
-
-            returnItem::insert($answers);
-        }
+      
         $customer=Customer::find( $request->customer);
         $payment_method=payment_method::find( $request->refundby);
         $amount = -1 * ($request->amount);
@@ -82,7 +67,27 @@ class ReturnContrrol extends Controller
             'payment_method_name'=>$payment_method->name,
             'refund_status'=>$request->refundmethod
             ]);        
-            $id=orders::max('id');
-        return redirect("/returnorder/ViewCreateReturn/$id")->with('p', 'Refund Order Succses');
+            $var=orders::max('id');
+            if($request->qty !=null) {
+                $panjang=$request->panjang;
+                for ($i=0; $i < $panjang; $i++) {
+                    $answers[]=[ 'order_id'=>$var,
+                    'price'=>$request->retail_price[$i],
+                    'product_code'=>$request->product_code[$i],
+                    'qty'=>$request->qty[$i],
+                    'item_condition'=>$request->item_condition[$i],
+                    ];
+                }
+                returnItem::insert($answers);
+            }
+        return redirect("/returnorder/ViewCreateReturn/$var")->with('p', 'Refund Order Succses');
     }
+    public function printCreateReturn($id){
+        $orders=orders::find($id);
+        $outlets=outlets::all();
+        $returnItem= returnItem::all();
+        $product=product::all();
+        return view('pages.ReturnOrder.print')->with('orders', $orders)->with('outlets', $outlets)->with('returnItem', $returnItem)->with('product', $product); 
+    }   
+    
 }
