@@ -682,7 +682,11 @@ class PosController extends Controller
 
     //sales
     public function openedbil(){
-        return view('pages.sales.openedbil');    
+        $bill = DB::table('suspends')
+        ->join('outlets', 'outlets.id', '=', 'suspends.outlet_id')
+        ->select('suspends.*', 'outlets.name_outlet', DB::raw('DATE(suspends.created_at) as date'))
+        ->get();
+        return view('pages.sales.openedbil', ['bill' => $bill]);    
     }
 
     public function todaysales(){
@@ -693,21 +697,45 @@ class PosController extends Controller
     }
 
     //report
-    public function salesreports(Request $request){
-        $outlet = $request->outlets;
-        $paid = $request->paid;
-        $start = $request->startdate;
-        $end = $request->enddate;
-        
+    public function salesreports(){
         $outlets = DB::table('outlets')->get();
         $payment = payment_method::all();
-        $reportsale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
-        ->where('outlet_id', '=', $outlet)
-        ->where('payment_method', '=', $paid)
-        ->select('orders.*', DB::raw('DATE(ordered_datetime) as date'))
-        ->get();
-        return view('pages.reports.salesreports')->with('outlets', $outlets)->with('payment', $payment)->with('reportsale', $reportsale);
+        return view('pages.reports.salesreports')->with('outlets', $outlets)->with('payment', $payment);
     }
+
+    public function salesreportsearch(Request $request)
+    {
+        $outlet = DB::table('outlets')->get();
+        $payment = payment_method::all();
+        $outlets = $request->outlets;
+        $paidby = $request->paid;
+        $start = $request->startdate;
+        $end = $request->enddate;
+        if($outlets == 0 && $paidby == 0){
+            $sale = DB::table('orders')->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
+        }
+        elseif($outlets == 0){
+            $sale = DB::table('orders')->where('payment_method', $paidby)
+            ->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
+        }
+        elseif($paidby == 0){
+            $sale = DB::table('orders')->where('outlet_id', $outlets)
+            ->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
+        }
+        else{
+            $sale = DB::table('orders')->where('outlet_id', $outlets)
+            ->where('payment_method', $paidby)->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
+        }
+        return view('pages.reports.salesreportsearch')->with('outlet', $outlet)->with('payment', $payment)->with('sale' , $sale);
+    } 
 
     public function soldbyproduct(){
         return view('pages.reports.soldbyproduct');

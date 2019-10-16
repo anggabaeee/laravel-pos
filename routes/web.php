@@ -42,6 +42,7 @@ Route::get('/openedbil', 'PosController@openedbil')->middleware('ceklogin' , 're
 
 //reports
 Route::get('/salesreports', 'PosController@salesreports');
+Route::get('/salesreportsearch', 'PosController@salesreportsearch');
 Route::get('/soldbyproduct', 'PosController@soldbyproduct')->middleware('ceklogin' , 'response');
 
 //expenses

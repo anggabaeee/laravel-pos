@@ -19,51 +19,60 @@
         <h1>Today's Sales</h1>
         <form action="" class="mt-2 panel">
             <br>
-                <div class="d-flex">
-                    <div class="mr-auto bd-highlight">
-                        <label> Show <select type="text">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                                <option value="500">500</option>
-                                <option value="1000">1000</option>
-                            </select> Enteris </label>
-                    </div>
-                        <div class="ml-auto bd-highlight">
-                        <label>Search: <input type="text" class="" placeholder="" aria-controls="example"> </label>
-                    </div>
-                </div>
+            <div class="d-flex">
+            </div>
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr class="table">
-                                <th>Date</th>
-                                <th>Customer</th>
-                                <th >outlets</th>
-                                <th >Ref.Number</th>
-                                <th >Items</th>
-                                <th>Sub Totals</th>
-                                <th>Tax</th>
-                                <th >Grand Total</th>
-                                <th >Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="text-align: center;">
-                            <td colspan="9" class="dataTables_empty">No data available in table</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table" id="exampel">
+                            <thead>
+                                <tr class="table">
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>outlets</th>
+                                    <th>Ref.Number</th>
+                                    <th>Items</th>
+                                    <th>Sub Totals</th>
+                                    <th>Tax</th>
+                                    <th>Grand Total</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($bill == null)
+                                <tr style="text-align: center;">
+                                    <td colspan="9" class="dataTables_empty">No data available in table</td>
+                                </tr>
+                                @else
+                                @foreach($bill as $b)
+                                <tr>
+                                    <td>{{$b->date}}</td>
+                                    <td>{{$b->customer_name}}</td>
+                                    <td>{{$b->name_outlet}}</td>
+                                    <td>{{$b->ref_number}}</td>
+                                    <td>{{$b->total_items}}</td>
+                                    <td>{{$b->subtotal}}</td>
+                                    <td>{{$b->tax}}</td>
+                                    <td>{{$b->grandtotal}}</td>
+                                    <td><a href=""><button class="btn btn-primary">Edit</button></a>
+                                        <a href=""><button class="btn btn-primary">Sales History</button></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="col-md-6" style="float: left; padding-top: 10px;">
-                    Showing 0 to 0 of 0 entries </div>
             </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#exampel').DataTable();
+    });
 
+</script>
 </section>
 @stop
