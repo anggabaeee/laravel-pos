@@ -259,17 +259,15 @@ function PaidAmount(val) {
     var totalAmount = document.getElementById('total_amount').innerHTML;
     var ret = document.getElementById('paidamount').value;
     var payment_method = document.getElementById('payment_method').value;
-    if (payment_method == 6){
+    if (payment_method == 6) {
         document.getElementById('return_change').innerHTML = 0.00;
         document.getElementById('returninput').value = 0.00;
-        if(parseFloat(val) >= totalAmount){
+        if (parseFloat(val) >= totalAmount) {
             document.getElementById('ajaxsubmit').hidden = true;
-        }
-        else{
+        } else {
             document.getElementById('ajaxsubmit').hidden = false;
         }
-    }
-    else{
+    } else {
         if (ret == "") {
             document.getElementById('return_change').innerHTML = 0.00;
             document.getElementById('returninput').value = 0.00;
@@ -356,17 +354,15 @@ $(document).ready(function () {
             var paid = document.getElementById('paidamount').value;
             var payment_method = document.getElementById('payment_method').value;
 
-            if(payment_method == 6){
+            if (payment_method == 6) {
                 document.getElementById('return_change').innerHTML = 0.00;
                 document.getElementById('returninput').value = 0.00;
-                if(parseFloat(val) >= totalAmount){
+                if (parseFloat(val) >= totalAmount) {
                     document.getElementById('ajaxsubmit').hidden = true;
-                }
-                else{
+                } else {
                     document.getElementById('ajaxsubmit').hidden = false;
                 }
-            }
-            else{
+            } else {
                 if (paid == "") {
                     paid = 0.00;
                 } else {
@@ -380,21 +376,21 @@ $(document).ready(function () {
                     }
                 }
             }
-        } 
-        $.ajax({
-            url: '/load',
-            type: 'get',
-            complete: function (xhr) {
-                // datanerespon
-                var data = JSON.parse(xhr.responseText);
-                // Loopinge bos
-                $('#customerpayment').empty();
-                data.forEach(function (post) {
-                    $("#customerpayment").append(`<option value='` + post.id +
-                        `'>` + post.fullname + `</option>`);
-                });
-            }
-        });
+        }
+        var cus_name = $('#customer_name').val()
+        $.get('/getcustomer', function (data) {
+            $('#customerpayment').empty();
+            $.each(data, function (i, value) {
+                if (cus_name != null) {
+                    $('#customerpayment').val(cus_name);
+                    console.log(cus_name);
+                }
+                $('#customerpayment').append($("<option/>", {
+                    text: value.fullname,
+                    value: value.id
+                })).append($);
+            });
+        })
         $("#payment_method").change(function () {
             var selected = $("#payment_method").children("option:selected").val();
             if (selected == 3 || selected == 4) {
@@ -420,10 +416,9 @@ $(document).ready(function () {
                 $('input[name="chequenumber"]').removeAttr('required');
                 $('input[name="cardnumber"]').removeAttr('required');
             }
-            if(selected == 6){
+            if (selected == 6) {
                 document.getElementById('ajaxsubmit').hidden = false;
-            }
-            else{
+            } else {
                 document.getElementById('ajaxsubmit').hidden = true;
             }
         });
@@ -484,14 +479,18 @@ $(document).ready(function () {
     });
     $("#myBtn3").click(function () {
         $("#myModal3").modal('show');
+        var cus_name = $('#customer_name').val()
         $.get('/getcustomer', function (data) {
             $('#customeroption').empty();
             $.each(data, function (i, value) {
+                if (cus_name != null) {
+                    $('#customeroption').val(cus_name);
+                    console.log(cus_name);
+                }
                 $('#customeroption').append($("<option/>", {
                     text: value.fullname,
                     value: value.id
                 })).append($);
-
             });
         })
     });
