@@ -409,7 +409,7 @@ class PosController extends Controller
         $suspends = DB::table('suspend_items')->where('suspend_id', $id)
         ->join('product', 'product.code', '=', 'suspend_items.product_code')
         ->join('suspends', 'suspends.id', '=', 'suspend_items.suspend_id')
-        ->select('product.id_product as id_product', 'suspend_items.*', 'suspends.discount_total as discount_total', 'suspends.id as id_susp')
+        ->select('product.id_product as id_product', 'suspend_items.*', 'suspends.discount_total as discount_total', 'suspends.id as id_susp', 'suspends.customer_name as customer_name')
         ->get();
         return response($suspends);
     }
