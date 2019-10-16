@@ -124,7 +124,15 @@ class PosController extends Controller
 
     //pages
     public function pos(){
-        $outlets = DB::table('outlets')->get();
+        $role = Session::get('role');
+        $id = Session::get('id');
+        $user = DB::table('users')->where('id', $id)->first();
+        if($role == 2 || $role == 1){
+            $outlets = DB::table('outlets')->where('id', $user->outlet_id)->get();    
+        }
+        else{
+            $outlets = DB::table('outlets')->get();
+        }
         if (count($outlets)>0) {
             return view('pages.pos',['outlets'=>$outlets]);    
         } else {
