@@ -23,22 +23,22 @@
                 </div>
             </div>
             <br>
-                <div class="d-flex">
-                    <div class="mr-auto bd-highlight">
-                        <label> Show <select type="text">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                                <option value="500">500</option>
-                                <option value="1000">1000</option>
-                            </select> Enteris </label>
-                    </div>
-                        <div class="ml-auto bd-highlight">
-                        <label>Search: <input type="text" class="" placeholder="" aria-controls="example"> </label>
-                    </div>
+            <div class="d-flex">
+                <div class="mr-auto bd-highlight">
+                    <label> Show <select type="text">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                        </select> Enteris </label>
                 </div>
+                <div class="ml-auto bd-highlight">
+                    <label>Search: <input type="text" class="" placeholder="" aria-controls="example"> </label>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-striped">
@@ -46,19 +46,19 @@
                             <tr class="table">
                                 <th>date</th>
                                 <th>sale Id</th>
-                                <th >outlets</th>
-                                <th >Customer</th>
-                                <th >Item</th>
+                                <th>outlets</th>
+                                <th>Customer</th>
+                                <th>Item</th>
                                 <th>Sub Totals</th>
                                 <th>Tax</th>
-                                <th >Grand Total</th>
-                                <th >Action</th>
+                                <th>Grand Total</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if(!$sales)
                             <tr style="text-align: center;">
-                            <td colspan="10" class="dataTables_empty">No data available in table</td>
+                                <td colspan="10" class="dataTables_empty">No data available in table</td>
                             </tr>
                             @else
                             @foreach($sales as $s)
@@ -71,6 +71,9 @@
                                 <td>{{$s->subtotal}}</td>
                                 <td>{{$s->tax}}</td>
                                 <td>{{$s->grandtotal}}</td>
+                                <td><a href=""><i class="fa fa-th-list fa-2x"></i></a>
+                                    <a href=""><i class="fa fa-times-circle fa-2x" style="color: #F00"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                             @endif

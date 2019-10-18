@@ -28,7 +28,7 @@
             </li>
             <li class="nav-item dropdown mt-1">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                    Owner
+                    {{Session::get('name')}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="/logout">

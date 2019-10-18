@@ -64,6 +64,9 @@
                                     </td>
                                     @endforeach
                                 </tr>
+                                @if((Session::get('role')) == 1 || (Session::get('role')) == 2)
+                                <tr></tr>
+                                @else
                                 @foreach($user as $u)
                                 <tr>
                                     <td>{{$u->fullname}}</td>
@@ -81,8 +84,9 @@
                                         <a href="edituser/{{$u->id}}" style="margin-left: 5px;"><button
                                                 class="btn btn-primary">Edit</button></a>
                                     </td>
-                                    @endforeach
                                 </tr>
+                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

@@ -81,7 +81,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="/pos">POS</a>
+                    <a href="javascript:clickpos();">POS</a>
                 </li>
                 <li class="dropdown-class">
                     <a class="dropdown-btn">Return Order</a>
@@ -154,27 +154,35 @@
         </script>
 
         <script>
-            $role = {
-                {
-                    Session::get('role')
+        window.onload = hide();
+            function hide() {
+                $role = {{Session::get('role')}}
+                if ($role == 1) {
+                    document.getElementById("pnl").style.display = "none";
+                    document.getElementById("excat").style.display = "none";
+                    document.getElementById("prodcat").style.display = "none";
+                    document.getElementById("supplier").style.display = "none";
+                    document.getElementById("payment").style.display = "none";
+                    document.getElementById("system").style.display = "none";
+                    document.getElementById("purchaseord").style.display = "none";
+                }
+                if ($role == 2) {
+                    document.getElementById("pnl").style.display = "none";
+                    document.getElementById("pnl").style.display = "none";
+                    document.getElementById("supplier").style.display = "none";
+                    document.getElementById("payment").style.display = "none";
+                    document.getElementById("system").style.display = "none";
+                    document.getElementById("prodcat").style.display = "none";
                 }
             }
-            if ($role == "1") {
-                document.getElementById("pnl").style.display = "none";
-                document.getElementById("excat").style.display = "none";
-                document.getElementById("prodcat").style.display = "none";
-                document.getElementById("supplier").style.display = "none";
-                document.getElementById("payment").style.display = "none";
-                document.getElementById("system").style.display = "none";
-                document.getElementById("purchaseord").style.display = "none";
-            }
-            if ($role == "2") {
-                document.getElementById("pnl").style.display = "none";
-                document.getElementById("pnl").style.display = "none";
-                document.getElementById("supplier").style.display = "none";
-                document.getElementById("payment").style.display = "none";
-                document.getElementById("system").style.display = "none";
-                document.getElementById("prodcat").style.display = "none";
+            function clickpos() {
+                $role = {{Session::get('role')}}
+                if($role == 1 || $role == 2){
+                    window.location.href="/posadd/{{Session::get('outlets')}}";
+                }
+                else{
+                    window.location.href="/pos";
+                }
             }
 
         </script>

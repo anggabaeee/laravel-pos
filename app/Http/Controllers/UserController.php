@@ -19,19 +19,21 @@ class UserController extends Controller
         $outlet = Session::get('outlets');
         $id = Session::get('id');
 
-            if($role == "2"){
+            if($role == 2){
                 $users = DB::table('users')->where('users.role_id', '!=', 3)->where('users.outlet_id', $outlet)
                 ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
                 ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
                 ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
                 ->get();
+                return view('pages.setting.users', ['users'=>$users]);
             }
-            elseif($role == "1"){
+            elseif($role == 1){
                 $users = DB::table('users')->where('users.id', $id)
                 ->join('outlets', 'users.outlet_id', '=', 'outlets.id')
                 ->join('user_roles', 'users.role_id', '=', 'user_roles.id')
                 ->select('users.*', 'outlets.name_outlet', 'user_roles.role_name')
                 ->get();
+                return view('pages.setting.users', ['users'=>$users]);
             }
             else {
                 $outlet = DB::table('outlets')->select('id');
@@ -47,8 +49,8 @@ class UserController extends Controller
                     ->select('users.*', 'user_roles.role_name')
                     ->get();
                 }
-            }          
-        return view('pages.setting.users', ['users'=>$users], [ 'user' => $user]);   
+                return view('pages.setting.users', ['users'=>$users], [ 'user' => $user]);
+            }             
     }
 
     public function adduser(){

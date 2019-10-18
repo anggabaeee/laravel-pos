@@ -84,11 +84,23 @@ class PosController extends Controller
     }
     
     public function debit(){
-        $debit = DB::table('orders')
-        ->where('vt_status', '=', 0)
-        ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
-        ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
-        ->get();
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+        if($role == 1 || $role == 2){
+            $debit = DB::table('orders')
+            ->where('vt_status', '=', 0)
+            ->where('outlet_id', '=', $outletid)
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+            ->get();
+        }
+        else{
+            $debit = DB::table('orders')
+            ->where('vt_status', '=', 0)
+            ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+            ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+            ->get();
+        }
         return view('pages.debit')->with('debit', $debit);    
     }
     
@@ -137,31 +149,50 @@ class PosController extends Controller
             return view('pages.pos',['outlets'=>$outlets]);    
         } else {
             return redirect('/setting/outlets')->with(['warning' => 'Tambahkan Outlet Terlebih Dahulu']);;
-        }
-        
+        }     
     }  
 
-    public function posadd($id, Request $request){
-        $inventory = DB::table('inventory')
-        ->select('product_code', 'qty')
-        ->where('outlet_id', $id);
-        $product = DB::table('product')
-        ->leftJoinSub($inventory, 'sub', function($join){
-            $join->on('product.code', '=', 'sub.product_code');
-        })->select('product.*', 'sub.qty')
-        ->get();
-        $outlets = outlets::find($id);
-        $customer = Customer::all();
-        $load = Customer::select('id')->get();
-        $payment = payment_method::all();
-        return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer, 'load'=>$load ]);    
+    public function posadd($id, Request $request)
+    {
+        $role = Session::get('role');
+        $idoutlet = Session::get('outlets');
+        if($role == 1 || $role == 2){
+            if($idoutlet != $id){
+                return redirect('/posadd/'.$idoutlet);
+            }
+            else
+            {
+                $inventory = DB::table('inventory')
+                ->select('product_code', 'qty')
+                ->where('outlet_id', $id);
+                $product = DB::table('product')
+                ->leftJoinSub($inventory, 'sub', function($join){
+                    $join->on('product.code', '=', 'sub.product_code');
+                })->select('product.*', 'sub.qty')
+                ->get();
+                $outlets = outlets::find($id);
+                $customer = Customer::all();
+                $load = Customer::select('id')->get();
+                $payment = payment_method::all();
+                return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer, 'load'=>$load ]);        
+            }
+        }
+        else{
+            $inventory = DB::table('inventory')
+            ->select('product_code', 'qty')
+            ->where('outlet_id', $id);
+            $product = DB::table('product')
+            ->leftJoinSub($inventory, 'sub', function($join){
+                $join->on('product.code', '=', 'sub.product_code');
+            })->select('product.*', 'sub.qty')
+            ->get();
+            $outlets = outlets::find($id);
+            $customer = Customer::all();
+            $load = Customer::select('id')->get();
+            $payment = payment_method::all();
+            return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer, 'load'=>$load ]);    
+        }
     }   
-
-    public function load(){
-        $customer = Customer::all();
-         return response($customer);
-    }   
-
     public function getsaletoday(Request $request)
     {
         $outlet = $request->outlets;
@@ -589,13 +620,25 @@ class PosController extends Controller
 
     //expenses
     public function expenses(){
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+        if($role == 1 || $role == 2){
+            $outlets = DB::table('outlets')->where('id', $outletid)->get();  
+            $expenses = DB::table('expenses')->where('outlet_id', $outletid)
+            ->join('outlets', 'outlets.id', '=', 'expenses.outlet_id')
+            ->join('expensescategory', 'expensescategory.id', '=', 'expenses.expense_category')
+            ->select('expenses.*', 'outlets.name_outlet as name_outlet', 'expensescategory.name as name_category')
+            ->get();  
+        } 
+        else{
+            $outlets = DB::table('outlets')->get();
+            $expenses = DB::table('expenses')
+            ->join('outlets', 'outlets.id', '=', 'expenses.outlet_id')
+            ->join('expensescategory', 'expensescategory.id', '=', 'expenses.expense_category')
+            ->select('expenses.*', 'outlets.name_outlet as name_outlet', 'expensescategory.name as name_category')
+            ->get();
+        }
         $expensescategory = DB::table('expensescategory')->get();
-        $outlets = DB::table('outlets')->get();
-        $expenses = DB::table('expenses')
-        ->join('outlets', 'outlets.id', '=', 'expenses.outlet_id')
-        ->join('expensescategory', 'expensescategory.id', '=', 'expenses.expense_category')
-        ->select('expenses.*', 'outlets.name_outlet as name_outlet', 'expensescategory.name as name_category')
-        ->get();
         return view('pages.expenses.expenses', ['expenses' => $expenses,'expensescategory'=> $expensescategory,'outlets'=>$outlets]);    
     }
     public function expensessearch(Request $request){
@@ -615,8 +658,15 @@ class PosController extends Controller
         return view('pages.expenses.expensessearch', ['expenses' => $expenses,'expensescategory'=> $expensescategory,'outlets'=>$outlets]);    
     }
     public function addexpenses(){
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+        if($role == 2 || $role == 1){
+            $outlets = DB::table('outlets')->where('id', $outletid)->get();
+        }
+        else{
+            $outlets = DB::table('outlets')->get();
+        }
         $expensescategory = DB::table('expensescategory')->get();
-        $outlets = DB::table('outlets')->get();
         return view('tambah.addexpenses',['expensescategory'=> $expensescategory,'outlets'=>$outlets]); 
     }
     public function addexpensesstore(Request $request){
@@ -690,17 +740,37 @@ class PosController extends Controller
 
     //sales
     public function openedbil(){
-        $bill = DB::table('suspends')
-        ->join('outlets', 'outlets.id', '=', 'suspends.outlet_id')
-        ->select('suspends.*', 'outlets.name_outlet', DB::raw('DATE(suspends.created_at) as date'))
-        ->get();
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+        if($role == 1 || $role == 2){
+            $bill = DB::table('suspends')
+            ->where('outlet_id', $outletid)
+            ->join('outlets', 'outlets.id', '=', 'suspends.outlet_id')
+            ->select('suspends.*', 'outlets.name_outlet', DB::raw('DATE(suspends.created_at) as date'))
+            ->get();    
+        }
+        else{
+            $bill = DB::table('suspends')
+            ->join('outlets', 'outlets.id', '=', 'suspends.outlet_id')
+            ->select('suspends.*', 'outlets.name_outlet', DB::raw('DATE(suspends.created_at) as date'))
+            ->get();
+        }
         return view('pages.sales.openedbil', ['bill' => $bill]);    
     }
 
     public function todaysales(){
-        $sales = DB::table('orders')->whereRaw("DATE(orders.ordered_datetime) = curdate()")
-        ->select('orders.*', DB::raw('DATE(orders.ordered_datetime) as date'))
-        ->get();
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+        if($role == 1 || $role ==2){
+            $sales = DB::table('orders')->whereRaw("DATE(orders.ordered_datetime) = curdate()")
+            ->where('orders.outlet_id', $outletid)
+            ->select('orders.*', DB::raw('DATE(orders.ordered_datetime) as date'))
+            ->get();
+        } else{
+            $sales = DB::table('orders')->whereRaw("DATE(orders.ordered_datetime) = curdate()")
+            ->select('orders.*', DB::raw('DATE(orders.ordered_datetime) as date'))
+            ->get();
+        }
         return view('pages.sales.todaysales')->with('sales', $sales);
     }
 

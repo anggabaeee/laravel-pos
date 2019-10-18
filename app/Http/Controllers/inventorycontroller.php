@@ -45,8 +45,15 @@ class inventorycontroller extends Controller
         return view('pages.inventory.inventory',['inventory' => $inventory, 'product' => $product]);    
     }
     public function editinventory($code){
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+        if($role == 1 || $role == 2){
+            $outlets = DB::table('outlets')->where('id', $outletid)->get();
+        }
+        else{
+            $outlets = outlets::all();
+        }
         $product = DB::table('product')->where('code', $code)->get();
-        $outlets = outlets::all();
         $inventory = DB::table('inventory')
            ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
            ->where('inventory.product_code', '=', $code)
@@ -58,6 +65,8 @@ class inventorycontroller extends Controller
 
     public function editinventoryupdate(Request $request)
     {
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
         $code = $request->product_code;
         $outlet = $request->outlets;
         $cek = DB::table('inventory')
@@ -70,6 +79,13 @@ class inventorycontroller extends Controller
             'product_code' => 'required',
             'outlets' => 'required',
         ]);
+
+        if($role == 2 && $outletid != $outlet){
+            return redirect('inventory/editinventory/'.$code);
+        }
+        if($role == 1 && $outletid != $outlet){
+            return redirect('inventory/editinventory/'.$code);
+        }
 
         if($cek < 1){
             DB::table('inventory')->insert([

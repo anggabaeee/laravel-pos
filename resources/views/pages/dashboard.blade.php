@@ -48,14 +48,14 @@
         <h1>Dashboard</h1>
         @if(Session::get('coba'))
         <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <li>Permission Denied</li>
-                </div>
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <li>Permission Denied</li>
+        </div>
         @endif
         <div class="row text-center">
             <div class="col-6 col-md-2">
                 <div class="panel panel-default">
-                    <a href="pos">
+                    <a href="javascript:clickpos();">
                         <div class="panel-body easypiechart-panel">
                             <p>Point of Sales</p>
                             <div class="icon-fa">
@@ -135,6 +135,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    function clickpos() {
+        $role = {{Session::get('role')}}
+        if ($role == 1 || $role == 2) {
+            window.location.href = "/posadd/{{Session::get('outlets')}}";
+        } else {
+            window.location.href = "/pos";
+        }
+    }
+
+</script>
 
 <script>
     Highcharts.chart('chart', {
