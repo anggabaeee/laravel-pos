@@ -33,8 +33,16 @@ class PosController extends Controller
     public function dashboard(){
         return view('pages.dashboard');
     }
-    public function customer(){
-        $customer = DB::table('customer')->orderBy('fullname','desc')->paginate(5);
+    public function customer(Request $request){
+        $name = $request->name;
+        $email = $request->email;
+        $mobile = $request->mobile;
+
+        $customer = DB::table('customer')->where('fullname' ,'like', '%'.$name.'%')
+        ->where('email' ,'like', '%'.$email.'%')
+        ->where('mobile' ,'like', '%'.$mobile.'%')
+        ->orderBy('fullname','desc')->paginate(5);
+        
         return view('pages.customer',['customer' => $customer]);    
     }
     public function addCustomer(){

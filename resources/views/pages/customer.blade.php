@@ -3,7 +3,7 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container">
         <h1>Customer</h1>
-        <form class="mt-2 master-form">
+        <form action="/customer" method="get" class="mt-2 master-form">
             @if ($message = Session::get('success'))
             <div class="alert alert-success alert-block">
                 <button type="button" class="close" data-dismiss="alert">×</button>
@@ -25,28 +25,29 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="">Name</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="text" name="name">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">E-mail</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="text" name="email">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Mobile</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" type="text" name="mobile">
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label for="">&nbsp</label><br>
-                        <button class="btn btn-primary" style="width: 100%;">Search</button>
+                        <input type="submit" value="Search" class="btn btn-primary" style="width: 100%;">
                     </div>
                 </div>
             </div>
+
             <div class="table-responsive">
                 <table class="table table-hover" id="exampel">
                     <thead>
@@ -94,5 +95,6 @@
             "searching": false
         });
     });
+
 </script>
 @stop
