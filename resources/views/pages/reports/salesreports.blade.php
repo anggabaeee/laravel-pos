@@ -4,7 +4,7 @@
     <div class="container menu">
         <h1>Sales Reports</h1>
         <div class="mt-2 master-form">
-            <form action="/salesreportsearch" method="get">
+            <form action="/salesreports" method="get">
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -12,8 +12,8 @@
                             <select id="outlets" name="outlets" class="form-control" type="text" required>
                                 <option value="">Choose Outlets</option>
                                 <option value="0">All</option>
-                                @foreach ($outlets as $p)
-                                <option value="{{$p->id}}">{{$p->name_outlet}}</option>
+                                @foreach ($outlet as $outlet)
+                                <option value="{{$outlet->id}}">{{$outlet->name_outlet}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -33,13 +33,15 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="">Start Date</label>
-                            <input id="startdate" name="startdate" class="form-control datepicker" type="text" autocomplete="off" required>
+                            <input id="startdate" name="startdate" class="form-control datepicker" type="text"
+                                autocomplete="off">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="">End Date</label>
-                            <input id="enddate" name="enddate" class="form-control datepicker" type="text" autocomplete="off" required>
+                            <input id="enddate" name="enddate" class="form-control datepicker" type="text"
+                                autocomplete="off">
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -73,7 +75,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr></tr>
+                            @foreach($sale as $r)
+                            <tr>
+                                <td>{{$r->date}}</td>
+                                <td>{{$r->id}}</td>
+                                <td>{{$r->name_outlet}}</td>
+                                <td>{{$r->payment_method_name}}</td>
+                                <td>{{$r->subtotal}}</td>
+                                <td>{{$r->tax}}</td>
+                                <td>{{$r->grandtotal}}</td>
+                                <td><a href="#"><i class="fa fa-print fa-2x"></i></a></td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -94,9 +107,13 @@
     <script>
         $(document).ready(function () {
             $('#exampel').DataTable();
-            $('#btnreport').click(function(){
+
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var c = url.searchParams.get("paid");
+            if (c != null) {
                 document.getElementById('display').hidden = false;
-            });
+            }
         });
 
     </script>

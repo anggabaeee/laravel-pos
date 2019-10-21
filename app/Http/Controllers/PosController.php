@@ -870,13 +870,7 @@ class PosController extends Controller
     }
 
     //report
-    public function salesreports(){
-        $outlets = DB::table('outlets')->get();
-        $payment = payment_method::all();
-        return view('pages.reports.salesreports')->with('outlets', $outlets)->with('payment', $payment);
-    }
-
-    public function salesreportsearch(Request $request)
+    public function salesreports(Request $request)
     {
         $outlet = DB::table('outlets')->get();
         $payment = payment_method::all();
@@ -907,7 +901,7 @@ class PosController extends Controller
             ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
             ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(ordered_datetime) as date'))->get();
         }
-        return view('pages.reports.salesreportsearch')->with('outlet', $outlet)->with('payment', $payment)->with('sale' , $sale);
+        return view('pages.reports.salesreports')->with('outlet', $outlet)->with('payment', $payment)->with('sale' , $sale);
     } 
 
     public function soldbyproduct(){
