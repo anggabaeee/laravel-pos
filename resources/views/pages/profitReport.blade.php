@@ -20,7 +20,7 @@
         <h1>Return Order Report</h1>
         <div class="card">
             <div class="card-body">
-                <form action="">
+                <form action="/pnl/pnlReport" method="get">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-gorup">
@@ -51,8 +51,8 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <br>
-                                <input type="button" class="btn btn-primary" value="Get Report"
-                                    onclick="setvisibility('display','inline');" style="margin-top: 8px;">
+                                <input type="submit" class="btn btn-primary" value="Get Report"
+                                   style="margin-top: 8px;">
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
 <script type="text/javascript">
     $(function () {
         $(".datepicker").datepicker({
-            format: 'yyyy/mm/dd',
+            format: 'yyyy-mm-dd',
             autoclose: true,
             todayHighlight: true,
         });
