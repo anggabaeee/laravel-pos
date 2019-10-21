@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 use App\purchase_order;
 use App\supplier;
 use App\Customer;
@@ -110,6 +111,92 @@ class PosController extends Controller
             ->get();
         }
         return view('pages.debit')->with('debit', $debit);    
+    }
+
+    public function debitsearch(Request $request)
+    {
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+        $cusname = $request->namecus;
+        $start = $request->startdate;
+        $end = $request->enddate;
+        if($role == 1 || $role == 2){
+            if($start == null && $end == null){
+                $debit = DB::table('orders')
+                ->where('vt_status', '=', 0)
+                ->where('outlet_id', '=', $outletid)
+                ->where('customer_name', 'like', '%'.$cusname.'%')
+                ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+                ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+                ->get();
+            }
+            elseif($start == null){
+                $debit = DB::table('orders')
+                ->where('vt_status', '=', 0)
+                ->where('outlet_id', '=', $outletid)
+                ->where('customer_name', 'like', '%'.$cusname.'%')
+                ->where(DB::raw('DATE(ordered_datetime)'), '<=', $end)
+                ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+                ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+                ->get();
+            }
+            elseif($end == null){
+                $debit = DB::table('orders')
+                ->where('vt_status', '=', 0)
+                ->where('outlet_id', '=', $outletid)
+                ->where('customer_name', 'like', '%'.$cusname.'%')
+                ->where(DB::raw('DATE(ordered_datetime)'), '>=', $start)
+                ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+                ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+                ->get();
+            }
+            else{
+                $debit = DB::table('orders')
+                ->where('vt_status', '=', 0)
+                ->where('outlet_id', '=', $outletid)
+                ->where('customer_name', 'like', '%'.$cusname.'%')
+                ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+                ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+                ->get();
+            }
+        }
+        else{
+            if($start == null && $end == null){
+                $debit = DB::table('orders')
+                ->where('vt_status', '=', 0)
+                ->where('customer_name', 'like', '%'.$cusname.'%')
+                ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+                ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+                ->get();
+            }
+            elseif($start == null){
+                $debit = DB::table('orders')
+                ->where('vt_status', '=', 0)
+                ->where('customer_name', 'like', '%'.$cusname.'%')
+                ->where(DB::raw('DATE(ordered_datetime)'), '<=', $end)
+                ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+                ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+                ->get();
+            }
+            elseif($end == null){
+                $debit = DB::table('orders')
+                ->where('vt_status', '=', 0)
+                ->where('customer_name', 'like', '%'.$cusname.'%')
+                ->where(DB::raw('DATE(ordered_datetime)'), '>=', $start)
+                ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+                ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+                ->get();
+            }
+            else{
+                $debit = DB::table('orders')
+                ->where('vt_status', '=', 0)
+                ->where('customer_name', 'like', '%'.$cusname.'%')
+                ->join('outlets', 'outlets.id', '=', 'orders.outlet_id')
+                ->select('orders.*', 'outlets.name_outlet', DB::raw('DATE(orders.ordered_datetime) as date, orders.paid_amt - orders.grandtotal as minus'))
+                ->get();
+            }
+        }
+        return view('pages.debitsearch')->with('debit', $debit);   
     }
     
     // addgift

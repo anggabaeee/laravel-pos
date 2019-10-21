@@ -35,6 +35,7 @@ Route::get('/listgiftdelete/{id}','PosController@listgiftdelete')->middleware('c
 Route::get('/debit','PosController@debit')->middleware('ceklogin' , 'response');
 Route::get('/debit/makepayment/{id}','PosController@makepayment')->middleware('ceklogin' , 'response');
 Route::post('/submitmakepayment/{id}','PosController@submitmakepayment')->middleware('ceklogin' , 'response');
+Route::get('/debitsearch','PosController@debitsearch');
 
 //sales
 Route::get('/todaysales', 'PosController@todaysales')->middleware('ceklogin' , 'response');

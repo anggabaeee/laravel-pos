@@ -33,13 +33,15 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="">Start Date</label>
-                            <input id="startdate" name="startdate" class="form-control datepicker" type="text" autocomplete="off">
+                            <input id="startdate" name="startdate" class="form-control datepicker" type="text"
+                                autocomplete="off">
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="">End Date</label>
-                            <input id="enddate" name="enddate" class="form-control datepicker" type="text" autocomplete="off">
+                            <input id="enddate" name="enddate" class="form-control datepicker" type="text"
+                                autocomplete="off">
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -51,7 +53,7 @@
                     </div>
                 </div>
             </form>
-            <div id="display">
+            <div id="display" hidden="true">
                 <div class="d-flex">
                     <div class="ml-auto bd-highlight"><input class="btn btn-success" type="button"
                             value="Export To Excel">
@@ -105,6 +107,13 @@
     <script>
         $(document).ready(function () {
             $('#exampel').DataTable();
+
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var c = url.searchParams.get("paid");
+            if(c != null){
+                document.getElementById('display').hidden = false;
+            }
         });
 
     </script>
