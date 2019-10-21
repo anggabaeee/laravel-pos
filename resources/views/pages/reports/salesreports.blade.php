@@ -34,14 +34,14 @@
                         <div class="form-group">
                             <label for="">Start Date</label>
                             <input id="startdate" name="startdate" class="form-control datepicker" type="text"
-                                autocomplete="off">
+                                autocomplete="off" required>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="">End Date</label>
                             <input id="enddate" name="enddate" class="form-control datepicker" type="text"
-                                autocomplete="off">
+                                autocomplete="off" required>
                         </div>
                     </div>
                     <div class="col-sm-2">

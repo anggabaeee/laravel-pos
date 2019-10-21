@@ -904,8 +904,32 @@ class PosController extends Controller
         return view('pages.reports.salesreports')->with('outlet', $outlet)->with('payment', $payment)->with('sale' , $sale);
     } 
 
-    public function soldbyproduct(){
-        return view('pages.reports.soldbyproduct');
+    public function soldbyproduct(Request $request){
+        $start = $request->startdate;
+        $end = $request->enddate;
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+
+        if($role == 1 || $role == 2){
+            $product = DB::table('orders')
+            ->where('outlet_id', $outletid)
+            ->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+            ->join('product', 'product.code', '=', 'order_items.product_code')
+            ->join('category', 'category.id', '=', 'product.category_id')
+            ->select(DB::raw('sum(order_items.qty) AS totalitem'), 'order_items.product_code as product_code', 'order_items.product_name', 'category.category_name as category_name')
+            ->groupBy('product_code')->get();
+        }
+        else{
+            $product = DB::table('orders')
+            ->whereBetween(DB::raw('DATE(ordered_datetime)'), [$start, $end])
+            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
+            ->join('product', 'product.code', '=', 'order_items.product_code')
+            ->join('category', 'category.id', '=', 'product.category_id')
+            ->select(DB::raw('sum(order_items.qty) AS totalitem'), 'order_items.product_code as product_code', 'order_items.product_name', 'category.category_name as category_name')
+            ->groupBy('product_code')->get();
+        }
+        return view('pages.reports.soldbyproduct', ['product' => $product]);
     }
 
     public function reportsale(Request $request)
