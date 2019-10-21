@@ -12,16 +12,6 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ asset('img/english_flag.png') }}" alt="">
-                </a>
-                <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#"><img src="{{ asset('img/english_flag.png') }}" alt=""> English</a>
-                    <a class="dropdown-item" href="#"><img src="{{ asset('img/spanish_flag.png') }}" alt=""> Spain</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
                     {{Session::get('name')}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
