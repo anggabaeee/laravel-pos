@@ -994,8 +994,11 @@ class PosController extends Controller
     public function reportreturn(){
         return view('pages.ReturnOrder.returnreport'); 
     }   
-    public function pnlreport(){
-            return view('pages.profitReport'); 
+    public function pnlreport(Request $request){
+        $outlets = $request->outlets;
+        $start = $request->dateform;
+        $end = $request->dateto;
+        return view('pages.profitReport'); 
     }
 
     //tambah

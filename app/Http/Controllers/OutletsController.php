@@ -48,6 +48,12 @@ class OutletsController extends Controller
         return redirect('/setting/outlets')->with(['success' => 'Data Berhasil Ditambahkan']); 
     }
     public function editoutlet($id){
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
+        if($role == 1 || $role == 2)
+        {
+            $id = $outletid;
+        }
         $outlets = outlets::find($id);
         return view('pages.edit.editoutlet',['outlets'=>$outlets]);    
     }
