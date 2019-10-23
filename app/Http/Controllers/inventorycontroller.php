@@ -30,17 +30,37 @@ class inventorycontroller extends Controller
             return redirect('/customer');
     }
     public function inventory(){
-        $data = DB::table('inventory')->select('product_code');
-        $product = DB::table('product')->select('*')
-        ->whereNOTIn('code', $data)
-        ->get();
+        $role = Session::get('role');
+        $outletid = Session::get('outlets');
 
-        $inventory = DB::table('inventory')
-          ->select('inventory.product_code as code', 'product.name_product as name_product', DB::raw('SUM(inventory.qty) as totalqty'))
-          ->join('product', 'product.code', '=', 'inventory.product_code')
-          ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
-          ->groupBy('inventory.product_code')
-          ->get();
+        if($role == 2 || $role == 1){
+            $data = DB::table('inventory')->where('outlet_id', $outletid)->select('product_code');
+            $product = DB::table('product')->select('*')
+            ->whereNOTIn('code', $data)
+            ->get();
+    
+            $inventory = DB::table('inventory')
+            ->where('outlet_id', $outletid)
+            ->select('inventory.product_code as code', 'product.name_product as name_product', DB::raw('SUM(inventory.qty) as totalqty'))
+            ->join('product', 'product.code', '=', 'inventory.product_code')
+            ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
+            ->groupBy('inventory.product_code')
+            ->get();
+        }
+        else{
+            $data = DB::table('inventory')->select('product_code');
+            $product = DB::table('product')->select('*')
+            ->whereNOTIn('code', $data)
+            ->get();
+    
+            $inventory = DB::table('inventory')
+            ->select('inventory.product_code as code', 'product.name_product as name_product', DB::raw('SUM(inventory.qty) as totalqty'))
+            ->join('product', 'product.code', '=', 'inventory.product_code')
+            ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
+            ->groupBy('inventory.product_code')
+            ->get();
+        }
+        
 
         return view('pages.inventory.inventory',['inventory' => $inventory, 'product' => $product]);    
     }
@@ -49,17 +69,24 @@ class inventorycontroller extends Controller
         $outletid = Session::get('outlets');
         if($role == 1 || $role == 2){
             $outlets = DB::table('outlets')->where('id', $outletid)->get();
+            $inventory = DB::table('inventory')
+            ->where('outlet_id', $outletid)
+            ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
+            ->where('inventory.product_code', '=', $code)
+            ->select('inventory.*', 'outlets.name_outlet as name_outlet')
+            ->orderBy('inventory.outlet_id', 'ASC')
+            ->get();
         }
         else{
             $outlets = outlets::all();
+            $inventory = DB::table('inventory')
+            ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
+            ->where('inventory.product_code', '=', $code)
+            ->select('inventory.*', 'outlets.name_outlet as name_outlet')
+            ->orderBy('inventory.outlet_id', 'ASC')
+            ->get();
         }
         $product = DB::table('product')->where('code', $code)->get();
-        $inventory = DB::table('inventory')
-           ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
-           ->where('inventory.product_code', '=', $code)
-           ->select('inventory.*', 'outlets.name_outlet as name_outlet')
-           ->orderBy('inventory.outlet_id', 'ASC')
-           ->get();
         return view('pages.inventory.editinventory')->with('product', $product)->with('outlets', $outlets)->with('inventory', $inventory);
     }
 

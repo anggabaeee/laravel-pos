@@ -69,7 +69,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <label>Refund Tax (7.00%)</label>
+                            @php($site_setting = App\site_setting::all())
+                            @foreach ($site_setting as $s)
+                            <label>Refund Tax ({{number_format($s->tax, 2)}}%)</label>
+                            <input type="hidden" name="taxsite" id="taxsite" value="{{$s->tax}}">
+                            @endforeach
                         </div>
                         <div class="col-md-4">
                             <input type="text" name="tax" class="form-control" id="tax" readonly>
@@ -122,10 +126,11 @@
                             <div class="form-group">
                                 <label>Search Product <span style="color: #F00;">*</span></label>
                                 <select id="typeahead" class="form-control add_product_po">
-                                <option value="" disabled selected></option>
-                                @foreach ($product as $p)
-                                <option value="{{$p->code}}" data-aku="{{$p->retail_price}}">{{$p->name_product}}</option>
-                                @endforeach
+                                    <option value="" disabled selected></option>
+                                    @foreach ($product as $p)
+                                    <option value="{{$p->code}}" data-aku="{{$p->retail_price}}">{{$p->name_product}}
+                                    </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -133,7 +138,7 @@
                             <br>
                             <button type="button" class="btn btn-secondary" style="width: 66%; margin-top: 6px;"
                                 id="addlist">Add Return Item to List</button>
-                                <input type="text" id="row" name="panjang">
+                            <input type="text" id="row" name="panjang">
                         </div>
                     </div>
                     <div class="row" style="margin-top: 10px">
@@ -170,16 +175,17 @@
 <script>
     function hasil() {
         var amount = document.getElementById("amount").value;
+        var taxsite = document.getElementById("taxsite").value;
         if (amount.length > 0) {
             tax = parseFloat(tax);
             amount = parseFloat(amount);
-            var tax = amount * 7 / 100;
+            var tax = amount * parseFloat(taxsite)/100;
             document.getElementById("tax").value = tax;
             var grandtotal = amount + tax;
             document.getElementById("grandtotal").value = grandtotal;
         } else {
-            document.getElementById("tax").value = 0;
-            document.getElementById("grandtotal").value = 0;
+            document.getElementById("tax").value = "";
+            document.getElementById("grandtotal").value = "";
         }
     }
 
@@ -195,33 +201,37 @@
         });
         $("#addlist").click(function () {
             var s = document.getElementById("typeahead");
-            var text = $( "#typeahead option:selected" ).text();
-            var id =$( "#typeahead option:selected" ).val();
-            var ids =$( "#typeahead option:selected" ).data('aku');
+            var text = $("#typeahead option:selected").text();
+            var id = $("#typeahead option:selected").val();
+            var ids = $("#typeahead option:selected").data('aku');
             var count = $('#mytbody tr').length;
             var row = count + 1;
             document.getElementById("row").value = row
-            var markup = `<tr><td>` + id + `<input name='retail_price[]' value=`+ ids +` hidden><input type='text'value=` + id + ` class='form-control' name='product_code[]' readonly hidden> </td>
+            var markup = `<tr><td>` + id + `<input name='retail_price[]' value=` + ids +
+                ` hidden><input type='text'value=` + id + ` class='form-control' name='product_code[]' readonly hidden> </td>
             <td>` + text + `<input type='text'value=` + text + ` class='form-control' name='product_name[]' readonly hidden></td>
             <td><input type='number' value='1' name='qty[]' class='form-control'></td>
-            <td><input type="checkbox" id="check`+ row +`" style="display:inline;" class='form-control col-6'><strong id="keterangan`+ row +`" value='0' style='font-size: 30px;'>Good</strong><input type="number" id="status`+ row +`" value="1" name='item_condition[]' style="display:inline;" class='form-control col-6'> 
+            <td><input type="checkbox" id="check` + row +
+                `" style="display:inline;" class='form-control col-6'><strong id="keterangan` + row +
+                `" value='0' style='font-size: 30px;'>Good</strong><input type="number" id="status` +
+                row + `" value="1" name='item_condition[]' style="display:inline;" class='form-control col-6'> 
             <td> <button type='button' class='btn btn-danger' id='deletbtn'>Delete </button></td></tr>`;
             $("table tbody").append(markup);
-            $("#mytbody").on('click','#check'+row, function () {
-            if (this.checked) {
-                    $("#keterangan"+ row).css("color", "#575757");
-                    $("#status"+ row).val("2");
+            $("#mytbody").on('click', '#check' + row, function () {
+                if (this.checked) {
+                    $("#keterangan" + row).css("color", "#575757");
+                    $("#status" + row).val("2");
                 } else {
-                    $("#keterangan"+ row).css("color", "black");
-                    $("#status"+ row).val("1");
+                    $("#keterangan" + row).css("color", "black");
+                    $("#status" + row).val("1");
                 }
+            });
         });
-        });
-        $("#mytbody").on('click','#deletbtn', function () {
-           $(this).closest('tr').remove();
-           var x = document.getElementById("row").value
-           var d = x -1
-           document.getElementById("row").value = d
+        $("#mytbody").on('click', '#deletbtn', function () {
+            $(this).closest('tr').remove();
+            var x = document.getElementById("row").value
+            var d = x - 1
+            document.getElementById("row").value = d
         });
     });
 
@@ -230,7 +240,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @if(Session::has('p'))
 <script>
-    toastr.success('{{Session::get('p')}}')
+    toastr.success('{{Session::get('
+        p ')}}')
 
 </script>
 @endif

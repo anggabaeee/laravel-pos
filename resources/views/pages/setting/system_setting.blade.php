@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <label>Tax<span style="color: #F00">*</span></label>
                                 <input type="text" name="tax" class="form-control" placeholder="0" maxlength="2"
-                                    value="7.00">
+                                    value="{{number_format($s->tax, 2)}}">
                             </div>
                         </div>
                         <div class="col-md-4">

@@ -121,7 +121,10 @@
                     <div class="row">
                         <div class="col-12 mt-2 ml-3">
                             <input type="hidden" name="row_length" id="row_length">
-                            <input type="hidden" name="tax" id="tax" value="7">
+                            @php($site_setting = App\site_setting::all())
+                            @foreach ($site_setting as $s)
+                            <input type="hidden" name="tax" id="tax" value="{{ $s->tax }}">
+                            @endforeach
                             <div class="row isitable" id="isitable" style="margin-top: 5px">
                             </div>
                         </div>
@@ -150,7 +153,10 @@
                                 <div class="col-3"><input type="text" class="mx-4 w-75" name="discount" id="discount"
                                         onkeyup="disc(this.value)"></div>
                                 <div class="col-3">
-                                    <div>Tax (7.00%) :</div>
+                                    @php($site_setting = App\site_setting::all())
+                                    @foreach ($site_setting as $s)
+                                    <div>Tax ({{number_format($s->tax, 2)}}%) :</div>
+                                    @endforeach
                                 </div>
                                 <div class="col-3">
                                     <div><label id="taxval">0.00</label></div><input type="hidden" name="taxval"
@@ -199,7 +205,6 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="tablepilihan border">
-                                @php $n=0; $a=0; $b=0; $c=0; $d=0; $e=0;@endphp
                                 <div class="row">@foreach ($product as $p) <div class="col-md-2 stock ml-4 mt-3">
                                         <div class="mt-1"><a onclick="addlist('{{$p->id_product}}')" id="addlist11"><img
                                                     height="50px" class="img-thumbnail"
@@ -351,7 +356,7 @@
                             <p>Search Opened Bill :</p>
                         </div>
                         <div class="col-7">
-                        <input type="text" class="form-control col-sm-12" id="searchold" placeholder="ref.number">
+                            <input type="text" class="form-control col-sm-12" id="searchold" placeholder="ref.number">
                         </div>
                     </div>
                     <div class="row" id="isihold" style="overflow: scroll; height: 400px; margin-top: 10px;">

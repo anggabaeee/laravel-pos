@@ -25,14 +25,17 @@
             left: 0;
             right: 0;
         }
+
         .lebar {
             width: 80%
         }
+
         @media (max-width: 767.98px) {
             .lebar {
                 width: 100%
             }
         }
+
     </style>
     <title>Login</title>
 </head>
@@ -47,7 +50,10 @@
                             <div class="panel-heading" style="height: 175px;">
                                 <h1>Account Access</h1>
                                 <br />
-                                <img src="{{ asset('/img/logo.jpg') }}" height="100px">
+                                @php($site_setting = App\site_setting::all())
+                                @foreach ($site_setting as $s)
+                                <img src="{{ asset('/site_image/'.$s->site_logo) }}" height="100px">
+                                @endforeach
                             </div>
                             <div class="mt-4">
                                 <input type="email" name="email" class="form-control" autofocus autocomplete="off"

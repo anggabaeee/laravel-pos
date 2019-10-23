@@ -82,8 +82,8 @@
                             <td style="text-align:left; width:130px;">{{$i->product_name}} <br> [{{$i->product_code}}]
                             </td>
                             <td style="text-align:center; width:50px;">{{$i->qty}}</td>
-                            <td style="text-align:center; width:50px;">{{$i->price}}</td>
-                            <td style="text-align:right; width:70px;">{{$i->total}}</td>
+                            <td style="text-align:center; width:50px;">{{number_format($i->price, 2)}}</td>
+                            <td style="text-align:right; width:70px;">{{number_format($i->total, 2)}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -100,7 +100,7 @@
                                 {{$orders->total_items}}</td>
                             <td style="text-align:left; padding-left:1.5%;">Total</td>
                             @foreach($total as $total)
-                            <td style="text-align:right;font-weight:bold;">{{$total->totalall}}</td>
+                            <td style="text-align:right;font-weight:bold;">{{number_format($total->totalall, 2)}}</td>
                             @endforeach
                         </tr>
                         @if($orders->discount_total == 0)
@@ -112,7 +112,7 @@
                                 style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">
                                 &nbsp;</td>
                             <td style="text-align:left; padding-left:1.5%;">Discount</td>
-                            <td style="text-align:right;font-weight:bold;">-{{$orders->discount_total}}</td>
+                            <td style="text-align:right;font-weight:bold;">-{{number_format($orders->discount_total, 2)}}</td>
                         </tr>
                         @endif
                         <tr>
@@ -121,7 +121,7 @@
                                 style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">
                                 &nbsp;</td>
                             <td style="text-align:left; padding-left:1.5%;">Sub Total</td>
-                            <td style="text-align:right;font-weight:bold;">{{$orders->subtotal}}</td>
+                            <td style="text-align:right;font-weight:bold;">{{number_format($orders->subtotal, 2)}}</td>
                         </tr>
                         <tr>
                             <td style="text-align:left; padding-top: 5px;">&nbsp;</td>
@@ -129,7 +129,7 @@
                                 style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">
                                 &nbsp;</td>
                             <td style="text-align:left; padding-left:1.5%;">Tax</td>
-                            <td style="text-align:right;font-weight:bold;">{{$orders->tax}}</td>
+                            <td style="text-align:right;font-weight:bold;">{{number_format($orders->tax, 2)}}</td>
                         </tr>
                         <tr>
                             <td colspan="2"
@@ -137,7 +137,7 @@
                                 Grand Total</td>
                             <td colspan="2"
                                 style="text-align:right; font-weight:bold; border-top:1px solid #000; padding-top: 5px; padding-bottom: 5px;">
-                                {{$orders->grandtotal}}</td>
+                                {{number_format($orders->grandtotal, 2)}}</td>
                         </tr>
                         <tr>
                             <td colspan="2"
@@ -145,7 +145,7 @@
                                 Amount</td>
                             <td colspan="2"
                                 style="text-align:right; font-weight:bold; padding-top: 5px; padding-bottom: 5px;">
-                                {{$orders->paid_amt}}
+                                {{number_format($orders->paid_amt, 2)}}
                             </td>
                         </tr>
                         @if(((float)$orders['paid_amt'] - (float)$orders['grandtotal']) < 0)
@@ -170,7 +170,7 @@
                                 Change</td>
                             <td colspan="2"
                                 style="text-align:right; font-weight:bold; padding-top: 5px; padding-bottom: 5px;">
-                                {{$orders->return_change}}
+                                {{number_format($orders->return_change, 2)}}
                             </td>
                         </tr>
                         @endif
@@ -182,7 +182,7 @@
                             </td>
                             <td
                                 style="text-align:right; border-top: 1px solid #000; padding-top: 5px; padding-bottom: 5px;">
-                                {{$op->payment_amount}} </td>
+                                {{number_format($op->payment_amount, 2)}} </td>
                         </tr>
                         @endforeach
                     </tbody>

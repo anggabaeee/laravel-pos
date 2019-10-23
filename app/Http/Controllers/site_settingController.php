@@ -21,7 +21,8 @@ class site_settingController extends Controller
         if($request->hasFile('site_logo')){
             $this->validate($request,[
                 'site_name' => 'required',
-                'site_logo' => 'file|image|mimes:jpeg,png,jpg|max:2048'
+                'site_logo' => 'file|image|mimes:jpeg,png,jpg|max:2048',
+                'tax' => 'required'
                 ]);
 
             $filename = $request->filename;
@@ -38,7 +39,8 @@ class site_settingController extends Controller
             $site_setting = site_setting::find($id);
             $site_setting->update([
                 'site_name' => $request->site_name,
-                'site_logo' => $nama_thumbnail
+                'site_logo' => $nama_thumbnail,
+                'tax' => $request->tax
             ]);
         }
         else {
@@ -47,10 +49,17 @@ class site_settingController extends Controller
             ]);
             $site_setting = site_setting::find($id);
             $site_setting->update([
-                'site_name' => $request->site_name
+                'site_name' => $request->site_name,
+                'tax' => $request->tax
             ]);
         }
     return redirect('/setting/system_setting')->with(['success' => 'Data Berhasil Dirubah']);
+}
+
+public function getsite()
+{
+    $site = site_setting::all();
+    return response($site);
 }
     // public function system_settingupdate($id, Request $request){
     //     $this->validate($request,[

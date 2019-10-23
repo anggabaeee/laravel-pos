@@ -17,6 +17,7 @@ class CreateSiteSettingsTable extends Migration
             $table->bigIncrements('id');
             $table->string('site_name');
             $table->string('site_logo');
+            $table->double('tax', 11, 2);
             $table->timestamps();
         });
     }

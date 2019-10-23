@@ -152,6 +152,8 @@ Route::get('/postuser', 'UserController@postuser');
 Route::get('/role', 'PosController@role');
 Route::get('/addrole', 'PosController@addrole');
 
+//site setting
+Route::get('/getsite', 'site_settingController@getsite');
 Route::get('/setting/system_setting', 'site_settingController@system_setting')->middleware('pnlcek' , 'response');
 Route::put('/setting/system_settingupdate/{id}', 'site_settingController@system_settingupdate')->middleware('pnlcek' , 'response');
 Route::get('/setting/users/adduser', 'UserController@adduser')->middleware('ceklogin' , 'response');
