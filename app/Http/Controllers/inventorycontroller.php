@@ -60,8 +60,6 @@ class inventorycontroller extends Controller
             ->groupBy('inventory.product_code')
             ->get();
         }
-        
-
         return view('pages.inventory.inventory',['inventory' => $inventory, 'product' => $product]);    
     }
     public function editinventory($code){

@@ -13,12 +13,9 @@
 @php($site_setting = App\site_setting::all())
 @foreach ($site_setting as $s)
 <link rel="shortcut icon" id="aaaa" href="{{url('/site_image/'.$s->site_logo)}}"/>
+<title>{{$s->site_name}}</title>
 @endforeach
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-
-<title>POS - Multi Outlets</title>
-
 <body>
 </body>
 

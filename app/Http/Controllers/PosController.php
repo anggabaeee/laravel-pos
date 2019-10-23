@@ -26,6 +26,7 @@ use App\orders;
 use App\suspend;
 use App\suspend_item;
 use App\order_payments;
+use App\site_setting;
 use Validator;
 use Response;
 
@@ -563,7 +564,8 @@ class PosController extends Controller
         $total = DB::table('order_items')->where('order_id', $id)
         ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))
         ->get();
-        return view('pages.invoice')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total)->with('order_payments', $order_payments);
+        $site = site_setting::all();
+        return view('pages.invoice')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total)->with('order_payments', $order_payments)->with('site', $site);
     }
 
     public function invoice_a4($id)
@@ -572,13 +574,18 @@ class PosController extends Controller
         $data = DB::table('orders')->where('id', $id)->first();
         $outlets = outlets::find($data->outlet_id);
         $customer = Customer::find($data->customer_id);
+        $order_payments = DB::table('order_payments')->where('order_id', $id)
+        ->join('payment_methods', 'payment_methods.id', '=', 'order_payments.payment_method_id')
+        ->select('order_payments.*', 'payment_methods.name', DB::raw('DATE(order_payments.created_at) as date'))
+        ->get();
         $items = DB::table('order_items')->where('order_id', $id)
         ->select(DB::raw('(order_items.qty*order_items.price) AS total'), 'order_items.*')
         ->get();
         $total = DB::table('order_items')->where('order_id', $id)
         ->select(DB::raw('sum(order_items.qty*order_items.price) AS totalall'))
         ->get();
-        return view('pages.invoice_a4')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('total', $total);
+        $site = site_setting::all();
+        return view('pages.invoice_a4')->with('orders', $orders)->with('outlets', $outlets)->with('customer', $customer)->with('items', $items)->with('order_payments', $order_payments)->with('total', $total)->with('site', $site);
     }
 
     public function pnl(){

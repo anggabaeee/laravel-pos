@@ -1,6 +1,9 @@
 <section class="navigasi">
     <nav class="navbar navbar-expand-lg navbar-custom bg-custom fixed-top">
-        <a class="navbar-brand" href="/dashboard">POS - Multi Outlets</a>
+        @php($site_setting = App\site_setting::all())
+        @foreach ($site_setting as $s)
+        <a class="navbar-brand" href="/dashboard">{{$s->site_name}}</a>
+        @endforeach
         <ul class="navbar-nav  ml-auto ">
             <li class="nav-item dropdown mx-1">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
