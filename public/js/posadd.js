@@ -338,6 +338,13 @@ $(document).ready(function () {
         $("#isitable").empty();
         total();
     });
+    $('#orderadd').on('keyup keypress', function(e){
+        var keyCode = e.keyCode || e.which;
+        if(keyCode === 13){
+            e.preventDefault();
+            return false;
+        }
+    });
     $("#myBtn5").click(function () {
         row_length = document.getElementById('row_length').value;
         if (row_length < 1) {

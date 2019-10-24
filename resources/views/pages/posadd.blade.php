@@ -87,7 +87,7 @@
     }
 
 </style>
-<form action="/posadd/orderadd/{{$outlets->id}}" method="post">
+<form action="/posadd/orderadd/{{$outlets->id}}" id="orderadd" method="post">
     {{csrf_field()}}
     <div class="form mx-4">
         <div id="notif" class="alert alert-success alert-block">

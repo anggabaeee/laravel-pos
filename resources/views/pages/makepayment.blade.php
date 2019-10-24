@@ -49,8 +49,8 @@
                                         <td><?php $n++; ?></td>
                                         <td>{{$oi->product_name}} <br> [{{$oi->product_code}}]</td>
                                         <td>{{$oi->qty}}</td>
-                                        <td>{{$oi->price}}</td>
-                                        <td>{{$oi->total}}</td>
+                                        <td>{{number_format($oi->price, 2)}}</td>
+                                        <td>{{number_format($oi->total, 2)}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -65,7 +65,7 @@
                                             {{$orders->total_items}}</td>
                                         <td style="text-align:left; padding-left:1.5%;">Total</td>
                                         @foreach($total as $total)
-                                        <td style="text-align:right;font-weight:bold;">{{$total->totalall}}</td>
+                                        <td style="text-align:right;font-weight:bold;">{{number_format($total->totalall, 2)}}</td>
                                         @endforeach
                                     </tr>
                                     @if($orders->discount_total == 0)
@@ -77,7 +77,7 @@
                                             style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">
                                             &nbsp;</td>
                                         <td style="text-align:left; padding-left:1.5%;">Discount</td>
-                                        <td style="text-align:right;font-weight:bold;">-{{$orders->discount_total}}</td>
+                                        <td style="text-align:right;font-weight:bold;">-{{number_format($orders->discount_total, 2)}}</td>
                                     </tr>
                                     @endif
                                     <tr>
@@ -86,7 +86,7 @@
                                             style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">
                                         </td>
                                         <td style="text-align:left; padding-left:1.5%;">Sub Total</td>
-                                        <td style="text-align:right;font-weight:bold;">{{$orders->subtotal}}</td>
+                                        <td style="text-align:right;font-weight:bold;">{{number_format($orders->subtotal, 2)}}</td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left; padding-top: 5px;"></td>
@@ -94,7 +94,7 @@
                                             style="text-align:right; padding-right:1.5%; border-right: 1px solid #000;font-weight:bold;">
                                         </td>
                                         <td style="text-align:left; padding-left:1.5%;">Tax</td>
-                                        <td style="text-align:right;font-weight:bold;">{{$orders->tax}}</td>
+                                        <td style="text-align:right;font-weight:bold;">{{number_format($orders->tax, 2)}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2"
@@ -102,13 +102,13 @@
                                             Grand Total </td>
                                         <td colspan="2"
                                             style="border-top:1px solid #000; padding-top:5px; text-align:right; font-weight:bold;">
-                                            {{$orders->grandtotal}}</td>
+                                            {{number_format($orders->grandtotal, 2)}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" style="text-align:left; font-weight:bold; padding-top:5px;">Paid
                                             Amount</td>
                                         <td colspan="2" style="text-align:right; font-weight:bold; padding-top:5px;">
-                                            {{$orders->paid_amt}}
+                                            {{number_format($orders->paid_amt, 2)}}
                                         </td>
                                     </tr>
                                     @if(((float)$orders['paid_amt'] - (float)$orders['grandtotal']) >= 0)
@@ -132,13 +132,13 @@
                                             {{$op->name}} [{{$op->date}}]</td>
                                         <td
                                             style="padding-top:5px; text-align:right; font-weight:bold; border-top: 1px solid #000;">
-                                            {{$op->payment_amount}}</td>
+                                            {{number_format($op->payment_amount, 2)}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <form action="/submitmakepayment/{{$orders->id}}" method="post">
+                        <form action="/submitmakepayment/{{$orders->id}}" id="submitmakepayment" method="post">
                             {{ csrf_field() }}
                             @if ($errors->any())
                             <div class="alert alert-danger">
@@ -214,6 +214,15 @@
 </div>
 
 <script>
+$(document).ready(function () {
+    $('#submitmakepayment').on('keyup keypress', function(e){
+        var keyCode = e.keyCode || e.which;
+        if(keyCode === 13){
+            e.preventDefault();
+            return false;
+        }
+    });
+});
     function chkmethod(val) {
         if (val == "5") {
             document.getElementById("cheqNum").style.display = "flex";
