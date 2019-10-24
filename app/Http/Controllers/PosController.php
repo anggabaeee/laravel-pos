@@ -876,6 +876,14 @@ class PosController extends Controller
         return view('pages.sales.todaysales')->with('sales', $sales);
     }
 
+    public function deletesale($id)
+    {
+        $sale = orders::find($id);
+        $sale->delete(); 
+        $order_payment = order_payments::where('order_id', $id)->delete();
+        return redirect('/todaysales');  
+    }
+
     //report
     public function salesreports(Request $request)
     {

@@ -40,6 +40,7 @@ Route::get('/debitsearch','PosController@debitsearch');
 //sales
 Route::get('/todaysales', 'PosController@todaysales')->middleware('ceklogin' , 'response');
 Route::get('/openedbil', 'PosController@openedbil')->middleware('ceklogin' , 'response');
+Route::get('/todaysales/deletesale/{id}', 'PosController@deletesale');
 
 //reports
 Route::get('/salesreports', 'PosController@salesreports');

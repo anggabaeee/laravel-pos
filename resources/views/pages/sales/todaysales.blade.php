@@ -57,8 +57,8 @@
                                     <td>{{$s->subtotal}}</td>
                                     <td>{{$s->tax}}</td>
                                     <td>{{$s->grandtotal}}</td>
-                                    <td><a href=""><i class="fa fa-th-list fa-2x"></i></a>
-                                        <a href=""><i class="fa fa-times-circle fa-2x" style="color: #F00"></i></a>
+                                    <td><a href="javascript:openReceipt('{{url('view_invoice/'.$s->id)}}')"><i class="fa fa-th-list fa-2x"></i></a>
+                                        <a href="/todaysales/deletesale/{{$s->id}}" onclick="return confirm('Are you confirm to delete this Sale?')"><i class="fa fa-times-circle fa-2x" style="color: #F00"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -74,6 +74,9 @@
     $(document).ready(function () {
         $('#exampel').DataTable();
     });
+    function openReceipt(val){
+		var myWindow = window.open(val, "", "width=380, height=550");
+	}	
 
 </script>
 
