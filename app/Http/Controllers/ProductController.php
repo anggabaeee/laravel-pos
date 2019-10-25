@@ -12,12 +12,16 @@ use App\category;
 
 class ProductController extends Controller
 {
-    public function listproduct(){
+    public function listproduct(Request $request){
         $product = DB::table('product')
         ->join('category', 'category.id', '=', 'product.category_id')
         ->select('product.*','category.category_name')
+        ->where('code', 'like', '%'.$request->code.'%')
+        ->where('name_product', 'like', '%'.$request->name.'%')
+        ->where('category_id', 'like', '%'.$request->kategori.'%')
         ->get();
-        return view('pages.product.listproduct',['product' => $product]); 
+        $category = DB::table('category')->get();
+        return view('pages.product.listproduct',['product' => $product, 'category' => $category]); 
     }
     public function addProduct(){
         $category = category::all();

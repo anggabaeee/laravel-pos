@@ -29,13 +29,15 @@ class inventorycontroller extends Controller
             $customer->save();
             return redirect('/customer');
     }
-    public function inventory(){
+    public function inventory(Request $request){
         $role = Session::get('role');
         $outletid = Session::get('outlets');
 
         if($role == 2 || $role == 1){
             $data = DB::table('inventory')->where('outlet_id', $outletid)->select('product_code');
             $product = DB::table('product')->select('*')
+            ->where('code', 'like', '%'.$request->product_code.'%')
+            ->where('name_product', 'like', '%'.$request->product_name.'%')
             ->whereNOTIn('code', $data)
             ->get();
     
@@ -44,12 +46,16 @@ class inventorycontroller extends Controller
             ->select('inventory.product_code as code', 'product.name_product as name_product', DB::raw('SUM(inventory.qty) as totalqty'))
             ->join('product', 'product.code', '=', 'inventory.product_code')
             ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
+            ->where('code', 'like', '%'.$request->product_code.'%')
+            ->where('name_product', 'like', '%'.$request->product_name.'%')
             ->groupBy('inventory.product_code')
             ->get();
         }
         else{
             $data = DB::table('inventory')->select('product_code');
             $product = DB::table('product')->select('*')
+            ->where('code', 'like', '%'.$request->product_code.'%')
+            ->where('name_product', 'like', '%'.$request->product_name.'%')
             ->whereNOTIn('code', $data)
             ->get();
     
@@ -57,6 +63,8 @@ class inventorycontroller extends Controller
             ->select('inventory.product_code as code', 'product.name_product as name_product', DB::raw('SUM(inventory.qty) as totalqty'))
             ->join('product', 'product.code', '=', 'inventory.product_code')
             ->join('outlets', 'outlets.id', '=', 'inventory.outlet_id')
+            ->where('code', 'like', '%'.$request->product_code.'%')
+            ->where('name_product', 'like', '%'.$request->product_name.'%')
             ->groupBy('inventory.product_code')
             ->get();
         }

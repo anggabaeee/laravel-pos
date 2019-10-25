@@ -43,7 +43,9 @@
                             <div class="form-group">
                                 <label>Product Category</label>
                                 <select name="kategori" class="form-control">
-                                    <option value=""></option>
+                                    @foreach($category as $c)
+                                    <option value="{{$c->id}}">{{$c->category_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -85,7 +87,7 @@
                                         @if ($p->status == 0)
                                         <td style="color: red;font-weight: bold;">Not Active</td>
                                         @else
-                                        <td style="color: green;font-weight: bold;">Active</td>
+                                        <td style="col or: green;font-weight: bold;">Active</td>
                                         @endif
                                         <td>
                                             <a class="with-caption image-link"

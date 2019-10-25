@@ -3,7 +3,7 @@
 <div class="col-sm-9 col-lg-10">
     <div class="container menu">
         <h1>Inventory</h1>
-        <form action="" class="mt-2 master-form">
+        <form action="/inventory" method="get" class="mt-2 master-form">
             <div class="d-flex">
                 <div class="ml-auto bd-highlight">
                     <input class="btn btn-success" type="button" value="Export Inventory">
@@ -14,13 +14,13 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label for="">Product Code</label>
-                        <input class="form-control" type="text">
+                        <input name="product_code" class="form-control" type="text">
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="">Product Name</label>
-                        <input class="form-control" type="text">
+                        <input name="product_name" class="form-control" type="text">
                     </div>
                 </div>
                 <div class="offset-md-3 col-sm-2">

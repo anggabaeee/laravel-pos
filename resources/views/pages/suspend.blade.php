@@ -127,7 +127,8 @@
                             @endforeach
                             <div class="row isitable" id="isitable" style="margin-top: 5px">
                                 @foreach($suspend_item as $si)
-                                <div class="row row_list" name="row_list" style="margin-right: 5px" id="{{$si->id_product}}-row">
+                                <div class="row row_list" name="row_list" style="margin-right: 5px"
+                                    id="{{$si->id_product}}-row">
                                     <input type="hidden" value="{{$suspend->id}}" name="suspend_id" id="suspend_id">
                                     <div class="col-md-3">
                                         <label id="namelist">{{$si->product_name}}</label><br>
@@ -138,8 +139,8 @@
                                     <div class="col-md-5">
                                         <div class="row">
                                             <div class="col-md-3" style="padding-right: 0">
-                                                <a onclick="getdatamin('{{$si->id_product}}')" class="fa fa-minus-circle"
-                                                    style="margin-top: 11px;"></a>
+                                                <a onclick="getdatamin('{{$si->id_product}}')"
+                                                    class="fa fa-minus-circle" style="margin-top: 11px;"></a>
                                             </div>
                                             <div class="col-md-6" style="padding-right: 0; padding-left: 0;">
                                                 <input onchange="changeqty('{{$si->id_product}}')" type="text"
@@ -147,8 +148,8 @@
                                                     id="{{$si->id_product}}-qtylist">
                                             </div>
                                             <div class="col-md-3" style="padding-left: 0;">
-                                                <a onclick="getdataplus('{{$si->id_product}}')" class="fa fa-plus-circle"
-                                                    style="margin-top: 11px"></a>
+                                                <a onclick="getdataplus('{{$si->id_product}}')"
+                                                    class="fa fa-plus-circle" style="margin-top: 11px"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -159,7 +160,7 @@
                                     </div>
                                     <div class="col-md-1">
                                         <a onclick="dataremove('{{$si->id_product}}')" class="fa fa-close"></a>
-                                    </div> 
+                                    </div>
                                     <input value="{{$suspend->customer_name}}" name="customer_name" id="customer_name"
                                         type="hidden">
                                 </div>
