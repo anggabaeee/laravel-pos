@@ -41,6 +41,8 @@ Route::get('/debitsearch','PosController@debitsearch');
 Route::get('/todaysales', 'PosController@todaysales')->middleware('ceklogin' , 'response');
 Route::get('/openedbil', 'PosController@openedbil')->middleware('ceklogin' , 'response');
 Route::get('/todaysales/deletesale/{id}', 'PosController@deletesale');
+Route::get('/openedbil/deletebill/{id}', 'PosController@deletebill')->middleware('ceklogin' , 'response');
+Route::get('/posadd/suspend/{id}', 'PosController@suspend');
 
 //reports
 Route::get('/salesreports', 'PosController@salesreports');

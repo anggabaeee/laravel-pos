@@ -288,7 +288,30 @@ class PosController extends Controller
             $payment = payment_method::all();
             return view('pages.posadd',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer, 'load'=>$load ]);    
         }
-    }   
+    } 
+
+    public function suspend($id)
+    {
+        $suspend = suspend::find($id);
+        $inventory = DB::table('inventory')
+            ->select('product_code', 'qty')
+            ->where('outlet_id', $suspend->outlet_id);
+            $product = DB::table('product')
+            ->leftJoinSub($inventory, 'sub', function($join){
+                $join->on('product.code', '=', 'sub.product_code');
+            })->select('product.*', 'sub.qty')
+            ->get();
+            $outlets = outlets::find($suspend->outlet_id);
+            $customer = Customer::all();
+            $load = Customer::select('id')->get();
+            $payment = payment_method::all();
+            $suspend_item = DB::table('suspend_items')->where('suspend_id', $id)
+            ->join('product', 'product.code', '=', 'suspend_items.product_code')
+            ->select('suspend_items.*', 'product.id_product as id_product')
+            ->get();
+            return view('pages.suspend',['product'=>$product, 'outlets'=>$outlets, 'payment'=>$payment, 'customer'=>$customer, 'load'=>$load, 'suspend_item' => $suspend_item, 'suspend'=> $suspend ]);    
+    }
+
     public function getsaletoday(Request $request)
     {
         $outlet = $request->outlets;
@@ -880,8 +903,14 @@ class PosController extends Controller
     {
         $sale = orders::find($id);
         $sale->delete(); 
-        $order_payment = order_payments::where('order_id', $id)->delete();
         return redirect('/todaysales');  
+    }
+
+    public function deletebill($id)
+    {
+        $bill = suspend::find($id);
+        $bill->delete();
+        return redirect('/openedbil');
     }
 
     //report

@@ -54,8 +54,8 @@
                                     <td>{{$b->subtotal}}</td>
                                     <td>{{$b->tax}}</td>
                                     <td>{{$b->grandtotal}}</td>
-                                    <td><a href=""><i class="fa fa-th-list fa-2x"></i></a>
-                                        <a href=""><i class="fa fa-times-circle fa-2x" style="color: #F00"></i></a>
+                                    <td><a href="/posadd/suspend/{{$b->id}}"><i class="fa fa-th-list fa-2x"></i></a>
+                                        <a href="/openedbil/deletebill/{{$b->id}}" onclick="return confirm('Are you confirm to delete this Sale?')"><i class="fa fa-times-circle fa-2x" style="color: #F00"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

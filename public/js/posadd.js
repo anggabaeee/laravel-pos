@@ -333,14 +333,17 @@ function paymentchange() {
 }
 
 $(document).ready(function () {
+    var length = document.getElementsByName('row_list').length
+    lengthval = parseInt(length);
+    document.getElementById('row_length').value = lengthval;
     jQuery.noConflict();
     $("#mybtncancel").click(function () {
         $("#isitable").empty();
         total();
     });
-    $('#orderadd').on('keyup keypress', function(e){
+    $('#orderadd').on('keyup keypress', function (e) {
         var keyCode = e.keyCode || e.which;
-        if(keyCode === 13){
+        if (keyCode === 13) {
             e.preventDefault();
             return false;
         }
