@@ -180,9 +180,6 @@ function dataremove(i) {
 }
 
 function total() {
-    var length = document.getElementsByName('row_list').length
-    lengthval = parseInt(length);
-    document.getElementById('row_length').value = lengthval;
     var arr = document.getElementsByName('pricelist[]');
     var arrqty = document.getElementsByName('qty[]');
     var tax = document.getElementById('tax').value;
@@ -285,24 +282,7 @@ function PaidAmount(val) {
 }
 
 function addfromhold(i) {
-    $.ajax({
-        url: '/getHold',
-        type: 'get',
-        data: {
-            suspend_id: i
-        },
-        success: function (data) {
-            $('#isitable').empty();
-            $.each(data, function (i, value) {
-                $('#myModal2').modal('hide');
-                var msg = '<div class="row row_list" name="row_list" style="margin-right: 5px" id="' + value.id_product + '-row"><div class="col-md-3"><input type="hidden" value=' + value.suspend_id + ' name="suspend_id" id="suspend_id"><label id="namelist"> Contoh 1</label><br><label id="' + value.id_product + '-codelist">' + value.product_code + '</label><input value="' + value.product_name + '" name="name[]" type="hidden"><input value="' + value.product_code + '" name="code[]" type="hidden"></div><div class="col-md-5"><div class="row"><div class="col-md-3" style="padding-right: 0"><a onclick="getdatamin(' + value.id_product + ')" class="fa fa-minus-circle" style="margin-top: 11px;"></a></div><div class="col-md-6" style="padding-right: 0; padding-left: 0;"><input onchange="changeqty(' + value.id_product + ')" type="text" value="' + value.qty + '" class="form-control" name="qty[]" id="' + value.id_product + '-qtylist"></div><div class="col-md-3" style="padding-left: 0;"><a onclick="getdataplus(' + value.id_product + ')" class="fa fa-plus-circle" style="margin-top: 11px"></a></div></div></div><div class="col-md-3"><label name="pricelist[]">' + value.price + '</label><input value="' + value.price + '" name="price[]" type="hidden"><input value="' + value.cost + '" name="cost[]" type="hidden"></div><div class="col-md-1"><a onclick="dataremove(' + value.id_product + ')" class="fa fa-close"></a></div><input value="' + value.id_susp + '" name="id_susp" id="id_susp" type="hidden"><input value="' + value.customer_name + '" name="customer_name" id="customer_name" type="hidden"></div>'
-                $('#isitable').append(msg);
-                $('#discount').val(value.discount_total);
-                total();
-                changeqty(value.id_product);
-            });
-        }
-    });
+    window.location = '/posadd/suspend/' + i + '';
 }
 
 function paymentchange() {
@@ -333,10 +313,13 @@ function paymentchange() {
 }
 
 $(document).ready(function () {
+    var length = document.getElementsByName('row_list').length
+    lengthval = parseInt(length);
+    document.getElementById('row_length').value = lengthval;
     jQuery.noConflict();
+    total();
     $("#mybtncancel").click(function () {
-        $("#isitable").empty();
-        total();
+       window.location = "/openedbil";
     });
     $('#orderadd').on('keyup keypress', function (e) {
         var keyCode = e.keyCode || e.which;
@@ -388,15 +371,12 @@ $(document).ready(function () {
         $.get('/getcustomer', function (data) {
             $('#customerpayment').empty();
             $.each(data, function (i, value) {
-                if (cus_name != null) {
-                    $('#customerpayment').val(cus_name);
-                    console.log(cus_name);
-                }
                 $('#customerpayment').append($("<option/>", {
                     text: value.fullname,
                     value: value.id
                 })).append($);
             });
+            $('#customerpayment').val(cus_name);
         })
         $("#payment_method").change(function () {
             var selected = $("#payment_method").children("option:selected").val();
@@ -490,14 +470,11 @@ $(document).ready(function () {
         $.get('/getcustomer', function (data) {
             $('#customeroption').empty();
             $.each(data, function (i, value) {
-                if (cus_name != null) {
-                    $('#customeroption').val(cus_name);
-                    console.log(cus_name);
-                }
                 $('#customeroption').append($("<option/>", {
                     text: value.fullname,
                     value: value.id
                 })).append($);
+                $('#customeroption').val(cus_name);
             });
         })
     });

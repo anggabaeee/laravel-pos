@@ -98,7 +98,6 @@
             <div class="col-sm-4">
                 <div class="kiri">
                     <div class="row">
-                        <input type="hidden" name="outlet_id" id="outlet_id" value="{{$outlets->id}}">
                         <div class="col-12 ">
                             <button type="button" class="btn btn-primary col-12 py-0" id="myBtn4" data-toggle="modal"
                                 data-target="#myModal4"><i class="icono-plus"></i>add Customer</button>
@@ -120,6 +119,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 mt-2 ml-3">
+                            <input type="hidden" name="id_susp" id="id_susp" value="{{$suspend->id}}">
                             <input type="hidden" name="row_length" id="row_length">
                             @php($site_setting = App\site_setting::all())
                             @foreach ($site_setting as $s)
@@ -161,7 +161,7 @@
                                     <div class="col-md-1">
                                         <a onclick="dataremove('{{$si->id_product}}')" class="fa fa-close"></a>
                                     </div>
-                                    <input value="{{$suspend->customer_name}}" name="customer_name" id="customer_name"
+                                    <input value="{{$suspend->customer_id}}" name="customer_name" id="customer_name"
                                         type="hidden">
                                 </div>
                                 @endforeach
@@ -544,7 +544,7 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('js/posadd.js') }}"></script>
+<script src="{{ asset('js/suspend.js') }}"></script>
 <script>
 </script>
 <script>

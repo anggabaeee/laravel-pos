@@ -870,12 +870,14 @@ class PosController extends Controller
         if($role == 1 || $role == 2){
             $bill = DB::table('suspends')
             ->where('outlet_id', $outletid)
+            ->where('suspends.status', 0)
             ->join('outlets', 'outlets.id', '=', 'suspends.outlet_id')
             ->select('suspends.*', 'outlets.name_outlet', DB::raw('DATE(suspends.created_at) as date'))
             ->get();    
         }
         else{
             $bill = DB::table('suspends')
+            ->where('suspends.status', 0)
             ->join('outlets', 'outlets.id', '=', 'suspends.outlet_id')
             ->select('suspends.*', 'outlets.name_outlet', DB::raw('DATE(suspends.created_at) as date'))
             ->get();
