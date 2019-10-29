@@ -19,6 +19,7 @@ Route::get('/dashboard','PosController@dashboard')->middleware('response', 'cekl
 
 //customer
 Route::get('/customer','PosController@customer')->middleware('ceklogin' , 'response');
+Route::get('customer/export_customer', 'PosController@customerexport');
 Route::get('/customer/addCustomer','PosController@addCustomer')->middleware('ceklogin' , 'response');
 Route::post('/customer/addCustomerstore','PosController@addCustomerstore')->middleware('ceklogin' , 'response');
 Route::get('/customer/editcustomer/{id}','PosController@editcustomer')->middleware('ceklogin' , 'response');

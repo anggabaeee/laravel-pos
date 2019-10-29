@@ -17,7 +17,7 @@
                     </a>
                 </div>
                 <div class="ml-auto bd-highlight">
-                    <input class="btn btn-success" type="button" value="Export">
+                <a href="customer/export_customer" class="btn btn-success">Export</a>
                 </div>
             </div>
             <hr>

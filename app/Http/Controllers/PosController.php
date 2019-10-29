@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
+use App\Exports\CustomerExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use App\purchase_order;
 use App\supplier;
@@ -47,6 +49,12 @@ class PosController extends Controller
         
         return view('pages.customer',['customer' => $customer]);    
     }
+
+    public function customerexport()
+    {
+        return Excel::download(new CustomerExport, 'customer.xlsx');
+    }
+
     public function addCustomer(){
         return view('tambah.addCustomer');    
     }
